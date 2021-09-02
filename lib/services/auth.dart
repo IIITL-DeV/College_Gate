@@ -1,0 +1,63 @@
+import 'package:college_gate/UI/student/studentHome.dart';
+import 'package:college_gate/helperfunctions/sp_helper.dart';
+import 'package:college_gate/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class AuthMethods {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  getCurrentUser() async {
+    return await auth.currentUser;
+  }
+
+  signInWithGoogle(BuildContext context) async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await _googleSignIn.signIn();
+    final GoogleSignInAuthentication? googleSignInAuthentication =
+        await googleSignInAccount?.authentication;
+
+    final AuthCredential mycredential = GoogleAuthProvider.credential(
+      idToken: googleSignInAuthentication?.idToken,
+      accessToken: googleSignInAuthentication?.accessToken,
+    );
+
+    UserCredential? userCredentialResult =
+        await auth.signInWithCredential(mycredential);
+
+    User? userDetails = userCredentialResult.user;
+    if (userCredentialResult != null) {
+      SharedPreferenceHelper().saveUserEmail(userDetails!.email);
+      SharedPreferenceHelper().saveUserId(userDetails.uid);
+      SharedPreferenceHelper()
+          .saveUserName(userDetails.email?.replaceFirst(RegExp(r"\.[^]*"), ""));
+      SharedPreferenceHelper().saveDisplayName(userDetails.displayName);
+      SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL);
+
+      Map<String, dynamic> studentUserInfoMap = {
+        "userid": userDetails.uid,
+        "email": userDetails.email,
+        "username": userDetails.email?.replaceAll("@iiitl.ac.in", ""),
+        //replaceFirst(RegExp(r"\.[^]*"), ""),
+        "name": userDetails.displayName,
+        "profileUrl": userDetails.photoURL,
+      };
+      DatabaseMethods()
+          .addStudentUserInfoToDB(userDetails.uid, studentUserInfoMap)
+          .then((s) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => studentHome()));
+      });
+    }
+  }
+
+  Future logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    auth.signOut();
+  }
+}

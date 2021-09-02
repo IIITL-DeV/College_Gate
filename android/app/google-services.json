@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "329096238857",
+    "project_id": "college-gate-dbd50",
+    "storage_bucket": "college-gate-dbd50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329096238857:android:30f8bb30b6acdff556a5d8",
+        "android_client_info": {
+          "package_name": "com.example.college_gate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329096238857-rp9kob387scd1hob99lpflds0ott6dsp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.college_gate",
+            "certificate_hash": "c2778bcc33f5b8c3bf3bd18af0c6379a2a04020c"
+          }
+        },
+        {
+          "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtvTX8omMEKFaIPmR47VTnUXbR04qP0vw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
