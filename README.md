@@ -1,6 +1,6 @@
 # college_gate
 
-A new Flutter project.
+Entry & Exit Automation System.
 
 ## Getting Started
 
