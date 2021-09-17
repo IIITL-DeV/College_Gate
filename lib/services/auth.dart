@@ -1,4 +1,4 @@
-import 'package:college_gate/UI/student/studentHome.dart';
+import 'package:college_gate/UI/student/complete_profile.dart';
 import 'package:college_gate/helperfunctions/sp_helper.dart';
 import 'package:college_gate/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,8 +49,8 @@ class AuthMethods {
       DatabaseMethods()
           .addStudentUserInfoToDB(userDetails.uid, studentUserInfoMap)
           .then((s) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => studentHome()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => completeProfile()));
       });
     }
   }
