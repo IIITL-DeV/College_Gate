@@ -5,10 +5,26 @@ class SharedPreferenceHelper {
   static String userNameKey = "USERNAMEKEY";
   static String displayNameKey = "USERDISPLAYNAMEKEY";
   static String userEmailKey = "USEREMAILKEY";
-  static String userProflieKey = "USERPROFILEKEY";
+  static String userroom = "USERROOM";
+  static String userphone = "USERPHONE";
+  static String useridcard = "USERIDCARD";
   static String userProfilePicKey = "USERPROFILEPICKEY";
 
 //save data
+  Future<bool> saveroom(String? room) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userroom, room!);
+  }
+
+  Future<bool> savephone(String? phone) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userphone, phone!);
+  }
+
+  Future<bool> saveidcard(String? idcard) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userphone, idcard!);
+  }
 
   Future<bool> saveUserName(String? userName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -36,6 +52,21 @@ class SharedPreferenceHelper {
   }
 
   //get data
+  Future<String?> getUseridcard() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(useridcard);
+  }
+
+  Future<String?> getUserroom() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userroom);
+  }
+
+  Future<String?> getUserphone() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userphone);
+  }
+
   Future<String?> getUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(userNameKey);

@@ -1,5 +1,7 @@
+import 'package:college_gate/UI/gaurd/gaurd_home.dart';
 import 'package:college_gate/UI/student/complete_profile.dart';
 import 'package:college_gate/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {

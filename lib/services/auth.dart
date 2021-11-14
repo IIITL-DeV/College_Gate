@@ -1,3 +1,4 @@
+import 'package:college_gate/UI/gaurd/gaurd_home.dart';
 import 'package:college_gate/UI/student/complete_profile.dart';
 import 'package:college_gate/helperfunctions/sp_helper.dart';
 import 'package:college_gate/services/database.dart';
@@ -41,7 +42,7 @@ class AuthMethods {
       Map<String, dynamic> studentUserInfoMap = {
         "userid": userDetails.uid,
         "email": userDetails.email,
-        "username": userDetails.email?.replaceAll("@iiitl.ac.in", ""),
+        "enrollment": userDetails.email?.replaceAll("@iiitl.ac.in", ""),
         //replaceFirst(RegExp(r"\.[^]*"), ""),
         "name": userDetails.displayName,
         "profileUrl": userDetails.photoURL,
@@ -49,8 +50,13 @@ class AuthMethods {
       DatabaseMethods()
           .addStudentUserInfoToDB(userDetails.uid, studentUserInfoMap)
           .then((s) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => completeProfile()));
+        if (FirebaseAuth.instance.currentUser!.email ==
+            "iiitlcollegegate12@gmail.com") {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => gaurdHome()));
+        } else
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => completeProfile()));
       });
     }
   }
