@@ -1,17 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class studentRegister extends StatefulWidget {
-  const studentRegister({Key? key}) : super(key: key);
+class w_studentRegister extends StatefulWidget {
+  const w_studentRegister({Key? key}) : super(key: key);
 
   @override
-  _studentRegisterState createState() => _studentRegisterState();
+  _w_studentRegisterState createState() => _w_studentRegisterState();
 }
 
-class _studentRegisterState extends State<studentRegister> {
+class _w_studentRegisterState extends State<w_studentRegister> {
   var stream;
   @override
   void initState() {
@@ -19,7 +18,7 @@ class _studentRegisterState extends State<studentRegister> {
     stream = FirebaseFirestore.instance
         .collection("studentRegister")
         //      .where("exitisapproved", isEqualTo: false)
-        .where("purpose", isEqualTo: "Outing")
+        .where("purpose", isEqualTo: "Home")
         .snapshots();
   }
 

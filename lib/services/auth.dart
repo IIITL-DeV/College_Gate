@@ -1,5 +1,6 @@
 import 'package:college_gate/UI/gaurd/gaurd_home.dart';
 import 'package:college_gate/UI/student/complete_profile.dart';
+import 'package:college_gate/UI/warden/wardenhome.dart';
 import 'package:college_gate/helperfunctions/sp_helper.dart';
 import 'package:college_gate/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,7 +47,10 @@ class AuthMethods {
         //replaceFirst(RegExp(r"\.[^]*"), ""),
         "name": userDetails.displayName,
         "profileUrl": userDetails.photoURL,
+        "exitisapproved": null,
+        "entryisapproved": null,
       };
+
       DatabaseMethods()
           .addStudentUserInfoToDB(userDetails.uid, studentUserInfoMap)
           .then((s) {
@@ -54,6 +58,10 @@ class AuthMethods {
             "iiitlcollegegate12@gmail.com") {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => gaurdHome()));
+        } else if (FirebaseAuth.instance.currentUser!.email ==
+            "singhanu3113@gmail.com") {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => wardenHome()));
         } else
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => completeProfile()));

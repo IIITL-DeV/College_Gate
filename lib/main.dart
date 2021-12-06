@@ -1,6 +1,7 @@
 import 'package:college_gate/UI/signIn.dart';
 import 'package:college_gate/UI/student/complete_profile.dart';
 import 'package:college_gate/UI/student/homepagecard.dart';
+import 'package:college_gate/UI/warden/wardenhome.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,8 @@ class _MyAppState extends State<MyApp> {
     if (FirebaseAuth.instance.currentUser != null) {
       if (FirebaseAuth.instance.currentUser!.email ==
           "iiitlcollegegate12@gmail.com") return gaurdHome();
+      if (FirebaseAuth.instance.currentUser!.email == "singhanu3113@gmail.com")
+        return wardenHome();
       return studentHome();
     }
   }

@@ -24,7 +24,8 @@ class _ExitFormState extends State<ExitForm> {
       _roomno,
       _phoneno,
       _recexittime,
-      _recexitdate;
+      _recexitdate,
+      _purpose;
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _getphone() async {
@@ -35,6 +36,18 @@ class _ExitFormState extends State<ExitForm> {
         .then((value) {
       setState(() {
         _phoneno = value.data()!['phone'].toString();
+      });
+    });
+  }
+
+  Future<void> _getpurpose() async {
+    FirebaseFirestore.instance
+        .collection('studentUser')
+        .doc((await FirebaseAuth.instance.currentUser!).uid)
+        .get()
+        .then((value) {
+      setState(() {
+        _purpose = value.data()!['purpose'].toString();
       });
     });
   }
@@ -79,7 +92,7 @@ class _ExitFormState extends State<ExitForm> {
   @override
   void initState() {
     super.initState();
-
+    _getpurpose();
     _getUserName();
     _getroom();
     _getrollno();
@@ -271,6 +284,9 @@ class _ExitFormState extends State<ExitForm> {
 
   @override
   Widget build(BuildContext context) {
+    if (_username == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
@@ -332,8 +348,10 @@ class _ExitFormState extends State<ExitForm> {
                                     .collection('studentUser')
                                     .doc((FirebaseAuth.instance.currentUser!)
                                         .uid)
-                                    .set({'exitisapproved': false},
-                                        SetOptions(merge: true)),
+                                    .update(
+                                  {'exitisapproved': false},
+                                ),
+                                //   SetOptions(merge: true)),
                                 FirebaseFirestore.instance
                                     .collection('studentUser')
                                     .doc((FirebaseAuth.instance.currentUser!)
@@ -342,11 +360,19 @@ class _ExitFormState extends State<ExitForm> {
                                         SetOptions(merge: true)),
                                 FirebaseFirestore.instance
                                     .collection('studentRegister')
-                                    .doc()
+                                    .doc((FirebaseAuth.instance.currentUser!)
+                                            .uid +
+                                        _recexitdate! +
+                                        _recexittime!)
                                     .set({
                                   'exittime': _recexittime,
                                   'exitdate': _recexitdate,
+                                  'entrydate': null,
+                                  'entrytime': null,
+                                  'purpose': _purpose,
                                   'name': _username,
+                                  'room': _roomno,
+                                  'enrollment': _enrollmentNo,
                                 }, SetOptions(merge: true)),
                                 // FirebaseFirestore.instance
                                 //     .collection('studentRegister')

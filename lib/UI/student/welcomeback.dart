@@ -3,14 +3,14 @@ import 'package:college_gate/UI/student/notices.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ReadytoGo extends StatefulWidget {
-  const ReadytoGo({Key? key}) : super(key: key);
+class welcomeback extends StatefulWidget {
+  const welcomeback({Key? key}) : super(key: key);
 
   @override
-  _ReadytoGoState createState() => _ReadytoGoState();
+  _welcomebackState createState() => _welcomebackState();
 }
 
-class _ReadytoGoState extends State<ReadytoGo> {
+class _welcomebackState extends State<welcomeback> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _ReadytoGoState extends State<ReadytoGo> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Text("Ready to go !!",
+                    child: Text("Welcome back !!",
                         style: TextStyle(
                           fontSize: 40.0,
                           fontWeight: FontWeight.w400,
@@ -38,26 +38,12 @@ class _ReadytoGoState extends State<ReadytoGo> {
               ),
               Expanded(
                 child: Image.asset(
-                  'assets/readytogo.png',
+                  'assets/welcome.png',
                   fit: BoxFit.fitWidth,
                   width: 350.0,
                   alignment: Alignment.center,
                 ),
               ),
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //       minimumSize: const Size(double.infinity, 50),
-              //       alignment: Alignment.center,
-              //       primary: const Color(0xFF14619C)),
-              //   onPressed: () => {},
-              //   child: const Text(
-              //     'Submit',
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //       fontSize: 16,
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
@@ -70,7 +56,7 @@ class _ReadytoGoState extends State<ReadytoGo> {
                         .collection('studentUser')
                         .doc((FirebaseAuth.instance.currentUser!).uid)
                         .update(
-                      {'exitisapproved': null},
+                      {'entryisapproved': null},
                     )
                   },
                   child: const Text(

@@ -1,17 +1,15 @@
-import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/warden/viewimage.dart';
-import 'package:college_gate/services/auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/UI/warden/viewimage.dart';
+import 'package:flutter/material.dart';
 
-class gaurdlog extends StatefulWidget {
-  // const guard_profile({Key? key}) : super(key: key);
+class w_log extends StatefulWidget {
+  const w_log({Key? key}) : super(key: key);
 
   @override
-  _gaurdlogState createState() => _gaurdlogState();
+  _w_logState createState() => _w_logState();
 }
 
-class _gaurdlogState extends State<gaurdlog> {
+class _w_logState extends State<w_log> {
   var stream;
   @override
   void initState() {
@@ -19,8 +17,8 @@ class _gaurdlogState extends State<gaurdlog> {
     stream = FirebaseFirestore.instance
         .collection("studentUser")
         .where("exitisapproved", isEqualTo: true)
-        // .where("entryisappr")
-        .where("purpose", isEqualTo: "Outing")
+        .where("entryisapproved", isEqualTo: null)
+        .where("purpose", isEqualTo: "Home")
         .snapshots();
   }
 

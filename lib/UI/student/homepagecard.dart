@@ -17,7 +17,7 @@ class studentHome extends StatefulWidget {
 class _studentHomeState extends State<studentHome> {
   int _currentIndex = 1;
   final List<Widget> _pages = <Widget>[
-    profile(),
+    Profile(),
     studentHomeScreen(),
     notices(),
   ];
