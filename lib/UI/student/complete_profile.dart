@@ -94,6 +94,9 @@ class _completeProfileState extends State<completeProfile> {
 
   @override
   Widget build(BuildContext context) {
+    if (_profilePicUrl == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Color(0Xff15609c),
@@ -269,7 +272,7 @@ class _completeProfileState extends State<completeProfile> {
                                 const SnackBar(
                                     content: Text('Processing Data')),
                               );
-                              studentHome();
+
                               await FirebaseFirestore.instance
                                   .collection('studentUser')
                                   .doc(
@@ -295,13 +298,17 @@ class _completeProfileState extends State<completeProfile> {
                                           .uid)
                                   .set({'signinas': dropdownValue},
                                       SetOptions(merge: true));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => idcardImage()));
                             } else {
                               print("Not validated");
                             }
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => studentHome()));
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => idcardImage()));
                           })
 
                       // GestureDetector(

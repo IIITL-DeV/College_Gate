@@ -1,25 +1,23 @@
-import 'package:college_gate/UI/gaurd/guestregister.dart';
-import 'package:college_gate/UI/gaurd/log.dart';
-import 'package:college_gate/UI/gaurd/exitrequest.dart';
-import 'package:college_gate/UI/gaurd/studentRegister.dart';
 import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/student/exit_screen.dart';
+import 'package:college_gate/UI/warden/w_exitrequest.dart';
+import 'package:college_gate/UI/warden/w_studentHomeRegister.dart';
+import 'package:college_gate/UI/warden/wardenlog.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class gaurdHome extends StatefulWidget {
-  const gaurdHome({Key? key}) : super(key: key);
+class wardenHome extends StatefulWidget {
+  const wardenHome({Key? key}) : super(key: key);
 
   @override
-  _gaurdHomeState createState() => _gaurdHomeState();
+  _wardenHomeState createState() => _wardenHomeState();
 }
 
-class _gaurdHomeState extends State<gaurdHome> {
+class _wardenHomeState extends State<wardenHome> {
   int _currentIndex = 1;
   final List<Widget> _pages = <Widget>[
-    gaurdlog(),
-    gaurdHomeScreen(),
-    guardRequestHome(),
+    w_log(),
+    wardenHomeScreen(),
+    wRequestHome(),
   ];
 
   void _onTapTapped(int index) {
@@ -79,16 +77,18 @@ class _gaurdHomeState extends State<gaurdHome> {
       ),
     );
   }
+
+  static w_exitrequests() {}
 }
 
-class gaurdHomeScreen extends StatefulWidget {
-  const gaurdHomeScreen({Key? key}) : super(key: key);
+class wardenHomeScreen extends StatefulWidget {
+  const wardenHomeScreen({Key? key}) : super(key: key);
 
   @override
-  _gaurdHomeScreenState createState() => _gaurdHomeScreenState();
+  _wardenHomeScreenState createState() => _wardenHomeScreenState();
 }
 
-class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
+class _wardenHomeScreenState extends State<wardenHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -118,44 +118,13 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => studentRegister()));
+                                      builder: (context) =>
+                                          w_studentRegister()));
                             },
                             icon: const Icon(Icons.chevron_right)),
                       ])),
                 ]),
               ),
-              Card(
-                elevation: 4,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 180.0,
-                      child: Ink.image(
-                        image: AssetImage("assets/exit.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(12.0),
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Text("Guests"),
-                          IconButton(
-                              alignment: Alignment.centerRight,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => guestRegister()));
-                              },
-                              icon: const Icon(Icons.chevron_right))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
             ],
           ),
         ));

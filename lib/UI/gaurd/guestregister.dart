@@ -1,25 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class studentRegister extends StatefulWidget {
-  const studentRegister({Key? key}) : super(key: key);
+class guestRegister extends StatefulWidget {
+  const guestRegister({Key? key}) : super(key: key);
 
   @override
-  _studentRegisterState createState() => _studentRegisterState();
+  _guestRegisterState createState() => _guestRegisterState();
 }
 
-class _studentRegisterState extends State<studentRegister> {
+class _guestRegisterState extends State<guestRegister> {
   var stream;
   @override
   void initState() {
     super.initState();
     stream = FirebaseFirestore.instance
-        .collection("studentRegister")
+        .collection("studentGuest")
         //      .where("exitisapproved", isEqualTo: false)
-        .where("purpose", isEqualTo: "Outing")
+        //.where("purpose", isEqualTo: "Outing")
         .snapshots();
   }
 
@@ -71,7 +71,7 @@ class _studentRegisterState extends State<studentRegister> {
                           height: 280,
                           alignment: Alignment.center,
                         ),
-                        Text("No Requests",
+                        Text("No Entry",
                             style: TextStyle(
                               fontSize: 30.0,
                               fontWeight: FontWeight.w300,
@@ -96,12 +96,12 @@ class _studentRegisterState extends State<studentRegister> {
                             children: [
                               ListTile(
                                 title: Text(
-                                  "${chatItem["name"]}",
+                                  "${chatItem["guestname"]}",
                                   style: TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                trailing: Text("${chatItem["enrollment"]}"),
+                                trailing: Text("${chatItem["guestphone"]}"),
                                 contentPadding:
                                     EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
                               ),
@@ -113,7 +113,7 @@ class _studentRegisterState extends State<studentRegister> {
                                     width: 6,
                                   ),
                                   Text(
-                                    "Room ${chatItem["room"]}",
+                                    "Student     ",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14.0,
@@ -121,7 +121,7 @@ class _studentRegisterState extends State<studentRegister> {
                                   ),
                                   //SizedBox(height: 5),
                                   Text(
-                                    "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
+                                    "4:05 AM | 04-12-2021",
                                     style: TextStyle(
                                       fontSize: 12.0,
                                       backgroundColor: Color(0XffD1F0E8),
@@ -132,13 +132,14 @@ class _studentRegisterState extends State<studentRegister> {
                                     color: Color(0XffD1F0E8),
                                     size: 11,
                                   ),
+
                                   Text(
-                                    "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
+                                    "${chatItem["guestentrytime"]} | ${chatItem["guestentrydate"]}",
                                     style: TextStyle(
                                       fontSize: 12.0,
                                       backgroundColor: Color(0XffD1F0E8),
                                     ),
-                                  )
+                                  ),
                                 ],
                               )
                             ],

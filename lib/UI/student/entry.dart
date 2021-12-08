@@ -24,6 +24,7 @@ class _EntryFormState extends State<EntryForm> {
       _phoneno,
       _exittime,
       _exitdate;
+
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _getphone() async {
@@ -166,7 +167,7 @@ class _EntryFormState extends State<EntryForm> {
         });
   }
 
-  Widget _buildTime() {
+  Widget _buildentryTime() {
     DateTime times = DateTime.now();
     return Row(
       children: [
@@ -194,6 +195,7 @@ class _EntryFormState extends State<EntryForm> {
                 if (value == null || value.isEmpty) {
                   return "Date is Required";
                 } else {
+                  _recentrydate = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
                       .doc((FirebaseAuth.instance.currentUser!).uid)
@@ -230,6 +232,7 @@ class _EntryFormState extends State<EntryForm> {
                 if (value == null || value.isEmpty) {
                   return "Time is Required";
                 } else {
+                  _recentrytime = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
                       .doc((FirebaseAuth.instance.currentUser!).uid)
@@ -270,7 +273,7 @@ class _EntryFormState extends State<EntryForm> {
                 if (value == null || value.isEmpty) {
                   return "Date is Required";
                 } else {
-                  _recentrydate = value;
+                  //_exitdate = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
                       .doc((FirebaseAuth.instance.currentUser!).uid)
@@ -307,7 +310,7 @@ class _EntryFormState extends State<EntryForm> {
                 if (value == null || value.isEmpty) {
                   return "Time is Required";
                 } else {
-                  _recentrytime = value;
+                  //_exittime = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
                       .doc((FirebaseAuth.instance.currentUser!).uid)
@@ -338,6 +341,10 @@ class _EntryFormState extends State<EntryForm> {
   @override
   Widget build(BuildContext context) {
     var dropdownValue;
+    if (_username == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
@@ -397,7 +404,7 @@ class _EntryFormState extends State<EntryForm> {
                   ),
                   SizedBox(height: 20),
 
-                  _buildTime(),
+                  _buildentryTime(),
                   //SizedBox(height: 20),
                   //  _buildHostel(),
                   //_buildMessage(),
@@ -429,15 +436,20 @@ class _EntryFormState extends State<EntryForm> {
                                     .collection('studentUser')
                                     .doc((FirebaseAuth.instance.currentUser!)
                                         .uid)
-                                    .set({'entryisapproved': false},
-                                        SetOptions(merge: true)),
+                                    .update(
+                                  {'entryisapproved': false},
+                                ),
+                                //SetOptions(merge: true)),
                                 FirebaseFirestore.instance
                                     .collection('studentRegister')
-                                    .doc()
-                                    .set({
-                                  'exittime': _recentrytime,
-                                  'exitdate': _recentrydate
-                                }, SetOptions(merge: true)),
+                                    .doc((FirebaseAuth.instance.currentUser!)
+                                            .uid +
+                                        _exitdate! +
+                                        _exittime!)
+                                    .update({
+                                  'entrydate': _recentrydate,
+                                  'entrytime': _recentrytime,
+                                }),
                                 Navigator.pop(context),
                               }
                             else

@@ -1,4 +1,5 @@
 import 'package:college_gate/UI/gaurd/gaurd_home.dart';
+import 'package:college_gate/UI/guest/guesthome.dart';
 import 'package:college_gate/UI/student/complete_profile.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,101 +43,6 @@ class _SignInState extends State<SignIn> {
                         height: 400,
                         width: 4000,
                       ),
-                      //SizedBox(height: 80.0),
-                      // DropdownButton(
-                      //   hint: _dropDownValue == null
-                      //       ? Text('Dropdown')
-                      //       : Text(
-                      //           _dropDownValue,
-                      //           style: TextStyle(color: Colors.blue),
-                      //         ),
-                      //   isExpanded: true,
-                      //   iconSize: 30.0,
-                      //   style: TextStyle(color: Colors.blue),
-                      //   items: ['One', 'Two', 'Three'].map(
-                      //     (val) {
-                      //       return DropdownMenuItem<String>(
-                      //         value: val,
-                      //         child: Text(val),
-                      //       );
-                      //     },
-                      //   ).toList(),
-                      //   onChanged: (val) {
-                      //     setState(
-                      //       () {
-                      //         _dropDownValue = val as String;
-                      //       },
-                      //     );
-                      //   },
-                      // ),
-                      // DropdownButton<String>(
-                      //   items: <String>[
-                      //     'Student',
-                      //     'GateKeeper',
-                      //     'Warden',
-                      //     'Mess Incharge'
-                      //   ].map((String value) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: value,
-                      //       child: Text(value),
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (newvalue) {
-                      //     setState(() {
-                      //       _selectedDesignation = newvalue!;
-                      //     });
-                      //   },
-                      //   hint: Text("     Student     "),
-                      // ),
-                      //SizedBox(height: 20.0),
-                      // TextFormField(
-                      //     decoration: InputDecoration(hintText: 'Email'),
-                      //     validator: (val) =>
-                      //         val!.isEmpty ? 'Enter an email id' : null,
-                      //     onChanged: (val) {
-                      //       setState(() {
-                      //         email = val;
-                      //       });
-                      //     }),
-                      // SizedBox(height: 20.0),
-                      // TextFormField(
-                      //     decoration: InputDecoration(hintText: 'Password'),
-                      //     obscureText: true,
-                      //     validator: (val) => val!.length < 6
-                      //         ? 'Enter a password with minimun 6 characters'
-                      //         : null,
-                      //     onChanged: (val) {
-                      //       setState(() {
-                      //         password = val;
-                      //       });
-                      //     }),
-                      // SizedBox(height: 40.0),
-                      // RaisedButton(
-                      //     color: Colors.blue[800],
-                      //     child: Text('Sign In',
-                      //         style: TextStyle(color: Colors.white)),
-                      //     onPressed: () {
-                      //       Navigator.pushReplacement(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //               builder: (context) => studentHome()));
-                      //       // if (_formKey.currentState!.validate()) {
-                      //       //   setState(() => loading = true);
-                      //       //   dynamic result = await _aut
-                      //       //       .signInEmailAndPassword(email, password);
-                      //       //   if (result == null) {
-                      //       //     setState(() {
-                      //       //       loading = false;
-                      //       //       error = 'Invalid Credentials';
-                      //       //       return error;
-                      //       //     });
-                      //       //   }
-                      //       // }
-                      //     }),
-                      // SizedBox(
-                      //   height: 12,
-                      // ),
-
                       SizedBox(
                         height: 12,
                       ),
@@ -179,7 +85,7 @@ class _SignInState extends State<SignIn> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => completeProfile()));
+                                  builder: (context) => GuestHome()));
                         },
                         child: Container(
                           height: 50,

@@ -1,25 +1,26 @@
-import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/warden/viewimage.dart';
-import 'package:college_gate/services/auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/UI/signIn.dart';
+import 'package:college_gate/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:college_gate/UI/warden/viewimage.dart';
 
-class gaurdlog extends StatefulWidget {
-  // const guard_profile({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+
+class guard_entryrequests extends StatefulWidget {
+  // const guard_requests({Key? key}) : super(key: key);
 
   @override
-  _gaurdlogState createState() => _gaurdlogState();
+  _guard_entryrequestsState createState() => _guard_entryrequestsState();
 }
 
-class _gaurdlogState extends State<gaurdlog> {
+class _guard_entryrequestsState extends State<guard_entryrequests> {
   var stream;
   @override
   void initState() {
     super.initState();
     stream = FirebaseFirestore.instance
         .collection("studentUser")
-        .where("exitisapproved", isEqualTo: true)
-        // .where("entryisappr")
+        .where("entryisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
         .snapshots();
   }
@@ -60,7 +61,7 @@ class _gaurdlogState extends State<gaurdlog> {
                       height: 280,
                       alignment: Alignment.center,
                     ),
-                    Text("No logs",
+                    Text("No Requests",
                         style: TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.w300,
@@ -80,7 +81,7 @@ class _gaurdlogState extends State<gaurdlog> {
                   elevation: 3.5,
                   child: Expanded(
                     child: SizedBox(
-                      height: 115,
+                      height: 180,
                       child: ListView(
                         children: [
                           ListTile(
@@ -166,14 +167,104 @@ class _gaurdlogState extends State<gaurdlog> {
                               ],
                             ),
                             contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 24.0, 24.0, 0),
+                                EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 4.0),
                           ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          //Accept, Decline button
+                          Container(
+                              child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 40.0,
+                                width: 173.0,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    FirebaseFirestore.instance
+                                        .collection("studentUser")
+                                        .doc(chatItem["userid"])
+                                        .update({"entryisapproved": true}).then(
+                                            (_) {
+                                      print("success!");
+                                    });
+                                  },
+                                  child: Text(
+                                    "Accept",
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color(0Xff19B38D)),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 16.0,
+                              ),
+                              Container(
+                                height: 40.0,
+                                width: 173.0,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    FirebaseFirestore.instance
+                                        .collection("studentUser")
+                                        .doc(chatItem["userid"])
+                                        .update({"entryisapproved": null}).then(
+                                            (_) {
+                                      print("success!");
+                                    });
+                                  },
+                                  child: Text(
+                                    "Decline",
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.red[700],
+                                    ),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                         ],
                       ),
                     ),
                   ),
                 ),
               );
+
+              // return ListTile(
+              //   leading: Text(
+              //     chatItem["name"] ?? '',
+              //     style: TextStyle(
+              //         //fontWeight: FontWeight.bold,
+              //         fontSize: 20),
+              //   ),
+              //   subtitle: Column(
+              //     children: <Widget>[
+              //       ElevatedButton(
+              //           child: Text('Accept'),
+              //           onPressed: () {
+              //             FirebaseFirestore.instance
+              //                 .collection("studentUser")
+              //                 .doc(chatItem["userid"])
+              //                 .update({"exitisapproved": true}).then((_) {
+              //               print("success!");
+              //             });
+              //           })
+              //     ],
+              //   ),
+              // );
             },
           );
         }

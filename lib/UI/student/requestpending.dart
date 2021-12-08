@@ -1,16 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/UI/student/notices.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ReadytoGo extends StatefulWidget {
-  const ReadytoGo({Key? key}) : super(key: key);
+class requestpending extends StatefulWidget {
+  const requestpending({Key? key}) : super(key: key);
 
   @override
-  _ReadytoGoState createState() => _ReadytoGoState();
+  _requestpendingState createState() => _requestpendingState();
 }
 
-class _ReadytoGoState extends State<ReadytoGo> {
+class _requestpendingState extends State<requestpending> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +18,16 @@ class _ReadytoGoState extends State<ReadytoGo> {
             children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: const <Widget>[
                   SizedBox(
                     height: 30,
                   ),
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Text("Ready to go !!",
+                    child: Text("Your request is Pending...",
                         style: TextStyle(
-                          fontSize: 40.0,
+                          fontSize: 35.0,
                           fontWeight: FontWeight.w400,
                           color: Color(0Xff14619C),
                         )),
@@ -38,9 +36,9 @@ class _ReadytoGoState extends State<ReadytoGo> {
               ),
               Expanded(
                 child: Image.asset(
-                  'assets/readytogo.png',
+                  'assets/requestpending.png',
                   fit: BoxFit.fitWidth,
-                  width: 350.0,
+                  width: 320.0,
                   alignment: Alignment.center,
                 ),
               ),
@@ -58,30 +56,6 @@ class _ReadytoGoState extends State<ReadytoGo> {
               //     ),
               //   ),
               // ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(400, 50),
-                      alignment: Alignment.center,
-                      primary: const Color(0xFF14619C)),
-                  onPressed: () => {
-                    FirebaseFirestore.instance
-                        .collection('studentUser')
-                        .doc((FirebaseAuth.instance.currentUser!).uid)
-                        .update(
-                      {'exitisapproved': null},
-                    )
-                  },
-                  child: const Text(
-                    'Done',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
             ],
           )),
     );
