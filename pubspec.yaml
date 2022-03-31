@@ -31,6 +31,12 @@ dependencies:
   cloud_firestore:
   adobe_xd: ^2.0.0+1
   splash_screen_view: ^3.0.0
+  flutter_screenutil: ^5.3.1
+  csv: ^5.0.1
+  path_provider: ^2.0.9
+  flutter_email_sender: ^5.1.0
+
+
 
 
   # The following adds the Cupertino Icons font to your application.

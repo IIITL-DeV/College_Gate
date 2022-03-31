@@ -45,11 +45,11 @@ class _bookingState extends State<booking> {
   Widget _buildphone() {
     return TextFormField(
         //initialValue: _phoneno!,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        decoration: const InputDecoration(labelText: 'Phone number'),
+        // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        decoration: const InputDecoration(labelText: 'Email ID'),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Phone number is required";
+            return "Email ID is required";
           } else {
             phone = value;
             return null;
@@ -59,11 +59,12 @@ class _bookingState extends State<booking> {
 
   Widget _buildemail() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: "Visting student's email"),
+        decoration:
+            const InputDecoration(labelText: "Visting student's email id"),
         //initialValue: _enrollmentNo!,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Visting student enrollment number required";
+            return "Visting student's Email ID is required";
           } else {
             genrollnment = value;
             return null;

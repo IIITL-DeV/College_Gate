@@ -56,7 +56,7 @@ class _welcomebackState extends State<welcomeback> {
                         .collection('studentUser')
                         .doc((FirebaseAuth.instance.currentUser!).uid)
                         .update(
-                      {'entryisapproved': null},
+                      {'exitisapproved': null, 'entryisapproved': null},
                     )
                   },
                   child: const Text(

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class noNotices extends StatefulWidget {
   const noNotices({Key? key}) : super(key: key);
@@ -14,6 +15,32 @@ class noNotices extends StatefulWidget {
 class _noNoticesState extends State<noNotices> {
   var stream;
   @override
+  approvesendMail(
+      String phone, String studentemail, String date, String time) async {
+    final Email email = Email(
+      body:
+          'Your appointment with $studentemail on $time, $date has been approved.',
+      subject: 'Appointment Booked!',
+      recipients: [phone],
+      isHTML: true,
+    );
+
+    await FlutterEmailSender.send(email);
+  }
+
+  declinesendMail(
+      String phone, String studentemail, String date, String time) async {
+    final Email email = Email(
+      body:
+          'Your appointment with $studentemail on $time, $date has been declined.',
+      subject: 'Request Declined!',
+      recipients: [phone],
+      isHTML: true,
+    );
+
+    await FlutterEmailSender.send(email);
+  }
+
   void initState() {
     super.initState();
     stream = FirebaseFirestore.instance
@@ -89,10 +116,25 @@ class _noNoticesState extends State<noNotices> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                height: 40.0,
-                                width: 173.0,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.06,
+                                width: MediaQuery.of(context).size.width * 0.4,
                                 child: ElevatedButton(
                                   onPressed: () {
+                                    approvesendMail(
+                                            chatItem["guestphone"],
+                                            chatItem["vistingroll"],
+                                            chatItem["guestentrydate"],
+                                            chatItem["guestentrytime"])
+                                        .whenComplete(() {
+                                      setState(() {});
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Guest Notified')),
+                                      );
+                                    });
+
                                     FirebaseFirestore.instance
                                         .collection("studentGuest")
                                         .doc(
@@ -101,7 +143,7 @@ class _noNoticesState extends State<noNotices> {
                                         .collection("guestUser")
                                         .doc(chatItem["guestphone"])
                                         .collection("gentryisapproved")
-                                    .doc()
+                                        .doc()
                                         .update({
                                       "gentryisapproved": true
                                     }).then((_) {
@@ -114,7 +156,6 @@ class _noNoticesState extends State<noNotices> {
                                                 .email)
                                         .collection("guestUser")
                                         .doc(chatItem["guestphone"])
-                                      
                                         .update({
                                       "gentryisapproved": true
                                     }).then((_) {
@@ -136,40 +177,40 @@ class _noNoticesState extends State<noNotices> {
                                 ),
                               ),
                               SizedBox(
-                                width: 16.0,
+                                width: MediaQuery.of(context).size.width * 0.09,
                               ),
                               Container(
-                                height: 40.0,
-                                width: 173.0,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.06,
+                                width: MediaQuery.of(context).size.width * 0.4,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    FirebaseFirestore.instance
-                                        .collection("studentGuest")
-                                        .doc(
-                                            (FirebaseAuth.instance.currentUser!)
-                                                .email)
-                                        .collection("guestUser")
-                                        .doc(chatItem["guestphone"])
-                                        .collection("gentryisapproved")
-                                    .doc()
-                                        .update({
-                                      "gentryisapproved": null
-                                    }).then((_) {
-                                      print("success!");
-                                    });
-                                    FirebaseFirestore.instance
-                                        .collection("studentGuest")
-                                        .doc(
-                                            (FirebaseAuth.instance.currentUser!)
-                                                .email)
-                                        .collection("guestUser")
-                                        .doc(chatItem["guestphone"])
-                                      
-                                        .update({
-                                      "gentryisapproved": null
-                                    }).then((_) {
-                                      print("success!");
-                                    });
+                                    // FirebaseFirestore.instance
+                                    //     .collection("studentGuest")
+                                    //     .doc(
+                                    //         (FirebaseAuth.instance.currentUser!)
+                                    //             .email)
+                                    //     .collection("guestUser")
+                                    //     .doc(chatItem["guestphone"])
+                                    //     .collection("gentryisapproved")
+                                    //     .doc()
+                                    //     .update({
+                                    //   "gentryisapproved": null
+                                    // }).then((_) {
+                                    //   print("success!");
+                                    // });
+                                    // FirebaseFirestore.instance
+                                    //     .collection("studentGuest")
+                                    //     .doc(
+                                    //         (FirebaseAuth.instance.currentUser!)
+                                    //             .email)
+                                    //     .collection("guestUser")
+                                    //     .doc(chatItem["guestphone"])
+                                    //     .update({
+                                    //   "gentryisapproved": null
+                                    // }).then((_) {
+                                    //   print("success!");
+                                    // });
                                   },
                                   child: Text(
                                     "Decline",

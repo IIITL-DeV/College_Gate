@@ -92,72 +92,71 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              Card(
-                elevation: 4,
-                child: Column(children: [
+        child: Column(
+          children: [
+            Card(
+              elevation: 4,
+              child: Column(children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.19,
+                  child: Ink.image(
+                    image: AssetImage("assets/entry.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                    padding: const EdgeInsets.all(12.0),
+                    alignment: Alignment.centerLeft,
+                    child: Row(children: [
+                      Text("Students"),
+                      IconButton(
+                          alignment: Alignment.centerRight,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => studentRegister()));
+                          },
+                          icon: const Icon(Icons.chevron_right)),
+                    ])),
+              ]),
+            ),
+            Card(
+              elevation: 4,
+              child: Column(
+                children: [
                   SizedBox(
-                    height: 180.0,
+                    height: MediaQuery.of(context).size.height * 0.19,
                     child: Ink.image(
-                      image: AssetImage("assets/entry.png"),
+                      image: AssetImage("assets/exit.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
                   Container(
-                      padding: const EdgeInsets.all(12.0),
-                      alignment: Alignment.centerLeft,
-                      child: Row(children: [
-                        Text("Students"),
+                    padding: const EdgeInsets.all(12.0),
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        Text("Guests"),
                         IconButton(
                             alignment: Alignment.centerRight,
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => studentRegister()));
+                                      builder: (context) => guestRegister()));
                             },
-                            icon: const Icon(Icons.chevron_right)),
-                      ])),
-                ]),
+                            icon: const Icon(Icons.chevron_right))
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Card(
-                elevation: 4,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 180.0,
-                      child: Ink.image(
-                        image: AssetImage("assets/exit.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(12.0),
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Text("Guests"),
-                          IconButton(
-                              alignment: Alignment.centerRight,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => guestRegister()));
-                              },
-                              icon: const Icon(Icons.chevron_right))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ));
   }
 }

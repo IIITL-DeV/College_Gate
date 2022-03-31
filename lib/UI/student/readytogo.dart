@@ -58,30 +58,30 @@ class _ReadytoGoState extends State<ReadytoGo> {
               //     ),
               //   ),
               // ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(400, 50),
-                      alignment: Alignment.center,
-                      primary: const Color(0xFF14619C)),
-                  onPressed: () => {
-                    FirebaseFirestore.instance
-                        .collection('studentUser')
-                        .doc((FirebaseAuth.instance.currentUser!).uid)
-                        .update(
-                      {'exitisapproved': null},
-                    )
-                  },
-                  child: const Text(
-                    'Done',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: ElevatedButton(
+              //     style: ElevatedButton.styleFrom(
+              //         minimumSize: const Size(400, 50),
+              //         alignment: Alignment.center,
+              //         primary: const Color(0xFF14619C)),
+              //     onPressed: () => {
+              //       FirebaseFirestore.instance
+              //       //     .collection('studentUser')
+              //       //     .doc((FirebaseAuth.instance.currentUser!).uid)
+              //       //     .update(
+              //       //   {'exitisapproved': null},
+              //       // )
+              //     },
+              //     child: const Text(
+              //       'Done',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 16,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           )),
     );
