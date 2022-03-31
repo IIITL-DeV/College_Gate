@@ -30,12 +30,14 @@ class _guardRequestHomeState extends State<guardRequestHome>
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Column(
         children: [
           // give the tab bar a height [can change hheight to preferred height]
           Container(
-            height: 60,
+            height: widthMobile * 0.15,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(
@@ -108,6 +110,9 @@ class _guard_requestsState extends State<guard_requests> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
+
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -130,11 +135,10 @@ class _guard_requestsState extends State<guard_requests> {
           if (value == 0 || value == null) {
             print("issssss$value");
             return SizedBox(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 200),
                     Image.asset(
                       'assets/nonotices.png',
                       //fit: BoxFit.fitWidth,
@@ -162,12 +166,11 @@ class _guard_requestsState extends State<guard_requests> {
                   elevation: 3.5,
                   child: Expanded(
                     child: SizedBox(
-                      height: 180,
+                      height: heightMobile * 0.22,
+                      width: widthMobile * 0.9,
                       child: ListView(
                         children: [
                           ListTile(
-                            onTap: () {}, //Zoom Image Function
-                            //name
                             title: Text(
                               "${chatItem["name"]}",
                               style: TextStyle(
@@ -179,7 +182,7 @@ class _guard_requestsState extends State<guard_requests> {
                                 child: Column(
                               children: [
                                 SizedBox(
-                                  height: 4.0,
+                                  height: heightMobile * 0.01,
                                 ),
                                 Row(
                                   children: [
@@ -188,7 +191,7 @@ class _guard_requestsState extends State<guard_requests> {
                                       size: 12.0,
                                     ),
                                     SizedBox(
-                                      width: 6.0,
+                                      width: widthMobile * 0.01,
                                     ),
                                     Text("${chatItem["phone"]}"),
                                   ],
@@ -218,14 +221,14 @@ class _guard_requestsState extends State<guard_requests> {
                             //Id Image
                             leading: ConstrainedBox(
                               constraints: BoxConstraints(
-                                minWidth: 54,
-                                minHeight: 54,
-                                maxWidth: 74,
-                                maxHeight: 74,
+                                minWidth: widthMobile * 0.1,
+                                minHeight: heightMobile * 0.1,
+                                maxWidth: widthMobile * 0.15,
+                                maxHeight: heightMobile * 0.15,
                               ),
                               child: GestureDetector(
                                   child: Hero(
-                                    tag: chatItem["idcard"],
+                                    tag: chatItem["idcard"]!,
                                     child: Image.network(
                                         "${chatItem["idcard"]}",
                                         fit: BoxFit.contain),

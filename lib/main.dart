@@ -1,5 +1,4 @@
 import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/student/complete_profile.dart';
 import 'package:college_gate/UI/student/homepagecard.dart';
 import 'package:college_gate/UI/warden/wardenhome.dart';
 import 'package:college_gate/services/auth.dart';
@@ -8,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'UI/gaurd/gaurd_home.dart';
-import 'UI/student/exit_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Widget example1 = SplashScreenView(
       navigateRoute: getScreen(),
-      duration: 5000,
+      // duration: 5000,
       imageSize: 130,
       imageSrc: "assets/logocg.png",
       text: "College Gate",
@@ -60,7 +58,6 @@ class _MyAppState extends State<MyApp> {
     );
     Widget example2 = SplashScreenView(
       navigateRoute: SignIn(),
-      duration: 5000,
       imageSize: 130,
       imageSrc: "assets/logocg.png",
       text: "College Gate",

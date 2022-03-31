@@ -120,35 +120,32 @@ class _completeProfileState extends State<completeProfile> {
         body: SingleChildScrollView(
           child: Container(
               padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                  const EdgeInsets.symmetric(vertical: 5.0, horizontal: 40.0),
               child: Form(
                   key: _formKey,
                   child: Center(
                       child: Column(
                     children: [
-                      // Container(
-                      //   decoration: BoxDecoration(
-                      //     borderRadius:
-                      //         BorderRadius.all(Radius.elliptical(10.0, 10.0)),
-                      //     image: DecorationImage(
-                      //       image: AssetImage("assets/collegegate-01.png"),
-                      //       fit: BoxFit.cover,
-                      //     ),
-                      //   ),
-                      // ),
-                      SizedBox(height: 20.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
 
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(1500),
-                        child: Image.network(_profilePicUrl!
-                            // height: 150,
-                            // width: 150,
-                            ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.109,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.network(_profilePicUrl!),
+                        ),
                       ),
-                      SizedBox(height: 20.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
                       TextFormField(
                           decoration: const InputDecoration(labelText: 'Name'),
                           initialValue: _username,
+                          style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.022,
+                          ),
+                          readOnly: true,
                           onSaved: (value) => _username = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -157,11 +154,17 @@ class _completeProfileState extends State<completeProfile> {
                               return null;
                             }
                           }),
-                      SizedBox(height: 20.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
                       TextFormField(
                           decoration: const InputDecoration(
                               labelText: 'Enrollnment Number'),
                           initialValue: _enrollmentNo,
+                          style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.022,
+                          ),
+                          readOnly: true,
                           onSaved: (value) => _enrollmentNo = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -170,10 +173,16 @@ class _completeProfileState extends State<completeProfile> {
                               return null;
                             }
                           }),
-                      SizedBox(height: 20.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
                       TextFormField(
                           decoration: const InputDecoration(labelText: 'Email'),
                           initialValue: _email,
+                          style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.022,
+                          ),
+                          readOnly: true,
                           onSaved: (value) => _email = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -182,12 +191,17 @@ class _completeProfileState extends State<completeProfile> {
                               return null;
                             }
                           }),
-                      SizedBox(height: 20.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.009),
                       TextFormField(
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           onSaved: (value) => _phoneno = value,
+                          style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.022,
+                          ),
                           decoration:
                               const InputDecoration(labelText: 'Phone Number'),
                           validator: (value) {
@@ -198,7 +212,8 @@ class _completeProfileState extends State<completeProfile> {
                             }
                           }),
 
-                      SizedBox(height: 20.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
                       TextFormField(
                           onSaved: (value) => _roomno = value,
 
@@ -206,6 +221,10 @@ class _completeProfileState extends State<completeProfile> {
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
+                          style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.022,
+                          ),
                           decoration:
                               const InputDecoration(labelText: 'Room Number'),
                           validator: (value) {
@@ -215,10 +234,11 @@ class _completeProfileState extends State<completeProfile> {
                               _roomno = value;
                             }
                           }),
-                      SizedBox(height: 30.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
 
                       Container(
-                        height: 50,
+                        height: MediaQuery.of(context).size.height * 0.07,
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.all(0),
                         child: DropdownButtonHideUnderline(
@@ -228,18 +248,25 @@ class _completeProfileState extends State<completeProfile> {
                             border: const BorderSide(
                                 color: Colors.black12, width: 1),
                             dropdownButtonColor: Colors.white,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.022,
+                            ),
                             value: dropdownValue,
                             onChanged: (newValue) {
                               setState(() {
                                 dropdownValue = newValue as String?;
                               });
-                              print('value issssssssssssssss   $dropdownValue');
                             },
                             //                 onChanged: (newValue) =>
                             //     setState(() => dropdownValue = newValue as String?),
                             // validator: (value) => value == null ? 'field required' : null,
-                            hint: Text("Sign in as"),
-                            items: ['Student', 'Gatekeeper', 'Warden']
+                            hint: Text(
+                              "Sign in as",
+                            ),
+
+                            items: ['Student', 'Faculty']
                                 .map((value) => DropdownMenuItem(
                                       value: value,
                                       child: Text(value),
@@ -249,7 +276,8 @@ class _completeProfileState extends State<completeProfile> {
                         ),
                       ),
 
-                      SizedBox(height: 50.0),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.03),
 
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(

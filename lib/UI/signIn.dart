@@ -40,11 +40,11 @@ class _SignInState extends State<SignIn> {
                     children: <Widget>[
                       Image.asset(
                         "assets/collegegate-01.png",
-                        height: 400,
-                        width: 4000,
+                        height: MediaQuery.of(context).size.height * 0.45,
+                        width: MediaQuery.of(context).size.width * 0.6,
                       ),
                       SizedBox(
-                        height: 12,
+                        height: MediaQuery.of(context).size.width * 0.0001,
                       ),
                       Center(
                         child: GestureDetector(
@@ -52,8 +52,8 @@ class _SignInState extends State<SignIn> {
                             AuthMethods().signInWithGoogle(context);
                           },
                           child: Container(
-                            height: 50,
-                            width: 510,
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            width: MediaQuery.of(context).size.width * 0.6,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                               color: Colors.green,
@@ -70,7 +70,8 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.015),
                       Row(children: <Widget>[
                         Expanded(child: Divider()),
                         Text(
@@ -79,7 +80,8 @@ class _SignInState extends State<SignIn> {
                         ),
                         Expanded(child: Divider()),
                       ]),
-                      SizedBox(height: 15),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.015),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
@@ -88,8 +90,8 @@ class _SignInState extends State<SignIn> {
                                   builder: (context) => GuestHome()));
                         },
                         child: Container(
-                          height: 50,
-                          width: 510,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.6,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
                             color: Color(0Xff15609c),

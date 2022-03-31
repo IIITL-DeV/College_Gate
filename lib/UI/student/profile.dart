@@ -1,17 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/student/exit_screen.dart';
-import 'package:college_gate/UI/student/homepagecard.dart';
-import 'package:college_gate/UI/student/idcardImage.dart';
 import 'package:college_gate/UI/student/idcardview.dart';
-import 'package:college_gate/services/auth.dart';
-import 'package:college_gate/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:college_gate/helperfunctions/sp_helper.dart';
-import 'package:flutter/services.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -152,110 +143,78 @@ class _ProfileState extends State<Profile> {
         //     ]),
         body: SingleChildScrollView(
       child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+          // height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 35.0),
           child: Form(
               key: _formKey,
               child: Center(
                   child: Column(
                 children: [
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     borderRadius:
-                  //         BorderRadius.all(Radius.elliptical(10.0, 10.0)),
-                  //     image: DecorationImage(
-                  //       image: AssetImage("assets/collegegate-01.png"),
-                  //       fit: BoxFit.cover,
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(height: 20.0),
-
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(1500),
-
-                    child: Image.network(_profilePicUrl!),
-
-                    // height: 150,
-                    // width: 150,
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.109,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(1500),
+                      child: Image.network(_profilePicUrl!),
+                    ),
                   ),
-                  SizedBox(height: 10.0),
-                  Text(_username!,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        //fontWeight: FontWeight.w200,
-                        //color: Color(0Xff14619C),
-                      )),
-                  SizedBox(height: 20.0),
-                  // TextFormField(
-                  //   decoration: const InputDecoration(labelText: 'Name'),
-                  //   initialValue: _username,
-                  //   // onSaved: (value) => _username = value,
-                  //   // validator: (value) {
-                  //   //   if (value == null || value.isEmpty) {
-                  //   //     return "Name is Required";
-                  //   //   } else {
-                  //   //     return null;
-                  //   //   }
-                  // ),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Text(
+                    _username!,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.025,
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'Enrollnment Number'),
                     initialValue: _enrollmentNo,
-                    // onSaved: (value) => _enrollmentNo = value,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return "Enrollnment number is Required";
-                    //   } else {
-                    //     return null;
-                    //   }
-                    // }
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                    ),
+                    readOnly: true,
                   ),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Email'),
                     initialValue: _email,
-                    // onSaved: (value) => _email = value,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return "Email is Required";
-                    //   } else {
-                    //     return null;
-                    //   }
-                    // }
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                    ),
+                    readOnly: true,
                   ),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'Phone Number'),
                     initialValue: _phoneno,
-                    //onSaved: (value) => _email = value,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return "E is Required";
-                    //   } else {
-                    //     return null;
-                    //   }
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                    ),
+                    readOnly: true,
                   ),
 
-                  SizedBox(height: 20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Room number'),
                     initialValue: _roomno,
-                    //onSaved: (value) => _email = value,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return "Email is Required";
-                    //   } else {
-                    //     return null;
-                    //   }
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                    ),
+                    readOnly: true,
                   ),
 
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(children: [
-                    Text("ID Card", style: TextStyle(fontSize: 16)),
+                    Text("ID Card",
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                        )),
                     SizedBox(
-                      width: 200,
+                      width: MediaQuery.of(context).size.width * 0.50,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -264,7 +223,10 @@ class _ProfileState extends State<Profile> {
                       },
                       child: Text(
                         "View",
-                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                        ),
                       ),
                     )
                   ]),

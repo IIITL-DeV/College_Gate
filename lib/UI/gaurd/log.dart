@@ -82,6 +82,7 @@ class _gaurdlogState extends State<gaurdlog> {
                     child: SizedBox(
                       height: 115,
                       child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           ListTile(
                             onTap: () {}, //Zoom Image Function
