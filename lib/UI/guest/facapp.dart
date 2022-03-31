@@ -45,11 +45,11 @@ class _facbookingState extends State<facbooking> {
   Widget _buildphone() {
     return TextFormField(
         //initialValue: _phoneno!,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        decoration: const InputDecoration(labelText: 'Phone number'),
+        // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        decoration: const InputDecoration(labelText: 'Email ID'),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Phone number is required";
+            return "Your Email ID number is required";
           } else {
             phone = value;
             return null;
