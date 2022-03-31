@@ -5,6 +5,7 @@ import 'package:college_gate/UI/student/requestpending.dart';
 import 'package:college_gate/UI/student/welcomeback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class notices extends StatefulWidget {
   @override
