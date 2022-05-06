@@ -91,6 +91,7 @@ class _gaurdlogState extends State<gaurdlog> {
                               "${chatItem["name"]}",
                               style: TextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
                             ),
 
                             //Phone number and Time

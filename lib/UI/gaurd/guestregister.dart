@@ -18,8 +18,8 @@ class _guestRegisterState extends State<guestRegister> {
     super.initState();
     stream = FirebaseFirestore.instance
         .collection("studentGuest")
-        //      .where("exitisapproved", isEqualTo: false)
-        //.where("purpose", isEqualTo: "Outing")
+        .doc()
+        .collection("guestUser")
         .snapshots();
   }
 

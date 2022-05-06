@@ -89,6 +89,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                             //name
                             title: Text(
                               "${chatItem["name"]}",
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
                             ),
