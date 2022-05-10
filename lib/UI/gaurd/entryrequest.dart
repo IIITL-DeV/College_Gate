@@ -27,6 +27,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -49,21 +51,21 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
           if (value == 0 || value == null) {
             print("issssss$value");
             return SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height,
+                width: widthMobile,
+                height: heightMobile,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 200),
+                    SizedBox(height: heightMobile * 0.13),
                     Image.asset(
                       'assets/nonotices.png',
                       //fit: BoxFit.fitWidth,
-                      width: 280.0,
-                      height: 280,
+                      width: widthMobile * 0.8,
+                      height: heightMobile * 0.4,
                       alignment: Alignment.center,
                     ),
                     Text("No Requests",
                         style: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: heightMobile * 0.04,
                           fontWeight: FontWeight.w300,
                           color: Color(0Xff14619C),
                         )),
@@ -76,75 +78,76 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: const EdgeInsets.all(3.0),
+                padding: EdgeInsets.all(heightMobile * 0.008),
                 child: Card(
                   elevation: 3.5,
                   child: Expanded(
                     child: SizedBox(
-                      height: 180,
+                      height: heightMobile * 0.19,
+                      width: widthMobile * 0.9,
                       child: ListView(
                         children: [
                           ListTile(
-                            onTap: () {}, //Zoom Image Function
-                            //name
                             title: Text(
                               "${chatItem["name"]}",
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                                  fontSize: heightMobile * 0.025, fontWeight: FontWeight.bold),
                             ),
 
                             //Phone number and Time
                             subtitle: Container(
                                 child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 4.0,
-                                ),
-                                Row(
                                   children: [
-                                    Icon(
-                                      Icons.add_call,
-                                      size: 12.0,
+                                    SizedBox(
+                                      height: heightMobile * 0.01,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.add_call,
+                                          size: heightMobile * 0.014,
+                                        ),
+                                        SizedBox(
+                                          width: widthMobile * 0.02,
+                                        ),
+                                        Text("${chatItem["phone"]}", style: TextStyle(fontSize: heightMobile * 0.017),),
+                                      ],
                                     ),
                                     SizedBox(
-                                      width: 6.0,
+                                      height: heightMobile * 0.005,
                                     ),
-                                    Text("${chatItem["phone"]}"),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.access_alarm,
+                                          size: heightMobile * 0.015,
+                                        ),
+                                        SizedBox(
+                                          width: widthMobile * 0.02,
+                                        ),
+                                        Text(
+                                          "${chatItem["time"]} | ${chatItem["date"]}",
+                                          style: TextStyle(
+                                            fontSize: heightMobile * 0.017,
+                                            backgroundColor: Color(0XffD1F0E8),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
-                                ),
-                                SizedBox(
-                                  height: 4.0,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.access_alarm,
-                                      size: 12.0,
-                                    ),
-                                    SizedBox(
-                                      width: 6.0,
-                                    ),
-                                    Text(
-                                      "${chatItem["time"]} | ${chatItem["date"]}",
-                                      style: TextStyle(
-                                        backgroundColor: Color(0XffD1F0E8),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )),
+                                )),
                             //Id Image
                             leading: ConstrainedBox(
                               constraints: BoxConstraints(
-                                minWidth: 54,
-                                minHeight: 54,
-                                maxWidth: 74,
-                                maxHeight: 74,
+                                minWidth: widthMobile * 0.01,
+                                minHeight: heightMobile * 0.01,
+                                maxWidth: widthMobile * 0.15,
+                                maxHeight: heightMobile * 0.15,
                               ),
                               child: GestureDetector(
                                   child: Hero(
-                                    tag: chatItem["idcard"],
+                                    tag: chatItem["idcard"]!,
                                     child: Image.network(
                                         "${chatItem["idcard"]}",
                                         fit: BoxFit.contain),
@@ -152,90 +155,90 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                   onTap: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (_) {
-                                      return viewImage(chatItem["idcard"]);
-                                    }));
+                                          return viewImage(chatItem["idcard"]);
+                                        }));
                                   }),
                             ),
                             //Room Number
                             trailing: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                SizedBox(height: 17),
-                                Text("${chatItem["room"]}"),
-                                SizedBox(height: 3),
-                                Text("${chatItem["enrollment"]}"),
+                                SizedBox(height: heightMobile * 0.025),
+                                Text("${chatItem["room"]}", style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
+                                SizedBox(height: heightMobile * 0.004),
+                                Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
                               ],
                             ),
                             contentPadding:
-                                EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 4.0),
+                            EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.017,heightMobile * 0.017,heightMobile * 0.003),
                           ),
                           SizedBox(
-                            height: 15.0,
+                            height: heightMobile * 0.01,
                           ),
                           //Accept, Decline button
                           Container(
                               child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 40.0,
-                                width: 173.0,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    FirebaseFirestore.instance
-                                        .collection("studentUser")
-                                        .doc(chatItem["userid"])
-                                        .update({"entryisapproved": true}).then(
-                                            (_) {
-                                      print("success!");
-                                    });
-                                  },
-                                  child: Text(
-                                    "Accept",
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  style: ButtonStyle(
-                                    backgroundColor:
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: heightMobile * 0.05,
+                                    width: widthMobile * 0.42,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        FirebaseFirestore.instance
+                                            .collection("studentUser")
+                                            .doc(chatItem["userid"])
+                                            .update({"entryisapproved": true}).then(
+                                                (_) {
+                                              print("success!");
+                                            });
+                                      },
+                                      child: Text(
+                                        "Accept",
+                                        style: TextStyle(
+                                          fontSize: heightMobile * 0.02,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      style: ButtonStyle(
+                                        backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             Color(0Xff19B38D)),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 16.0,
-                              ),
-                              Container(
-                                height: 40.0,
-                                width: 173.0,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    FirebaseFirestore.instance
-                                        .collection("studentUser")
-                                        .doc(chatItem["userid"])
-                                        .update({"entryisapproved": null}).then(
-                                            (_) {
-                                      print("success!");
-                                    });
-                                  },
-                                  child: Text(
-                                    "Decline",
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.red[700],
+                                      ),
                                     ),
                                   ),
-                                  style: ButtonStyle(
-                                    backgroundColor:
+                                  SizedBox(
+                                    width: widthMobile * 0.03,
+                                  ),
+                                  Container(
+                                    height: heightMobile * 0.05,
+                                    width: widthMobile * 0.42,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        FirebaseFirestore.instance
+                                            .collection("studentUser")
+                                            .doc(chatItem["userid"])
+                                            .update({"entryisapproved": null}).then(
+                                                (_) {
+                                              print("success!");
+                                            });
+                                      },
+                                      child: Text(
+                                        "Decline",
+                                        style: TextStyle(
+                                          fontSize: heightMobile * 0.02,
+                                          color: Colors.red[700],
+                                        ),
+                                      ),
+                                      style: ButtonStyle(
+                                        backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             Colors.white),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )),
                         ],
                       ),
                     ),
@@ -273,3 +276,11 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
     ));
   }
 }
+
+
+
+
+
+
+
+

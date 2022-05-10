@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/gaurd/entryrequest.dart';
 import 'package:college_gate/UI/signIn.dart';
@@ -5,6 +7,7 @@ import 'package:college_gate/UI/student/idcardview.dart';
 import 'package:college_gate/UI/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class guardRequestHome extends StatefulWidget {
@@ -60,6 +63,7 @@ class _guardRequestHomeState extends State<guardRequestHome>
                 // first tab [you can add an icon using the icon property]
                 Tab(
                   text: 'Exit Requests',
+                  // height: heightMobile * 0.4,
                 ),
 
                 // second tab [you can add an icon using the icon property]
@@ -127,28 +131,29 @@ class _guard_requestsState extends State<guard_requests> {
         //   ),
         // ),
         body: StreamBuilder(
-      stream: stream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          stream: stream,
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData) {
           int value;
           value = snapshot.data!.docs.length;
           if (value == 0 || value == null) {
             print("issssss$value");
             return SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                width: widthMobile,
+                height: heightMobile,
                 child: Column(
                   children: <Widget>[
+                    SizedBox(height: heightMobile * 0.13),
                     Image.asset(
                       'assets/nonotices.png',
                       //fit: BoxFit.fitWidth,
-                      width: 280.0,
-                      height: 280,
+                      width: widthMobile * 0.8,
+                      height: heightMobile * 0.4,
                       alignment: Alignment.center,
                     ),
                     Text("No Requests",
                         style: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: heightMobile * 0.04,
                           fontWeight: FontWeight.w300,
                           color: Color(0Xff14619C),
                         )),
@@ -161,20 +166,21 @@ class _guard_requestsState extends State<guard_requests> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: const EdgeInsets.all(3.0),
+                padding: EdgeInsets.all(heightMobile * 0.008),
                 child: Card(
                   elevation: 3.5,
                   child: Expanded(
                     child: SizedBox(
-                      height: heightMobile * 0.22,
+                      height: heightMobile * 0.19,
                       width: widthMobile * 0.9,
                       child: ListView(
                         children: [
                           ListTile(
                             title: Text(
                               "${chatItem["name"]}",
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                                  fontSize: heightMobile * 0.025, fontWeight: FontWeight.bold),
                             ),
 
                             //Phone number and Time
@@ -188,29 +194,30 @@ class _guard_requestsState extends State<guard_requests> {
                                   children: [
                                     Icon(
                                       Icons.add_call,
-                                      size: 12.0,
+                                      size: heightMobile * 0.014,
                                     ),
                                     SizedBox(
-                                      width: widthMobile * 0.01,
+                                      width: widthMobile * 0.02,
                                     ),
-                                    Text("${chatItem["phone"]}"),
+                                    Text("${chatItem["phone"]}", style: TextStyle(fontSize: heightMobile * 0.017),),
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 4.0,
+                                  height: heightMobile * 0.005,
                                 ),
                                 Row(
                                   children: [
                                     Icon(
                                       Icons.access_alarm,
-                                      size: 12.0,
+                                      size: heightMobile * 0.015,
                                     ),
                                     SizedBox(
-                                      width: 6.0,
+                                      width: widthMobile * 0.02,
                                     ),
                                     Text(
                                       "${chatItem["time"]} | ${chatItem["date"]}",
                                       style: TextStyle(
+                                        fontSize: heightMobile * 0.017,
                                         backgroundColor: Color(0XffD1F0E8),
                                       ),
                                     ),
@@ -221,8 +228,8 @@ class _guard_requestsState extends State<guard_requests> {
                             //Id Image
                             leading: ConstrainedBox(
                               constraints: BoxConstraints(
-                                minWidth: widthMobile * 0.1,
-                                minHeight: heightMobile * 0.1,
+                                minWidth: widthMobile * 0.01,
+                                minHeight: heightMobile * 0.01,
                                 maxWidth: widthMobile * 0.15,
                                 maxHeight: heightMobile * 0.15,
                               ),
@@ -244,17 +251,17 @@ class _guard_requestsState extends State<guard_requests> {
                             trailing: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                SizedBox(height: 17),
-                                Text("${chatItem["room"]}"),
-                                SizedBox(height: 3),
-                                Text("${chatItem["enrollment"]}"),
+                                SizedBox(height: heightMobile * 0.025),
+                                Text("${chatItem["room"]}", style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
+                                SizedBox(height: heightMobile * 0.004),
+                                Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
                               ],
                             ),
                             contentPadding:
-                                EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 4.0),
+                            EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.017,heightMobile * 0.017,heightMobile * 0.003),
                           ),
                           SizedBox(
-                            height: 15.0,
+                            height: heightMobile * 0.01,
                           ),
                           //Accept, Decline button
                           Container(
@@ -262,8 +269,8 @@ class _guard_requestsState extends State<guard_requests> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                height: 40.0,
-                                width: 173.0,
+                                height: heightMobile * 0.05,
+                                width: widthMobile * 0.42,
                                 child: ElevatedButton(
                                   onPressed: () {
                                     FirebaseFirestore.instance
@@ -277,7 +284,7 @@ class _guard_requestsState extends State<guard_requests> {
                                   child: Text(
                                     "Accept",
                                     style: TextStyle(
-                                      fontSize: 16.0,
+                                      fontSize: heightMobile * 0.02,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -289,11 +296,11 @@ class _guard_requestsState extends State<guard_requests> {
                                 ),
                               ),
                               SizedBox(
-                                width: 16.0,
+                                width: widthMobile * 0.03,
                               ),
                               Container(
-                                height: 40.0,
-                                width: 173.0,
+                                height: heightMobile * 0.05,
+                                width: widthMobile * 0.42,
                                 child: ElevatedButton(
                                   onPressed: () {
                                     FirebaseFirestore.instance
@@ -307,7 +314,7 @@ class _guard_requestsState extends State<guard_requests> {
                                   child: Text(
                                     "Decline",
                                     style: TextStyle(
-                                      fontSize: 16.0,
+                                      fontSize: heightMobile * 0.02,
                                       color: Colors.red[700],
                                     ),
                                   ),
