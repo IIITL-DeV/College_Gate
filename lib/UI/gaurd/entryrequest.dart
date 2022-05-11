@@ -49,7 +49,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
           int value;
           value = snapshot.data!.docs.length;
           if (value == 0 || value == null) {
-            print("issssss$value");
+            print("issssss $value");
             return SizedBox(
                 width: widthMobile,
                 height: heightMobile,

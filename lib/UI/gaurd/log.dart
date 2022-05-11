@@ -1,6 +1,7 @@
 import 'package:college_gate/UI/signIn.dart';
 import 'package:college_gate/UI/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -26,6 +27,8 @@ class _gaurdlogState extends State<gaurdlog> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -48,21 +51,21 @@ class _gaurdlogState extends State<gaurdlog> {
           if (value == 0 || value == null) {
             print("issssss$value");
             return SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height,
+                width: widthMobile,
+                height: heightMobile,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 200),
+                    SizedBox(height: heightMobile * 0.13),
                     Image.asset(
                       'assets/nonotices.png',
                       //fit: BoxFit.fitWidth,
-                      width: 280.0,
-                      height: 280,
+                      width: widthMobile * 0.8,
+                      height: heightMobile * 0.4,
                       alignment: Alignment.center,
                     ),
                     Text("No logs",
                         style: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: heightMobile * 0.04,
                           fontWeight: FontWeight.w300,
                           color: Color(0Xff14619C),
                         )),
@@ -75,12 +78,12 @@ class _gaurdlogState extends State<gaurdlog> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: const EdgeInsets.all(3.0),
+                padding: EdgeInsets.all(heightMobile * 0.01),
                 child: Card(
                   elevation: 3.5,
                   child: Expanded(
                     child: SizedBox(
-                      height: 115,
+                      height: heightMobile * 0.12,
                       child: ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
@@ -90,57 +93,59 @@ class _gaurdlogState extends State<gaurdlog> {
                             title: Text(
                               "${chatItem["name"]}",
                               style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.ellipsis,
+                                  fontSize: heightMobile * 0.021, fontWeight: FontWeight.bold),
                             ),
 
                             //Phone number and Time
                             subtitle: Container(
                                 child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 4.0,
-                                ),
-                                Row(
                                   children: [
-                                    Icon(
-                                      Icons.add_call,
-                                      size: 12.0,
+                                    SizedBox(
+                                      height: heightMobile * 0.01,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.add_call,
+                                          size: heightMobile * 0.014,
+                                        ),
+                                        SizedBox(
+                                          width: widthMobile * 0.02,
+                                        ),
+                                        Text("${chatItem["phone"]}", style: TextStyle(fontSize: heightMobile * 0.017),),
+                                      ],
                                     ),
                                     SizedBox(
-                                      width: 6.0,
+                                      height: heightMobile * 0.005,
                                     ),
-                                    Text("${chatItem["phone"]}"),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.access_alarm,
+                                          size: heightMobile * 0.015,
+                                        ),
+                                        SizedBox(
+                                          width: widthMobile * 0.02,
+                                        ),
+                                        Text(
+                                          "${chatItem["time"]} | ${chatItem["date"]}",
+                                          style: TextStyle(
+                                            fontSize: heightMobile * 0.017,
+                                            backgroundColor: Color(0XffD1F0E8),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
-                                ),
-                                SizedBox(
-                                  height: 4.0,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.access_alarm,
-                                      size: 12.0,
-                                    ),
-                                    SizedBox(
-                                      width: 6.0,
-                                    ),
-                                    Text(
-                                      "${chatItem["time"]} | ${chatItem["date"]}",
-                                      style: TextStyle(
-                                        backgroundColor: Color(0XffD1F0E8),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )),
+                                )),
                             //Id Image
                             leading: ConstrainedBox(
                               constraints: BoxConstraints(
-                                minWidth: 54,
-                                minHeight: 54,
-                                maxWidth: 74,
-                                maxHeight: 74,
+                                minWidth: widthMobile * 0.01,
+                                minHeight: heightMobile * 0.01,
+                                maxWidth: widthMobile * 0.15,
+                                maxHeight: heightMobile * 0.15,
                               ),
                               child: GestureDetector(
                                   child: Hero(
@@ -160,14 +165,14 @@ class _gaurdlogState extends State<gaurdlog> {
                             trailing: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                SizedBox(height: 17),
-                                Text("${chatItem["room"]}"),
-                                SizedBox(height: 3),
-                                Text("${chatItem["enrollment"]}"),
+                                SizedBox(height: heightMobile * 0.025),
+                                Text("${chatItem["room"]}", style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
+                                SizedBox(height: heightMobile * 0.004),
+                                Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
                               ],
                             ),
                             contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 24.0, 24.0, 0),
+                            EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.017,heightMobile * 0.017,heightMobile * 0.003),
                           ),
                         ],
                       ),

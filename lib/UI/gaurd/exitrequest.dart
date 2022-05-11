@@ -40,7 +40,7 @@ class _guardRequestHomeState extends State<guardRequestHome>
         children: [
           // give the tab bar a height [can change hheight to preferred height]
           Container(
-            height: widthMobile * 0.15,
+            height: heightMobile * 0.073,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(
