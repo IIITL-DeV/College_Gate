@@ -117,19 +117,7 @@ class _guard_requestsState extends State<guard_requests> {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
 
-    // final tab = new TabBar(tabs: <Tab>[
-    //   new Tab(text: "Exit Requests"),
-    //   new Tab(text: "Entry Requests"),
-    // ]);
     return Scaffold(
-        // appBar: new PreferredSize(
-        //   preferredSize: tab.preferredSize,
-        //   child: new Card(
-        //     //elevation: 26.0,
-        //     // color: Color(0Xff14619C),
-        //     child: tab,
-        //   ),
-        // ),
         body: StreamBuilder(
           stream: stream,
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -240,7 +228,7 @@ class _guard_requestsState extends State<guard_requests> {
                                         "${chatItem["idcard"]}",
                                         fit: BoxFit.contain),
                                   ),
-                                  onTap: () {
+                                  onTap: () async {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (_) {
                                       return viewImage(chatItem["idcard"]);

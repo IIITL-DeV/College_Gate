@@ -98,33 +98,6 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
           children: [
             Card(
               elevation: 4,
-              child: Column(children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.19,
-                  child: Ink.image(
-                    image: AssetImage("assets/entry.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                    padding: const EdgeInsets.all(12.0),
-                    alignment: Alignment.centerLeft,
-                    child: Row(children: [
-                      Text("Campus Entry Form"),
-                      IconButton(
-                          alignment: Alignment.centerRight,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EntryForm()));
-                          },
-                          icon: const Icon(Icons.chevron_right)),
-                    ])),
-              ]),
-            ),
-            Card(
-              elevation: 4,
               child: Column(
                 children: [
                   SizedBox(
@@ -154,7 +127,34 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                   ),
                 ],
               ),
-            )
+            ),
+            Card(
+              elevation: 4,
+              child: Column(children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.19,
+                  child: Ink.image(
+                    image: AssetImage("assets/entry.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                    padding: const EdgeInsets.all(12.0),
+                    alignment: Alignment.centerLeft,
+                    child: Row(children: [
+                      Text("Campus Entry Form"),
+                      IconButton(
+                          alignment: Alignment.centerRight,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EntryForm()));
+                          },
+                          icon: const Icon(Icons.chevron_right)),
+                    ])),
+              ]),
+            ),
           ],
         ));
   }

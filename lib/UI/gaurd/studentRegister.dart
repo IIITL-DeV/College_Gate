@@ -21,7 +21,7 @@ class _studentRegisterState extends State<studentRegister> {
   List<List<String>> rows = [];
 
   Future<String> get _localPath async {
-    final directory = await getApplicationSupportDirectory();
+    final directory = await getApplicationDocumentsDirectory();
     return directory.absolute.path;
   }
 
@@ -40,15 +40,21 @@ class _studentRegisterState extends State<studentRegister> {
   }
 
   sendMailAndAttachment() async {
-    final Email email = Email(
+    // final Email email = Email(
+    //   body: 'Hey, the CSV made it!',
+    //   subject: 'Register for ${DateTime.now().toString()}',
+    //   recipients: ['iiitlcollegegate12@gmail.com'],
+    //   isHTML: true,
+    //   attachmentPaths: filePath,
+    // );
+
+    await FlutterEmailSender.send(Email(
       body: 'Hey, the CSV made it!',
       subject: 'Register for ${DateTime.now().toString()}',
       recipients: ['iiitlcollegegate12@gmail.com'],
       isHTML: true,
       attachmentPaths: filePath,
-    );
-
-    await FlutterEmailSender.send(email);
+    ));
   }
 
   var stream;

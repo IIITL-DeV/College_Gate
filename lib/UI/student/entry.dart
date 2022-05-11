@@ -355,7 +355,7 @@ class _EntryFormState extends State<EntryForm> {
             ),
             onPressed: () => {Navigator.pop(context)}),
         title: const Text(
-          "Exit Form",
+          "Entry Form",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
         ),
