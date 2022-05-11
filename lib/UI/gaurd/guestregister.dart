@@ -25,6 +25,8 @@ class _guestRegisterState extends State<guestRegister> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -32,7 +34,7 @@ class _guestRegisterState extends State<guestRegister> {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Color(0Xff15609c),
-            title: Text("College Gate"),
+            title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025),),
             actions: [
               InkWell(
                 onTap: () {
@@ -42,10 +44,11 @@ class _guestRegisterState extends State<guestRegister> {
                   });
                 },
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
                     child: Icon(
                       Icons.exit_to_app,
                       color: Colors.deepPurple[50],
+                      size: heightMobile * 0.027,
                     )),
               )
             ]),
@@ -59,21 +62,21 @@ class _guestRegisterState extends State<guestRegister> {
               if (value == 0 || value == null) {
                 print("issssss$value");
                 return SizedBox(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height,
+                    width: widthMobile,
+                    height: heightMobile,
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 200),
+                        SizedBox(height: heightMobile * 0.13),
                         Image.asset(
                           'assets/nonotices.png',
                           //fit: BoxFit.fitWidth,
-                          width: 280.0,
-                          height: 280,
+                          width: widthMobile * 0.8,
+                          height: heightMobile * 0.4,
                           alignment: Alignment.center,
                         ),
                         Text("No Entry",
                             style: TextStyle(
-                              fontSize: 30.0,
+                              fontSize: heightMobile * 0.04,
                               fontWeight: FontWeight.w300,
                               color: Color(0Xff14619C),
                             )),
@@ -86,57 +89,57 @@ class _guestRegisterState extends State<guestRegister> {
                 itemBuilder: (context, index) {
                   final chatItem = snapshot.data!.docs[index];
                   return Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: EdgeInsets.all(heightMobile * 0.008),
                     child: Card(
                       elevation: 3.5,
                       child: Expanded(
                         child: SizedBox(
-                          height: 110,
+                          height: heightMobile * 0.1,
                           child: ListView(
                             children: [
                               ListTile(
                                 title: Text(
                                   "${chatItem["guestname"]}",
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: heightMobile * 0.021, fontWeight: FontWeight.bold),
                                 ),
-                                trailing: Text("${chatItem["guestphone"]}"),
+                                trailing: Text("${chatItem["guestphone"]}", style: TextStyle(fontSize: heightMobile * 0.017,)),
                                 contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                                EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.001,heightMobile * 0.017,heightMobile * 0.00),
                               ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
-                                    width: 6,
+                                    width: widthMobile * 0.001,
                                   ),
                                   Text(
                                     "Student     ",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 14.0,
+                                      fontSize: heightMobile * 0.017,
                                     ),
                                   ),
                                   //SizedBox(height: 5),
                                   Text(
                                     "4:05 AM | 04-12-2021",
                                     style: TextStyle(
-                                      fontSize: 12.0,
+                                      fontSize: heightMobile * 0.0155,
                                       backgroundColor: Color(0XffD1F0E8),
                                     ),
                                   ),
                                   Icon(
                                     Icons.arrow_forward,
                                     color: Color(0XffD1F0E8),
-                                    size: 11,
+                                    size: heightMobile * 0.015,
                                   ),
 
                                   Text(
                                     "${chatItem["guestentrytime"]} | ${chatItem["guestentrydate"]}",
                                     style: TextStyle(
-                                      fontSize: 12.0,
+                                      fontSize: heightMobile * 0.0155,
                                       backgroundColor: Color(0XffD1F0E8),
                                     ),
                                   ),
