@@ -119,8 +119,8 @@ class _guard_requestsState extends State<guard_requests> {
     double cardheight = heightMobile * 0.20;
     return Scaffold(
         body: StreamBuilder(
-          stream: stream,
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      stream: stream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData) {
           int value;
           value = snapshot.data!.docs.length;
@@ -169,7 +169,6 @@ class _guard_requestsState extends State<guard_requests> {
                             style: TextStyle(
                                 fontSize: cardheight * 0.13, fontWeight: FontWeight.bold),
                           ),
-
                           //Phone number and Time
                           subtitle: Container(
                               child: Column(

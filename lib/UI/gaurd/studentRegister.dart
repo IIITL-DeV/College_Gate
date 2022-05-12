@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/signIn.dart';
@@ -9,14 +8,14 @@ import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
-class studentRegister extends StatefulWidget {
-  const studentRegister({Key? key}) : super(key: key);
+class StudentRegister extends StatefulWidget {
+  const StudentRegister({Key? key}) : super(key: key);
 
   @override
-  _studentRegisterState createState() => _studentRegisterState();
+  _StudentRegisterState createState() => _StudentRegisterState();
 }
 
-class _studentRegisterState extends State<studentRegister> {
+class _StudentRegisterState extends State<StudentRegister> {
   List<String>? filePath;
   List<List<String>> rows = [];
 
@@ -73,9 +72,11 @@ class _studentRegisterState extends State<studentRegister> {
       ]
     ];
     stream = FirebaseFirestore.instance
-        .collection("studentRegister")
+        .collection("StudentRegister")
+
         //      .where("exitisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
+        // .orderBy("exitdate")
         .snapshots();
   }
 
@@ -90,7 +91,10 @@ class _studentRegisterState extends State<studentRegister> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025),),
+          title: Text(
+            "College Gate",
+            style: TextStyle(fontSize: heightMobile * 0.025),
+          ),
           actions: [
             InkWell(
               onTap: () {
@@ -100,7 +104,8 @@ class _studentRegisterState extends State<studentRegister> {
                 });
               },
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
                   child: Icon(
                     Icons.exit_to_app,
                     color: Colors.deepPurple[50],
@@ -172,11 +177,18 @@ class _studentRegisterState extends State<studentRegister> {
                                 "${chatItem["name"]}",
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontSize: heightMobile * 0.021, fontWeight: FontWeight.bold),
+                                    fontSize: heightMobile * 0.021,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              trailing: Text("${chatItem["enrollment"]}", style: TextStyle(fontSize: heightMobile * 0.017,)),
-                              contentPadding:
-                              EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.001,heightMobile * 0.017,heightMobile * 0.00),
+                              trailing: Text("${chatItem["enrollment"]}",
+                                  style: TextStyle(
+                                    fontSize: heightMobile * 0.017,
+                                  )),
+                              contentPadding: EdgeInsets.fromLTRB(
+                                  heightMobile * 0.017,
+                                  heightMobile * 0.001,
+                                  heightMobile * 0.017,
+                                  heightMobile * 0.00),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -249,8 +261,14 @@ class _studentRegisterState extends State<studentRegister> {
             );
           }
         },
-        label: Text('csv File',style: TextStyle(fontSize: heightMobile * 0.02),),
-        icon: Icon(Icons.download, size: heightMobile * 0.035,),
+        label: Text(
+          'csv File',
+          style: TextStyle(fontSize: heightMobile * 0.02),
+        ),
+        icon: Icon(
+          Icons.download,
+          size: heightMobile * 0.035,
+        ),
         backgroundColor: Color(0Xff15609c),
       ),
     );

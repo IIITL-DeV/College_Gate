@@ -367,6 +367,7 @@ class _ExitFormState extends State<ExitForm> {
                                     .set({
                                   'exittime': _recexittime,
                                   'exitdate': _recexitdate,
+                                  'exitdatetime': _recexitdate! + _recexittime!,
                                   'entrydate': null,
                                   'entrytime': null,
                                   'purpose': _purpose,
