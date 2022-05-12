@@ -92,51 +92,56 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               "${chatItem["name"]}",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: heightMobile * 0.025, fontWeight: FontWeight.bold),
+                                  fontSize: heightMobile * 0.025,
+                                  fontWeight: FontWeight.bold),
                             ),
 
                             //Phone number and Time
                             subtitle: Container(
                                 child: Column(
+                              children: [
+                                SizedBox(
+                                  height: heightMobile * 0.01,
+                                ),
+                                Row(
                                   children: [
-                                    SizedBox(
-                                      height: heightMobile * 0.01,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.add_call,
-                                          size: heightMobile * 0.014,
-                                        ),
-                                        SizedBox(
-                                          width: widthMobile * 0.02,
-                                        ),
-                                        Text("${chatItem["phone"]}", style: TextStyle(fontSize: heightMobile * 0.017),),
-                                      ],
+                                    Icon(
+                                      Icons.add_call,
+                                      size: heightMobile * 0.014,
                                     ),
                                     SizedBox(
-                                      height: heightMobile * 0.005,
+                                      width: widthMobile * 0.02,
                                     ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.access_alarm,
-                                          size: heightMobile * 0.015,
-                                        ),
-                                        SizedBox(
-                                          width: widthMobile * 0.02,
-                                        ),
-                                        Text(
-                                          "${chatItem["time"]} | ${chatItem["date"]}",
-                                          style: TextStyle(
-                                            fontSize: heightMobile * 0.017,
-                                            backgroundColor: Color(0XffD1F0E8),
-                                          ),
-                                        ),
-                                      ],
-                                    )
+                                    Text(
+                                      "${chatItem["phone"]}",
+                                      style: TextStyle(
+                                          fontSize: heightMobile * 0.017),
+                                    ),
                                   ],
-                                )),
+                                ),
+                                SizedBox(
+                                  height: heightMobile * 0.005,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.access_alarm,
+                                      size: heightMobile * 0.015,
+                                    ),
+                                    SizedBox(
+                                      width: widthMobile * 0.02,
+                                    ),
+                                    Text(
+                                      "${chatItem["time"]} | ${chatItem["date"]}",
+                                      style: TextStyle(
+                                        fontSize: heightMobile * 0.017,
+                                        backgroundColor: Color(0XffD1F0E8),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )),
                             //Id Image
                             leading: ConstrainedBox(
                               constraints: BoxConstraints(
@@ -155,8 +160,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                   onTap: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (_) {
-                                          return viewImage(chatItem["idcard"]);
-                                        }));
+                                      return viewImage(chatItem["idcard"]);
+                                    }));
                                   }),
                             ),
                             //Room Number
@@ -164,81 +169,94 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 SizedBox(height: heightMobile * 0.025),
-                                Text("${chatItem["room"]}", style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${chatItem["room"]}",
+                                  style: TextStyle(
+                                      fontSize: heightMobile * 0.017,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 SizedBox(height: heightMobile * 0.004),
-                                Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${chatItem["enrollment"]}",
+                                  style: TextStyle(
+                                      fontSize: heightMobile * 0.017,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
-                            contentPadding:
-                            EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.017,heightMobile * 0.017,heightMobile * 0.003),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                heightMobile * 0.017,
+                                heightMobile * 0.017,
+                                heightMobile * 0.017,
+                                heightMobile * 0.003),
                           ),
                           SizedBox(
-                            height: heightMobile * 0.01,
+                            width: widthMobile * 0.03,
                           ),
                           //Accept, Decline button
                           Container(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: heightMobile * 0.05,
-                                    width: widthMobile * 0.42,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        FirebaseFirestore.instance
-                                            .collection("studentUser")
-                                            .doc(chatItem["userid"])
-                                            .update({"entryisapproved": true}).then(
-                                                (_) {
-                                              print("success!");
-                                            });
-                                      },
-                                      child: Text(
-                                        "Accept",
-                                        style: TextStyle(
-                                          fontSize: heightMobile * 0.02,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      style: ButtonStyle(
-                                        backgroundColor:
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: heightMobile * 0.05,
+                                width: widthMobile * 0.42,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    FirebaseFirestore.instance
+                                        .collection("studentUser")
+                                        .doc(chatItem["userid"])
+                                        .update({"entryisapproved": true}).then(
+                                            (_) {
+                                      print("success!");
+                                    });
+                                  },
+                                  child: Text(
+                                    "Accept",
+                                    style: TextStyle(
+                                      fontSize: heightMobile * 0.02,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             Color(0Xff19B38D)),
-                                      ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: widthMobile * 0.03,
+                              ),
+                              Container(
+                                height: heightMobile * 0.05,
+                                width: widthMobile * 0.42,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    FirebaseFirestore.instance
+                                        .collection("studentUser")
+                                        .doc(chatItem["userid"])
+                                        .update({"entryisapproved": null}).then(
+                                            (_) {
+                                      print("success!");
+                                    });
+                                  },
+                                  child: Text(
+                                    "Decline",
+                                    style: TextStyle(
+                                      fontSize: heightMobile * 0.02,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: widthMobile * 0.03,
-                                  ),
-                                  Container(
-                                    height: heightMobile * 0.05,
-                                    width: widthMobile * 0.42,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        FirebaseFirestore.instance
-                                            .collection("studentUser")
-                                            .doc(chatItem["userid"])
-                                            .update({"entryisapproved": null}).then(
-                                                (_) {
-                                              print("success!");
-                                            });
-                                      },
-                                      child: Text(
-                                        "Decline",
-                                        style: TextStyle(
-                                          fontSize: heightMobile * 0.02,
-                                          color: Colors.red[700],
-                                        ),
-                                      ),
-                                      style: ButtonStyle(
-                                        backgroundColor:
+                                  style: ButtonStyle(
+                                    backgroundColor:
                                         MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )),
+                                            Colors.red),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                         ],
                       ),
                     ),
@@ -276,11 +294,3 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
     ));
   }
 }
-
-
-
-
-
-
-
-

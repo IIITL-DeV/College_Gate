@@ -119,8 +119,8 @@ class _guard_requestsState extends State<guard_requests> {
     double cardheight = heightMobile * 0.20;
     return Scaffold(
         body: StreamBuilder(
-          stream: stream,
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      stream: stream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData) {
           int value;
           value = snapshot.data!.docs.length;
@@ -168,7 +168,8 @@ class _guard_requestsState extends State<guard_requests> {
                               "${chatItem["name"]}",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: cardheight * 0.13, fontWeight: FontWeight.bold),
+                                  fontSize: cardheight * 0.13,
+                                  fontWeight: FontWeight.bold),
                             ),
 
                             //Phone number and Time
@@ -187,7 +188,11 @@ class _guard_requestsState extends State<guard_requests> {
                                     SizedBox(
                                       width: widthMobile * 0.02,
                                     ),
-                                    Text("${chatItem["phone"]}", style: TextStyle(fontSize: cardheight * 0.09),),
+                                    Text(
+                                      "${chatItem["phone"]}",
+                                      style: TextStyle(
+                                          fontSize: cardheight * 0.09),
+                                    ),
                                   ],
                                 ),
                                 SizedBox(
@@ -240,16 +245,29 @@ class _guard_requestsState extends State<guard_requests> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 SizedBox(height: cardheight * 0.112),
-                                Text("${chatItem["room"]}", style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${chatItem["room"]}",
+                                  style: TextStyle(
+                                      fontSize: cardheight * 0.09,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 SizedBox(height: cardheight * 0.02),
-                                Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
+                                Text(
+                                  "${chatItem["enrollment"]}",
+                                  style: TextStyle(
+                                      fontSize: cardheight * 0.09,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
-                            contentPadding:
-                            EdgeInsets.fromLTRB(cardheight * 0.1,cardheight * 0.1,cardheight * 0.1,cardheight * 0.05),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                cardheight * 0.1,
+                                cardheight * 0.1,
+                                cardheight * 0.1,
+                                cardheight * 0.05),
                           ),
                           SizedBox(
-                            height: cardheight * 0.05,
+                            height: cardheight * 0.01,
                           ),
                           //Accept, Decline button
                           Column(
@@ -266,8 +284,9 @@ class _guard_requestsState extends State<guard_requests> {
                                         FirebaseFirestore.instance
                                             .collection("studentUser")
                                             .doc(chatItem["userid"])
-                                            .update({"exitisapproved": true}).then(
-                                                (_) {
+                                            .update({
+                                          "exitisapproved": true
+                                        }).then((_) {
                                           print("success!");
                                         });
                                       },
@@ -296,28 +315,30 @@ class _guard_requestsState extends State<guard_requests> {
                                         FirebaseFirestore.instance
                                             .collection("studentUser")
                                             .doc(chatItem["userid"])
-                                            .update({"exitisapproved": null}).then(
-                                                (_) {
+                                            .update({
+                                          "exitisapproved": null
+                                        }).then((_) {
                                           print("success!");
                                         });
                                       },
                                       child: Text(
                                         "Decline",
                                         style: TextStyle(
-                                          fontSize: cardheight * 0.1,
-                                          color: Colors.red[700],
-                                        ),
+                                            fontSize: cardheight * 0.1,
+                                            color: Colors.white),
                                       ),
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Colors.white),
+                                                Colors.red),
                                       ),
                                     ),
                                   )
                                 ],
                               )),
-                              SizedBox(height: cardheight * 0.1,)
+                              SizedBox(
+                                height: cardheight * 0.1,
+                              )
                             ],
                           ),
                         ],

@@ -37,7 +37,8 @@ class _gaurdHomeState extends State<gaurdHome> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         iconSize: heightMobile * 0.038,
-        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
+        selectedIconTheme:
+            IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
         showSelectedLabels: false,
 
         showUnselectedLabels: false,
@@ -61,7 +62,10 @@ class _gaurdHomeState extends State<gaurdHome> {
       ),
       appBar: AppBar(
           backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate", style: TextStyle(fontSize: heightMobile * 0.025),),
+          title: Text(
+            "College Gate",
+            style: TextStyle(fontSize: heightMobile * 0.025),
+          ),
           actions: [
             InkWell(
               onTap: () {
@@ -71,7 +75,8 @@ class _gaurdHomeState extends State<gaurdHome> {
                 });
               },
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
                   child: Icon(
                     Icons.exit_to_app,
                     color: Colors.deepPurple[50],
@@ -107,11 +112,11 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
             Card(
               elevation: 4,
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => studentRegister()));
+                          builder: (context) => StudentRegister()));
                 },
                 child: Column(children: [
                   SizedBox(
@@ -122,19 +127,29 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                     ),
                   ),
                   Container(
-                      padding: EdgeInsets.fromLTRB(heightMobile * 0.015,heightMobile * 0.01,heightMobile * 0.015,heightMobile * 0.01),
+                      padding: EdgeInsets.fromLTRB(
+                          heightMobile * 0.015,
+                          heightMobile * 0.01,
+                          heightMobile * 0.015,
+                          heightMobile * 0.01),
                       alignment: Alignment.centerLeft,
                       child: Row(children: [
-                        Text("Students", style: TextStyle(fontSize: heightMobile * 0.018),),
+                        Text(
+                          "Students",
+                          style: TextStyle(fontSize: heightMobile * 0.018),
+                        ),
                         IconButton(
                             alignment: Alignment.centerRight,
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => studentRegister()));
+                                      builder: (context) => StudentRegister()));
                             },
-                            icon: Icon(Icons.chevron_right, size: heightMobile * 0.03,)),
+                            icon: Icon(
+                              Icons.chevron_right,
+                              size: heightMobile * 0.03,
+                            )),
                       ])),
                 ]),
               ),
@@ -142,11 +157,9 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
             Card(
               elevation: 4,
               child: InkWell(
-                onTap: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => guestRegister()));
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => guestRegister()));
                 },
                 child: Column(
                   children: [
@@ -158,11 +171,18 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(heightMobile * 0.015,heightMobile * 0.01,heightMobile * 0.015,heightMobile * 0.01),
+                      padding: EdgeInsets.fromLTRB(
+                          heightMobile * 0.015,
+                          heightMobile * 0.01,
+                          heightMobile * 0.015,
+                          heightMobile * 0.01),
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
-                          Text("Guests",style: TextStyle(fontSize: heightMobile * 0.018),),
+                          Text(
+                            "Guests",
+                            style: TextStyle(fontSize: heightMobile * 0.018),
+                          ),
                           IconButton(
                               alignment: Alignment.centerRight,
                               onPressed: () {
@@ -171,7 +191,10 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                     MaterialPageRoute(
                                         builder: (context) => guestRegister()));
                               },
-                              icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,))
+                              icon: Icon(
+                                Icons.chevron_right,
+                                size: heightMobile * 0.03,
+                              ))
                         ],
                       ),
                     ),
