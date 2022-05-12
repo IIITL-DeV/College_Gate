@@ -157,171 +157,170 @@ class _guard_requestsState extends State<guard_requests> {
                 padding: EdgeInsets.all(heightMobile * 0.008),
                 child: Card(
                   elevation: 3.5,
-                  child: Expanded(
-                    child: SizedBox(
-                      height: cardheight,
-                      width: widthMobile * 0.9,
-                      child: ListView(
-                        children: [
-                          ListTile(
-                            title: Text(
-                              "${chatItem["name"]}",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: cardheight * 0.13, fontWeight: FontWeight.bold),
-                            ),
+                  child: SizedBox(
+                    height: cardheight,
+                    width: widthMobile * 0.9,
+                    child: ListView(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            "${chatItem["name"]}",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: cardheight * 0.13, fontWeight: FontWeight.bold),
+                          ),
 
-                            //Phone number and Time
-                            subtitle: Container(
-                                child: Column(
+                          //Phone number and Time
+                          subtitle: Container(
+                              child: Column(
+                            children: [
+                              SizedBox(
+                                height: cardheight * 0.04,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.add_call,
+                                    size: cardheight * 0.07,
+                                  ),
+                                  SizedBox(
+                                    width: widthMobile * 0.02,
+                                  ),
+                                  Text("${chatItem["phone"]}", style: TextStyle(fontSize: cardheight * 0.09),),
+                                ],
+                              ),
+                              SizedBox(
+                                height: cardheight * 0.03,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.access_alarm,
+                                    size: cardheight * 0.08,
+                                  ),
+                                  SizedBox(
+                                    width: widthMobile * 0.02,
+                                  ),
+                                  Text(
+                                    "${chatItem["time"]} | ${chatItem["date"]}",
+                                    style: TextStyle(
+                                      fontSize: cardheight * 0.08,
+                                      backgroundColor: Color(0XffD1F0E8),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                          //Id Image
+                          leading: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minWidth: widthMobile * 0.07,
+                              minHeight: cardheight * 0.25,
+                              maxWidth: widthMobile * 0.15,
+                              maxHeight: cardheight * 0.45,
+                            ),
+                            child: GestureDetector(
+                                child: Hero(
+                                  tag: chatItem["idcard"]!,
+                                  child: Image.network(
+                                      "${chatItem["idcard"]}",
+                                      fit: BoxFit.contain),
+                                ),
+                                onTap: () async {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                    return viewImage(chatItem["idcard"]);
+                                  }));
+                                }),
+                          ),
+                          //Room Number
+                          trailing: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(height: cardheight * 0.112),
+                              Text("${chatItem["room"]}", style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
+                              SizedBox(height: cardheight * 0.02),
+                              Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
+                              // SizedBox(height: cardheight * 0.1,)
+                            ],
+                          ),
+                          contentPadding:
+                          EdgeInsets.fromLTRB(cardheight * 0.1,cardheight * 0.1,cardheight * 0.1,cardheight * 0.05),
+                        ),
+                        SizedBox(
+                          height: cardheight * 0.05,
+                        ),
+                        //Accept, Decline button
+                        Column(
+                          children: [
+                            Container(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  height: cardheight * 0.04,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.add_call,
-                                      size: cardheight * 0.07,
-                                    ),
-                                    SizedBox(
-                                      width: widthMobile * 0.02,
-                                    ),
-                                    Text("${chatItem["phone"]}", style: TextStyle(fontSize: cardheight * 0.09),),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: cardheight * 0.03,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.access_alarm,
-                                      size: cardheight * 0.08,
-                                    ),
-                                    SizedBox(
-                                      width: widthMobile * 0.02,
-                                    ),
-                                    Text(
-                                      "${chatItem["time"]} | ${chatItem["date"]}",
+                                Container(
+                                  height: cardheight * 0.25,
+                                  width: widthMobile * 0.42,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection("studentUser")
+                                          .doc(chatItem["userid"])
+                                          .update({"exitisapproved": true}).then(
+                                              (_) {
+                                        print("success!");
+                                      });
+                                    },
+                                    child: Text(
+                                      "Accept",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.08,
-                                        backgroundColor: Color(0XffD1F0E8),
+                                        fontSize: cardheight * 0.1,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                  ],
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Color(0Xff19B38D)),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: widthMobile * 0.03,
+                                ),
+                                Container(
+                                  height: cardheight * 0.25,
+                                  width: widthMobile * 0.42,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection("studentUser")
+                                          .doc(chatItem["userid"])
+                                          .update({"exitisapproved": null}).then(
+                                              (_) {
+                                        print("success!");
+                                      });
+                                    },
+                                    child: Text(
+                                      "Decline",
+                                      style: TextStyle(
+                                        fontSize: cardheight * 0.1,
+                                        color: Colors.red[700],
+                                      ),
+                                    ),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                    ),
+                                  ),
                                 )
                               ],
                             )),
-                            //Id Image
-                            leading: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                minWidth: widthMobile * 0.07,
-                                minHeight: cardheight * 0.25,
-                                maxWidth: widthMobile * 0.15,
-                                maxHeight: cardheight * 0.45,
-                              ),
-                              child: GestureDetector(
-                                  child: Hero(
-                                    tag: chatItem["idcard"]!,
-                                    child: Image.network(
-                                        "${chatItem["idcard"]}",
-                                        fit: BoxFit.contain),
-                                  ),
-                                  onTap: () async {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) {
-                                      return viewImage(chatItem["idcard"]);
-                                    }));
-                                  }),
-                            ),
-                            //Room Number
-                            trailing: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                SizedBox(height: cardheight * 0.112),
-                                Text("${chatItem["room"]}", style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
-                                SizedBox(height: cardheight * 0.02),
-                                Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
-                              ],
-                            ),
-                            contentPadding:
-                            EdgeInsets.fromLTRB(cardheight * 0.1,cardheight * 0.1,cardheight * 0.1,cardheight * 0.05),
-                          ),
-                          SizedBox(
-                            height: cardheight * 0.05,
-                          ),
-                          //Accept, Decline button
-                          Column(
-                            children: [
-                              Container(
-                                  child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: cardheight * 0.25,
-                                    width: widthMobile * 0.42,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        FirebaseFirestore.instance
-                                            .collection("studentUser")
-                                            .doc(chatItem["userid"])
-                                            .update({"exitisapproved": true}).then(
-                                                (_) {
-                                          print("success!");
-                                        });
-                                      },
-                                      child: Text(
-                                        "Accept",
-                                        style: TextStyle(
-                                          fontSize: cardheight * 0.1,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Color(0Xff19B38D)),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: widthMobile * 0.03,
-                                  ),
-                                  Container(
-                                    height: cardheight * 0.25,
-                                    width: widthMobile * 0.42,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        FirebaseFirestore.instance
-                                            .collection("studentUser")
-                                            .doc(chatItem["userid"])
-                                            .update({"exitisapproved": null}).then(
-                                                (_) {
-                                          print("success!");
-                                        });
-                                      },
-                                      child: Text(
-                                        "Decline",
-                                        style: TextStyle(
-                                          fontSize: cardheight * 0.1,
-                                          color: Colors.red[700],
-                                        ),
-                                      ),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )),
-                              SizedBox(height: cardheight * 0.1,)
-                            ],
-                          ),
-                        ],
-                      ),
+                            SizedBox(height: cardheight * 0.1,)
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
