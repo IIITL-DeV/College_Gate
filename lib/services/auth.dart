@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/gaurd/gaurd_home.dart';
 import 'package:college_gate/UI/student/complete_profile.dart';
+import 'package:college_gate/UI/student/homepagecard.dart';
 import 'package:college_gate/UI/warden/wardenhome.dart';
 import 'package:college_gate/helperfunctions/sp_helper.dart';
 import 'package:college_gate/services/database.dart';
@@ -62,9 +64,29 @@ class AuthMethods {
             "singhanu3113@gmail.com") {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => wardenHome()));
-        } else
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => completeProfile()));
+        } else {
+          StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("studentUser")
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final checkuser = snapshot.data!.docs[index];
+                        if (checkuser["email"] == userDetails.email)
+                          return studentHome();
+                        else
+                          return completeProfile();
+                      });
+                }
+                return completeProfile();
+                // Navigator.pushReplacement(context,
+                //     MaterialPageRoute(builder: (context) => completeProfile()));
+              });
+        }
       });
     }
   }
