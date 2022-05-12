@@ -29,6 +29,7 @@ class _gaurdlogState extends State<gaurdlog> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
+    double cardheight = heightMobile * 0.13;
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -81,101 +82,100 @@ class _gaurdlogState extends State<gaurdlog> {
                 padding: EdgeInsets.all(heightMobile * 0.01),
                 child: Card(
                   elevation: 3.5,
-                  child: Expanded(
-                    child: SizedBox(
-                      height: heightMobile * 0.12,
-                      child: ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          ListTile(
-                            onTap: () {}, //Zoom Image Function
-                            //name
-                            title: Text(
-                              "${chatItem["name"]}",
-                              style: TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                  fontSize: heightMobile * 0.021, fontWeight: FontWeight.bold),
-                            ),
-
-                            //Phone number and Time
-                            subtitle: Container(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: heightMobile * 0.01,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.add_call,
-                                          size: heightMobile * 0.014,
-                                        ),
-                                        SizedBox(
-                                          width: widthMobile * 0.02,
-                                        ),
-                                        Text("${chatItem["phone"]}", style: TextStyle(fontSize: heightMobile * 0.017),),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: heightMobile * 0.005,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.access_alarm,
-                                          size: heightMobile * 0.015,
-                                        ),
-                                        SizedBox(
-                                          width: widthMobile * 0.02,
-                                        ),
-                                        Text(
-                                          "${chatItem["time"]} | ${chatItem["date"]}",
-                                          style: TextStyle(
-                                            fontSize: heightMobile * 0.017,
-                                            backgroundColor: Color(0XffD1F0E8),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )),
-                            //Id Image
-                            leading: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                minWidth: widthMobile * 0.01,
-                                minHeight: heightMobile * 0.01,
-                                maxWidth: widthMobile * 0.15,
-                                maxHeight: heightMobile * 0.15,
-                              ),
-                              child: GestureDetector(
-                                  child: Hero(
-                                    tag: chatItem["idcard"],
-                                    child: Image.network(
-                                        "${chatItem["idcard"]}",
-                                        fit: BoxFit.contain),
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) {
-                                      return viewImage(chatItem["idcard"]);
-                                    }));
-                                  }),
-                            ),
-                            //Room Number
-                            trailing: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                SizedBox(height: heightMobile * 0.025),
-                                Text("${chatItem["room"]}", style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
-                                SizedBox(height: heightMobile * 0.004),
-                                Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: heightMobile * 0.017, fontWeight: FontWeight.bold),),
-                              ],
-                            ),
-                            contentPadding:
-                            EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.017,heightMobile * 0.017,heightMobile * 0.003),
+                  child: SizedBox(
+                    height: cardheight,
+                    width: widthMobile * 0.9,
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        ListTile(
+                          onTap: () {}, //Zoom Image Function
+                          //name
+                          title: Text(
+                            "${chatItem["name"]}",
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                                fontSize: cardheight * 0.18, fontWeight: FontWeight.bold),
                           ),
-                        ],
-                      ),
+
+                          //Phone number and Time
+                          subtitle: Container(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: cardheight * 0.06,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.add_call,
+                                        size: cardheight * 0.11,
+                                      ),
+                                      SizedBox(
+                                        width: widthMobile * 0.02,
+                                      ),
+                                      Text("${chatItem["phone"]}", style: TextStyle(fontSize: cardheight * 0.13),),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: cardheight * 0.03,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_alarm,
+                                        size: cardheight * 0.12,
+                                      ),
+                                      SizedBox(
+                                        width: widthMobile * 0.02,
+                                      ),
+                                      Text(
+                                        "${chatItem["time"]} | ${chatItem["date"]}",
+                                        style: TextStyle(
+                                          fontSize: cardheight * 0.13,
+                                          backgroundColor: Color(0XffD1F0E8),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )),
+                          //Id Image
+                          leading: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minWidth: widthMobile * 0.07,
+                              minHeight: cardheight * 0.25,
+                              maxWidth: widthMobile * 0.15,
+                              maxHeight: cardheight * 0.55,
+                            ),
+                            child: GestureDetector(
+                                child: Hero(
+                                  tag: chatItem["idcard"],
+                                  child: Image.network(
+                                      "${chatItem["idcard"]}",
+                                      fit: BoxFit.contain),
+                                ),
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                    return viewImage(chatItem["idcard"]);
+                                  }));
+                                }),
+                          ),
+                          //Room Number
+                          trailing: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(height: cardheight * 0.1),
+                              Text("${chatItem["room"]}", style: TextStyle(fontSize: cardheight * 0.13, fontWeight: FontWeight.bold),),
+                              SizedBox(height: heightMobile * 0.004),
+                              Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: cardheight * 0.13, fontWeight: FontWeight.bold),),
+                            ],
+                          ),
+                          contentPadding:
+                          EdgeInsets.fromLTRB(cardheight * 0.13,cardheight * 0.1,cardheight * 0.14,cardheight * 0.1),
+                        ),
+                      ],
                     ),
                   ),
                 ),

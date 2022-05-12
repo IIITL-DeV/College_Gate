@@ -27,6 +27,7 @@ class _guestRegisterState extends State<guestRegister> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
+    double cardheight = heightMobile * 0.13;
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -94,7 +95,8 @@ class _guestRegisterState extends State<guestRegister> {
                       elevation: 3.5,
                       child: Expanded(
                         child: SizedBox(
-                          height: heightMobile * 0.1,
+                          height: cardheight,
+                          width: widthMobile * 0.9,
                           child: ListView(
                             children: [
                               ListTile(
@@ -102,11 +104,11 @@ class _guestRegisterState extends State<guestRegister> {
                                   "${chatItem["guestname"]}",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: heightMobile * 0.021, fontWeight: FontWeight.bold),
+                                      fontSize: cardheight * 0.18, fontWeight: FontWeight.bold),
                                 ),
-                                trailing: Text("${chatItem["guestphone"]}", style: TextStyle(fontSize: heightMobile * 0.017,)),
+                                trailing: Text("${chatItem["guestphone"]}", style: TextStyle(fontSize: cardheight * 0.13,)),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(heightMobile * 0.017, heightMobile * 0.001,heightMobile * 0.017,heightMobile * 0.00),
+                                EdgeInsets.fromLTRB(cardheight * 0.13,cardheight * 0.1,cardheight * 0.14,cardheight * 0),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -119,27 +121,27 @@ class _guestRegisterState extends State<guestRegister> {
                                     "Student     ",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: heightMobile * 0.017,
+                                      fontSize: cardheight * 0.13,
                                     ),
                                   ),
                                   //SizedBox(height: 5),
                                   Text(
                                     "4:05 AM | 04-12-2021",
                                     style: TextStyle(
-                                      fontSize: heightMobile * 0.0155,
+                                      fontSize: cardheight * 0.13,
                                       backgroundColor: Color(0XffD1F0E8),
                                     ),
                                   ),
                                   Icon(
                                     Icons.arrow_forward,
                                     color: Color(0XffD1F0E8),
-                                    size: heightMobile * 0.015,
+                                    size: cardheight * 0.1,
                                   ),
 
                                   Text(
                                     "${chatItem["guestentrytime"]} | ${chatItem["guestentrydate"]}",
                                     style: TextStyle(
-                                      fontSize: heightMobile * 0.0155,
+                                      fontSize: cardheight * 0.13,
                                       backgroundColor: Color(0XffD1F0E8),
                                     ),
                                   ),

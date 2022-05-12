@@ -116,7 +116,7 @@ class _guard_requestsState extends State<guard_requests> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.20;
+    double cardheight = heightMobile * 0.195;
     return Scaffold(
         body: StreamBuilder(
       stream: stream,
@@ -237,11 +237,11 @@ class _guard_requestsState extends State<guard_requests> {
                           trailing: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: cardheight * 0.112),
+                              SizedBox(height: cardheight * 0.07),
                               Text("${chatItem["room"]}", style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
                               SizedBox(height: cardheight * 0.02),
                               Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
-                              // SizedBox(height: cardheight * 0.1,)
+                              //SizedBox(height: cardheight * 0.1,)
                             ],
                           ),
                           contentPadding:
