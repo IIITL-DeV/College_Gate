@@ -29,9 +29,11 @@ class _grequestpendingState extends State<grequestpending> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
-          title: Text('College Gate'),
+          title: Text('College Gate', style: TextStyle(fontSize: heightMobile * 0.025,),),
           backgroundColor: Color(0Xff15609c),
         ),
         body: StreamBuilder(
@@ -49,22 +51,22 @@ class _grequestpendingState extends State<grequestpending> {
                     print(
                         "issssssssssssssssssss${chatItem["gentryisapproved"]}");
                     return SizedBox(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height,
+                        width: widthMobile,
+                        height: heightMobile,
                         child: Column(
                           children: <Widget>[
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const <Widget>[
+                              children: <Widget>[
                                 SizedBox(
-                                  height: 30,
+                                  height: heightMobile * 0.04,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.all(20),
-                                  child: Text("Your request is Pending...",
+                                  padding: EdgeInsets.all(heightMobile * 0.025),
+                                  child: Text("Your request is pending...",
                                       style: TextStyle(
-                                        fontSize: 35.0,
+                                        fontSize: heightMobile * 0.042,
                                         fontWeight: FontWeight.w400,
                                         color: Color(0Xff14619C),
                                       )),
@@ -75,7 +77,7 @@ class _grequestpendingState extends State<grequestpending> {
                               child: Image.asset(
                                 'assets/requestpending.png',
                                 fit: BoxFit.fitWidth,
-                                width: 320.0,
+                                width: widthMobile * 0.82,
                                 alignment: Alignment.center,
                               ),
                             ),

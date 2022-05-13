@@ -23,7 +23,7 @@ class _requestpendingState extends State<requestpending> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: heightMobile * 0.05,
+                    height: heightMobile * 0.04,
                   ),
                   Padding(
                     padding: EdgeInsets.all(heightMobile * 0.025),
