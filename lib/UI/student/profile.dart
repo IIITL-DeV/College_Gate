@@ -154,9 +154,9 @@ class _ProfileState extends State<Profile> {
               child: Center(
                   child: Column(
                 children: [
-                  SizedBox(height: heightMobile * 0.03),
+                  SizedBox(height: heightMobile * 0.06),
                   SizedBox(
-                    height: heightMobile * 0.13,
+                    height: heightMobile * 0.15,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1500),
                       child: Image.network(
@@ -200,7 +200,6 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                       fontSize: heightMobile * 0.021,
                     ),
-                    readOnly: true,
                   ),
 
                   SizedBox(height: heightMobile * 0.009),
@@ -210,32 +209,31 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                       fontSize: heightMobile * 0.021,
                     ),
-                    readOnly: true,
                   ),
 
-                  SizedBox(height: heightMobile * 0.02),
-                  Row(children: [
-                    Text("ID Card",
-                        style: TextStyle(
-                          fontSize: heightMobile * 0.021,
-                        )),
-                    SizedBox(
-                      width: widthMobile * 0.54,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => viewID()));
-                      },
-                      child: Text(
-                        "View",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: heightMobile * 0.021,
-                        ),
-                      ),
-                    )
-                  ]),
+                  // SizedBox(height: heightMobile * 0.02),
+                  // Row(children: [
+                  //   Text("ID Card",
+                  //       style: TextStyle(
+                  //         fontSize: heightMobile * 0.021,
+                  //       )),
+                  //   SizedBox(
+                  //     width: widthMobile * 0.54,
+                  //   ),
+                  //   GestureDetector(
+                  //     onTap: () {
+                  //       Navigator.push(context,
+                  //           MaterialPageRoute(builder: (context) => viewID()));
+                  //     },
+                  //     child: Text(
+                  //       "View",
+                  //       style: TextStyle(
+                  //         color: Colors.blue,
+                  //         fontSize: heightMobile * 0.021,
+                  //       ),
+                  //     ),
+                  //   )
+                  // ]),
 
                   // Container(
                   //   height: 50,
