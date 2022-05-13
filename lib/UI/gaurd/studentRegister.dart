@@ -84,6 +84,7 @@ class _StudentRegisterState extends State<StudentRegister> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
+    double cardheight = heightMobile * 0.13;
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -168,7 +169,8 @@ class _StudentRegisterState extends State<StudentRegister> {
                     elevation: 3.5,
                     child: Expanded(
                       child: SizedBox(
-                        height: heightMobile * 0.1,
+                        height: cardheight,
+                        width: widthMobile * 0.9,
                         child: ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
@@ -177,18 +179,15 @@ class _StudentRegisterState extends State<StudentRegister> {
                                 "${chatItem["name"]}",
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontSize: heightMobile * 0.021,
+                                    fontSize: cardheight * 0.18,
                                     fontWeight: FontWeight.bold),
                               ),
                               trailing: Text("${chatItem["enrollment"]}",
                                   style: TextStyle(
-                                    fontSize: heightMobile * 0.017,
+                                    fontSize: cardheight * 0.13,
                                   )),
                               contentPadding: EdgeInsets.fromLTRB(
-                                  heightMobile * 0.017,
-                                  heightMobile * 0.001,
-                                  heightMobile * 0.017,
-                                  heightMobile * 0.00),
+                                  cardheight * 0.1,cardheight * 0.1,cardheight * 0.1,cardheight * 0),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -200,26 +199,26 @@ class _StudentRegisterState extends State<StudentRegister> {
                                   "Room ${chatItem["room"]}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: heightMobile * 0.017,
+                                    fontSize: cardheight * 0.13,
                                   ),
                                 ),
                                 //SizedBox(height: 5),
                                 Text(
                                   "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
                                   style: TextStyle(
-                                    fontSize: heightMobile * 0.0155,
+                                    fontSize: cardheight * 0.13,
                                     backgroundColor: Color(0XffD1F0E8),
                                   ),
                                 ),
                                 Icon(
                                   Icons.arrow_forward,
                                   color: Color(0XffD1F0E8),
-                                  size: heightMobile * 0.015,
+                                  size: cardheight * 0.1,
                                 ),
                                 Text(
                                   "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
                                   style: TextStyle(
-                                    fontSize: heightMobile * 0.0155,
+                                    fontSize: cardheight * 0.13,
                                     backgroundColor: Color(0XffD1F0E8),
                                   ),
                                 )

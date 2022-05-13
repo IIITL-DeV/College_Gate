@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:college_gate/UI/gaurd/log.dart';
 import 'package:college_gate/UI/signIn.dart';
 import 'package:college_gate/UI/student/entry.dart';
@@ -30,10 +32,12 @@ class _studentHomeState extends State<studentHome> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 30,
-        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: 40),
+        iconSize: heightMobile * 0.038,
+        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         // this will be set when a new tab is tapped
@@ -56,7 +60,7 @@ class _studentHomeState extends State<studentHome> {
       ),
       appBar: AppBar(
           backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate"),
+          title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025)),
           actions: [
             InkWell(
               onTap: () {
@@ -66,10 +70,11 @@ class _studentHomeState extends State<studentHome> {
                 });
               },
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
                   child: Icon(
                     Icons.exit_to_app,
                     color: Colors.deepPurple[50],
+                    size: heightMobile * 0.027,
                   )),
             )
           ]),
@@ -90,70 +95,96 @@ class studentHomeScreen extends StatefulWidget {
 class _studentHomeScreenState extends State<studentHomeScreen> {
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(16.0),
+        height: heightMobile,
+        width: widthMobile,
+        padding: EdgeInsets.all(heightMobile * 0.02),
         child: Column(
           children: [
-            Card(
-              elevation: 4,
-              child: Column(
-                children: [
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ExitForm()));
+              },
+              child: Card(
+                elevation: 4,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: heightMobile * 0.2,
+                      child: Ink.image(
+                        image: AssetImage("assets/exit.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(
+                          heightMobile * 0.015,
+                          heightMobile * 0.01,
+                          heightMobile * 0.015,
+                          heightMobile * 0.01),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Text("Campus Exit Form",style: TextStyle(fontSize: heightMobile * 0.019),),
+                          IconButton(
+                              alignment: Alignment.centerRight,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ExitForm()));
+                              },
+                              icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,))
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EntryForm()));
+              },
+              child: Card(
+                elevation: 4,
+                child: Column(children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.19,
+                    height: heightMobile * 0.2,
                     child: Ink.image(
-                      image: AssetImage("assets/exit.png"),
+                      image: AssetImage("assets/entry.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(12.0),
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        Text("Campus Exit Form"),
+                      padding: EdgeInsets.fromLTRB(
+                          heightMobile * 0.015,
+                          heightMobile * 0.01,
+                          heightMobile * 0.015,
+                          heightMobile * 0.01),
+                      alignment: Alignment.centerLeft,
+                      child: Row(children: [
+                        Text("Campus Entry Form",style: TextStyle(fontSize: heightMobile * 0.019),),
                         IconButton(
                             alignment: Alignment.centerRight,
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ExitForm()));
+                                      builder: (context) => EntryForm()));
                             },
-                            icon: const Icon(Icons.chevron_right))
-                      ],
-                    ),
-                  ),
-                ],
+                            icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,)),
+                      ])),
+                ]),
               ),
-            ),
-            Card(
-              elevation: 4,
-              child: Column(children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.19,
-                  child: Ink.image(
-                    image: AssetImage("assets/entry.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                    padding: const EdgeInsets.all(12.0),
-                    alignment: Alignment.centerLeft,
-                    child: Row(children: [
-                      Text("Campus Entry Form"),
-                      IconButton(
-                          alignment: Alignment.centerRight,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EntryForm()));
-                          },
-                          icon: const Icon(Icons.chevron_right)),
-                    ])),
-              ]),
             ),
           ],
         ));

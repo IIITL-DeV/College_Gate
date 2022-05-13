@@ -1,6 +1,5 @@
 import 'package:college_gate/UI/guest/appointment.dart';
 import 'package:college_gate/UI/guest/facapp.dart';
-import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -9,13 +8,15 @@ class GuestHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0Xff15609c),
-          title: Text("Book Appointment"),
+          title: Text("Book Appointment", style: TextStyle(fontSize: heightMobile * 0.025),),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(3.0),
+          padding: EdgeInsets.all(heightMobile * 0.003),
           child: Column(
             children: [
               // Container(
@@ -29,72 +30,103 @@ class GuestHome extends StatelessWidget {
               //       )),
               // ),
               Container(
-                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                  padding: EdgeInsets.fromLTRB(
+                      heightMobile * 0.015,
+                      heightMobile * 0.01,
+                      heightMobile * 0.015,
+                      heightMobile * 0.01),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Card(
-                      elevation: 4,
-                      child: Column(children: [
-                        SizedBox(
-                          height: 180.0,
-                          child: Ink.image(
-                            image: AssetImage("assets/studentAppointment.png"),
-                            fit: BoxFit.cover,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => booking()));
+                      },
+                      child: Card(
+                        elevation: 4,
+                        child: Column(children: [
+                          SizedBox(
+                            height: heightMobile * 0.2,
+                            child: Ink.image(
+                              image: AssetImage("assets/studentAppointment.png"),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        Container(
-                            padding: const EdgeInsets.all(12.0),
-                            alignment: Alignment.centerLeft,
-                            child: Row(children: [
-                              Text("Student"),
-                              IconButton(
-                                  alignment: Alignment.centerRight,
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => booking()));
-                                  },
-                                  icon: const Icon(Icons.chevron_right)),
-                            ])),
-                      ]),
+                          Container(
+                              padding: EdgeInsets.all(heightMobile * 0.015),
+                              alignment: Alignment.centerLeft,
+                              child: Row(children: [
+                                Text("Student",style: TextStyle(fontSize: heightMobile * 0.019),),
+                                IconButton(
+                                    alignment: Alignment.centerRight,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => booking()));
+                                    },
+                                    icon: Icon(
+                                      Icons.chevron_right,
+                                      size: heightMobile * 0.03,
+                                    )),
+                              ])),
+                        ]),
+                      ),
                     ),
                   )),
               Container(
-                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 16.0),
+                padding: EdgeInsets.fromLTRB(
+                  heightMobile * 0.015,
+                  heightMobile * 0.01,
+                  heightMobile * 0.015,
+                  heightMobile * 0.01),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: Card(
-                    elevation: 4,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 180.0,
-                          child: Ink.image(
-                            image: AssetImage("assets/facultyAppointment.jpg"),
-                            fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  facbooking()));
+                    },
+                    child: Card(
+                      elevation: 4,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: heightMobile * 0.2,
+                            child: Ink.image(
+                              image: AssetImage("assets/facultyAppointment.jpg"),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(12.0),
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              Text("Faculty"),
-                              IconButton(
-                                  alignment: Alignment.centerRight,
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                facbooking()));
-                                  },
-                                  icon: const Icon(Icons.chevron_right))
-                            ],
+                          Container(
+                            padding: EdgeInsets.all(heightMobile * 0.015),
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                Text("Faculty",style: TextStyle(fontSize: heightMobile * 0.019),),
+                                IconButton(
+                                    alignment: Alignment.centerRight,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  facbooking()));
+                                    },
+                                    icon: Icon(
+                                      Icons.chevron_right,
+                                      size: heightMobile * 0.03,
+                                    )),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

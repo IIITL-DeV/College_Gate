@@ -120,7 +120,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                 },
                 child: Column(children: [
                   SizedBox(
-                    height: heightMobile * 0.19,
+                    height: heightMobile * 0.2,
                     child: Ink.image(
                       image: AssetImage("assets/entry.png"),
                       fit: BoxFit.cover,
@@ -136,7 +136,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                       child: Row(children: [
                         Text(
                           "Students",
-                          style: TextStyle(fontSize: heightMobile * 0.018),
+                          style: TextStyle(fontSize: heightMobile * 0.019),
                         ),
                         IconButton(
                             alignment: Alignment.centerRight,
@@ -164,7 +164,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: heightMobile * 0.19,
+                      height: heightMobile * 0.2,
                       child: Ink.image(
                         image: AssetImage("assets/exit.png"),
                         fit: BoxFit.cover,
@@ -181,7 +181,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                         children: [
                           Text(
                             "Guests",
-                            style: TextStyle(fontSize: heightMobile * 0.018),
+                            style: TextStyle(fontSize: heightMobile * 0.019),
                           ),
                           IconButton(
                               alignment: Alignment.centerRight,

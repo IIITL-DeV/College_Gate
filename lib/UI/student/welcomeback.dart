@@ -13,23 +13,25 @@ class welcomeback extends StatefulWidget {
 class _welcomebackState extends State<welcomeback> {
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SizedBox(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height,
+          width: widthMobile,
+          height: heightMobile,
           child: Column(
             children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
+                children: <Widget>[
                   SizedBox(
-                    height: 30,
+                    height: heightMobile * 0.05,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(heightMobile * 0.025),
                     child: Text("Welcome back !!",
                         style: TextStyle(
-                          fontSize: 40.0,
+                          fontSize: heightMobile * 0.042,
                           fontWeight: FontWeight.w400,
                           color: Color(0Xff14619C),
                         )),
@@ -40,17 +42,17 @@ class _welcomebackState extends State<welcomeback> {
                 child: Image.asset(
                   'assets/welcome.png',
                   fit: BoxFit.fitWidth,
-                  width: 350.0,
+                  width: widthMobile * 0.82,
                   alignment: Alignment.center,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(heightMobile * 0.017),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(400, 50),
+                      minimumSize: Size(widthMobile, heightMobile * 0.028),
                       alignment: Alignment.center,
-                      primary: const Color(0xFF14619C)),
+                      primary: Color(0xFF14619C)),
                   onPressed: () => {
                     FirebaseFirestore.instance
                         .collection('studentUser')
@@ -59,11 +61,11 @@ class _welcomebackState extends State<welcomeback> {
                       {'exitisapproved': null, 'entryisapproved': null},
                     )
                   },
-                  child: const Text(
+                  child: Text(
                     'Done',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: heightMobile * 0.02,
                     ),
                   ),
                 ),

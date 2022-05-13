@@ -105,10 +105,12 @@ class _idcardImageState extends State<idcardImage> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
-        title: Text("College Gate"),
+        title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025)),
       ),
       backgroundColor: Colors.black,
       body: Stack(
@@ -152,7 +154,7 @@ class _idcardImageState extends State<idcardImage> {
                           borderRadius: BorderRadius.circular(30.0),
                           child: _imageFile != null
                               ? Image.file(_imageFile!)
-                              : FlatButton(
+                              : ElevatedButton(
                                   child: Icon(
                                     Icons.add_a_photo,
                                     color: Colors.blue,
@@ -170,10 +172,10 @@ class _idcardImageState extends State<idcardImage> {
                 ),
                 //uploadImageButton(context),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(heightMobile * 0.017),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(400, 50),
+                        minimumSize: Size(widthMobile, heightMobile * 0.028),
                         alignment: Alignment.center,
                         primary: const Color(0xFF14619C)),
                     onPressed: () => {
@@ -183,11 +185,11 @@ class _idcardImageState extends State<idcardImage> {
                           MaterialPageRoute(
                               builder: (context) => studentHome())),
                     },
-                    child: const Text(
+                    child: Text(
                       'Submit',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: heightMobile * 0.02,
                       ),
                     ),
                   ),
@@ -209,7 +211,7 @@ class _idcardImageState extends State<idcardImage> {
                 const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
             margin: const EdgeInsets.only(
                 top: 30, left: 20.0, right: 20.0, bottom: 20.0),
-            child: FlatButton(
+            child: ElevatedButton(
               onPressed: () {},
               child: Text(
                 "Upload Image",

@@ -118,6 +118,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     if (_username == null) {
       return Center(child: CircularProgressIndicator());
     }
@@ -142,79 +144,83 @@ class _ProfileState extends State<Profile> {
         //       )
         //     ]),
         body: SingleChildScrollView(
-      child: Container(
+          child: Container(
           // height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 35.0),
-          child: Form(
+           width: widthMobile,
+            padding: EdgeInsets.symmetric(
+              vertical: heightMobile * 0.04, horizontal: widthMobile * 0.08),
+            child: Form(
               key: _formKey,
               child: Center(
                   child: Column(
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  SizedBox(height: heightMobile * 0.03),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.109,
+                    height: heightMobile * 0.13,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1500),
-                      child: Image.network(_profilePicUrl!),
+                      child: Image.network(
+                        _profilePicUrl!,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  SizedBox(height: heightMobile * 0.015),
                   Text(
                     _username!,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.025,
+                      fontSize: heightMobile * 0.024,
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-
+                  SizedBox(height: heightMobile * 0.009),
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'Enrollnment Number'),
                     initialValue: _enrollmentNo,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                      fontSize: heightMobile * 0.021,
                     ),
                     readOnly: true,
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  SizedBox(height: heightMobile * 0.009),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Email'),
                     initialValue: _email,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                      fontSize: heightMobile * 0.021,
                     ),
                     readOnly: true,
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  SizedBox(height: heightMobile * 0.009),
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'Phone Number'),
                     initialValue: _phoneno,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                      fontSize: heightMobile * 0.021,
                     ),
                     readOnly: true,
                   ),
 
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  SizedBox(height: heightMobile * 0.009),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Room number'),
                     initialValue: _roomno,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.022,
+                      fontSize: heightMobile * 0.021,
                     ),
                     readOnly: true,
                   ),
 
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  SizedBox(height: heightMobile * 0.02),
                   Row(children: [
                     Text("ID Card",
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                          fontSize: heightMobile * 0.021,
                         )),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.50,
+                      width: widthMobile * 0.54,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -225,7 +231,7 @@ class _ProfileState extends State<Profile> {
                         "View",
                         style: TextStyle(
                           color: Colors.blue,
-                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                          fontSize: heightMobile * 0.021,
                         ),
                       ),
                     )

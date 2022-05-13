@@ -183,25 +183,28 @@ class _bookingState extends State<booking> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
         leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back,
               color: Colors.white,
+              size: heightMobile * 0.028,
             ),
             onPressed: () => {Navigator.pop(context)}),
-        title: const Text(
+        title: Text(
           "Appointment Form",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(heightMobile * 0.025),
             child: Form(
               key: _formKey,
               child: Column(
@@ -211,26 +214,26 @@ class _bookingState extends State<booking> {
                   _buildphone(),
                   _buildemail(),
                   _buildRelation(),
-                  SizedBox(height: 20),
+                  SizedBox(height: heightMobile * 0.03),
                   _buildTime(),
-                  SizedBox(height: 20),
+                  SizedBox(height: heightMobile * 0.015),
                   _buildVehicle(),
                   _buildMessage(),
-                  SizedBox(height: 50),
+                  SizedBox(height: heightMobile * 0.05),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(15.0),
                           ),
                           primary: Color(0Xff15609c),
-                          padding: const EdgeInsets.all(13),
+                          padding: EdgeInsets.all(heightMobile * 0.017),
                           // padding: const EdgeInsets.all(10),
-                          minimumSize: const Size(double.infinity, 30)),
-                      child: const Text(
+                          minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                      child: Text(
                         'Submit',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: heightMobile * 0.02,
                         ),
                       ),
                       onPressed: () => {

@@ -94,13 +94,15 @@ class _completeProfileState extends State<completeProfile> {
 
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     if (_profilePicUrl == null) {
       return Center(child: CircularProgressIndicator());
     }
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Color(0Xff15609c),
-            title: Text("College Gate"),
+            title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025)),
             actions: [
               InkWell(
                 onTap: () {
@@ -110,40 +112,39 @@ class _completeProfileState extends State<completeProfile> {
                   });
                 },
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
                     child: Icon(
                       Icons.exit_to_app,
                       color: Colors.deepPurple[50],
+                      size: heightMobile * 0.027,
                     )),
               )
             ]),
         body: SingleChildScrollView(
           child: Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 5.0, horizontal: 40.0),
+              padding: EdgeInsets.symmetric(vertical: heightMobile * 0.04, horizontal: widthMobile * 0.08),
               child: Form(
                   key: _formKey,
                   child: Center(
                       child: Column(
                     children: [
+                      SizedBox(height: heightMobile * 0.03),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
-
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.109,
+                        height: heightMobile * 0.13,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.network(_profilePicUrl!),
+                          borderRadius: BorderRadius.circular(1500),
+                          child: Image.network(
+                            _profilePicUrl!,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
+                      SizedBox(height: heightMobile * 0.015),
                       TextFormField(
                           decoration: const InputDecoration(labelText: 'Name'),
                           initialValue: _username,
                           style: TextStyle(
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.022,
+                            fontSize:heightMobile * 0.021,
                           ),
                           readOnly: true,
                           onSaved: (value) => _username = value,
@@ -155,14 +156,14 @@ class _completeProfileState extends State<completeProfile> {
                             }
                           }),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
+                          height: heightMobile * 0.009),
                       TextFormField(
                           decoration: const InputDecoration(
                               labelText: 'Enrollnment Number'),
                           initialValue: _enrollmentNo,
                           style: TextStyle(
                             fontSize:
-                                MediaQuery.of(context).size.height * 0.022,
+                            heightMobile * 0.021,
                           ),
                           readOnly: true,
                           onSaved: (value) => _enrollmentNo = value,
@@ -174,13 +175,13 @@ class _completeProfileState extends State<completeProfile> {
                             }
                           }),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
+                          height: heightMobile * 0.009),
                       TextFormField(
                           decoration: const InputDecoration(labelText: 'Email'),
                           initialValue: _email,
                           style: TextStyle(
                             fontSize:
-                                MediaQuery.of(context).size.height * 0.022,
+                            heightMobile * 0.021,
                           ),
                           readOnly: true,
                           onSaved: (value) => _email = value,
@@ -192,7 +193,7 @@ class _completeProfileState extends State<completeProfile> {
                             }
                           }),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.009),
+                          height: heightMobile * 0.009),
                       TextFormField(
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
@@ -200,7 +201,7 @@ class _completeProfileState extends State<completeProfile> {
                           onSaved: (value) => _phoneno = value,
                           style: TextStyle(
                             fontSize:
-                                MediaQuery.of(context).size.height * 0.022,
+                            heightMobile * 0.021,
                           ),
                           decoration:
                               const InputDecoration(labelText: 'Phone Number'),
@@ -213,7 +214,7 @@ class _completeProfileState extends State<completeProfile> {
                           }),
 
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
+                          height: heightMobile * 0.009),
                       TextFormField(
                           onSaved: (value) => _roomno = value,
 
@@ -223,7 +224,7 @@ class _completeProfileState extends State<completeProfile> {
                           ],
                           style: TextStyle(
                             fontSize:
-                                MediaQuery.of(context).size.height * 0.022,
+                            heightMobile * 0.021,
                           ),
                           decoration:
                               const InputDecoration(labelText: 'Room Number'),
@@ -235,11 +236,11 @@ class _completeProfileState extends State<completeProfile> {
                             }
                           }),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
+                          height: heightMobile * 0.02),
 
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
+                        height: heightMobile * 0.065,
+                        width: widthMobile * 0.9,
                         margin: EdgeInsets.all(0),
                         child: DropdownButtonHideUnderline(
                           child: GFDropdown(
@@ -251,7 +252,7 @@ class _completeProfileState extends State<completeProfile> {
                             style: TextStyle(
                               color: Colors.black,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.022,
+                              heightMobile * 0.021,
                             ),
                             value: dropdownValue,
                             onChanged: (newValue) {
@@ -277,7 +278,7 @@ class _completeProfileState extends State<completeProfile> {
                       ),
 
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03),
+                          height: heightMobile * 0.028),
 
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -285,13 +286,14 @@ class _completeProfileState extends State<completeProfile> {
                                 borderRadius: new BorderRadius.circular(15.0),
                               ),
                               primary: Color(0Xff15609c),
-                              padding: const EdgeInsets.all(13),
-                              minimumSize: const Size(double.infinity, 30)),
-                          child: const Text(
+                              padding: EdgeInsets.all(heightMobile * 0.017),
+                              // padding: const EdgeInsets.all(10),
+                              minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                          child: Text(
                             'Done',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: heightMobile * 0.022,
                             ),
                           ),
                           onPressed: () async {
