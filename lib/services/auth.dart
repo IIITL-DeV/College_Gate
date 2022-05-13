@@ -33,6 +33,8 @@ class AuthMethods {
     UserCredential? userCredentialResult =
         await auth.signInWithCredential(mycredential);
 
+    final User? user = userCredentialResult.user;
+
     User? userDetails = userCredentialResult.user;
     if (userCredentialResult != null) {
       SharedPreferenceHelper().saveUserEmail(userDetails!.email);
@@ -64,28 +66,14 @@ class AuthMethods {
             "singhanu3113@gmail.com") {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => wardenHome()));
+        } else if (userCredentialResult.additionalUserInfo!.isNewUser) {
+          if (user != null) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => completeProfile()));
+          }
         } else {
-          StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("studentUser")
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasData) {
-                  ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        final checkuser = snapshot.data!.docs[index];
-                        if (checkuser["email"] == userDetails.email)
-                          return studentHome();
-                        else
-                          return completeProfile();
-                      });
-                }
-                return completeProfile();
-                // Navigator.pushReplacement(context,
-                //     MaterialPageRoute(builder: (context) => completeProfile()));
-              });
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => studentHome()));
         }
       });
     }
