@@ -7,7 +7,7 @@ import 'package:photo_view/photo_view.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/gaurd/entryrequest.dart';
-import 'package:college_gate/UI/signIn.dart';
+import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/UI/student/idcardview.dart';
 import 'package:college_gate/UI/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
@@ -302,7 +302,7 @@ class _w_requestsState extends State<w_requests> {
                                   onPressed: () {
                                     FirebaseFirestore.instance
                                         .collection("studentUser")
-                                        .doc(chatItem["userid"])
+                                        .doc(chatItem["email"])
                                         .update({"exitisapproved": null}).then(
                                             (_) {
                                       print("success!");

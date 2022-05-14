@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/UI/signIn.dart';
+import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class guestRegister extends StatefulWidget {
   const guestRegister({Key? key}) : super(key: key);
@@ -35,7 +34,10 @@ class _guestRegisterState extends State<guestRegister> {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Color(0Xff15609c),
-            title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025),),
+            title: Text(
+              "College Gate",
+              style: TextStyle(fontSize: heightMobile * 0.025),
+            ),
             actions: [
               InkWell(
                 onTap: () {
@@ -45,7 +47,8 @@ class _guestRegisterState extends State<guestRegister> {
                   });
                 },
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
                     child: Icon(
                       Icons.exit_to_app,
                       color: Colors.deepPurple[50],
@@ -104,11 +107,18 @@ class _guestRegisterState extends State<guestRegister> {
                                   "${chatItem["guestname"]}",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: cardheight * 0.18, fontWeight: FontWeight.bold),
+                                      fontSize: cardheight * 0.18,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                trailing: Text("${chatItem["guestphone"]}", style: TextStyle(fontSize: cardheight * 0.13,)),
-                                contentPadding:
-                                EdgeInsets.fromLTRB(cardheight * 0.13,cardheight * 0.1,cardheight * 0.14,cardheight * 0),
+                                trailing: Text("${chatItem["guestphone"]}",
+                                    style: TextStyle(
+                                      fontSize: cardheight * 0.13,
+                                    )),
+                                contentPadding: EdgeInsets.fromLTRB(
+                                    cardheight * 0.13,
+                                    cardheight * 0.1,
+                                    cardheight * 0.14,
+                                    cardheight * 0),
                               ),
                               Row(
                                 mainAxisAlignment:

@@ -56,7 +56,7 @@ class _welcomebackState extends State<welcomeback> {
                   onPressed: () => {
                     FirebaseFirestore.instance
                         .collection('studentUser')
-                        .doc((FirebaseAuth.instance.currentUser!).uid)
+                        .doc((FirebaseAuth.instance.currentUser!).email)
                         .update(
                       {'exitisapproved': null, 'entryisapproved': null},
                     )

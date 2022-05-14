@@ -1,4 +1,4 @@
-import 'package:college_gate/UI/signIn.dart';
+import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/UI/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/cupertino.dart';

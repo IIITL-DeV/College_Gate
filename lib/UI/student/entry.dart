@@ -27,74 +27,19 @@ class _EntryFormState extends State<EntryForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> _getphone() async {
+  Future<void> _getdetails() async {
     FirebaseFirestore.instance
         .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
+        .doc((await FirebaseAuth.instance.currentUser!).email)
         .get()
         .then((value) {
       setState(() {
         _phoneno = value.data()!['phone'].toString();
-      });
-    });
-  }
-
-  Future<void> _getUserName() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _username = value.data()!['name'].toString();
-      });
-      print("Name isssssssssssssssssssssssssssssss $_username");
-    });
-  }
-
-  Future<void> _getrollno() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
-        _enrollmentNo = value.data()!['enrollment'].toString();
-      });
-    });
-  }
-
-  Future<void> _getexitdate() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _exitdate = value.data()!['date'].toString();
-      });
-    });
-  }
-
-  Future<void> _getexittime() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
+        _enrollmentNo = value.data()!['enrollment'].toString();
+        _exitdate = value.data()!['date'].toString();
         _exittime = value.data()!['time'].toString();
-      });
-    });
-  }
-
-  Future<void> _getroom() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _roomno = value.data()!['room'].toString();
       });
     });
@@ -104,12 +49,7 @@ class _EntryFormState extends State<EntryForm> {
   void initState() {
     super.initState();
 
-    _getUserName();
-    _getroom();
-    _getrollno();
-    _getphone();
-    _getexitdate();
-    _getexittime();
+    _getdetails();
   }
 
   Widget _buildName() {
@@ -198,7 +138,7 @@ class _EntryFormState extends State<EntryForm> {
                   _recentrydate = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).uid)
+                      .doc((FirebaseAuth.instance.currentUser!).email)
                       .set({'entrydate': value}, SetOptions(merge: true));
                   return null;
                 }
@@ -235,7 +175,7 @@ class _EntryFormState extends State<EntryForm> {
                   _recentrytime = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).uid)
+                      .doc((FirebaseAuth.instance.currentUser!).email)
                       .set({'entrytime': value}, SetOptions(merge: true));
                   return null;
                 }
@@ -276,7 +216,7 @@ class _EntryFormState extends State<EntryForm> {
                   //_exitdate = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).uid)
+                      .doc((FirebaseAuth.instance.currentUser!).email)
                       .set({'entrydate': value}, SetOptions(merge: true));
                   return null;
                 }
@@ -313,7 +253,7 @@ class _EntryFormState extends State<EntryForm> {
                   //_exittime = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).uid)
+                      .doc((FirebaseAuth.instance.currentUser!).email)
                       .set({'entrytime': value}, SetOptions(merge: true));
                   return null;
                 }
@@ -403,7 +343,9 @@ class _EntryFormState extends State<EntryForm> {
                   Divider(),
                   Text(
                     "Entry details",
-                    style: TextStyle(color: Color(0Xff15609c), fontSize: heightMobile * 0.0245),
+                    style: TextStyle(
+                        color: Color(0Xff15609c),
+                        fontSize: heightMobile * 0.0245),
                   ),
                   SizedBox(height: heightMobile * 0.02),
 
@@ -438,7 +380,7 @@ class _EntryFormState extends State<EntryForm> {
                                 FirebaseFirestore.instance
                                     .collection('studentUser')
                                     .doc((FirebaseAuth.instance.currentUser!)
-                                        .uid)
+                                        .email)
                                     .update(
                                   {'entryisapproved': false},
                                 ),
@@ -446,7 +388,7 @@ class _EntryFormState extends State<EntryForm> {
                                 FirebaseFirestore.instance
                                     .collection('studentRegister')
                                     .doc((FirebaseAuth.instance.currentUser!)
-                                            .uid +
+                                            .email! +
                                         _exitdate! +
                                         _exittime!)
                                     .update({

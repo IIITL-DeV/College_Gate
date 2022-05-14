@@ -98,8 +98,10 @@ class _idcardImageState extends State<idcardImage> {
       print(idcard);
       await FirebaseFirestore.instance
           .collection('studentUser')
-          .doc((FirebaseAuth.instance.currentUser!).uid)
-          .set({'idcard': idcard}, SetOptions(merge: true));
+          .doc((FirebaseAuth.instance.currentUser!).email)
+          .update(
+        {'idcard': idcard},
+      );
     });
   }
 
@@ -110,7 +112,8 @@ class _idcardImageState extends State<idcardImage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
-        title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025)),
+        title: Text("College Gate",
+            style: TextStyle(fontSize: heightMobile * 0.025)),
       ),
       backgroundColor: Colors.black,
       body: Stack(

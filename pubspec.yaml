@@ -24,11 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth:
-  firebase_core:
+  firebase_core: ^1.13.1
   google_sign_in:
   shared_preferences:
   random_string:
-  cloud_firestore:
+  cloud_firestore: 
   adobe_xd: ^2.0.0+1
   splash_screen_view: ^3.0.0
   flutter_screenutil: ^5.3.1
@@ -87,7 +87,7 @@ flutter:
     - assets/requestpending.png
     - assets/studentAppointment.png
     - assets/facultyAppointment.jpg
-
+    - assets/iiitl.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
