@@ -1,6 +1,6 @@
-import 'package:college_gate/UI/signIn.dart';
+import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/UI/warden/w_exitrequest.dart';
-import 'package:college_gate/UI/warden/w_studentHomeRegister.dart';
+import 'package:college_gate/UI/warden/w_student_home_register.dart';
 import 'package:college_gate/UI/warden/wardenlog.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';

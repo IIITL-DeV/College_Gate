@@ -1,10 +1,11 @@
 import 'dart:ui';
-
+import 'dart:io';
+import 'package:college_gate/UI/gaurd/studentRegister.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:college_gate/UI/gaurd/guestregister.dart';
 import 'package:college_gate/UI/gaurd/log.dart';
 import 'package:college_gate/UI/gaurd/exitrequest.dart';
-import 'package:college_gate/UI/gaurd/studentRegister.dart';
-import 'package:college_gate/UI/signIn.dart';
+import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/UI/student/exit_screen.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,22 @@ class _gaurdHomeState extends State<gaurdHome> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  Future<void> _deleteCacheDir() async {
+    Directory tempDir = await getTemporaryDirectory();
+
+    if (tempDir.existsSync()) {
+      tempDir.deleteSync(recursive: true);
+    }
+  }
+
+  Future<void> _deleteAppDir() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+
+    if (appDocDir.existsSync()) {
+      appDocDir.deleteSync(recursive: true);
+    }
   }
 
   @override
@@ -69,7 +86,9 @@ class _gaurdHomeState extends State<gaurdHome> {
           actions: [
             InkWell(
               onTap: () {
-                AuthMethods().logout().then((s) {
+                AuthMethods().logout().then((s) async {
+                  await _deleteCacheDir();
+                  await _deleteAppDir();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => SignIn()));
                 });

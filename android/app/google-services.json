@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "329096238857",
+    "firebase_url": "https://college-gate-dbd50-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "college-gate-dbd50",
     "storage_bucket": "college-gate-dbd50.appspot.com"
   },
@@ -14,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "329096238857-0c2e4mce5dqgvhbraa1qd0fgihm473r6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.college_gate",
+            "certificate_hash": "d40aa0e2e6c96853802cecd6d07260c380e7bd78"
+          }
+        },
+        {
           "client_id": "329096238857-rp9kob387scd1hob99lpflds0ott6dsp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.college_gate",
             "certificate_hash": "c2778bcc33f5b8c3bf3bd18af0c6379a2a04020c"
+          }
+        },
+        {
+          "client_id": "329096238857-s4u45ipl8f7ft77sq1lha4691smpk6g1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.college_gate",
+            "certificate_hash": "de769c0bdbd06f5fcdf71efbfb786acddc2b2fd9"
           }
         },
         {

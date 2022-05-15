@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/UI/student/idcardview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../warden/viewimage.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -10,92 +11,19 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String? _profilePicUrl =
-          "https://lh3.googleusercontent.com/a/AATXAJxUk4eg4_2mYAEOjU7K6dx46JYR1Q6HW0WlMPEn=s96-c",
-      _username,
-      _enrollmentNo,
-      _email,
-      _roomno,
-      _phoneno;
-  // getThisUserInfo() async {
-  //   QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo();
-  //   //jab where order by krte hai toh query snapshot bnti hai mtlb collection of doc but hame pata hai ke sirf he data aayega toh haam [0] index use kr rhe wo extract krne ke liye
-
-  //   setState(() {
-  //     name = "${querySnapshot.docs[0]["name"]}";
-  //     profilePicUrl = "${querySnapshot.docs[0]["profileUrl"]}";
-  //     enrollmentNo = "${querySnapshot.docs[0]["enrollment"]}";
-  //     email = "${querySnapshot.docs[0]["email"]}";
-  //     print(name);
-  //   });
-  // }
-  Future<void> _getprofilepicUrl() async {
+  String? _idcard, _username, _enrollmentNo, _email, _roomno, _phoneno;
+  Future<void> getdetails() async {
     FirebaseFirestore.instance
         .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
+        .doc((await FirebaseAuth.instance.currentUser!).email)
         .get()
         .then((value) {
       setState(() {
-        _profilePicUrl = value.data()!['profileUrl'].toString();
-      });
-    });
-  }
-
-  Future<void> _getemail() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
+        _idcard = value.data()!['idcard'].toString();
         _email = value.data()!['email'].toString();
-      });
-    });
-  }
-
-  Future<void> _getUserName() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _username = value.data()!['name'].toString();
-      });
-    });
-  }
-
-  Future<void> _getrollno() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _enrollmentNo = value.data()!['enrollment'].toString();
-      });
-    });
-  }
-
-  Future<void> _getphoneno() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _phoneno = value.data()!['phone'].toString();
-      });
-    });
-  }
-
-  Future<void> _getroomno() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _roomno = value.data()!['room'].toString();
       });
     });
@@ -105,12 +33,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
 
-    _getUserName();
-    _getprofilepicUrl();
-    _getrollno();
-    _getemail();
-    _getphoneno();
-    _getroomno();
+    getdetails();
   }
 
   String? dropdownValue;
@@ -124,32 +47,13 @@ class _ProfileState extends State<Profile> {
       return Center(child: CircularProgressIndicator());
     }
     return Scaffold(
-        // appBar: AppBar(
-        //     backgroundColor: Color(0Xff15609c),
-        //     title: Text("College Gate"),
-        //     actions: [
-        //       InkWell(
-        //         onTap: () {
-        //           AuthMethods().logout().then((s) {
-        //             Navigator.pushReplacement(context,
-        //                 MaterialPageRoute(builder: (context) => SignIn()));
-        //           });
-        //         },
-        //         child: Container(
-        //             padding: EdgeInsets.symmetric(horizontal: 16),
-        //             child: Icon(
-        //               Icons.exit_to_app,
-        //               color: Colors.deepPurple[50],
-        //             )),
-        //       )
-        //     ]),
         body: SingleChildScrollView(
-          child: Container(
+      child: Container(
           // height: MediaQuery.of(context).size.height,
-           width: widthMobile,
-            padding: EdgeInsets.symmetric(
+          width: widthMobile,
+          padding: EdgeInsets.symmetric(
               vertical: heightMobile * 0.04, horizontal: widthMobile * 0.08),
-            child: Form(
+          child: Form(
               key: _formKey,
               child: Center(
                   child: Column(
@@ -159,10 +63,17 @@ class _ProfileState extends State<Profile> {
                     height: heightMobile * 0.14,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1500),
-                      child: Image.network(
-                        _profilePicUrl!,
-                        fit: BoxFit.contain,
-                      ),
+                      child: GestureDetector(
+                          child: Hero(
+                            tag: _idcard!,
+                            child: Image.network(_idcard!, fit: BoxFit.contain),
+                          ),
+                          onTap: () async {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) {
+                              return viewImage(_idcard!);
+                            }));
+                          }),
                     ),
                   ),
                   SizedBox(height: heightMobile * 0.016),
@@ -201,7 +112,6 @@ class _ProfileState extends State<Profile> {
                       fontSize: heightMobile * 0.021,
                     ),
                   ),
-
                   SizedBox(height: heightMobile * 0.009),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Room number'),

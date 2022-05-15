@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:college_gate/UI/gaurd/log.dart';
-import 'package:college_gate/UI/signIn.dart';
+import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/UI/student/entry.dart';
 import 'package:college_gate/UI/student/exit_screen.dart';
 import 'package:college_gate/UI/student/notices.dart';

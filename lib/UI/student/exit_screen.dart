@@ -28,62 +28,17 @@ class _ExitFormState extends State<ExitForm> {
       _purpose;
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> _getphone() async {
+  Future<void> _getdetails() async {
     FirebaseFirestore.instance
         .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
+        .doc((await FirebaseAuth.instance.currentUser!).email)
         .get()
         .then((value) {
       setState(() {
         _phoneno = value.data()!['phone'].toString();
-      });
-    });
-  }
-
-  Future<void> _getpurpose() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _purpose = value.data()!['purpose'].toString();
-      });
-    });
-  }
-
-  Future<void> _getUserName() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _username = value.data()!['name'].toString();
-      });
-      print("Name isssssssssssssssssssssssssssssss $_username");
-    });
-  }
-
-  Future<void> _getrollno() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _enrollmentNo = value.data()!['enrollment'].toString();
-      });
-    });
-  }
-
-  Future<void> _getroom() async {
-    FirebaseFirestore.instance
-        .collection('studentUser')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
-        .get()
-        .then((value) {
-      setState(() {
         _roomno = value.data()!['room'].toString();
       });
     });
@@ -92,11 +47,7 @@ class _ExitFormState extends State<ExitForm> {
   @override
   void initState() {
     super.initState();
-    _getpurpose();
-    _getUserName();
-    _getroom();
-    _getrollno();
-    _getphone();
+    _getdetails();
   }
 
   Widget _buildName() {
@@ -218,7 +169,7 @@ class _ExitFormState extends State<ExitForm> {
                   _recexitdate = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).uid)
+                      .doc((FirebaseAuth.instance.currentUser!).email)
                       .set({
                     'date': value,
                   }, SetOptions(merge: true));
@@ -257,7 +208,7 @@ class _ExitFormState extends State<ExitForm> {
                   _recexittime = value;
                   FirebaseFirestore.instance
                       .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).uid)
+                      .doc((FirebaseAuth.instance.currentUser!).email)
                       .set({'time': value}, SetOptions(merge: true));
                   return null;
                 }
@@ -350,7 +301,7 @@ class _ExitFormState extends State<ExitForm> {
                                 FirebaseFirestore.instance
                                     .collection('studentUser')
                                     .doc((FirebaseAuth.instance.currentUser!)
-                                        .uid)
+                                        .email)
                                     .update(
                                   {'exitisapproved': false},
                                 ),
@@ -358,13 +309,13 @@ class _ExitFormState extends State<ExitForm> {
                                 FirebaseFirestore.instance
                                     .collection('studentUser')
                                     .doc((FirebaseAuth.instance.currentUser!)
-                                        .uid)
+                                        .email)
                                     .set({'purpose': dropdownValue},
                                         SetOptions(merge: true)),
                                 FirebaseFirestore.instance
                                     .collection('studentRegister')
                                     .doc((FirebaseAuth.instance.currentUser!)
-                                            .uid +
+                                            .email! +
                                         _recexitdate! +
                                         _recexittime!)
                                     .set({

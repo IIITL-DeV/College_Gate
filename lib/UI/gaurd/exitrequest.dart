@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/gaurd/entryrequest.dart';
-import 'package:college_gate/UI/signIn.dart';
-import 'package:college_gate/UI/student/idcardview.dart';
+import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/UI/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -242,9 +241,19 @@ class _guard_requestsState extends State<guard_requests> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               SizedBox(height: cardheight * 0.07),
-                              Text("${chatItem["room"]}", style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
+                              Text(
+                                "${chatItem["room"]}",
+                                style: TextStyle(
+                                    fontSize: cardheight * 0.09,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               SizedBox(height: cardheight * 0.02),
-                              Text("${chatItem["enrollment"]}",style: TextStyle(fontSize: cardheight * 0.09, fontWeight: FontWeight.bold),),
+                              Text(
+                                "${chatItem["enrollment"]}",
+                                style: TextStyle(
+                                    fontSize: cardheight * 0.09,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               //SizedBox(height: cardheight * 0.1,)
                             ],
                           ),
@@ -271,7 +280,7 @@ class _guard_requestsState extends State<guard_requests> {
                                     onPressed: () {
                                       FirebaseFirestore.instance
                                           .collection("studentUser")
-                                          .doc(chatItem["userid"])
+                                          .doc(chatItem["email"])
                                           .update({
                                         "exitisapproved": true
                                       }).then((_) {
@@ -302,7 +311,7 @@ class _guard_requestsState extends State<guard_requests> {
                                     onPressed: () {
                                       FirebaseFirestore.instance
                                           .collection("studentUser")
-                                          .doc(chatItem["userid"])
+                                          .doc(chatItem["email"])
                                           .update({
                                         "exitisapproved": null
                                       }).then((_) {
@@ -348,7 +357,7 @@ class _guard_requestsState extends State<guard_requests> {
               //       ElevatedButton(
               //           child: Text('Accept'),
               //           onPressed: () {
-              //             FirebaseFirestore.instance
+              //             tance
               //                 .collection("studentUser")
               //                 .doc(chatItem["userid"])
               //                 .update({"exitisapproved": true}).then((_) {
