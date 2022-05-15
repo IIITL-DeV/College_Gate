@@ -154,9 +154,9 @@ class _ProfileState extends State<Profile> {
               child: Center(
                   child: Column(
                 children: [
-                  SizedBox(height: heightMobile * 0.06),
+                  SizedBox(height: heightMobile * 0.025),
                   SizedBox(
-                    height: heightMobile * 0.15,
+                    height: heightMobile * 0.14,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1500),
                       child: Image.network(
@@ -165,7 +165,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  SizedBox(height: heightMobile * 0.015),
+                  SizedBox(height: heightMobile * 0.016),
                   Text(
                     _username!,
                     overflow: TextOverflow.ellipsis,
@@ -173,7 +173,7 @@ class _ProfileState extends State<Profile> {
                       fontSize: heightMobile * 0.024,
                     ),
                   ),
-                  SizedBox(height: heightMobile * 0.009),
+                  SizedBox(height: heightMobile * 0.01),
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'Enrollnment Number'),
@@ -210,6 +210,27 @@ class _ProfileState extends State<Profile> {
                       fontSize: heightMobile * 0.021,
                     ),
                   ),
+                  SizedBox(height: heightMobile * 0.06),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(15.0),
+                          ),
+                          primary: Color(0Xff15609c),
+                          padding: EdgeInsets.all(heightMobile * 0.017),
+                          // padding: const EdgeInsets.all(10),
+                          minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                      child: Text(
+                        'Save Details',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: heightMobile * 0.02,
+                        ),
+                      ),
+                      onPressed: (){
+                        /////
+
+                      })
 
                   // SizedBox(height: heightMobile * 0.02),
                   // Row(children: [
