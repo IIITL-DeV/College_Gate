@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth:
-  firebase_core: ^1.13.1
+  firebase_core:
   google_sign_in:
   shared_preferences:
   random_string:

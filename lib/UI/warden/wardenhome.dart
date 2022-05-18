@@ -91,39 +91,56 @@ class wardenHomeScreen extends StatefulWidget {
 class _wardenHomeScreenState extends State<wardenHomeScreen> {
   @override
   Widget build(BuildContext context) {
+    double widthMobile = MediaQuery.of(context).size.width;
+    double heightMobile = MediaQuery.of(context).size.height;
     return Container(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              Card(
-                elevation: 4,
-                child: Column(children: [
-                  SizedBox(
-                    height: 180.0,
-                    child: Ink.image(
-                      image: AssetImage("assets/entry.png"),
-                      fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              w_studentRegister()));
+                },
+                child: Card(
+                  elevation: 4,
+                  child: Column(children: [
+                    SizedBox(
+                      height: heightMobile * 0.2,
+                      child: Ink.image(
+                        image: AssetImage("assets/studentAppointment.png"),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  Container(
-                      padding: const EdgeInsets.all(12.0),
-                      alignment: Alignment.centerLeft,
-                      child: Row(children: [
-                        Text("Students"),
-                        IconButton(
-                            alignment: Alignment.centerRight,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          w_studentRegister()));
-                            },
-                            icon: const Icon(Icons.chevron_right)),
-                      ])),
-                ]),
+                    Container(
+                        padding: EdgeInsets.fromLTRB(
+                            heightMobile * 0.02,
+                            heightMobile * 0.01,
+                            heightMobile * 0.015,
+                            heightMobile * 0.01),
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Campus Entry Form",style: TextStyle(fontSize: heightMobile * 0.021,color: Color(0Xff232F77)),),
+                              IconButton(
+                                  alignment: Alignment.centerRight,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                w_studentRegister()));
+                                  },
+                                  icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77))),
+                            ])),
+                  ]),
+                ),
               ),
             ],
           ),

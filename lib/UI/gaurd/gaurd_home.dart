@@ -141,21 +141,24 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                   SizedBox(
                     height: heightMobile * 0.2,
                     child: Ink.image(
-                      image: AssetImage("assets/entry.png"),
+                      image: AssetImage("assets/studentAppointment.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
                   Container(
                       padding: EdgeInsets.fromLTRB(
-                          heightMobile * 0.015,
+                          heightMobile * 0.02,
                           heightMobile * 0.01,
                           heightMobile * 0.015,
                           heightMobile * 0.01),
                       alignment: Alignment.centerLeft,
-                      child: Row(children: [
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+
                         Text(
                           "Students",
-                          style: TextStyle(fontSize: heightMobile * 0.019),
+                          style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff3F795C)),
                         ),
                         IconButton(
                             alignment: Alignment.centerRight,
@@ -168,6 +171,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                             icon: Icon(
                               Icons.chevron_right,
                               size: heightMobile * 0.03,
+                                color: Color(0Xff3F795C)
                             )),
                       ])),
                 ]),
@@ -185,22 +189,23 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                     SizedBox(
                       height: heightMobile * 0.2,
                       child: Ink.image(
-                        image: AssetImage("assets/exit.png"),
+                        image: AssetImage("assets/facultyAppointment.jpg"),
                         fit: BoxFit.cover,
                       ),
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(
-                          heightMobile * 0.015,
+                          heightMobile * 0.02,
                           heightMobile * 0.01,
                           heightMobile * 0.015,
                           heightMobile * 0.01),
                       alignment: Alignment.centerLeft,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Guests",
-                            style: TextStyle(fontSize: heightMobile * 0.019),
+                            style: TextStyle(fontSize: heightMobile * 0.021,color: Color(0Xff232F77)),
                           ),
                           IconButton(
                               alignment: Alignment.centerRight,
@@ -213,6 +218,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                               icon: Icon(
                                 Icons.chevron_right,
                                 size: heightMobile * 0.03,
+                                  color: Color(0Xff232F77)
                               ))
                         ],
                       ),

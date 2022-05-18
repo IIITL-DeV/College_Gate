@@ -138,7 +138,7 @@ class _idcardImageState extends State<idcardImage> {
                       "Scan your ID Card",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: heightMobile * 0.025,
                         //fontStyle: FontStyle.italic
                       ),
                     ),
@@ -150,18 +150,19 @@ class _idcardImageState extends State<idcardImage> {
                       Container(
                         //decoration: Decor,
                         //width: double.infinity,
-                        height: 600,
+                        height: heightMobile * 0.6,
                         // margin: const EdgeInsets.only(
                         //     left: 10.0, right: 10.0, top: 10.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30.0),
                           child: _imageFile != null
                               ? Image.file(_imageFile!)
-                              : ElevatedButton(
+                              : FlatButton(
                                   child: Icon(
                                     Icons.add_a_photo,
                                     color: Colors.blue,
                                     size: 50,
+                                    //semanticLabel: "Take Picture",
                                   ),
                                   onPressed: pickImage,
                                 ),
@@ -171,14 +172,14 @@ class _idcardImageState extends State<idcardImage> {
                   ),
                 ),
                 SizedBox(
-                  height: 100,
+                  height: heightMobile * 0.2,
                 ),
                 //uploadImageButton(context),
                 Padding(
-                  padding: EdgeInsets.all(heightMobile * 0.017),
+                  padding: EdgeInsets.all(heightMobile * 0.02),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: Size(widthMobile, heightMobile * 0.028),
+                        minimumSize: Size(widthMobile, heightMobile * 0.055),
                         alignment: Alignment.center,
                         primary: const Color(0xFF14619C)),
                     onPressed: () => {
@@ -192,7 +193,7 @@ class _idcardImageState extends State<idcardImage> {
                       'Submit',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: heightMobile * 0.02,
+                        fontSize: heightMobile * 0.022,
                       ),
                     ),
                   ),
