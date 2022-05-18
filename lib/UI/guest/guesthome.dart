@@ -15,8 +15,10 @@ class GuestHome extends StatelessWidget {
           backgroundColor: Color(0Xff15609c),
           title: Text("Book Appointment", style: TextStyle(fontSize: heightMobile * 0.025),),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(heightMobile * 0.003),
+        body: Container(
+          height: heightMobile,
+          width: widthMobile,
+          padding: EdgeInsets.all(heightMobile * 0.02),
           child: Column(
             children: [
               // Container(
@@ -29,105 +31,98 @@ class GuestHome extends StatelessWidget {
               //         color: Color(0Xff15609c),
               //       )),
               // ),
-              Container(
-                  padding: EdgeInsets.fromLTRB(
-                      heightMobile * 0.015,
-                      heightMobile * 0.01,
-                      heightMobile * 0.015,
-                      heightMobile * 0.01),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => booking()));
-                      },
-                      child: Card(
-                        elevation: 4,
-                        child: Column(children: [
-                          SizedBox(
-                            height: heightMobile * 0.2,
-                            child: Ink.image(
-                              image: AssetImage("assets/studentAppointment.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                              padding: EdgeInsets.all(heightMobile * 0.015),
-                              alignment: Alignment.centerLeft,
-                              child: Row(children: [
-                                Text("Student",style: TextStyle(fontSize: heightMobile * 0.019),),
-                                IconButton(
-                                    alignment: Alignment.centerRight,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => booking()));
-                                    },
-                                    icon: Icon(
-                                      Icons.chevron_right,
-                                      size: heightMobile * 0.03,
-                                    )),
-                              ])),
-                        ]),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => booking()));
+                },
+                child: Card(
+                  elevation: 4,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: heightMobile * 0.2,
+                        child: Ink.image(
+                          image: AssetImage("assets/studentAppointment.png"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  )),
-              Container(
-                padding: EdgeInsets.fromLTRB(
-                  heightMobile * 0.015,
-                  heightMobile * 0.01,
-                  heightMobile * 0.015,
-                  heightMobile * 0.01),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  facbooking()));
-                    },
-                    child: Card(
-                      elevation: 4,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: heightMobile * 0.2,
-                            child: Ink.image(
-                              image: AssetImage("assets/facultyAppointment.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(heightMobile * 0.015),
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                Text("Faculty",style: TextStyle(fontSize: heightMobile * 0.019),),
-                                IconButton(
-                                    alignment: Alignment.centerRight,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  facbooking()));
-                                    },
-                                    icon: Icon(
-                                      Icons.chevron_right,
-                                      size: heightMobile * 0.03,
-                                    )),
-                              ],
-                            ),
-                          ),
-                        ],
+                      Container(
+                        padding: EdgeInsets.fromLTRB(
+                            heightMobile * 0.02,
+                            heightMobile * 0.01,
+                            heightMobile * 0.015,
+                            heightMobile * 0.01),
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+
+                            Text("Student",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),),
+                            //SizedBox(width: widthMobile * 0.1,),
+                            IconButton(
+                                alignment: Alignment.centerRight,
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => booking()));
+                                },
+                                icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77),))
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
+                ),
+              ),
+              //SizedBox(height: 10,),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => facbooking()));
+                },
+                child: Card(
+                  elevation: 4,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: heightMobile * 0.2,
+                        child: Ink.image(
+                          image: AssetImage("assets/facultyAppointment.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(
+                            heightMobile * 0.02,
+                            heightMobile * 0.01,
+                            heightMobile * 0.015,
+                            heightMobile * 0.01),
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+
+                            Text("Faculty",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),),
+                            //SizedBox(width: widthMobile * 0.1,),
+                            IconButton(
+                                alignment: Alignment.centerRight,
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => facbooking()));
+                                },
+                                icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77),))
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

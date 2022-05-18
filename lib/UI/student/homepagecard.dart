@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:college_gate/UI/faculty/facultyList.dart';
 import 'package:college_gate/UI/gaurd/log.dart';
 import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/UI/student/entry.dart';
@@ -98,149 +99,146 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
-
-      child: Container(
-          height: heightMobile,
-          width: widthMobile,
-          padding: EdgeInsets.all(heightMobile * 0.02),
-          child: Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ExitForm()));
-                },
-                child: Card(
-                  elevation: 4,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: heightMobile * 0.2,
-                        child: Ink.image(
-                          image: AssetImage("assets/exit.png"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Campus Exit Form",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff3F795C)),),
-                            IconButton(
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ExitForm()));
-                                },
-                                icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff3F795C)))
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EntryForm()));
-                },
-                child: Card(
-                  elevation: 4,
-                  child: Column(children: [
+    return Container(
+        height: heightMobile,
+        width: widthMobile,
+        padding: EdgeInsets.all(heightMobile * 0.02),
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ExitForm()));
+              },
+              child: Card(
+                elevation: 4,
+                child: Column(
+                  children: [
                     SizedBox(
-                      height: heightMobile * 0.2,
+                      height: heightMobile * 0.17,
                       child: Ink.image(
-                        image: AssetImage("assets/entry.png"),
+                        image: AssetImage("assets/exit.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                          Text("Campus Entry Form",style: TextStyle(fontSize: heightMobile * 0.021,color: Color(0Xff232F77)),),
+                      padding: EdgeInsets.fromLTRB(
+                          heightMobile * 0.02,
+                          heightMobile * 0.01,
+                          heightMobile * 0.015,
+                          heightMobile * 0.01),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Campus Exit Form",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff3F795C)),),
                           IconButton(
                               alignment: Alignment.centerRight,
                               onPressed: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EntryForm()));
+                                        builder: (context) => ExitForm()));
                               },
-                              icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77))),
-                        ])),
-                  ]),
+                              icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff3F795C)))
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ExitForm()));
-                },
-                child: Card(
-                  elevation: 4,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: heightMobile * 0.2,
-                        child: Ink.image(
-                          image: AssetImage("assets/facultyAppointment.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EntryForm()));
+              },
+              child: Card(
+                elevation: 4,
+                child: Column(children: [
+                  SizedBox(
+                    height: heightMobile * 0.17,
+                    child: Ink.image(
+                      image: AssetImage("assets/entry.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Container(
+                      padding: EdgeInsets.fromLTRB(
+                          heightMobile * 0.02,
+                          heightMobile * 0.01,
+                          heightMobile * 0.015,
+                          heightMobile * 0.01),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
-                            Text("Book Appointment",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),),
-                            //SizedBox(width: widthMobile * 0.1,),
-                            IconButton(
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ExitForm()));
-                                },
-                                icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77),))
-                          ],
-                        ),
+                        Text("Campus Entry Form",style: TextStyle(fontSize: heightMobile * 0.021,color: Color(0Xff232F77)),),
+                        IconButton(
+                            alignment: Alignment.centerRight,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EntryForm()));
+                            },
+                            icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77))),
+                      ])),
+                ]),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FacultyList()));
+              },
+              child: Card(
+                elevation: 4,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: heightMobile * 0.17,
+                      child: Ink.image(
+                        image: AssetImage("assets/facultyAppointment.jpg"),
+                        fit: BoxFit.cover,
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(
+                          heightMobile * 0.02,
+                          heightMobile * 0.01,
+                          heightMobile * 0.015,
+                          heightMobile * 0.01),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          Text("Book Appointment",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),),
+                          //SizedBox(width: widthMobile * 0.1,),
+                          IconButton(
+                              alignment: Alignment.centerRight,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FacultyList()));
+                              },
+                              icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77),))
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          )),
-    );
+            ),
+          ],
+        ));
   }
 }
