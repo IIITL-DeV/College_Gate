@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/services/auth.dart';
@@ -22,6 +24,9 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
         .collection("studentUser")
         .where("entryisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
+        .orderBy("entryisapproved")
+        .orderBy("purpose")
+        .orderBy("entrydatetime", descending: true)
         .snapshots();
   }
 
@@ -178,7 +183,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               cardheight * 0.05),
                         ),
                         SizedBox(
-                          height: cardheight * 0.05,
+                          height: cardheight * 0.03,
                         ),
                         //Accept, Decline button
                         Column(
@@ -196,7 +201,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                           .collection("studentUser")
                                           .doc(chatItem["email"])
                                           .update({
-                                        "entryisapproved": true
+                                        "entryisapproved": null,
+                                        "exitisapproved": null
                                       }).then((_) {
                                         print("success!");
                                       });
@@ -216,7 +222,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: widthMobile * 0.03,
+                                  width: widthMobile * 0.05,
                                 ),
                                 Container(
                                   height: cardheight * 0.25,

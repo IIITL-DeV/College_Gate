@@ -107,6 +107,31 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => gaurdHome()));
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            color: Color(0Xff15609c),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Center(
+                            child: Text(
+                              "Continue as Guard",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
                       Text(
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),

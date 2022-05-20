@@ -39,14 +39,6 @@ class _StudentRegisterState extends State<StudentRegister> {
   }
 
   sendMailAndAttachment() async {
-    // final Email email = Email(
-    //   body: 'Hey, the CSV made it!',
-    //   subject: 'Register for ${DateTime.now().toString()}',
-    //   recipients: ['iiitlcollegegate12@gmail.com'],
-    //   isHTML: true,
-    //   attachmentPaths: filePath,
-    // );
-
     await FlutterEmailSender.send(Email(
       body: 'Hey, the CSV made it!',
       subject: 'Register for ${DateTime.now().toString()}',
@@ -72,11 +64,10 @@ class _StudentRegisterState extends State<StudentRegister> {
       ]
     ];
     stream = FirebaseFirestore.instance
-        .collection("StudentRegister")
-
-        //      .where("exitisapproved", isEqualTo: false)
+        .collection("studentRegister")
         .where("purpose", isEqualTo: "Outing")
-        // .orderBy("exitdate")
+        .orderBy("exitdatetime", descending: true)
+        // .orderBy("purpose")
         .snapshots();
   }
 
@@ -143,95 +134,99 @@ class _StudentRegisterState extends State<StudentRegister> {
                           )),
                     ],
                   ));
-            }
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                final chatItem = snapshot.data!.docs[index];
-                // ignore: unnecessary_statements
-                rows.add(<String>[
-                  chatItem.get('name').toString(),
-                  chatItem.get('purpose').toString(),
-                  chatItem.get('room').toString(),
-                  chatItem.get('exitdate').toString(),
-                  chatItem.get('exittime').toString(),
-                  chatItem.get('entrydate').toString(),
-                  chatItem.get('entrytime').toString()
-                ]);
+            } else
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  final chatItem = snapshot.data!.docs[index];
+                  // ignore: unnecessary_statements
+                  rows.add(<String>[
+                    chatItem.get('name').toString(),
+                    chatItem.get('purpose').toString(),
+                    chatItem.get('room').toString(),
+                    chatItem.get('exitdate').toString(),
+                    chatItem.get('exittime').toString(),
+                    chatItem.get('entrydate').toString(),
+                    chatItem.get('entrytime').toString()
+                  ]);
 
-                print("SHUUUUUU");
-                print(rows.toString());
+                  print("SHUUUUUU");
+                  print(rows.toString());
 
-                return Padding(
-                  padding: EdgeInsets.all(heightMobile * 0.008),
-                  child: Card(
-                    elevation: 3.5,
-                    child: Expanded(
-                      child: SizedBox(
-                        height: cardheight,
-                        width: widthMobile * 0.9,
-                        child: ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                            ListTile(
-                              title: Text(
-                                "${chatItem["name"]}",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: cardheight * 0.18,
-                                    fontWeight: FontWeight.bold),
+                  return Padding(
+                    padding: EdgeInsets.all(heightMobile * 0.008),
+                    child: Card(
+                      elevation: 3.5,
+                      child: Expanded(
+                        child: SizedBox(
+                          height: cardheight,
+                          width: widthMobile * 0.9,
+                          child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              ListTile(
+                                title: Text(
+                                  "${chatItem["name"]}",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: cardheight * 0.18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                trailing: Text("${chatItem["enrollment"]}",
+                                    style: TextStyle(
+                                      fontSize: cardheight * 0.13,
+                                    )),
+                                contentPadding: EdgeInsets.fromLTRB(
+                                    cardheight * 0.1,
+                                    cardheight * 0.1,
+                                    cardheight * 0.1,
+                                    cardheight * 0),
                               ),
-                              trailing: Text("${chatItem["enrollment"]}",
-                                  style: TextStyle(
-                                    fontSize: cardheight * 0.13,
-                                  )),
-                              contentPadding: EdgeInsets.fromLTRB(
-                                  cardheight * 0.1,cardheight * 0.1,cardheight * 0.1,cardheight * 0),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                SizedBox(
-                                  width: widthMobile * 0.001,
-                                ),
-                                Text(
-                                  "Room ${chatItem["room"]}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: cardheight * 0.13,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
+                                    width: widthMobile * 0.001,
                                   ),
-                                ),
-                                //SizedBox(height: 5),
-                                Text(
-                                  "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
-                                  style: TextStyle(
-                                    fontSize: cardheight * 0.13,
-                                    backgroundColor: Color(0XffD1F0E8),
+                                  Text(
+                                    "Room ${chatItem["room"]}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: cardheight * 0.13,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward,
-                                  color: Color(0XffD1F0E8),
-                                  size: cardheight * 0.1,
-                                ),
-                                Text(
-                                  "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
-                                  style: TextStyle(
-                                    fontSize: cardheight * 0.13,
-                                    backgroundColor: Color(0XffD1F0E8),
+                                  //SizedBox(height: 5),
+                                  Text(
+                                    "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
+                                    style: TextStyle(
+                                      fontSize: cardheight * 0.13,
+                                      backgroundColor: Color(0XffD1F0E8),
+                                    ),
                                   ),
-                                )
-                              ],
-                            )
-                          ],
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Color(0XffD1F0E8),
+                                    size: cardheight * 0.1,
+                                  ),
+                                  Text(
+                                    "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
+                                    style: TextStyle(
+                                      fontSize: cardheight * 0.13,
+                                      backgroundColor: Color(0XffD1F0E8),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
-            );
+                  );
+                },
+              );
           }
           return Center(child: CircularProgressIndicator());
         },

@@ -166,7 +166,7 @@ class _EntryFormState extends State<EntryForm> {
                   ),
                 ),
               ),
-              initialValue: DateFormat('kk:mm a').format(times),
+              initialValue: DateFormat('kk:mm').format(times),
               // decoration: const InputDecoration(labelText: 'Time'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -186,7 +186,7 @@ class _EntryFormState extends State<EntryForm> {
   }
 
   Widget _buildexitTime() {
-    DateTime times = DateTime.now();
+    DateTime times = DateTime.now().toUtc().toLocal();
     return Row(
       children: [
         Expanded(
@@ -395,6 +395,15 @@ class _EntryFormState extends State<EntryForm> {
                                   'entrydate': _recentrydate,
                                   'entrytime': _recentrytime,
                                 }),
+                                FirebaseFirestore.instance
+                                    .collection('studentUser')
+                                    .doc((FirebaseAuth.instance.currentUser!)
+                                        .email!)
+                                    .set({
+                                  'entrydatetime':
+                                      _recentrydate! + _recentrytime!,
+                                }, SetOptions(merge: true)),
+
                                 Navigator.pop(context),
                               }
                             else

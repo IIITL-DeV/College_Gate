@@ -108,6 +108,9 @@ class _guard_requestsState extends State<guard_requests> {
         .collection("studentUser")
         .where("exitisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
+        .orderBy("exitisapproved")
+        .orderBy("purpose")
+        .orderBy("exitdatetime", descending: true)
         .snapshots();
   }
 
@@ -264,7 +267,7 @@ class _guard_requestsState extends State<guard_requests> {
                               cardheight * 0.05),
                         ),
                         SizedBox(
-                          height: cardheight * 0.01,
+                          height: cardheight * 0.03,
                         ),
                         //Accept, Decline button
                         Column(
@@ -302,7 +305,7 @@ class _guard_requestsState extends State<guard_requests> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: widthMobile * 0.03,
+                                  width: widthMobile * 0.05,
                                 ),
                                 Container(
                                   height: cardheight * 0.25,

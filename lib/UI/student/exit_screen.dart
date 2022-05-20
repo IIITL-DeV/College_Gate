@@ -139,7 +139,7 @@ class _ExitFormState extends State<ExitForm> {
   }
 
   Widget _buildTime() {
-    DateTime times = DateTime.now();
+    DateTime times = DateTime.now().toUtc().toLocal();
     return Row(
       children: [
         Expanded(
@@ -199,7 +199,7 @@ class _ExitFormState extends State<ExitForm> {
                   ),
                 ),
               ),
-              initialValue: DateFormat('kk:mm a').format(times),
+              initialValue: DateFormat('kk:mm').format(times),
               // decoration: const InputDecoration(labelText: 'Time'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
