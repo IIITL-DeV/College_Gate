@@ -259,12 +259,13 @@ class _ExitFormState extends State<ExitForm> {
       ),
       body: SingleChildScrollView(
         child: Container(
-            padding: EdgeInsets.all(heightMobile * 0.022),
+            padding: EdgeInsets.all(heightMobile * 0.025),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: heightMobile * 0.01,),
                   _buildName(),
                   _buildRoll(),
                   _buildYear(),
@@ -274,7 +275,7 @@ class _ExitFormState extends State<ExitForm> {
                   SizedBox(height: heightMobile * 0.022),
                   _buildHostel(),
                   _buildMessage(),
-                  SizedBox(height: heightMobile * 0.05),
+                  SizedBox(height: heightMobile * 0.08),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(

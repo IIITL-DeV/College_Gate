@@ -60,11 +60,11 @@ class _facbookingState extends State<facbooking> {
   Widget _buildemail() {
     return TextFormField(
         decoration:
-            const InputDecoration(labelText: 'Visting faculty email ID'),
+            const InputDecoration(labelText: 'Visiting Faculty Email ID'),
         //initialValue: _enrollmentNo!,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Visting facutly email ID is required";
+            return "Visiting Faculty Email ID is required";
           } else {
             genrollnment = value;
             return null;
@@ -196,7 +196,7 @@ class _facbookingState extends State<facbooking> {
             ),
             onPressed: () => {Navigator.pop(context)}),
         title: Text(
-          "Appointment Form",
+          "Faculty Appointment Form",
           style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
           textAlign: TextAlign.center,
         ),
@@ -214,12 +214,12 @@ class _facbookingState extends State<facbooking> {
                   _buildphone(),
                   _buildemail(),
                   _buildRelation(),
-                  SizedBox(height: heightMobile * 0.03),
+                  SizedBox(height: heightMobile * 0.04),
                   _buildTime(),
                   SizedBox(height: heightMobile * 0.015),
                   _buildVehicle(),
                   _buildMessage(),
-                  SizedBox(height: heightMobile * 0.05),
+                  SizedBox(height: heightMobile * 0.06),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(

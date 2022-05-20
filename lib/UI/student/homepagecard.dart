@@ -117,7 +117,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: heightMobile * 0.17,
+                      height: heightMobile * 0.169,
                       child: Ink.image(
                         image: AssetImage("assets/exit.png"),
                         fit: BoxFit.cover,
@@ -161,7 +161,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                 elevation: 4,
                 child: Column(children: [
                   SizedBox(
-                    height: heightMobile * 0.17,
+                    height: heightMobile * 0.169,
                     child: Ink.image(
                       image: AssetImage("assets/entry.png"),
                       fit: BoxFit.cover,
@@ -203,7 +203,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: heightMobile * 0.17,
+                      height: heightMobile * 0.169,
                       child: Ink.image(
                         image: AssetImage("assets/facultyAppointment.jpg"),
                         fit: BoxFit.cover,

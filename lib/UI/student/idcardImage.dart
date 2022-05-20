@@ -130,7 +130,7 @@ class _idcardImageState extends State<idcardImage> {
             // margin: const EdgeInsets.only(top: 80),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 100),
+                SizedBox(height: heightMobile * 0.1),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
@@ -144,6 +144,8 @@ class _idcardImageState extends State<idcardImage> {
                     ),
                   ),
                 ),
+                SizedBox(height: heightMobile * 0.01),
+
                 Expanded(
                   child: Stack(
                     children: <Widget>[
