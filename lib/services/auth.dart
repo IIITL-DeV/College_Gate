@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/UI/faculty/completeProfileFaculty.dart';
+import 'package:college_gate/UI/faculty/facultyCompleteProfile.dart';
 import 'package:college_gate/UI/faculty/facultyhome.dart';
 import 'package:college_gate/UI/gaurd/gaurd_home.dart';
 import 'package:college_gate/UI/student/complete_profile.dart';
@@ -91,7 +91,7 @@ class AuthMethods {
               await Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => completeProfileFaculty()));
+                      builder: (context) => FacultyCompleteProfile()));
             }
           } else {
             SnackBar(
