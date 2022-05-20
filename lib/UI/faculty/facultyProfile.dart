@@ -70,23 +70,16 @@ class _facultyProfileState extends State<facultyProfile> {
                       child: Column(
                         children: [
                           SizedBox(height: heightMobile * 0.025),
-                          // SizedBox(
-                          //   height: heightMobile * 0.15,
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(100),
-                          //     child: GestureDetector(
-                          //         child: Hero(
-                          //           tag: _idcard!,
-                          //           child: Image.network(_idcard!, fit: BoxFit.contain),
-                          //         ),
-                          //         onTap: () async {
-                          //           Navigator.push(context,
-                          //               MaterialPageRoute(builder: (_) {
-                          //                 return viewImage(_idcard!);
-                          //               }));
-                          //         }),
-                          //   ),
-                          // ),
+                          SizedBox(
+                            height: heightMobile * 0.14,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(1500),
+                              child: Image.asset(
+                                "assets/entry.png",
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
                           SizedBox(height: heightMobile * 0.016),
                           Text(
                             "Dr. Vishal Krishna Singh",
