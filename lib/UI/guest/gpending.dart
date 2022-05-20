@@ -33,8 +33,21 @@ class _grequestpendingState extends State<grequestpending> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
-          title: Text('College Gate', style: TextStyle(fontSize: heightMobile * 0.025,),),
           backgroundColor: Color(0Xff15609c),
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  height: heightMobile * 0.028,
+                  child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                width: 10,
+              ),
+              Text("College Gate",
+                  style: TextStyle(fontSize: heightMobile * 0.028)),
+            ],
+          ),
         ),
         body: StreamBuilder(
           stream: stream,

@@ -60,11 +60,11 @@ class _bookingState extends State<booking> {
   Widget _buildemail() {
     return TextFormField(
         decoration:
-            const InputDecoration(labelText: "Visting student's email id"),
+            const InputDecoration(labelText: "Visiting Student's Email ID"),
         //initialValue: _enrollmentNo!,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Visting student's Email ID is required";
+            return "Visiting Student's Email ID is required";
           } else {
             genrollnment = value;
             return null;
@@ -196,7 +196,7 @@ class _bookingState extends State<booking> {
             ),
             onPressed: () => {Navigator.pop(context)}),
         title: Text(
-          "Appointment Form",
+          "Student Appointment Form",
           style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
           textAlign: TextAlign.center,
         ),
@@ -214,12 +214,12 @@ class _bookingState extends State<booking> {
                   _buildphone(),
                   _buildemail(),
                   _buildRelation(),
-                  SizedBox(height: heightMobile * 0.03),
+                  SizedBox(height: heightMobile * 0.04),
                   _buildTime(),
                   SizedBox(height: heightMobile * 0.015),
                   _buildVehicle(),
                   _buildMessage(),
-                  SizedBox(height: heightMobile * 0.05),
+                  SizedBox(height: heightMobile * 0.06),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(

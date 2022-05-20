@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:io';
+import 'package:college_gate/UI/gaurd/deliveryEntry.dart';
 import 'package:college_gate/UI/gaurd/studentRegister.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:college_gate/UI/gaurd/guestregister.dart';
@@ -78,31 +79,48 @@ class _gaurdHomeState extends State<gaurdHome> {
         onTap: _onTapTapped,
       ),
       appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          title: Text(
-            "College Gate",
-            style: TextStyle(fontSize: heightMobile * 0.025),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                AuthMethods().logout().then((s) async {
-                  await _deleteCacheDir();
-                  await _deleteAppDir();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignIn()));
-                });
-              },
-              child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-                  child: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.deepPurple[50],
-                    size: heightMobile * 0.027,
-                  )),
-            )
-          ]),
+        backgroundColor: Color(0Xff15609c),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: heightMobile * 0.028,
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 10,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: heightMobile * 0.028)),
+          ],
+        ),
+      ),
+      // AppBar(
+      //     backgroundColor: Color(0Xff15609c),
+      //     title: Text(
+      //       "College Gate",
+      //       style: TextStyle(fontSize: heightMobile * 0.025),
+      //     ),
+      //     actions: [
+      //       InkWell(
+      //         onTap: () {
+      //           AuthMethods().logout().then((s) async {
+      //             await _deleteCacheDir();
+      //             await _deleteAppDir();
+      //             Navigator.pushReplacement(context,
+      //                 MaterialPageRoute(builder: (context) => SignIn()));
+      //           });
+      //         },
+      //         child: Container(
+      //             padding:
+      //                 EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+      //             child: Icon(
+      //               Icons.exit_to_app,
+      //               color: Colors.deepPurple[50],
+      //               size: heightMobile * 0.027,
+      //             )),
+      //       )
+      //     ]),
       body: Container(
         child: _pages.elementAt(_currentIndex),
       ),
@@ -122,85 +140,62 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-    return Container(
-        height: heightMobile,
-        width: widthMobile,
-        padding: EdgeInsets.all(heightMobile * 0.02),
-        child: Column(
-          children: [
-            Card(
-              elevation: 4,
-              child: InkWell(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          // Add your onPressed code here!
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DeliveryEntry()));
+        },
+        label: Text(
+          'New Entry',
+          style: TextStyle(fontSize: heightMobile * 0.02),
+        ),
+        icon: Icon(
+          Icons.add,
+          size: heightMobile * 0.035,
+        ),
+        backgroundColor: Color(0Xff15609c),
+      ),
+      body: Container(
+          height: heightMobile,
+          width: widthMobile,
+          padding: EdgeInsets.all(heightMobile * 0.02),
+          child: Column(
+            children: [
+              InkWell(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => StudentRegister()));
                 },
-                child: Column(children: [
-                  SizedBox(
-                    height: heightMobile * 0.2,
-                    child: Ink.image(
-                      image: AssetImage("assets/entry.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                      padding: EdgeInsets.fromLTRB(
-                          heightMobile * 0.015,
-                          heightMobile * 0.01,
-                          heightMobile * 0.015,
-                          heightMobile * 0.01),
-                      alignment: Alignment.centerLeft,
-                      child: Row(children: [
-                        Text(
-                          "Students",
-                          style: TextStyle(fontSize: heightMobile * 0.019),
-                        ),
-                        IconButton(
-                            alignment: Alignment.centerRight,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => StudentRegister()));
-                            },
-                            icon: Icon(
-                              Icons.chevron_right,
-                              size: heightMobile * 0.03,
-                            )),
-                      ])),
-                ]),
-              ),
-            ),
-            Card(
-              elevation: 4,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => guestRegister()));
-                },
-                child: Column(
-                  children: [
+                child: Card(
+                  elevation: 4,
+                  child: Column(children: [
                     SizedBox(
                       height: heightMobile * 0.2,
                       child: Ink.image(
-                        image: AssetImage("assets/exit.png"),
+                        image: AssetImage("assets/studentAppointment.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(
-                          heightMobile * 0.015,
-                          heightMobile * 0.01,
-                          heightMobile * 0.015,
-                          heightMobile * 0.01),
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
+                        padding: EdgeInsets.fromLTRB(
+                            heightMobile * 0.02,
+                            heightMobile * 0.01,
+                            heightMobile * 0.015,
+                            heightMobile * 0.01),
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+
                           Text(
-                            "Guests",
-                            style: TextStyle(fontSize: heightMobile * 0.019),
+                            "Students",
+                            style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),
                           ),
                           IconButton(
                               alignment: Alignment.centerRight,
@@ -208,20 +203,69 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => guestRegister()));
+                                        builder: (context) => StudentRegister()));
                               },
                               icon: Icon(
                                 Icons.chevron_right,
                                 size: heightMobile * 0.03,
-                              ))
-                        ],
-                      ),
-                    ),
-                  ],
+                                  color: Color(0Xff232F77)
+                              )),
+                        ])),
+                  ]),
                 ),
               ),
-            )
-          ],
-        ));
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => guestRegister()));
+                },
+                child: Card(
+                  elevation: 4,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: heightMobile * 0.2,
+                        child: Ink.image(
+                          image: AssetImage("assets/facultyAppointment.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(
+                            heightMobile * 0.02,
+                            heightMobile * 0.01,
+                            heightMobile * 0.015,
+                            heightMobile * 0.01),
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Guests",
+                              style: TextStyle(fontSize: heightMobile * 0.021,color: Color(0Xff232F77)),
+                            ),
+                            IconButton(
+                                alignment: Alignment.centerRight,
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => guestRegister()));
+                                },
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  size: heightMobile * 0.03,
+                                    color: Color(0Xff232F77)
+                                ))
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          )),
+    );
   }
 }

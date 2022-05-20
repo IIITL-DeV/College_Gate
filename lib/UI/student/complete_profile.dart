@@ -39,7 +39,7 @@ class _completeProfileState extends State<completeProfile> {
     _getUserDetails();
   }
 
-  String? dropdownValue;
+  String? dropdownValue,hostelDropDown;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -58,14 +58,14 @@ class _completeProfileState extends State<completeProfile> {
         body: SingleChildScrollView(
           child: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: heightMobile * 0.04,
-                  horizontal: widthMobile * 0.08),
+                  vertical: heightMobile * 0.02,
+                  horizontal: widthMobile * 0.07),
               child: Form(
                   key: _formKey,
                   child: Center(
                       child: Column(
                     children: [
-                      SizedBox(height: heightMobile * 0.03),
+                      SizedBox(height: heightMobile * 0.02),
                       SizedBox(
                         height: heightMobile * 0.13,
                         child: ClipRRect(
@@ -76,12 +76,12 @@ class _completeProfileState extends State<completeProfile> {
                           ),
                         ),
                       ),
-                      SizedBox(height: heightMobile * 0.015),
+                      SizedBox(height: heightMobile * 0.02),
                       TextFormField(
                           decoration: const InputDecoration(labelText: 'Name'),
                           initialValue: _username,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: heightMobile * 0.02,
                           ),
                           readOnly: true,
                           onSaved: (value) => _username = value,
@@ -98,7 +98,7 @@ class _completeProfileState extends State<completeProfile> {
                               labelText: 'Enrollnment Number'),
                           initialValue: _enrollmentNo,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: heightMobile * 0.02,
                           ),
                           readOnly: true,
                           onSaved: (value) => _enrollmentNo = value,
@@ -114,7 +114,7 @@ class _completeProfileState extends State<completeProfile> {
                           decoration: const InputDecoration(labelText: 'Email'),
                           initialValue: _email,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: heightMobile * 0.02,
                           ),
                           readOnly: true,
                           onSaved: (value) => _email = value,
@@ -132,7 +132,7 @@ class _completeProfileState extends State<completeProfile> {
                           ],
                           onSaved: (value) => _phoneno = value,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: heightMobile * 0.02,
                           ),
                           decoration:
                               const InputDecoration(labelText: 'Phone Number'),
@@ -152,7 +152,7 @@ class _completeProfileState extends State<completeProfile> {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: heightMobile * 0.02,
                           ),
                           decoration:
                               const InputDecoration(labelText: 'Room Number'),
@@ -177,27 +177,63 @@ class _completeProfileState extends State<completeProfile> {
                             dropdownButtonColor: Colors.white,
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: heightMobile * 0.021,
+                              fontSize: heightMobile * 0.02,
                             ),
-                            value: dropdownValue,
+                            value: hostelDropDown,
                             onChanged: (newValue) {
                               setState(() {
-                                dropdownValue = newValue as String?;
+                                hostelDropDown = newValue as String?;
                               });
                             },
                             hint: Text(
-                              "Sign in as",
+                              "Hostel",
                             ),
-                            items: ['Student', 'Faculty']
+                            items: ['Hostel 1', 'Hostel 2']
                                 .map((value) => DropdownMenuItem(
-                                      value: value,
-                                      child: Text(value),
-                                    ))
+                              value: value,
+                              child: Text(value),
+                            ))
                                 .toList(),
                           ),
                         ),
                       ),
-                      SizedBox(height: heightMobile * 0.028),
+                      // SizedBox(height: heightMobile * 0.02),
+                      //
+                      // Container(
+                      //   height: heightMobile * 0.065,
+                      //   width: widthMobile * 0.9,
+                      //   margin: EdgeInsets.all(0),
+                      //   child: DropdownButtonHideUnderline(
+                      //     child: GFDropdown(
+                      //       padding: const EdgeInsets.all(15),
+                      //       borderRadius: BorderRadius.circular(5),
+                      //       border: const BorderSide(
+                      //           color: Colors.black12, width: 1),
+                      //       dropdownButtonColor: Colors.white,
+                      //       style: TextStyle(
+                      //         color: Colors.black,
+                      //         fontSize: heightMobile * 0.02,
+                      //       ),
+                      //       value: dropdownValue,
+                      //       onChanged: (newValue) {
+                      //         setState(() {
+                      //           dropdownValue = newValue as String?;
+                      //         });
+                      //       },
+                      //       hint: Text(
+                      //         "Sign in as",
+                      //       ),
+                      //       items: ['Student', 'Faculty']
+                      //           .map((value) => DropdownMenuItem(
+                      //                 value: value,
+                      //                 child: Text(value),
+                      //               ))
+                      //           .toList(),
+                      //     ),
+                      //   ),
+                      // ),
+
+                      SizedBox(height: heightMobile * 0.07),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               shape: new RoundedRectangleBorder(

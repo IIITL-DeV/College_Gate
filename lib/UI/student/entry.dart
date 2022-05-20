@@ -306,7 +306,7 @@ class _EntryFormState extends State<EntryForm> {
       ),
       body: SingleChildScrollView(
         child: Container(
-            padding: EdgeInsets.all(heightMobile * 0.02),
+            padding: EdgeInsets.all(heightMobile * 0.025),
             child: Form(
               key: _formKey,
               child: Column(
@@ -353,7 +353,7 @@ class _EntryFormState extends State<EntryForm> {
                   //SizedBox(height: 20),
                   //  _buildHostel(),
                   //_buildMessage(),
-                  SizedBox(height: heightMobile * 0.04),
+                  SizedBox(height: heightMobile * 0.06),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(

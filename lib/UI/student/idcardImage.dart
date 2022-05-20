@@ -112,8 +112,20 @@ class _idcardImageState extends State<idcardImage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
-        title: Text("College Gate",
-            style: TextStyle(fontSize: heightMobile * 0.025)),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: heightMobile * 0.028,
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 10,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: heightMobile * 0.028)),
+          ],
+        ),
       ),
       backgroundColor: Colors.black,
       body: Stack(
@@ -130,7 +142,7 @@ class _idcardImageState extends State<idcardImage> {
             // margin: const EdgeInsets.only(top: 80),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 100),
+                SizedBox(height: heightMobile * 0.1),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
@@ -138,30 +150,33 @@ class _idcardImageState extends State<idcardImage> {
                       "Scan your ID Card",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: heightMobile * 0.025,
                         //fontStyle: FontStyle.italic
                       ),
                     ),
                   ),
                 ),
+                SizedBox(height: heightMobile * 0.01),
+
                 Expanded(
                   child: Stack(
                     children: <Widget>[
                       Container(
                         //decoration: Decor,
                         //width: double.infinity,
-                        height: 600,
+                        height: heightMobile * 0.6,
                         // margin: const EdgeInsets.only(
                         //     left: 10.0, right: 10.0, top: 10.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30.0),
                           child: _imageFile != null
                               ? Image.file(_imageFile!)
-                              : ElevatedButton(
+                              : FlatButton(
                                   child: Icon(
                                     Icons.add_a_photo,
                                     color: Colors.blue,
                                     size: 50,
+                                    //semanticLabel: "Take Picture",
                                   ),
                                   onPressed: pickImage,
                                 ),
@@ -171,14 +186,14 @@ class _idcardImageState extends State<idcardImage> {
                   ),
                 ),
                 SizedBox(
-                  height: 100,
+                  height: heightMobile * 0.2,
                 ),
                 //uploadImageButton(context),
                 Padding(
-                  padding: EdgeInsets.all(heightMobile * 0.017),
+                  padding: EdgeInsets.all(heightMobile * 0.02),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: Size(widthMobile, heightMobile * 0.028),
+                        minimumSize: Size(widthMobile, heightMobile * 0.055),
                         alignment: Alignment.center,
                         primary: const Color(0xFF14619C)),
                     onPressed: () => {
@@ -192,7 +207,7 @@ class _idcardImageState extends State<idcardImage> {
                       'Submit',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: heightMobile * 0.02,
+                        fontSize: heightMobile * 0.022,
                       ),
                     ),
                   ),
