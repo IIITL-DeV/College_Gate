@@ -148,15 +148,15 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
           padding: EdgeInsets.all(heightMobile * 0.02),
           child: Column(
             children: [
-              Card(
-                elevation: 4,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StudentRegister()));
-                  },
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StudentRegister()));
+                },
+                child: Card(
+                  elevation: 4,
                   child: Column(children: [
                     SizedBox(
                       height: heightMobile * 0.2,
@@ -197,13 +197,13 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                   ]),
                 ),
               ),
-              Card(
-                elevation: 4,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => guestRegister()));
-                  },
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => guestRegister()));
+                },
+                child: Card(
+                  elevation: 4,
                   child: Column(
                     children: [
                       SizedBox(
