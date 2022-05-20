@@ -28,6 +28,8 @@ class _wardenHomeState extends State<wardenHome> {
 
   @override
   Widget build(BuildContext context) {
+    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 30,
@@ -55,7 +57,7 @@ class _wardenHomeState extends State<wardenHome> {
       ),
       appBar: AppBar(
           backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate"),
+          title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025)),
           actions: [
             InkWell(
               onTap: () {

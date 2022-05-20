@@ -65,7 +65,7 @@ class _completeProfileState extends State<completeProfile> {
                   child: Center(
                       child: Column(
                     children: [
-                      SizedBox(height: heightMobile * 0.03),
+                      SizedBox(height: heightMobile * 0.02),
                       SizedBox(
                         height: heightMobile * 0.13,
                         child: ClipRRect(
