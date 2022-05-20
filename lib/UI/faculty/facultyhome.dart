@@ -53,23 +53,6 @@ class _FacultyHomeState extends State<FacultyHome> {
         currentIndex: _currentIndex,
         onTap: _onTapTapped,
       ),
-      appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025)),
-          actions: [
-            InkWell(
-              onTap: () {
-
-              },
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-                  child: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.deepPurple[50],
-                    size: heightMobile * 0.027,
-                  )),
-            )
-          ]),
       body: Container(
         child: _pages.elementAt(_currentIndex),
       ),
@@ -91,6 +74,23 @@ class _AppointmentListState extends State<AppointmentList> {
     double heightMobile = MediaQuery.of(context).size.height;
     double cardheight = heightMobile * 0.195;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0Xff15609c),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: heightMobile * 0.028,
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 10,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: heightMobile * 0.028)),
+          ],
+        ),
+      ),
         body: ListView.builder(
                 shrinkWrap: true,
                 itemCount: 5,

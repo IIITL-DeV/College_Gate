@@ -15,6 +15,23 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     double heightMobile = MediaQuery.of(context).size.height;
     double cardheight = heightMobile * 0.2;
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0Xff15609c),
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  height: heightMobile * 0.028,
+                  child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                width: 10,
+              ),
+              Text("College Gate",
+                  style: TextStyle(fontSize: heightMobile * 0.028)),
+            ],
+          ),
+        ),
         body: ListView.builder(
       shrinkWrap: true,
       itemCount: 5,

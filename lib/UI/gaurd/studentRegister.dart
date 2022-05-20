@@ -91,29 +91,35 @@ class _StudentRegisterState extends State<StudentRegister> {
     // ]);
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          title: Text(
-            "College Gate",
-            style: TextStyle(fontSize: heightMobile * 0.025),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                AuthMethods().logout().then((s) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignIn()));
-                });
-              },
-              child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-                  child: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.deepPurple[50],
-                    size: heightMobile * 0.027,
-                  )),
-            )
-          ]),
+        backgroundColor: Color(0Xff15609c),
+        centerTitle: true,
+        title: Text("Student Register",
+          style: TextStyle(fontSize: heightMobile * 0.027),),
+      ),
+      // AppBar(
+      //     backgroundColor: Color(0Xff15609c),
+      //     title: Text(
+      //       "College Gate",
+      //       style: TextStyle(fontSize: heightMobile * 0.025),
+      //     ),
+      //     actions: [
+      //       InkWell(
+      //         onTap: () {
+      //           AuthMethods().logout().then((s) {
+      //             Navigator.pushReplacement(context,
+      //                 MaterialPageRoute(builder: (context) => SignIn()));
+      //           });
+      //         },
+      //         child: Container(
+      //             padding:
+      //                 EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+      //             child: Icon(
+      //               Icons.exit_to_app,
+      //               color: Colors.deepPurple[50],
+      //               size: heightMobile * 0.027,
+      //             )),
+      //       )
+      //     ]),
       body: StreamBuilder(
         stream: stream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

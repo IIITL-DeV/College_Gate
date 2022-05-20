@@ -56,24 +56,22 @@ class _wardenHomeState extends State<wardenHome> {
         onTap: _onTapTapped,
       ),
       appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.025)),
-          actions: [
-            InkWell(
-              onTap: () {
-                AuthMethods().logout().then((s) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignIn()));
-                });
-              },
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.deepPurple[50],
-                  )),
-            )
-          ]),
+        backgroundColor: Color(0Xff15609c),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: heightMobile * 0.028,
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 10,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: heightMobile * 0.028)),
+          ],
+        ),
+      ),
       body: Container(
         child: _pages.elementAt(_currentIndex),
       ),

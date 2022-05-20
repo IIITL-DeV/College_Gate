@@ -24,30 +24,19 @@ class _w_studentRegisterState extends State<w_studentRegister> {
 
   @override
   Widget build(BuildContext context) {
+    double heightMobile = MediaQuery.of(context).size.height;
+
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
     // ]);
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: Color(0Xff15609c),
-            title: Text("College Gate"),
-            actions: [
-              InkWell(
-                onTap: () {
-                  AuthMethods().logout().then((s) {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => SignIn()));
-                  });
-                },
-                child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Icon(
-                      Icons.exit_to_app,
-                      color: Colors.deepPurple[50],
-                    )),
-              )
-            ]),
+          backgroundColor: Color(0Xff15609c),
+          centerTitle: true,
+          title: Text("Guest Register",
+            style: TextStyle(fontSize: heightMobile * 0.027),),
+        ),
         body: StreamBuilder(
           stream: stream,
           builder:

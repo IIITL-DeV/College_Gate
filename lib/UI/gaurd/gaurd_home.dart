@@ -79,31 +79,48 @@ class _gaurdHomeState extends State<gaurdHome> {
         onTap: _onTapTapped,
       ),
       appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          title: Text(
-            "College Gate",
-            style: TextStyle(fontSize: heightMobile * 0.025),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                AuthMethods().logout().then((s) async {
-                  await _deleteCacheDir();
-                  await _deleteAppDir();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignIn()));
-                });
-              },
-              child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-                  child: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.deepPurple[50],
-                    size: heightMobile * 0.027,
-                  )),
-            )
-          ]),
+        backgroundColor: Color(0Xff15609c),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: heightMobile * 0.028,
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 10,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: heightMobile * 0.028)),
+          ],
+        ),
+      ),
+      // AppBar(
+      //     backgroundColor: Color(0Xff15609c),
+      //     title: Text(
+      //       "College Gate",
+      //       style: TextStyle(fontSize: heightMobile * 0.025),
+      //     ),
+      //     actions: [
+      //       InkWell(
+      //         onTap: () {
+      //           AuthMethods().logout().then((s) async {
+      //             await _deleteCacheDir();
+      //             await _deleteAppDir();
+      //             Navigator.pushReplacement(context,
+      //                 MaterialPageRoute(builder: (context) => SignIn()));
+      //           });
+      //         },
+      //         child: Container(
+      //             padding:
+      //                 EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+      //             child: Icon(
+      //               Icons.exit_to_app,
+      //               color: Colors.deepPurple[50],
+      //               size: heightMobile * 0.027,
+      //             )),
+      //       )
+      //     ]),
       body: Container(
         child: _pages.elementAt(_currentIndex),
       ),
@@ -178,7 +195,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
 
                           Text(
                             "Students",
-                            style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff3F795C)),
+                            style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),
                           ),
                           IconButton(
                               alignment: Alignment.centerRight,
@@ -191,7 +208,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                               icon: Icon(
                                 Icons.chevron_right,
                                 size: heightMobile * 0.03,
-                                  color: Color(0Xff3F795C)
+                                  color: Color(0Xff232F77)
                               )),
                         ])),
                   ]),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 
 import '../warden/viewimage.dart';
 
@@ -12,6 +13,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   String? _idcard, _username, _enrollmentNo, _email, _roomno, _phoneno;
+  bool isEdit = false;
   Future<void> getdetails() async {
     FirebaseFirestore.instance
         .collection('studentUser')
@@ -36,7 +38,7 @@ class _ProfileState extends State<Profile> {
     getdetails();
   }
 
-  String? dropdownValue;
+  String? hostelDropDown;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -47,6 +49,47 @@ class _ProfileState extends State<Profile> {
       return Center(child: CircularProgressIndicator());
     }
     return Scaffold(
+      appBar: isEdit ? AppBar(
+        backgroundColor: Color(0Xff15609c),
+        title: Text(
+            "Edit Profile",
+            style: TextStyle(fontSize: heightMobile * 0.025)),
+        centerTitle: true,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: heightMobile * 0.028,
+            ),
+            onPressed: () {
+              setState(() {
+                isEdit = false;
+              });
+            }),
+      )
+          :
+      AppBar(
+          backgroundColor: Color(0Xff15609c),
+          title: Text(
+              "Profile",
+              style: TextStyle(fontSize: heightMobile * 0.025)),
+          actions: [
+            InkWell(
+              onTap: () {
+                setState(() {
+                  isEdit = true;
+                });
+
+              },
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+                  child: Icon(
+                    Icons.edit,
+                    color: Colors.deepPurple[50],
+                    size: heightMobile * 0.027,
+                  )),
+            )
+          ]),
         body: SingleChildScrollView(
       child: Container(
           // height: MediaQuery.of(context).size.height,
@@ -60,9 +103,9 @@ class _ProfileState extends State<Profile> {
                 children: [
                   SizedBox(height: heightMobile * 0.025),
                   SizedBox(
-                    height: heightMobile * 0.14,
+                    height: heightMobile * 0.15,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(1500),
+                      borderRadius: BorderRadius.circular(100),
                       child: GestureDetector(
                           child: Hero(
                             tag: _idcard!,
@@ -105,6 +148,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   SizedBox(height: heightMobile * 0.009),
                   TextFormField(
+                    readOnly: !isEdit,
                     decoration:
                         const InputDecoration(labelText: 'Phone Number'),
                     initialValue: _phoneno,
@@ -114,14 +158,57 @@ class _ProfileState extends State<Profile> {
                   ),
                   SizedBox(height: heightMobile * 0.009),
                   TextFormField(
+                    readOnly: !isEdit,
                     decoration: const InputDecoration(labelText: 'Room number'),
                     initialValue: _roomno,
                     style: TextStyle(
                       fontSize: heightMobile * 0.021,
                     ),
                   ),
+                  SizedBox(height: isEdit ? heightMobile * 0.02 : heightMobile * 0.009),
+                  isEdit ?
+                  Container(
+                    height: heightMobile * 0.065,
+                    width: widthMobile * 0.9,
+                    margin: EdgeInsets.all(0),
+                    child: DropdownButtonHideUnderline(
+                      child: GFDropdown(
+                        padding: const EdgeInsets.all(15),
+                        borderRadius: BorderRadius.circular(5),
+                        border: const BorderSide(
+                            color: Colors.black12, width: 1),
+                        dropdownButtonColor: Colors.white,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: heightMobile * 0.02,
+                        ),
+                        value: hostelDropDown,
+                        onChanged: (newValue) {
+                          setState(() {
+                            hostelDropDown = newValue as String?;
+                          });
+                        },
+                        hint: Text(
+                          "Hostel",
+                        ),
+                        items: ['Hostel 1', 'Hostel 2']
+                            .map((value) => DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        ))
+                            .toList(),
+                      ),
+                    ),
+                  )
+                      : TextFormField(
+                    decoration: const InputDecoration(labelText: 'Hostel'),
+                    initialValue: "Hostel 1",
+                    style: TextStyle(
+                      fontSize: heightMobile * 0.021,
+                    ),
+                  ),
                   SizedBox(height: heightMobile * 0.06),
-                  ElevatedButton(
+                  isEdit ? ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(15.0),
@@ -134,6 +221,31 @@ class _ProfileState extends State<Profile> {
                         'Save Details',
                         style: TextStyle(
                           color: Colors.white,
+                          fontSize: heightMobile * 0.02,
+                        ),
+                      ),
+                      onPressed: (){
+                        /////
+                        setState(() {
+                          isEdit = false;
+                        });
+                        /////
+
+                      })
+                      :
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(15.0),
+                          ),
+                          primary: Colors.white,
+                          padding: EdgeInsets.all(heightMobile * 0.017),
+                          // padding: const EdgeInsets.all(10),
+                          minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: Color(0XffDB0000),
                           fontSize: heightMobile * 0.02,
                         ),
                       ),

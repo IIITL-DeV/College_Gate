@@ -88,6 +88,7 @@ flutter:
     - assets/studentAppointment.png
     - assets/facultyAppointment.jpg
     - assets/iiitl.png
+    - assets/cg_white.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
