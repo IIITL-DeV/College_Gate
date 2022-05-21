@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/UI/sign_in.dart';
 import 'package:college_gate/services/auth.dart';

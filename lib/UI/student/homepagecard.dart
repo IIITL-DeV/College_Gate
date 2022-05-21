@@ -40,7 +40,8 @@ class _studentHomeState extends State<studentHome> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         iconSize: heightMobile * 0.038,
-        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
+        selectedIconTheme:
+            IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         // this will be set when a new tab is tapped
@@ -61,7 +62,6 @@ class _studentHomeState extends State<studentHome> {
         currentIndex: _currentIndex,
         onTap: _onTapTapped,
       ),
-
       body: Container(
         child: _pages.elementAt(_currentIndex),
       ),
@@ -83,35 +83,38 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          centerTitle: true,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
+        backgroundColor: Color(0Xff15609c),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
                 height: heightMobile * 0.028,
-                  child: Image.asset("assets/cg_white.png")),
-              SizedBox(width: 10,),
-              Text("College Gate",style: TextStyle(fontSize: heightMobile * 0.028)),
-            ],
-          ),
-          // actions: [
-          //   InkWell(
-          //     onTap: () {
-          //       AuthMethods().logout().then((s) {
-          //         Navigator.pushReplacement(context,
-          //             MaterialPageRoute(builder: (context) => SignIn()));
-          //       });
-          //     },
-          //     child: Container(
-          //         padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-          //         child: Icon(
-          //           Icons.exit_to_app,
-          //           color: Colors.deepPurple[50],
-          //           size: heightMobile * 0.027,
-          //         )),
-          //   )
-          // ]
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 10,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: heightMobile * 0.028)),
+          ],
+        ),
+        // actions: [
+        //   InkWell(
+        //     onTap: () {
+        //       AuthMethods().logout().then((s) {
+        //         Navigator.pushReplacement(context,
+        //             MaterialPageRoute(builder: (context) => SignIn()));
+        //       });
+        //     },
+        //     child: Container(
+        //         padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+        //         child: Icon(
+        //           Icons.exit_to_app,
+        //           color: Colors.deepPurple[50],
+        //           size: heightMobile * 0.027,
+        //         )),
+        //   )
+        // ]
       ),
       body: Container(
           height: heightMobile,
@@ -121,10 +124,8 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ExitForm()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ExitForm()));
                 },
                 child: Card(
                   elevation: 4,
@@ -147,7 +148,12 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Campus Exit Form",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),),
+                            Text(
+                              "Campus Exit Form",
+                              style: TextStyle(
+                                  fontSize: heightMobile * 0.021,
+                                  color: Color(0Xff232F77)),
+                            ),
                             IconButton(
                                 alignment: Alignment.centerRight,
                                 onPressed: () {
@@ -156,7 +162,9 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                       MaterialPageRoute(
                                           builder: (context) => ExitForm()));
                                 },
-                                icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77)))
+                                icon: Icon(Icons.chevron_right,
+                                    size: heightMobile * 0.03,
+                                    color: Color(0Xff232F77)))
                           ],
                         ),
                       ),
@@ -166,10 +174,8 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EntryForm()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EntryForm()));
                 },
                 child: Card(
                   elevation: 4,
@@ -191,26 +197,31 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                          Text("Campus Entry Form",style: TextStyle(fontSize: heightMobile * 0.021,color: Color(0Xff232F77)),),
-                          IconButton(
-                              alignment: Alignment.centerRight,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EntryForm()));
-                              },
-                              icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77))),
-                        ])),
+                              Text(
+                                "Campus Entry Form",
+                                style: TextStyle(
+                                    fontSize: heightMobile * 0.021,
+                                    color: Color(0Xff232F77)),
+                              ),
+                              IconButton(
+                                  alignment: Alignment.centerRight,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => EntryForm()));
+                                  },
+                                  icon: Icon(Icons.chevron_right,
+                                      size: heightMobile * 0.03,
+                                      color: Color(0Xff232F77))),
+                            ])),
                   ]),
                 ),
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FacultyList()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FacultyList()));
                 },
                 child: Card(
                   elevation: 4,
@@ -233,8 +244,12 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
-                            Text("Book Appointment",style: TextStyle(fontSize: heightMobile * 0.021, color: Color(0Xff232F77)),),
+                            Text(
+                              "Book Appointment",
+                              style: TextStyle(
+                                  fontSize: heightMobile * 0.021,
+                                  color: Color(0Xff232F77)),
+                            ),
                             //SizedBox(width: widthMobile * 0.1,),
                             IconButton(
                                 alignment: Alignment.centerRight,
@@ -244,7 +259,11 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                       MaterialPageRoute(
                                           builder: (context) => FacultyList()));
                                 },
-                                icon: Icon(Icons.chevron_right,size: heightMobile * 0.03,color: Color(0Xff232F77),))
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  size: heightMobile * 0.03,
+                                  color: Color(0Xff232F77),
+                                ))
                           ],
                         ),
                       ),

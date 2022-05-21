@@ -39,7 +39,7 @@ class _completeProfileState extends State<completeProfile> {
     _getUserDetails();
   }
 
-  String? dropdownValue,hostelDropDown;
+  String? dropdownValue, hostelDropDown;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -52,8 +52,20 @@ class _completeProfileState extends State<completeProfile> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate",
-              style: TextStyle(fontSize: heightMobile * 0.025)),
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  height: heightMobile * 0.028,
+                  child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                width: 10,
+              ),
+              Text("College Gate",
+                  style: TextStyle(fontSize: heightMobile * 0.028)),
+            ],
+          ),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -190,49 +202,13 @@ class _completeProfileState extends State<completeProfile> {
                             ),
                             items: ['Hostel 1', 'Hostel 2']
                                 .map((value) => DropdownMenuItem(
-                              value: value,
-                              child: Text(value),
-                            ))
+                                      value: value,
+                                      child: Text(value),
+                                    ))
                                 .toList(),
                           ),
                         ),
                       ),
-                      // SizedBox(height: heightMobile * 0.02),
-                      //
-                      // Container(
-                      //   height: heightMobile * 0.065,
-                      //   width: widthMobile * 0.9,
-                      //   margin: EdgeInsets.all(0),
-                      //   child: DropdownButtonHideUnderline(
-                      //     child: GFDropdown(
-                      //       padding: const EdgeInsets.all(15),
-                      //       borderRadius: BorderRadius.circular(5),
-                      //       border: const BorderSide(
-                      //           color: Colors.black12, width: 1),
-                      //       dropdownButtonColor: Colors.white,
-                      //       style: TextStyle(
-                      //         color: Colors.black,
-                      //         fontSize: heightMobile * 0.02,
-                      //       ),
-                      //       value: dropdownValue,
-                      //       onChanged: (newValue) {
-                      //         setState(() {
-                      //           dropdownValue = newValue as String?;
-                      //         });
-                      //       },
-                      //       hint: Text(
-                      //         "Sign in as",
-                      //       ),
-                      //       items: ['Student', 'Faculty']
-                      //           .map((value) => DropdownMenuItem(
-                      //                 value: value,
-                      //                 child: Text(value),
-                      //               ))
-                      //           .toList(),
-                      //     ),
-                      //   ),
-                      // ),
-
                       SizedBox(height: heightMobile * 0.07),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -264,7 +240,7 @@ class _completeProfileState extends State<completeProfile> {
                                       .instance.currentUser!.email))
                                   .update(
                                 {
-                                  'signinas': dropdownValue,
+                                  'hostelno': hostelDropDown,
                                   'phone': _phoneno,
                                   'room': _roomno
                                 },

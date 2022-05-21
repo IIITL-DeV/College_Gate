@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/UI/faculty/facultyidcard.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,11 +13,39 @@ class FacultyCompleteProfile extends StatefulWidget {
 }
 
 class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
-  String? _phoneno;
+  String? _username, _designation, _email, _roomno, _phoneno;
+
+  Future<void> _getUserDetails() async {
+    FirebaseFirestore.instance
+        .collection('facultyUser')
+        .doc(await (FirebaseAuth.instance.currentUser)!.email)
+        .get()
+        .then((value) {
+      setState(() {
+        _username = value.data()!['name'].toString();
+
+        _email = value.data()!['email'].toString();
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getUserDetails();
+  }
+
+  String? dropdownValue, hostelDropDown;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
+    if (_username == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
@@ -37,6 +69,7 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
           padding: EdgeInsets.symmetric(
               vertical: heightMobile * 0.04, horizontal: widthMobile * 0.08),
           child: Form(
+            key: _formKey,
             child: Center(
               child: Column(
                 children: [
@@ -46,17 +79,29 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1500),
                       child: Image.asset(
-                        "assets/exit.png",
+                        "assets/iiitl.png",
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                  SizedBox(height: heightMobile * 0.015),
-                  customTextField(
-                      "Name", "Jagnik Chaurasiya", heightMobile * 0.021, true),
+                  SizedBox(height: heightMobile * 0.02),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Name'),
+                    initialValue: _username,
+                    style: TextStyle(
+                      fontSize: heightMobile * 0.02,
+                    ),
+                    readOnly: true,
+                  ),
                   SizedBox(height: heightMobile * 0.009),
-                  customTextField("Email", "jagnik@iiitl.ac.in",
-                      heightMobile * 0.021, true),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Email'),
+                    initialValue: _email,
+                    style: TextStyle(
+                      fontSize: heightMobile * 0.02,
+                    ),
+                    readOnly: true,
+                  ),
                   SizedBox(height: heightMobile * 0.009),
                   //phone number
                   TextFormField(
@@ -68,19 +113,46 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                       decoration:
                           const InputDecoration(labelText: 'Phone Number'),
                       validator: (value) {
-                        if (value!.length == 10 && value != null) {
+                        if (value!.length == 10) {
                           _phoneno = value;
                         } else {
                           return "Valid phone number is required";
                         }
                       }),
-                  //customTextField("Phone Number", "", heightMobile * 0.021, false),
                   SizedBox(height: heightMobile * 0.009),
-                  customTextField(
-                      "Designation", "", heightMobile * 0.021, false),
+                  TextFormField(
+                      decoration:
+                          const InputDecoration(labelText: 'Designation'),
+                      style: TextStyle(
+                        fontSize: heightMobile * 0.02,
+                      ),
+                      // readOnly: true,
+                      onSaved: (value) => _designation = value,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Designation is Required";
+                        } else {
+                          _designation = value;
+                        }
+                      }),
                   SizedBox(height: heightMobile * 0.009),
-                  customTextField(
-                      "Office Number", "", heightMobile * 0.021, false),
+                  TextFormField(
+                      onSaved: (value) => _roomno = value,
+
+                      //controller: ,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      style: TextStyle(
+                        fontSize: heightMobile * 0.02,
+                      ),
+                      decoration:
+                          const InputDecoration(labelText: 'Office Number'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Office number is required";
+                        } else {
+                          _roomno = value;
+                        }
+                      }),
                   //SizedBox(height: heightMobile * 0.009),
                   //customTextField("Name", "Jagnik Chaurasiya", heightMobile * 0.021, true),
                   //
@@ -101,7 +173,34 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                           fontSize: heightMobile * 0.022,
                         ),
                       ),
-                      onPressed: () async {})
+                      onPressed: () async {
+                        print(_designation);
+
+                        if (_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Processing Data')),
+                          );
+
+                          await FirebaseFirestore.instance
+                              .collection('facultyUser')
+                              .doc((await FirebaseAuth
+                                  .instance.currentUser!.email))
+                              .update(
+                            {
+                              'Designation': _designation,
+                              'phone': _phoneno,
+                              'officeno': _roomno
+                            },
+                          );
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => facultyidcard()));
+                        } else {
+                          print("Not validated");
+                        }
+                        ;
+                      })
                 ],
               ),
             ),

@@ -54,26 +54,23 @@ class _FacultyHomeState extends State<FacultyHome> {
         currentIndex: _currentIndex,
         onTap: _onTapTapped,
       ),
-<<<<<<< HEAD
-      appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          title: Text("College Gate",
-              style: TextStyle(fontSize: heightMobile * 0.025)),
-          actions: [
-            InkWell(
-              onTap: () {},
-              child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-                  child: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.deepPurple[50],
-                    size: heightMobile * 0.027,
-                  )),
-            )
-          ]),
-=======
->>>>>>> c5cfcef76fd7b59eef05af189fd2ea27c64e81c0
+      // appBar: AppBar(
+      //     backgroundColor: Color(0Xff15609c),
+      //     title: Text("College Gate",
+      //         style: TextStyle(fontSize: heightMobile * 0.025)),
+      //     actions: [
+      //       InkWell(
+      //         onTap: () {},
+      //         child: Container(
+      //             padding:
+      //                 EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+      //             child: Icon(
+      //               Icons.exit_to_app,
+      //               color: Colors.deepPurple[50],
+      //               size: heightMobile * 0.027,
+      //             )),
+      //       )
+      //     ]),
       body: Container(
         child: _pages.elementAt(_currentIndex),
       ),
@@ -94,7 +91,8 @@ class _AppointmentListState extends State<AppointmentList> {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
     double cardheight = heightMobile * 0.195;
-    return Scaffold(appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
         title: Row(

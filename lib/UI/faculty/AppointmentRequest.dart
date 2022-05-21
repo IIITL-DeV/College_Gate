@@ -139,9 +139,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                             cardheight * 0.1,
                             cardheight * 0.05),
                       ),
-                      SizedBox(
-                        height: cardheight * 0.05,
-                      ),
+                      // SizedBox(
+                      //   height: cardheight * 0.05,
+                      // ),
                       //Accept, Decline button
                       Column(
                         children: [
