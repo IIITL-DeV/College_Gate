@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
                   child: Center(
                       child: Column(
                     children: [
-                      SizedBox(height: heightMobile * 0.025),
+                      SizedBox(height: heightMobile * 0.015),
                       SizedBox(
                         height: heightMobile * 0.15,
                         child: ClipRRect(
@@ -205,6 +205,7 @@ class _ProfileState extends State<Profile> {
                               ),
                             )
                           : TextFormField(
+                              readOnly: !isEdit,
                               decoration:
                                   const InputDecoration(labelText: 'Hostel'),
                               initialValue: "Hostel 1",

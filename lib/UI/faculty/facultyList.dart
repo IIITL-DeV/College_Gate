@@ -17,20 +17,19 @@ class _FacultyListState extends State<FacultyList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-                height: heightMobile * 0.028,
-                child: Image.asset("assets/cg_white.png")),
-            SizedBox(
-              width: 10,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: heightMobile * 0.028,
             ),
-            Text("College Gate",
-                style: TextStyle(fontSize: heightMobile * 0.028)),
-          ],
+            onPressed: () => {Navigator.pop(context)}),
+        title: Text(
+          "Faculty List",
+          style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.026),
+          textAlign: TextAlign.center,
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         physics:  BouncingScrollPhysics(),
