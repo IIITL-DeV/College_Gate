@@ -44,7 +44,9 @@ class _facultyProfileState extends State<facultyProfile> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-
+    if (_username == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
         appBar: isEdit
             ? AppBar(
