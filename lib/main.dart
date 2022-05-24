@@ -1,13 +1,13 @@
-import 'package:college_gate/UI/sign_in.dart';
-import 'package:college_gate/UI/student/homepagecard.dart';
-import 'package:college_gate/UI/warden/wardenhome.dart';
+import 'package:college_gate/panel/sign_in.dart';
+import 'package:college_gate/panel/student/homepagecard.dart';
+import 'package:college_gate/panel/warden/wardenhome.dart';
 import 'package:college_gate/firebase_options.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
-import 'UI/gaurd/gaurd_home.dart';
+import 'panel/gaurd/gaurd_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

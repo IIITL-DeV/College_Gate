@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/UI/faculty/facultyCompleteProfile.dart';
-import 'package:college_gate/UI/faculty/facultyhome.dart';
-import 'package:college_gate/UI/gaurd/gaurd_home.dart';
-import 'package:college_gate/UI/student/complete_profile.dart';
-import 'package:college_gate/UI/student/homepagecard.dart';
-import 'package:college_gate/UI/warden/wardenhome.dart';
+import 'package:college_gate/panel/faculty/facultyCompleteProfile.dart';
+import 'package:college_gate/panel/faculty/facultyhome.dart';
+import 'package:college_gate/panel/gaurd/gaurd_home.dart';
+import 'package:college_gate/panel/student/complete_profile.dart';
+import 'package:college_gate/panel/student/homepagecard.dart';
+import 'package:college_gate/panel/warden/wardenhome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
