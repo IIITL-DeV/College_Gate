@@ -116,89 +116,42 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
         //   )
         // ]
       ),
-      body: Container(
-          height: heightMobile,
-          width: widthMobile,
-          padding: EdgeInsets.all(heightMobile * 0.02),
-          child: Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ExitForm()));
-                },
-                child: Card(
-                  elevation: 4,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: heightMobile * 0.169,
-                        child: Ink.image(
-                          image: AssetImage("assets/exit.png"),
-                          fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Container(
+            height: heightMobile,
+            width: widthMobile,
+            padding: EdgeInsets.all(heightMobile * 0.02),
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ExitForm()));
+                  },
+                  child: Card(
+                    elevation: 4,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: heightMobile * 0.169,
+                          child: Ink.image(
+                            image: AssetImage("assets/exit.png"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Campus Exit Form",
-                              style: TextStyle(
-                                  fontSize: heightMobile * 0.021,
-                                  color: Color(0Xff232F77)),
-                            ),
-                            IconButton(
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ExitForm()));
-                                },
-                                icon: Icon(Icons.chevron_right,
-                                    size: heightMobile * 0.03,
-                                    color: Color(0Xff232F77)))
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EntryForm()));
-                },
-                child: Card(
-                  elevation: 4,
-                  child: Column(children: [
-                    SizedBox(
-                      height: heightMobile * 0.169,
-                      child: Ink.image(
-                        image: AssetImage("assets/entry.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              heightMobile * 0.02,
+                              heightMobile * 0.01,
+                              heightMobile * 0.015,
+                              heightMobile * 0.01),
+                          alignment: Alignment.centerLeft,
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Campus Entry Form",
+                                "Campus Exit Form",
                                 style: TextStyle(
                                     fontSize: heightMobile * 0.021,
                                     color: Color(0Xff232F77)),
@@ -209,70 +162,120 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => EntryForm()));
+                                            builder: (context) => ExitForm()));
                                   },
                                   icon: Icon(Icons.chevron_right,
                                       size: heightMobile * 0.03,
-                                      color: Color(0Xff232F77))),
-                            ])),
-                  ]),
+                                      color: Color(0Xff232F77)))
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FacultyList()));
-                },
-                child: Card(
-                  elevation: 4,
-                  child: Column(
-                    children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => EntryForm()));
+                  },
+                  child: Card(
+                    elevation: 4,
+                    child: Column(children: [
                       SizedBox(
                         height: heightMobile * 0.169,
                         child: Ink.image(
-                          image: AssetImage("assets/facultyAppointment.jpg"),
+                          image: AssetImage("assets/entry.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Book Appointment",
-                              style: TextStyle(
-                                  fontSize: heightMobile * 0.021,
-                                  color: Color(0Xff232F77)),
-                            ),
-                            //SizedBox(width: widthMobile * 0.1,),
-                            IconButton(
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => FacultyList()));
-                                },
-                                icon: Icon(
-                                  Icons.chevron_right,
-                                  size: heightMobile * 0.03,
-                                  color: Color(0Xff232F77),
-                                ))
-                          ],
-                        ),
-                      ),
-                    ],
+                          padding: EdgeInsets.fromLTRB(
+                              heightMobile * 0.02,
+                              heightMobile * 0.01,
+                              heightMobile * 0.015,
+                              heightMobile * 0.01),
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Campus Entry Form",
+                                  style: TextStyle(
+                                      fontSize: heightMobile * 0.021,
+                                      color: Color(0Xff232F77)),
+                                ),
+                                IconButton(
+                                    alignment: Alignment.centerRight,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => EntryForm()));
+                                    },
+                                    icon: Icon(Icons.chevron_right,
+                                        size: heightMobile * 0.03,
+                                        color: Color(0Xff232F77))),
+                              ])),
+                    ]),
                   ),
                 ),
-              ),
-            ],
-          )),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => FacultyList()));
+                  },
+                  child: Card(
+                    elevation: 4,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: heightMobile * 0.169,
+                          child: Ink.image(
+                            image: AssetImage("assets/facultyAppointment.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              heightMobile * 0.02,
+                              heightMobile * 0.01,
+                              heightMobile * 0.015,
+                              heightMobile * 0.01),
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Book Appointment",
+                                style: TextStyle(
+                                    fontSize: heightMobile * 0.021,
+                                    color: Color(0Xff232F77)),
+                              ),
+                              //SizedBox(width: widthMobile * 0.1,),
+                              IconButton(
+                                  alignment: Alignment.centerRight,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => FacultyList()));
+                                  },
+                                  icon: Icon(
+                                    Icons.chevron_right,
+                                    size: heightMobile * 0.03,
+                                    color: Color(0Xff232F77),
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )),
+      ),
     );
   }
 }
