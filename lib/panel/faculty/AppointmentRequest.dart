@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:intl/intl.dart';
+import 'package:date_format/date_format.dart';
 
 class AppointmentRequest extends StatefulWidget {
   const AppointmentRequest({Key? key}) : super(key: key);
@@ -12,11 +14,153 @@ class AppointmentRequest extends StatefulWidget {
 }
 
 class _AppointmentRequestState extends State<AppointmentRequest> {
+  /////// date time picker
+  ///
+  //late String _setTime, _setDate;
+
+  late String _hour, _minute, _time;
+
+  late String dateTime;
+
+  DateTime selectedDate = DateTime.now();
+
+  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+
+  Future<Null> _selectDate(BuildContext context, String name) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      initialDatePickerMode: DatePickerMode.day,
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2101),
+      builder: (context, child) => Theme(
+        data: ThemeData().copyWith(
+          colorScheme: ColorScheme.dark(
+            primary: Color(0Xff19B38D),
+            onSurface: Color(0Xff15609c),
+            onPrimary: Colors.white,
+            surface: Colors.white,
+          ),
+          dialogBackgroundColor: Colors.white,
+        ),
+        child: child!,
+      ),
+    );
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        _dateController.text = DateFormat.yMd().format(selectedDate);
+        _selectTime(context,name);
+      });
+  }
+
+  Future<Null> _selectTime(BuildContext context, String name) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      builder: (context, child) => Theme(
+        data: ThemeData().copyWith(
+          colorScheme: ColorScheme.dark(
+            primary: Color(0Xff19B38D),
+            onSurface: Color(0Xff15609c),
+            onPrimary: Colors.white,
+            surface: Colors.white,
+          ),
+          dialogBackgroundColor: Colors.white,
+        ),
+        child: child!,
+      ),
+    );
+    if (picked != null)
+      setState(() {
+        selectedTime = picked;
+        _hour = selectedTime.hour.toString();
+        _minute = selectedTime.minute.toString();
+        _time = _hour + ' : ' + _minute;
+        _timeController.text = _time;
+        _timeController.text = formatDate(
+            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+            [hh, ':', nn, " ", am]).toString();
+
+        appointmentReschedule(context,name);
+      });
+    //Navigator.of(context).pop();
+  }
+
+  Future<dynamic> appointmentReschedule(BuildContext context,String name) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          double widthMobile = MediaQuery.of(context).size.width;
+          double heightMobile = MediaQuery.of(context).size.height;
+          return AlertDialog(
+            title: Text(
+              "Reschedule",
+              style: TextStyle(
+                  fontSize: heightMobile * 0.027, color: Color(0Xff15609c)),
+            ),
+            content: Container(
+              child: Text(
+                'Reschedule Appointment with $name at ${_timeController.text} on ${_dateController.text}.',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: heightMobile * 0.021,
+                ),
+              ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Confirm",
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          color: Color(0Xff19B38D),
+                        ),
+                      )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Cancel",
+                          style: TextStyle(
+                              fontSize:
+                              MediaQuery.of(context).size.height * 0.02,
+                              color: Colors.red[700]))),
+                ],
+              )
+            ],
+          );
+        });
+  }
+
+  //////
   var stream;
 
   String? officenumber, phonenumber, name;
 
   void initState() {
+    ////
+    _dateController.text = DateFormat.yMd().format(DateTime.now());
+
+    _timeController.text = formatDate(
+        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
+        [hh, ':', nn, " ", am]).toString();
+
+    ///
     super.initState();
     // getfacultyDetails;
     stream = FirebaseFirestore.instance
@@ -450,7 +594,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                 child:
                                                                     ElevatedButton(
                                                                   onPressed:
-                                                                      () {},
+                                                                      () {
+                                                                        _selectDate(context, chatItem["guestname"].toString());
+                                                                      },
                                                                   child: Text(
                                                                     "Reschedule",
                                                                     style:
@@ -588,7 +734,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   //         );
   //       });
   // }
-
+  //
   // Future<dynamic> rescheduleBox() {
   //   return showDialog(
   //       context: context,
@@ -645,7 +791,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   //                       height: MediaQuery.of(context).size.height * 0.05,
   //                       width: MediaQuery.of(context).size.width * 0.35,
   //                       child: ElevatedButton(
-  //                         onPressed: () {},
+  //                         onPressed: () {
+  //                           _selectDate(context);
+  //                         },
   //                         child: Text(
   //                           "Reschedule",
   //                           style: TextStyle(
@@ -667,7 +815,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   //                       height: MediaQuery.of(context).size.height * 0.05,
   //                       width: MediaQuery.of(context).size.width * 0.35,
   //                       child: ElevatedButton(
-  //                         onPressed: () {},
+  //                         onPressed: () {
+  //                           Navigator.of(context).pop();
+  //                         },
   //                         child: Text(
   //                           "Decline",
   //                           style: TextStyle(
@@ -693,4 +843,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   //         );
   //       });
   // }
+
+
 }
