@@ -114,7 +114,7 @@ class _AppointmentListState extends State<AppointmentList> {
       builder: (context, child) => Theme(
         data: ThemeData().copyWith(
           colorScheme: ColorScheme.dark(
-            primary: Color(0Xff19B38D),
+            primary: Color(0Xff19B38D), //Color(0Xff15609c)
             onSurface: Color(0Xff15609c),
             onPrimary: Colors.white,
             surface: Colors.white,
@@ -139,7 +139,7 @@ class _AppointmentListState extends State<AppointmentList> {
       builder: (context, child) => Theme(
         data: ThemeData().copyWith(
           colorScheme: ColorScheme.dark(
-            primary: Color(0Xff19B38D),
+            primary: Color(0Xff19B38D), //Color(0Xff15609c)
             onSurface: Color(0Xff15609c),
             onPrimary: Colors.white,
             surface: Colors.white,
