@@ -29,7 +29,23 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
 
-  Future<Null> _selectDate(BuildContext context, String name) async {
+  reschedulesendMail(
+    String guestemail,
+    String date,
+    String time,
+  ) async {
+    final Email email = Email(
+      body:
+          "I have to reschedule our appointment due to some unforeseen circumsatnces at $time, $date. ",
+      subject: 'Appointment Rescheduled!',
+      recipients: [guestemail],
+      isHTML: true,
+    );
+    await FlutterEmailSender.send(email);
+  }
+
+  Future<Null> _selectDate(
+      BuildContext context, String name, String email) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -53,11 +69,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
       setState(() {
         selectedDate = picked;
         _dateController.text = DateFormat.yMd().format(selectedDate);
-        _selectTime(context,name);
+        _selectTime(context, name, email);
       });
   }
 
-  Future<Null> _selectTime(BuildContext context, String name) async {
+  Future<Null> _selectTime(
+      BuildContext context, String name, String email) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
@@ -85,12 +102,13 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
             DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
             [hh, ':', nn, " ", am]).toString();
 
-        appointmentReschedule(context,name);
+        appointmentReschedule(context, name, email);
       });
     //Navigator.of(context).pop();
   }
 
-  Future<dynamic> appointmentReschedule(BuildContext context,String name) {
+  Future<dynamic> appointmentReschedule(
+      BuildContext context, String name, String email) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -117,7 +135,24 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                 children: [
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        FirebaseFirestore.instance
+                            .collection('facultyGuest')
+                            .doc((FirebaseAuth.instance.currentUser!).email)
+                            .collection("guestemail")
+                            .doc(email)
+                            .update({
+                          'guestappointdate': _dateController.text,
+                          'guestappointtime': _timeController.text,
+                        });
+                        reschedulesendMail(
+                          email,
+                          _dateController.text,
+                          _timeController.text,
+                        ).whenComplete(() {
+                          setState(() {});
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Guest Notified')));
+                        });
                         Navigator.of(context).pop();
                       },
                       child: Text(
@@ -133,12 +168,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        Navigator.of(context).pop();
                       },
                       child: Text("Cancel",
                           style: TextStyle(
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.02,
+                                  MediaQuery.of(context).size.height * 0.02,
                               color: Colors.red[700]))),
                 ],
               )
@@ -186,13 +220,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     await FlutterEmailSender.send(email);
   }
 
-  declinesendMail(
-      String phone, String studentemail, String date, String time) async {
+  declinesendMail(String guestemail, String date, String time) async {
     final Email email = Email(
       body:
-          'Your appointment with $studentemail on $time, $date has been declined.',
+          'Your appointment with $guestemail on $time, $date has been declined.',
       subject: 'Request Declined!',
-      recipients: [phone],
+      recipients: [guestemail],
       isHTML: true,
     );
 
@@ -595,8 +628,13 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                     ElevatedButton(
                                                                   onPressed:
                                                                       () {
-                                                                        _selectDate(context, chatItem["guestname"].toString());
-                                                                      },
+                                                                    _selectDate(
+                                                                        context,
+                                                                        chatItem["guestname"]
+                                                                            .toString(),
+                                                                        chatItem["guestemail"]
+                                                                            .toString());
+                                                                  },
                                                                   child: Text(
                                                                     "Reschedule",
                                                                     style:
@@ -639,7 +677,35 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                 child:
                                                                     ElevatedButton(
                                                                   onPressed:
-                                                                      () {},
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    declinesendMail(
+                                                                        chatItem[
+                                                                            "guestemail"],
+                                                                        chatItem[
+                                                                            "guestappointdate"],
+                                                                        chatItem[
+                                                                            "guestappointtime"]);
+                                                                    FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            "facultyGuest")
+                                                                        .doc((FirebaseAuth.instance.currentUser!)
+                                                                            .email)
+                                                                        .collection(
+                                                                            "guestemail")
+                                                                        .doc(chatItem[
+                                                                            "guestemail"])
+                                                                        .update({
+                                                                      "appointisapproved":
+                                                                          null
+                                                                    }).then((_) {
+                                                                      print(
+                                                                          "success!");
+                                                                    });
+                                                                  },
                                                                   child: Text(
                                                                     "Decline",
                                                                     style:
@@ -843,6 +909,5 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   //         );
   //       });
   // }
-
 
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 import 'AppointmentRequest.dart';
 import 'facultyProfile.dart';
@@ -90,23 +91,6 @@ class AppointmentList extends StatefulWidget {
 }
 
 class _AppointmentListState extends State<AppointmentList> {
-<<<<<<< HEAD
-  var stream;
-  void initState() {
-    super.initState();
-    // getfacultyDetails;
-    stream = FirebaseFirestore.instance
-        .collection("facultyGuest")
-        .doc((FirebaseAuth.instance.currentUser!).email)
-        .collection("guestemail")
-        .where("appointisapproved", isEqualTo: true)
-        .snapshots();
-=======
-
-  /////// date time picker
-  ///
-  //late String _setTime, _setDate;
-
   late String _hour, _minute, _time;
 
   late String dateTime;
@@ -118,7 +102,23 @@ class _AppointmentListState extends State<AppointmentList> {
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
 
-  Future<Null> _selectDate(BuildContext context, String name) async {
+  reschedulesendMail(
+    String guestemail,
+    String date,
+    String time,
+  ) async {
+    final Email email = Email(
+      body:
+          "I have to reschedule our appointment due to some unforeseen circumsatnces at $time, $date. ",
+      subject: 'Appointment Rescheduled!',
+      recipients: [guestemail],
+      isHTML: true,
+    );
+    await FlutterEmailSender.send(email);
+  }
+
+  Future<Null> _selectDate(
+      BuildContext context, String name, String email) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -142,11 +142,12 @@ class _AppointmentListState extends State<AppointmentList> {
       setState(() {
         selectedDate = picked;
         _dateController.text = DateFormat.yMd().format(selectedDate);
-        _selectTime(context,name);
+        _selectTime(context, name, email);
       });
   }
 
-  Future<Null> _selectTime(BuildContext context, String name) async {
+  Future<Null> _selectTime(
+      BuildContext context, String name, String email) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
@@ -174,12 +175,13 @@ class _AppointmentListState extends State<AppointmentList> {
             DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
             [hh, ':', nn, " ", am]).toString();
 
-        appointmentReschedule(context,name);
+        appointmentReschedule(context, name, email);
       });
     //Navigator.of(context).pop();
   }
 
-  Future<dynamic> appointmentReschedule(BuildContext context,String name) {
+  Future<dynamic> appointmentReschedule(
+      BuildContext context, String name, String email) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -206,8 +208,25 @@ class _AppointmentListState extends State<AppointmentList> {
                 children: [
                   TextButton(
                       onPressed: () {
+                        FirebaseFirestore.instance
+                            .collection('facultyGuest')
+                            .doc((FirebaseAuth.instance.currentUser!).email)
+                            .collection("guestemail")
+                            .doc(email)
+                            .update({
+                          'guestappointdate': _dateController.text,
+                          'guestappointtime': _timeController.text,
+                        });
+                        reschedulesendMail(
+                          email,
+                          _dateController.text,
+                          _timeController.text,
+                        ).whenComplete(() {
+                          setState(() {});
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Guest Notified')));
+                        });
                         Navigator.of(context).pop();
-                        //Navigator.of(context).pop();
                       },
                       child: Text(
                         "Confirm",
@@ -222,12 +241,11 @@ class _AppointmentListState extends State<AppointmentList> {
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        //Navigator.of(context).pop();
                       },
                       child: Text("Cancel",
                           style: TextStyle(
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.02,
+                                  MediaQuery.of(context).size.height * 0.02,
                               color: Colors.red[700]))),
                 ],
               )
@@ -236,17 +254,16 @@ class _AppointmentListState extends State<AppointmentList> {
         });
   }
 
+  var stream;
   void initState() {
-    ////
-    _dateController.text = DateFormat.yMd().format(DateTime.now());
-
-    _timeController.text = formatDate(
-        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
-        [hh, ':', nn, " ", am]).toString();
-
-    ///
     super.initState();
->>>>>>> a9fbab57837216e63870840e6301b571064a6983
+    // getfacultyDetails;
+    stream = FirebaseFirestore.instance
+        .collection("facultyGuest")
+        .doc((FirebaseAuth.instance.currentUser!).email)
+        .collection("guestemail")
+        .where("appointisapproved", isEqualTo: true)
+        .snapshots();
   }
 
   @override
@@ -327,7 +344,6 @@ class _AppointmentListState extends State<AppointmentList> {
                                     fontSize: cardheight * 0.13,
                                     fontWeight: FontWeight.bold),
                               ),
-<<<<<<< HEAD
                               //Phone number and Time
                               subtitle: Container(
                                   child: Column(children: [
@@ -456,51 +472,6 @@ class _AppointmentListState extends State<AppointmentList> {
                                     //     // ),
                                     //     )
                                   ],
-=======
-                            ),
-                          ],
-                        ),
-                      ])),
-                      //Id Image
-                      //Room Number
-                      trailing: Text(
-                        "LIT2019059",
-                        style: TextStyle(
-                            fontSize: cardheight * 0.09,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      contentPadding: EdgeInsets.fromLTRB(
-                          cardheight * 0.1,
-                          cardheight * 0.1,
-                          cardheight * 0.1,
-                          cardheight * 0.05),
-                    ),
-                    // SizedBox(
-                    //   height: cardheight * 0.05,
-                    // ),
-                    //Accept, Decline button
-                    Column(
-                      children: [
-                        Container(
-                          height: cardheight * 0.25,
-                          width: widthMobile * 0.88,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              _selectDate(context, "Jagnik Chaurasiya");
-                            },
-                            child: Text(
-                              'Reschedule',
-                              style: TextStyle(
-                                  fontSize: heightMobile * 0.022,
-                                  color: Color(0Xff19B38D)),
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(
-                                  color: Color(0Xff19B38D), width: 2),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(6),
->>>>>>> a9fbab57837216e63870840e6301b571064a6983
                                 ),
                               ),
                               contentPadding: EdgeInsets.fromLTRB(
@@ -519,7 +490,12 @@ class _AppointmentListState extends State<AppointmentList> {
                                   height: cardheight * 0.25,
                                   width: widthMobile * 0.88,
                                   child: OutlinedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _selectDate(
+                                          context,
+                                          chatItem["guestname"].toString(),
+                                          chatItem["guestemail"].toString());
+                                    },
                                     child: Text(
                                       'Reschedule',
                                       style: TextStyle(

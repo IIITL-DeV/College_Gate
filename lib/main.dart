@@ -1,3 +1,4 @@
+import 'package:college_gate/panel/faculty/facultyhome.dart';
 import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/student/homepagecard.dart';
 import 'package:college_gate/panel/warden/wardenhome.dart';
@@ -32,12 +33,25 @@ class _MyAppState extends State<MyApp> {
 
   Widget? getScreen() {
     if (FirebaseAuth.instance.currentUser != null) {
+      String? getemail = FirebaseAuth.instance.currentUser!.email;
+      if (getemail != null && getemail.length >= 11) {
+        getemail = getemail.substring(getemail.length - 12);
+      }
+
+      String? fullemail = FirebaseAuth.instance.currentUser!.email;
+      bool isstudent = fullemail!.contains(new RegExp(r'[0-9]'));
       if (FirebaseAuth.instance.currentUser!.email ==
           "iiitlcollegegate12@gmail.com") return gaurdHome();
       if (FirebaseAuth.instance.currentUser!.email == "singhanu3113@gmail.com")
         return wardenHome();
-      return studentHome();
-    }
+      if ("@iiitl.ac.in" == getemail && isstudent == true)
+        return studentHome();
+      else if ("@iiitl.ac.in" == getemail)
+        return FacultyHome();
+      else
+        return SignIn();
+    } else
+      return SignIn();
   }
 
   @override
