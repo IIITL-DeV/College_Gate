@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/panel/guest/faculty_appointment.dart';
+import 'package:college_gate/panel/warden/viewimage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,83 +12,141 @@ class FacultyList extends StatefulWidget {
 }
 
 class _FacultyListState extends State<FacultyList> {
+  var stream;
+  @override
+  void initState() {
+    super.initState();
+    stream = FirebaseFirestore.instance.collection("facultyUser").snapshots();
+  }
+
   @override
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
     double cardheight = heightMobile * 0.095;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0Xff15609c),
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: heightMobile * 0.028,
-            ),
-            onPressed: () => {Navigator.pop(context)}),
-        title: Text(
-          "Faculty List",
-          style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.026),
-          textAlign: TextAlign.center,
+        appBar: AppBar(
+          backgroundColor: Color(0Xff15609c),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: heightMobile * 0.028,
+              ),
+              onPressed: () => {Navigator.pop(context)}),
+          title: Text(
+            "Faculty List",
+            style:
+                TextStyle(color: Colors.white, fontSize: heightMobile * 0.026),
+            textAlign: TextAlign.center,
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        physics:  BouncingScrollPhysics(),
-        child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.all(heightMobile * 0.007),
-              child: Card(
-                elevation: 3.5,
-                child: SizedBox(
-                  height: cardheight,
-                  width: widthMobile * 0.9,
-                  child: ListView(
-                    children: [
-                      ListTile(
-                        isThreeLine: false,
-                        onTap: (){
-                        },
-                        title: Text(
-                          "Dr. Vishal Krishna Singh",
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: cardheight * 0.2, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          "Deputy Registrar Deputy Registrar Deputy Registrar Deputy Registrar",
-                          //overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: cardheight * 0.15),
-                        ),
-                        leading: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minWidth: widthMobile * 0.08,
-                              minHeight: cardheight * 0.28,
-                              maxWidth: widthMobile * 0.17,
-                              maxHeight: cardheight * 0.45,
-                            ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.asset(
-                              "assets/entry.png",
-                              fit: BoxFit.contain,
+        body: StreamBuilder(
+            stream: stream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasData) {
+                int value;
+                value = snapshot.data!.docs.length;
+                if (value == 0 || value == null) {
+                  print("issssss$value");
+                  return SizedBox(
+                      width: widthMobile,
+                      height: heightMobile,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: heightMobile * 0.13),
+                          Image.asset(
+                            'assets/nonotices.png',
+                            //fit: BoxFit.fitWidth,
+                            width: widthMobile * 0.8,
+                            height: heightMobile * 0.4,
+                            alignment: Alignment.center,
+                          ),
+                          Text("No Faculty Registered!",
+                              style: TextStyle(
+                                fontSize: heightMobile * 0.04,
+                                fontWeight: FontWeight.w300,
+                                color: Color(0Xff14619C),
+                              )),
+                        ],
+                      ));
+                }
+
+                return SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final chatItem = snapshot.data!.docs[index];
+                        return Padding(
+                          padding: EdgeInsets.all(heightMobile * 0.008),
+                          child: Card(
+                            elevation: 3.5,
+                            child: SizedBox(
+                              height: cardheight,
+                              width: widthMobile * 0.9,
+                              child: ListView(
+                                children: [
+                                  ListTile(
+                                    isThreeLine: false,
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  faculty_appointment(
+                                                      email:
+                                                          chatItem["email"])));
+                                    },
+                                    title: Text(
+                                      "${chatItem["name"]}",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: cardheight * 0.2,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    subtitle: Text(
+                                      "${chatItem["Designation"]}",
+                                      //overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: cardheight * 0.13),
+                                    ),
+                                    leading: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        minWidth: widthMobile * 0.07,
+                                        minHeight: cardheight * 0.25,
+                                        maxWidth: widthMobile * 0.15,
+                                        maxHeight: cardheight * 0.45,
+                                      ),
+                                      child: GestureDetector(
+                                          child: Hero(
+                                            tag: chatItem["ProfilePic"]!,
+                                            child: Image.network(
+                                                "${chatItem["ProfilePic"]}",
+                                                fit: BoxFit.contain),
+                                          ),
+                                          onTap: () async {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder: (_) {
+                                              return viewImage(
+                                                  chatItem["ProfilePic"]);
+                                            }));
+                                          }),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
-        }),
-      ),
-    );
+                        );
+                      }),
+                );
+              }
+              return Center(child: CircularProgressIndicator());
+            }));
   }
 }

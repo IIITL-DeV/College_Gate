@@ -1,5 +1,7 @@
-import 'package:college_gate/panel/guest/appointment.dart';
-import 'package:college_gate/panel/guest/facapp.dart';
+import 'package:college_gate/panel/faculty/facultyList.dart';
+import 'package:college_gate/panel/faculty/facultyProfile.dart';
+import 'package:college_gate/panel/guest/student_appointment.dart';
+import 'package:college_gate/panel/guest/faculty_appointment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -91,7 +93,7 @@ class GuestHome extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => facbooking()));
+                      MaterialPageRoute(builder: (context) => FacultyList()));
                 },
                 child: Card(
                   elevation: 4,
@@ -127,7 +129,7 @@ class GuestHome extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => facbooking()));
+                                          builder: (context) => FacultyList()));
                                 },
                                 icon: Icon(
                                   Icons.chevron_right,

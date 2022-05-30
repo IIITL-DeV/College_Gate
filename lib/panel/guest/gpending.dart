@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/guest/appointment.dart';
+import 'package:college_gate/panel/guest/student_appointment.dart';
 import 'package:college_gate/panel/guest/guesthome.dart';
 import 'package:college_gate/panel/student/readytogo.dart';
 import 'package:college_gate/panel/student/welcomeback.dart';

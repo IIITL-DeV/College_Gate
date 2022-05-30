@@ -99,8 +99,8 @@ class _EntryFormState extends State<EntryForm> {
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: const InputDecoration(labelText: 'Phone number'),
         validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Phone number is Required";
+          if (value == null || value.length != 10) {
+            return "Valid phone number is required";
           } else {
             return null;
           }

@@ -3,24 +3,53 @@ import 'package:college_gate/panel/guest/gpending.dart';
 import 'package:college_gate/panel/student/requestpending.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-class facbooking extends StatefulWidget {
-  const facbooking({Key? key}) : super(key: key);
+class faculty_appointment extends StatefulWidget {
+  String email;
+
+  faculty_appointment({Key? key, required this.email}) : super(key: key);
 
   @override
-  _facbookingState createState() => _facbookingState();
+  _faculty_appointmentState createState() => _faculty_appointmentState();
 }
 
-class _facbookingState extends State<facbooking> {
+class _faculty_appointmentState extends State<faculty_appointment> {
   final _formKey = GlobalKey<FormState>();
   var v;
+
   String? ans;
-  String? phone, name, genrollnment, gexitdate, gexittime;
+  String? phone,
+      name,
+      genrollnment,
+      gexitdate,
+      gexittime,
+      gvehicleno,
+      gdescription,
+      guestemail,
+      gpurpose;
   @override
   void initState() {
     super.initState();
+  }
+
+  Widget _buildfacultyemail() {
+    return TextFormField(
+        decoration: const InputDecoration(
+          labelText: "Visiting Faculty's Email ID",
+        ),
+        readOnly: true,
+        initialValue: "${widget.email}",
+        validator: (email) {
+          if (email == null || email.isEmpty) {
+            return "Visiting Faculty's Email ID is required";
+          } else {
+            genrollnment = email;
+            return null;
+          }
+        });
   }
 
   Widget _buildName() {
@@ -33,23 +62,36 @@ class _facbookingState extends State<facbooking> {
           return "Name is required";
         } else {
           name = value;
-          // FirebaseFirestore.instance.collection('studentGuest').doc().set({
-          //   'guestname': value,
-          // }, SetOptions(merge: true));
           return null;
         }
       },
     );
   }
 
-  Widget _buildphone() {
+  Widget _buildemail() {
     return TextFormField(
         //initialValue: _phoneno!,
         // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: const InputDecoration(labelText: 'Email ID'),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Your Email ID number is required";
+            return "Your email ID is required";
+          } else {
+            guestemail = value;
+            return null;
+          }
+        });
+  }
+
+  Widget _buildphone() {
+    return TextFormField(
+        decoration: const InputDecoration(
+          labelText: "Phone Number",
+        ),
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        validator: (value) {
+          if (value == null || value.length != 10) {
+            return "Valid phone number is required";
           } else {
             phone = value;
             return null;
@@ -57,38 +99,26 @@ class _facbookingState extends State<facbooking> {
         });
   }
 
-  Widget _buildemail() {
+  Widget _buildVehicle() {
     return TextFormField(
-        decoration:
-            const InputDecoration(labelText: 'Visiting Faculty Email ID'),
-        //initialValue: _enrollmentNo!,
+        decoration: const InputDecoration(labelText: 'Vehicle Number'),
         validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Visiting Faculty Email ID is required";
-          } else {
-            genrollnment = value;
+          {
+            gvehicleno = value;
             return null;
           }
         });
   }
 
-  Widget _buildVehicle() {
-    return TextFormField(
-        decoration: const InputDecoration(labelText: 'Vehicle Number'));
-    //initialValue: _roomno!,
-    // validator: (value) {
-
-    // });
-  }
-
   Widget _buildRelation() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Relation/Purpose'),
+        decoration: const InputDecoration(labelText: 'Purpose'),
         //initialValue: _roomno!,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Relation/Purpose is required";
+            return "Purpose is required";
           } else {
+            gpurpose = value;
             return null;
           }
         });
@@ -166,20 +196,21 @@ class _facbookingState extends State<facbooking> {
     );
   }
 
-  Widget _buildMessage() {
-    return TextFormField(
-      keyboardType: TextInputType.multiline,
-      maxLines: 2,
-      maxLength: 100,
-      decoration: const InputDecoration(labelText: 'Description'),
-      // validator: (value) {
-      //   if (value == null || value.isEmpty) {
-      //     return "Reason is Required";
-      //   } else {
-      //     return null;
-      //   }
-    );
-  }
+  // Widget _buildMessage() {
+  //   return TextFormField(
+  //       keyboardType: TextInputType.multiline,
+  //       maxLines: 2,
+  //       maxLength: 100,
+  //       decoration: const InputDecoration(labelText: 'Description'),
+  //       validator: (value) {
+  //         if (value == null || value.isEmpty) {
+  //           return "Reason is Required";
+  //         } else {
+  //           gdescription = value;
+  //           return null;
+  //         }
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -210,15 +241,19 @@ class _facbookingState extends State<facbooking> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  _buildfacultyemail(),
+                  SizedBox(height: heightMobile * 0.02),
                   _buildName(),
-                  _buildphone(),
                   _buildemail(),
+                  _buildphone(),
                   _buildRelation(),
-                  SizedBox(height: heightMobile * 0.04),
-                  _buildTime(),
-                  SizedBox(height: heightMobile * 0.015),
                   _buildVehicle(),
-                  _buildMessage(),
+                  SizedBox(height: heightMobile * 0.06),
+
+                  // SizedBox(height: heightMobile * 0.015),
+
+                  _buildTime(),
+                  //  _buildMessage(),
                   SizedBox(height: heightMobile * 0.06),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -244,18 +279,25 @@ class _facbookingState extends State<facbooking> {
                                       content: Text('Processing Data')),
                                 ),
                                 FirebaseFirestore.instance
-                                    .collection('studentGuest')
-                                    .doc(phone)
+                                    .collection('facultyGuest')
+                                    .doc(genrollnment)
+                                    .collection("guestemail")
+                                    .doc(guestemail)
                                     .set({
                                   'guestname': name,
                                   'guestphone': phone,
-                                  'vistingroll': genrollnment,
-                                  'guestentrydate': gexitdate,
-                                  'guestentrytime': gexittime,
-                                  'gentryisapproved': false
+                                  'guestemail': guestemail,
+                                  'vistingfacultyemail': genrollnment,
+                                  'guestappointdate': gexitdate,
+                                  'guestappointtime': gexittime,
+                                  'gentryisapproved': false,
+                                  'guestvehicleno': gvehicleno,
+                                  'guestpurpose': gpurpose,
+                                  'what': "Guest",
+                                  'appointisapproved': false,
                                 }, SetOptions(merge: true)),
 
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => grequestpending(

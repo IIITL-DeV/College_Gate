@@ -108,9 +108,9 @@ class _guard_requestsState extends State<guard_requests> {
         .collection("studentUser")
         .where("exitisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
-        .orderBy("exitisapproved")
-        .orderBy("purpose")
-        .orderBy("exitdatetime", descending: true)
+        // .orderBy("exitisapproved")
+        // .orderBy("purpose")
+        // .orderBy("exitdatetime", descending: true)
         .snapshots();
   }
 

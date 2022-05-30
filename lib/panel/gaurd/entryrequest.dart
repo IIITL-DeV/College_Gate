@@ -22,9 +22,9 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
         .collection("studentUser")
         .where("entryisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
-        .orderBy("entryisapproved")
-        .orderBy("purpose")
-        .orderBy("entrydatetime", descending: true)
+        // .orderBy("entryisapproved")
+        // .orderBy("purpose")
+        // .orderBy("entrydatetime", descending: true)
         .snapshots();
   }
 
@@ -55,7 +55,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                       height: heightMobile * 0.4,
                       alignment: Alignment.center,
                     ),
-                    Text("No Requests",
+                    Text("No Request",
                         style: TextStyle(
                           fontSize: heightMobile * 0.04,
                           fontWeight: FontWeight.w300,

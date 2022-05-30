@@ -120,8 +120,8 @@ class _noNoticesState extends State<noNotices> {
                         child: ListView(
                           children: [
                             ListTile(
-                              onTap: () {}, //Zoom Image Function
-                              //name
+                              // onTap: () {}, //Zoom Image Function
+                              // //name
                               title: Text(
                                 "${chatItem["guestname"]}",
                                 style: TextStyle(

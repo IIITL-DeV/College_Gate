@@ -65,9 +65,11 @@ class _StudentRegisterState extends State<StudentRegister> {
     ];
     stream = FirebaseFirestore.instance
         .collection("studentRegister")
+        .orderBy(
+          "purpose",
+        )
         .where("purpose", isEqualTo: "Outing")
-        .orderBy("exitdatetime", descending: true)
-        // .orderBy("purpose")
+        // .orderBy("exitdatetime", descending: true)
         .snapshots();
   }
 
@@ -76,10 +78,7 @@ class _StudentRegisterState extends State<StudentRegister> {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
     double cardheight = heightMobile * 0.13;
-    // final tab = new TabBar(tabs: <Tab>[
-    //   new Tab(text: "Exit Requests"),
-    //   new Tab(text: "Entry Requests"),
-    // ]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
@@ -89,7 +88,7 @@ class _StudentRegisterState extends State<StudentRegister> {
           style: TextStyle(fontSize: heightMobile * 0.027),
         ),
       ),
-      // AppBar(
+      // appBar: AppBar(
       //     backgroundColor: Color(0Xff15609c),
       //     title: Text(
       //       "College Gate",
