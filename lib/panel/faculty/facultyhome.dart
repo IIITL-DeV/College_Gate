@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'AppointmentRequest.dart';
 import 'facultyProfile.dart';
+import 'package:intl/intl.dart';
+import 'package:date_format/date_format.dart';
 
 class FacultyHome extends StatefulWidget {
   const FacultyHome({Key? key}) : super(key: key);
@@ -88,6 +90,7 @@ class AppointmentList extends StatefulWidget {
 }
 
 class _AppointmentListState extends State<AppointmentList> {
+<<<<<<< HEAD
   var stream;
   void initState() {
     super.initState();
@@ -98,6 +101,152 @@ class _AppointmentListState extends State<AppointmentList> {
         .collection("guestemail")
         .where("appointisapproved", isEqualTo: true)
         .snapshots();
+=======
+
+  /////// date time picker
+  ///
+  //late String _setTime, _setDate;
+
+  late String _hour, _minute, _time;
+
+  late String dateTime;
+
+  DateTime selectedDate = DateTime.now();
+
+  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+
+  Future<Null> _selectDate(BuildContext context, String name) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      initialDatePickerMode: DatePickerMode.day,
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2101),
+      builder: (context, child) => Theme(
+        data: ThemeData().copyWith(
+          colorScheme: ColorScheme.dark(
+            primary: Color(0Xff19B38D), //Color(0Xff15609c)
+            onSurface: Color(0Xff15609c),
+            onPrimary: Colors.white,
+            surface: Colors.white,
+          ),
+          dialogBackgroundColor: Colors.white,
+        ),
+        child: child!,
+      ),
+    );
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        _dateController.text = DateFormat.yMd().format(selectedDate);
+        _selectTime(context,name);
+      });
+  }
+
+  Future<Null> _selectTime(BuildContext context, String name) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      builder: (context, child) => Theme(
+        data: ThemeData().copyWith(
+          colorScheme: ColorScheme.dark(
+            primary: Color(0Xff19B38D), //Color(0Xff15609c)
+            onSurface: Color(0Xff15609c),
+            onPrimary: Colors.white,
+            surface: Colors.white,
+          ),
+          dialogBackgroundColor: Colors.white,
+        ),
+        child: child!,
+      ),
+    );
+    if (picked != null)
+      setState(() {
+        selectedTime = picked;
+        _hour = selectedTime.hour.toString();
+        _minute = selectedTime.minute.toString();
+        _time = _hour + ' : ' + _minute;
+        _timeController.text = _time;
+        _timeController.text = formatDate(
+            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+            [hh, ':', nn, " ", am]).toString();
+
+        appointmentReschedule(context,name);
+      });
+    //Navigator.of(context).pop();
+  }
+
+  Future<dynamic> appointmentReschedule(BuildContext context,String name) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          double widthMobile = MediaQuery.of(context).size.width;
+          double heightMobile = MediaQuery.of(context).size.height;
+          return AlertDialog(
+            title: Text(
+              "Reschedule",
+              style: TextStyle(
+                  fontSize: heightMobile * 0.027, color: Color(0Xff15609c)),
+            ),
+            content: Container(
+              child: Text(
+                'Reschedule Appointment with $name at ${_timeController.text} on ${_dateController.text}.',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: heightMobile * 0.021,
+                ),
+              ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Confirm",
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          color: Color(0Xff19B38D),
+                        ),
+                      )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //Navigator.of(context).pop();
+                      },
+                      child: Text("Cancel",
+                          style: TextStyle(
+                              fontSize:
+                              MediaQuery.of(context).size.height * 0.02,
+                              color: Colors.red[700]))),
+                ],
+              )
+            ],
+          );
+        });
+  }
+
+  void initState() {
+    ////
+    _dateController.text = DateFormat.yMd().format(DateTime.now());
+
+    _timeController.text = formatDate(
+        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
+        [hh, ':', nn, " ", am]).toString();
+
+    ///
+    super.initState();
+>>>>>>> a9fbab57837216e63870840e6301b571064a6983
   }
 
   @override
@@ -178,6 +327,7 @@ class _AppointmentListState extends State<AppointmentList> {
                                     fontSize: cardheight * 0.13,
                                     fontWeight: FontWeight.bold),
                               ),
+<<<<<<< HEAD
                               //Phone number and Time
                               subtitle: Container(
                                   child: Column(children: [
@@ -306,6 +456,51 @@ class _AppointmentListState extends State<AppointmentList> {
                                     //     // ),
                                     //     )
                                   ],
+=======
+                            ),
+                          ],
+                        ),
+                      ])),
+                      //Id Image
+                      //Room Number
+                      trailing: Text(
+                        "LIT2019059",
+                        style: TextStyle(
+                            fontSize: cardheight * 0.09,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      contentPadding: EdgeInsets.fromLTRB(
+                          cardheight * 0.1,
+                          cardheight * 0.1,
+                          cardheight * 0.1,
+                          cardheight * 0.05),
+                    ),
+                    // SizedBox(
+                    //   height: cardheight * 0.05,
+                    // ),
+                    //Accept, Decline button
+                    Column(
+                      children: [
+                        Container(
+                          height: cardheight * 0.25,
+                          width: widthMobile * 0.88,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              _selectDate(context, "Jagnik Chaurasiya");
+                            },
+                            child: Text(
+                              'Reschedule',
+                              style: TextStyle(
+                                  fontSize: heightMobile * 0.022,
+                                  color: Color(0Xff19B38D)),
+                            ),
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(
+                                  color: Color(0Xff19B38D), width: 2),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(6),
+>>>>>>> a9fbab57837216e63870840e6301b571064a6983
                                 ),
                               ),
                               contentPadding: EdgeInsets.fromLTRB(
