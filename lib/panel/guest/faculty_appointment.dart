@@ -7,6 +7,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+import '../../main.dart';
+
 class faculty_appointment extends StatefulWidget {
   String email;
 
@@ -297,11 +299,16 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                                   'appointisapproved': false,
                                 }, SetOptions(merge: true)),
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => grequestpending(
-                                            genrollnment!, phone!))),
+
+                                flutterToast("Request has been sent."),
+                                Navigator.of(context).pop(),
+                                Navigator.of(context).pop(),
+
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => grequestpending(
+                                //             genrollnment!, phone!))),
                                 // v = FirebaseFirestore.instance
                                 //     .collection("studentUser")
                                 //     .where("email", isEqualTo: email)

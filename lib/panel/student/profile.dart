@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 
+import '../../main.dart';
 import '../warden/viewimage.dart';
 
 class Profile extends StatefulWidget {
@@ -235,6 +236,8 @@ class _ProfileState extends State<Profile> {
                               ),
                               onPressed: () {
                                 /////
+                                flutterToast("Profile has been updated.");
+
                                 setState(() {
                                   isEdit = false;
                                 });

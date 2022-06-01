@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/main.dart';
 import 'package:college_gate/panel/guest/gpending.dart';
 import 'package:college_gate/panel/student/requestpending.dart';
 import 'package:flutter/material.dart';
@@ -266,17 +267,21 @@ class _bookingState extends State<booking> {
                                     .set({'gentryisapproved': false},
                                         SetOptions(merge: true)),
 
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => grequestpending(
-                                            genrollnment!, phone!))),
+                                flutterToast("Request has been sent."),
+                                Navigator.of(context).pop(),
+
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => grequestpending(
+                                //             genrollnment!, phone!))),
                                 // v = FirebaseFirestore.instance
                                 //     .collection("studentUser")
                                 //     .where("email", isEqualTo: email)
                                 //     .get(),
                                 // ans = v["userid"],
                                 // print("answerissssssssssssss$ans")
+
                               }
                             else
                               {print("Not validated")}

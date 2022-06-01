@@ -5,6 +5,8 @@ import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
+import '../../main.dart';
+
 
 
 class DeliveryEntry extends StatefulWidget {
@@ -200,7 +202,12 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                             fontSize: heightMobile * 0.022,
                           ),
                         ),
-                        onPressed: () async {})
+                        onPressed: () async {
+
+                          flutterToast("Entry has been added.");
+                          Navigator.of(context).pop();
+
+                        })
                   ],
                 ),
               )
