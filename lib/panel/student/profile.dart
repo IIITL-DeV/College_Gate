@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 
+import '../../main.dart';
 import '../warden/viewimage.dart';
 
 class Profile extends StatefulWidget {
@@ -271,7 +272,15 @@ class _ProfileState extends State<Profile> {
                                   print("Not validated");
                                 }
                                 /////
+<<<<<<< HEAD
 
+=======
+                                flutterToast("Profile has been updated.");
+
+                                setState(() {
+                                  isEdit = false;
+                                });
+>>>>>>> e9f01e98ce949d3f11007629c0b2934cd2ba2fcf
                                 /////
                               })
                           : ElevatedButton(

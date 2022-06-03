@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:intl/intl.dart';
 
+import '../../main.dart';
+
 class ExitForm extends StatefulWidget {
   const ExitForm({Key? key}) : super(key: key);
 
@@ -366,6 +368,8 @@ class _ExitFormState extends State<ExitForm> {
                                 //     .doc()
                                 //     .set({'exitdate': _recexitdate},
                                 //         SetOptions(merge: true)),
+                                flutterToast("Request has been sent."),
+
                                 Navigator.pop(context),
                               }
                             else

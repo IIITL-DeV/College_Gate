@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:intl/src/intl/date_format.dart';
 
+import '../../main.dart';
+
 class EntryForm extends StatefulWidget {
   const EntryForm({Key? key}) : super(key: key);
 
@@ -403,6 +405,8 @@ class _EntryFormState extends State<EntryForm> {
                                   'entrydatetime':
                                       _recentrydate! + _recentrytime!,
                                 }, SetOptions(merge: true)),
+
+                                flutterToast("Request has been sent."),
 
                                 Navigator.pop(context),
                               }

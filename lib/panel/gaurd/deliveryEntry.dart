@@ -5,6 +5,13 @@ import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
+<<<<<<< HEAD
+=======
+import '../../main.dart';
+
+
+
+>>>>>>> e9f01e98ce949d3f11007629c0b2934cd2ba2fcf
 class DeliveryEntry extends StatefulWidget {
   const DeliveryEntry({Key? key}) : super(key: key);
 
@@ -188,6 +195,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                         fontSize: heightMobile * 0.022,
                       ),
                     ),
+<<<<<<< HEAD
                     onPressed: () async {
                       FirebaseFirestore.instance
                           .collection('studentUser')
@@ -203,6 +211,46 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
               ],
             ),
           )),
+=======
+                    SizedBox(height: heightMobile * 0.02,),
+                    customTextField("Name", "", heightMobile * 0.021),
+                    SizedBox(height: heightMobile * 0.009),
+                    customTextField("Vehicle Number", "", heightMobile * 0.021),
+                    //SizedBox(height: heightMobile * 0.009),
+                    SizedBox(height: heightMobile * 0.04),
+                    _buildTime(),
+                    SizedBox(height: heightMobile * 0.03),
+                    _buildHostel(),
+                    SizedBox(height: heightMobile * 0.009),
+                    dropdownValue == "Appointment" ? customTextField("Phone Number","", heightMobile * 0.021): SizedBox.shrink(),
+                    SizedBox(height: heightMobile * 0.07),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(15.0),
+                            ),
+                            primary: Color(0Xff15609c),
+                            padding: EdgeInsets.all(heightMobile * 0.017),
+                            // padding: const EdgeInsets.all(10),
+                            minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                        child: Text(
+                          'Done',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: heightMobile * 0.022,
+                          ),
+                        ),
+                        onPressed: () async {
+
+                          flutterToast("Entry has been added.");
+                          Navigator.of(context).pop();
+
+                        })
+                  ],
+                ),
+              )
+          ),
+>>>>>>> e9f01e98ce949d3f11007629c0b2934cd2ba2fcf
         ),
       ),
     );

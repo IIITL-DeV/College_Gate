@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -226,6 +227,7 @@ class _AppointmentListState extends State<AppointmentList> {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Guest Notified')));
                         });
+                        flutterToast("Rescheduled Successfully");
                         Navigator.of(context).pop();
                       },
                       child: Text(

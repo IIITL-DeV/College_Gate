@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
+
+import '../../main.dart';
 
 class AppointmentRequest extends StatefulWidget {
   const AppointmentRequest({Key? key}) : super(key: key);
@@ -153,6 +157,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Guest Notified')));
                         });
+                        flutterToast("Rescheduled Successfully");
+                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                       child: Text(
@@ -167,6 +173,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   ),
                   TextButton(
                       onPressed: () {
+                        flutterToast("Appointment Declined");
+                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                       child: Text("Cancel",

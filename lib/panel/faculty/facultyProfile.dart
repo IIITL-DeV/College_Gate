@@ -105,7 +105,41 @@ class _facultyProfileState extends State<facultyProfile> {
                       // SizedBox(height: heightMobile * 0.025),
                       SizedBox(
                         height: heightMobile * 0.2,
-                        child: ClipRRect(
+                        child: isEdit ?
+                            InkWell(
+                              onTap: (){
+                                ////image picker
+
+
+                                /////
+                              },
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Hero(
+                                      tag: _idcard!,
+                                      child: Image.network(_idcard!,
+                                          fit: BoxFit.contain),
+                                    ),
+                                  ),
+                                  const Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: CircleAvatar(
+                                      radius: 15.0,
+                                      backgroundColor: Color(0Xff15609c),
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: Colors.white,
+                                        size: 19.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            : ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: GestureDetector(
                               child: Hero(
