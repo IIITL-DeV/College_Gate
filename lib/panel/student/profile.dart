@@ -13,7 +13,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String? _idcard, _username, _enrollmentNo, _email, _roomno, _phoneno;
+  String? _idcard,
+      _username,
+      _enrollmentNo,
+      _email,
+      _roomno,
+      _phoneno,
+      hostelDropDown;
   bool isEdit = false;
   Future<void> getdetails() async {
     FirebaseFirestore.instance
@@ -28,6 +34,7 @@ class _ProfileState extends State<Profile> {
         _enrollmentNo = value.data()!['enrollment'].toString();
         _phoneno = value.data()!['phone'].toString();
         _roomno = value.data()!['room'].toString();
+        hostelDropDown = value.data()!['hostelno'].toString();
       });
     });
   }
@@ -39,14 +46,13 @@ class _ProfileState extends State<Profile> {
     getdetails();
   }
 
-  String? hostelDropDown;
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-    if (_username == null) {
+    if (_idcard == null) {
       return Center(child: CircularProgressIndicator());
     }
     return Scaffold(
@@ -101,9 +107,9 @@ class _ProfileState extends State<Profile> {
                   child: Center(
                       child: Column(
                     children: [
-                      SizedBox(height: heightMobile * 0.015),
+                      // SizedBox(height: heightMobile * 0.015),
                       SizedBox(
-                        height: heightMobile * 0.15,
+                        height: heightMobile * 0.2,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: GestureDetector(
@@ -149,72 +155,79 @@ class _ProfileState extends State<Profile> {
                       ),
                       SizedBox(height: heightMobile * 0.009),
                       TextFormField(
-                        readOnly: !isEdit,
-                        decoration:
-                            const InputDecoration(labelText: 'Phone Number'),
-                        initialValue: _phoneno,
-                        style: TextStyle(
-                          fontSize: heightMobile * 0.021,
-                        ),
-                      ),
+                          readOnly: !isEdit,
+                          decoration:
+                              const InputDecoration(labelText: 'Phone Number'),
+                          initialValue: _phoneno,
+                          style: TextStyle(
+                            fontSize: heightMobile * 0.021,
+                          ),
+                          validator: (value) {
+                            if (value == null || value.length != 10) {
+                              return "Valid phone number is required";
+                            } else {
+                              _phoneno = value;
+                              return null;
+                            }
+                          }),
                       SizedBox(height: heightMobile * 0.009),
                       TextFormField(
-                        readOnly: !isEdit,
-                        decoration:
-                            const InputDecoration(labelText: 'Room number'),
-                        initialValue: _roomno,
-                        style: TextStyle(
-                          fontSize: heightMobile * 0.021,
-                        ),
-                      ),
-                      SizedBox(
-                          height: isEdit
-                              ? heightMobile * 0.02
-                              : heightMobile * 0.009),
+                          readOnly: !isEdit,
+                          decoration:
+                              const InputDecoration(labelText: 'Room number'),
+                          initialValue: _roomno,
+                          style: TextStyle(
+                            fontSize: heightMobile * 0.021,
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Room number is required";
+                            } else {
+                              _roomno = value;
+                              return null;
+                            }
+                          }),
+                      SizedBox(height: heightMobile * 0.01),
                       isEdit
-                          ? Container(
-                              height: heightMobile * 0.065,
-                              width: widthMobile * 0.9,
-                              margin: EdgeInsets.all(0),
-                              child: DropdownButtonHideUnderline(
-                                child: GFDropdown(
-                                  padding: const EdgeInsets.all(15),
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: const BorderSide(
-                                      color: Colors.black12, width: 1),
-                                  dropdownButtonColor: Colors.white,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: heightMobile * 0.02,
-                                  ),
-                                  value: hostelDropDown,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      hostelDropDown = newValue as String?;
-                                    });
-                                  },
-                                  hint: Text(
-                                    "Hostel",
-                                  ),
-                                  items: ['Hostel 1', 'Hostel 2']
-                                      .map((value) => DropdownMenuItem(
-                                            value: value,
-                                            child: Text(value),
-                                          ))
-                                      .toList(),
-                                ),
+                          ? DropdownButtonFormField<String>(
+                              value: hostelDropDown,
+                              hint: Text(
+                                'Hostel Number',
                               ),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: heightMobile * 0.02,
+                              ),
+                              onChanged: (newValue) =>
+                                  setState(() => hostelDropDown = newValue),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Select hostel number";
+                                } else {
+                                  hostelDropDown = value;
+                                  return null;
+                                }
+                              },
+                              items: [
+                                'Hostel-1',
+                                'Hostel-2'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                             )
                           : TextFormField(
                               readOnly: !isEdit,
                               decoration:
                                   const InputDecoration(labelText: 'Hostel'),
-                              initialValue: "Hostel 1",
+                              initialValue: hostelDropDown,
                               style: TextStyle(
                                 fontSize: heightMobile * 0.021,
                               ),
                             ),
-                      SizedBox(height: heightMobile * 0.06),
+                      SizedBox(height: heightMobile * 0.05),
                       isEdit
                           ? ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -234,8 +247,31 @@ class _ProfileState extends State<Profile> {
                                   fontSize: heightMobile * 0.02,
                                 ),
                               ),
-                              onPressed: () {
-                                /////
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Changes Saved')),
+                                  );
+
+                                  await FirebaseFirestore.instance
+                                      .collection('studentUser')
+                                      .doc((await FirebaseAuth
+                                          .instance.currentUser!.email))
+                                      .update(
+                                    {
+                                      'room': _roomno,
+                                      'phone': _phoneno,
+                                      'hostelno': hostelDropDown
+                                    },
+                                  );
+                                  setState(() {
+                                    isEdit = false;
+                                  });
+                                } else {
+                                  print("Not validated");
+                                }
+
                                 flutterToast("Profile has been updated.");
 
                                 setState(() {

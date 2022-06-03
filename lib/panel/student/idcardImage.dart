@@ -70,8 +70,10 @@ class _idcardImageState extends State<idcardImage> {
   //   }
   // }
 
+  var idcard;
+
   Future uploadImageToFirebase(BuildContext context) async {
-    String fileName = basename(_imageFile!.path);
+    String fileName = FirebaseAuth.instance.currentUser!.email.toString();
     Reference ref =
         FirebaseStorage.instance.ref().child('uploads').child('/$fileName');
 
@@ -87,7 +89,7 @@ class _idcardImageState extends State<idcardImage> {
         .then((value) => {print("Upload file path ${value.ref.fullPath}")})
         .onError((error, stackTrace) =>
             {print("Upload file path error ${error.toString()} ")});
-    var idcard;
+
     uploadTask.whenComplete(() async {
       try {
         idcard = await ref.getDownloadURL();
@@ -147,7 +149,7 @@ class _idcardImageState extends State<idcardImage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: Text(
-                      "Scan your ID Card",
+                      "Capture your ID Card Image",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: heightMobile * 0.025,
@@ -196,12 +198,15 @@ class _idcardImageState extends State<idcardImage> {
                         minimumSize: Size(widthMobile, heightMobile * 0.055),
                         alignment: Alignment.center,
                         primary: const Color(0xFF14619C)),
-                    onPressed: () => {
+                    onPressed: () async => {
                       uploadImageToFirebase(context),
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => studentHome())),
+                      if (idcard == null)
+                        {}
+                      else
+                        await Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => studentHome())),
                     },
                     child: Text(
                       'Submit',

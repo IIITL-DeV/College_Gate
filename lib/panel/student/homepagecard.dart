@@ -48,15 +48,15 @@ class _studentHomeState extends State<studentHome> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outlined),
-            label: 'Alert',
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
-            label: 'Upload',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications_none),
-            label: 'Message',
+            label: 'Notification',
           ),
         ],
         currentIndex: _currentIndex,
@@ -154,7 +154,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                 "Campus Exit Form",
                                 style: TextStyle(
                                     fontSize: heightMobile * 0.021,
-                                    color: Color(0Xff232F77)),
+                                    color: Color(0Xff15609c)),
                               ),
                               IconButton(
                                   alignment: Alignment.centerRight,
@@ -166,7 +166,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                   },
                                   icon: Icon(Icons.chevron_right,
                                       size: heightMobile * 0.03,
-                                      color: Color(0Xff232F77)))
+                                      color: Color(0Xff15609c)))
                             ],
                           ),
                         ),
@@ -203,7 +203,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                   "Campus Entry Form",
                                   style: TextStyle(
                                       fontSize: heightMobile * 0.021,
-                                      color: Color(0Xff232F77)),
+                                      color: Color(0Xff15609c)),
                                 ),
                                 IconButton(
                                     alignment: Alignment.centerRight,
@@ -216,7 +216,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                     },
                                     icon: Icon(Icons.chevron_right,
                                         size: heightMobile * 0.03,
-                                        color: Color(0Xff232F77))),
+                                        color: Color(0Xff15609c))),
                               ])),
                     ]),
                   ),
@@ -251,13 +251,13 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                 "Book Appointment",
                                 style: TextStyle(
                                     fontSize: heightMobile * 0.021,
-                                    color: Color(0Xff232F77)),
+                                    color: Color(0Xff15609c)),
                               ),
                               //SizedBox(width: widthMobile * 0.1,),
                               IconButton(
                                   alignment: Alignment.centerRight,
                                   onPressed: () {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -266,7 +266,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                   icon: Icon(
                                     Icons.chevron_right,
                                     size: heightMobile * 0.03,
-                                    color: Color(0Xff232F77),
+                                    color: Color(0Xff15609c),
                                   ))
                             ],
                           ),

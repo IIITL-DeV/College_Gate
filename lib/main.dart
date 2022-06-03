@@ -60,23 +60,23 @@ class _MyAppState extends State<MyApp> {
       navigateRoute: getScreen(),
       // duration: 5000,
       imageSize: 130,
-      imageSrc: "assets/logocg.png",
+      imageSrc: "assets/cg_white.png",
       text: "College Gate",
       textType: TextType.ColorizeAnimationText,
+      backgroundColor: Color(0xFF01579B),
       textStyle: TextStyle(
         fontSize: 40.0,
       ),
       colors: [
         Color(0xFF388E3C),
-        Color(0xFF01579B),
-        Color(0xFF388E3C),
+        Colors.white,
+        // Color(0xFF388E3C),
       ],
-      backgroundColor: Colors.white,
     );
     Widget example2 = SplashScreenView(
       navigateRoute: SignIn(),
       imageSize: 130,
-      imageSrc: "assets/logocg.png",
+      imageSrc: "assets/cg_white.png",
       text: "College Gate",
       textType: TextType.ColorizeAnimationText,
       textStyle: TextStyle(
@@ -84,11 +84,9 @@ class _MyAppState extends State<MyApp> {
       ),
       colors: [
         Color(0xFF388E3C),
-        Color(0xFF01579B),
-        Colors.blue,
-        Colors.green,
+        Colors.white,
       ],
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF01579B),
     );
 
     return MaterialApp(
