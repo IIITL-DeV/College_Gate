@@ -21,7 +21,7 @@ class gaurdHome extends StatefulWidget {
 class _gaurdHomeState extends State<gaurdHome> {
   int _currentIndex = 1;
   final List<Widget> _pages = <Widget>[
-    gaurdlog(),
+    guardLog(),
     gaurdHomeScreen(),
     guardRequestHome(),
   ];
