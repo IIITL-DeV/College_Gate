@@ -5,8 +5,6 @@ import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-
-
 class DeliveryEntry extends StatefulWidget {
   const DeliveryEntry({Key? key}) : super(key: key);
 
@@ -15,41 +13,37 @@ class DeliveryEntry extends StatefulWidget {
 }
 
 class _DeliveryEntryState extends State<DeliveryEntry> {
-  String? dropdownValue,_recexittime, _recexitdate;
+  final _formKey = GlobalKey<FormState>();
+  String? name, vehicleno, _purpose, entrytime, entrydate;
 
-  Widget _buildHostel() {
-    return Container(
-      height: 50,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.all(0),
-      child: DropdownButtonHideUnderline(
-        child: GFDropdown(
-          padding: const EdgeInsets.all(15),
-          borderRadius: BorderRadius.circular(5),
-          border: const BorderSide(color: Colors.black12, width: 1),
-          dropdownButtonColor: Colors.white,
-          value: dropdownValue,
-          onChanged: (newValue) {
-            setState(() {
-              dropdownValue = newValue as String?;
-            });
-            print('value issssssssssssssss   $dropdownValue');
-          },
-          //                 onChanged: (newValue) =>
-          //     setState(() => dropdownValue = newValue as String?),
-          // validator: (value) => value == null ? 'field required' : null,
-          hint: Text("Purpose"),
-          items: ['Delivery', 'Appointment', 'Others']
-              .map((value) => DropdownMenuItem(
-            value: value,
-            child: Text(value),
-          ))
-              .toList(),
-        ),
+  Widget _buildpurpose() {
+    return DropdownButtonFormField<String>(
+      value: _purpose,
+      hint: Text(
+        'Purpose',
       ),
+      style: TextStyle(
+        color: Colors.black,
+        // fontSize: heightMobile * 0.02,
+      ),
+      onChanged: (newValue) => setState(() => _purpose = newValue),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Select purpose";
+        } else {
+          _purpose = value;
+          return null;
+        }
+      },
+      items: ['Delivery', 'Working Staff', 'Appointment', 'Other']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
-
 
   Widget _buildTime() {
     DateTime times = DateTime.now();
@@ -79,13 +73,8 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                 if (value == null || value.isEmpty) {
                   return "Date is Required";
                 } else {
-                  _recexitdate = value;
-                  FirebaseFirestore.instance
-                      .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).email)
-                      .set({
-                    'date': value,
-                  }, SetOptions(merge: true));
+                  exitdate = value;
+
                   return null;
                 }
               }),
@@ -118,11 +107,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                 if (value == null || value.isEmpty) {
                   return "Time is Required";
                 } else {
-                  _recexittime = value;
-                  FirebaseFirestore.instance
-                      .collection('studentUser')
-                      .doc((FirebaseAuth.instance.currentUser!).email)
-                      .set({'time': value}, SetOptions(merge: true));
+                  exittime = value;
                   return null;
                 }
               }),
@@ -130,7 +115,6 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
       ],
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -159,60 +143,72 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
               vertical: heightMobile * 0.04, horizontal: widthMobile * 0.08),
           child: Form(
               child: Center(
-                child: Column(
-                  children: [
-                    SizedBox(height: heightMobile * 0.02),
-                    SizedBox(
-                      height: heightMobile * 0.13,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(1500),
-                        child: Image.asset(
-                          "assets/entry.png",
-                          fit: BoxFit.contain,
+            child: Column(
+              children: [
+                SizedBox(height: heightMobile * 0.02),
+                SizedBox(
+                  height: heightMobile * 0.13,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(1500),
+                    child: Image.asset(
+                      "assets/entry.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: heightMobile * 0.02,
+                ),
+                customTextField("Name", "", heightMobile * 0.021),
+                SizedBox(height: heightMobile * 0.009),
+                customTextField("Vehicle Number", "", heightMobile * 0.021),
+                //SizedBox(height: heightMobile * 0.009),
+                SizedBox(height: heightMobile * 0.04),
+                _buildTime(),
+                SizedBox(height: heightMobile * 0.03),
+                _buildpurpose(),
+                SizedBox(height: heightMobile * 0.009),
+                _purpose == "Appointment"
+                    ? customTextField("Phone Number", "", heightMobile * 0.021)
+                    : SizedBox.shrink(),
+                SizedBox(height: heightMobile * 0.07),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(15.0),
                         ),
+                        primary: Color(0Xff15609c),
+                        padding: EdgeInsets.all(heightMobile * 0.017),
+                        // padding: const EdgeInsets.all(10),
+                        minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: heightMobile * 0.022,
                       ),
                     ),
-                    SizedBox(height: heightMobile * 0.02,),
-                    customTextField("Name", "", heightMobile * 0.021),
-                    SizedBox(height: heightMobile * 0.009),
-                    customTextField("Vehicle Number", "", heightMobile * 0.021),
-                    //SizedBox(height: heightMobile * 0.009),
-                    SizedBox(height: heightMobile * 0.04),
-                    _buildTime(),
-                    SizedBox(height: heightMobile * 0.03),
-                    _buildHostel(),
-                    SizedBox(height: heightMobile * 0.009),
-                    dropdownValue == "Appointment" ? customTextField("Phone Number","", heightMobile * 0.021): SizedBox.shrink(),
-                    SizedBox(height: heightMobile * 0.07),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(15.0),
-                            ),
-                            primary: Color(0Xff15609c),
-                            padding: EdgeInsets.all(heightMobile * 0.017),
-                            // padding: const EdgeInsets.all(10),
-                            minimumSize: Size(widthMobile, heightMobile * 0.028)),
-                        child: Text(
-                          'Done',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: heightMobile * 0.022,
-                          ),
-                        ),
-                        onPressed: () async {})
-                  ],
-                ),
-              )
-          ),
+                    onPressed: () async {
+                      FirebaseFirestore.instance
+                          .collection('studentUser')
+                          .doc((FirebaseAuth.instance.currentUser!).email)
+                          .set({
+                        'guestentrydate': entrydate,
+                        'guestentrytime': entrytime,
+                        'guestentryname': name,
+                        'huestvehicleno': vehicleno,
+                        'guestpurpose': _purpose
+                      }, SetOptions(merge: true));
+                    })
+              ],
+            ),
+          )),
         ),
       ),
     );
   }
 
-
-  Widget customTextField(
-      String lab, String initValue, double fsize) {
+  Widget customTextField(String lab, String initValue, double fsize) {
     return TextFormField(
       decoration: InputDecoration(labelText: lab.toString()),
       initialValue: initValue,

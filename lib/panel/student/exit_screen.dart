@@ -16,7 +16,6 @@ class ExitForm extends StatefulWidget {
 }
 
 class _ExitFormState extends State<ExitForm> {
-  String? dropdownValue;
   String? _profilePicUrl,
       _username,
       _enrollmentNo,
@@ -25,7 +24,8 @@ class _ExitFormState extends State<ExitForm> {
       _phoneno,
       _recexittime,
       _recexitdate,
-      _purpose;
+      _purpose = "Outing",
+      hostelDropDown;
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _getdetails() async {
@@ -36,7 +36,7 @@ class _ExitFormState extends State<ExitForm> {
         .then((value) {
       setState(() {
         _phoneno = value.data()!['phone'].toString();
-        _purpose = value.data()!['purpose'].toString();
+        hostelDropDown = value.data()!['hostelno'].toString();
         _username = value.data()!['name'].toString();
         _enrollmentNo = value.data()!['enrollment'].toString();
         _roomno = value.data()!['room'].toString();
@@ -102,12 +102,11 @@ class _ExitFormState extends State<ExitForm> {
           borderRadius: BorderRadius.circular(5),
           border: const BorderSide(color: Colors.black12, width: 1),
           dropdownButtonColor: Colors.white,
-          value: dropdownValue,
+          value: _purpose,
           onChanged: (newValue) {
             setState(() {
-              dropdownValue = newValue as String?;
+              _purpose = newValue as String?;
             });
-            print('value issssssssssssssss   $dropdownValue');
           },
           //                 onChanged: (newValue) =>
           //     setState(() => dropdownValue = newValue as String?),
@@ -121,6 +120,34 @@ class _ExitFormState extends State<ExitForm> {
               .toList(),
         ),
       ),
+    );
+  }
+
+  Widget purpose() {
+    return DropdownButtonFormField<String>(
+      value: _purpose,
+      hint: Text(
+        'Purpose',
+      ),
+      style: TextStyle(
+        color: Colors.black,
+        // fontSize: heightMobile * 0.02,
+      ),
+      onChanged: (newValue) => setState(() => _purpose = newValue),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Select purpose";
+        } else {
+          _purpose = value;
+          return null;
+        }
+      },
+      items: ['Outing', 'Home'].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 
@@ -221,7 +248,7 @@ class _ExitFormState extends State<ExitForm> {
   Widget _buildMessage() {
     return TextFormField(
       keyboardType: TextInputType.multiline,
-      maxLines: 2,
+      maxLines: 1,
       maxLength: 100,
       decoration: const InputDecoration(labelText: 'Description'),
       // validator: (value) {
@@ -272,12 +299,14 @@ class _ExitFormState extends State<ExitForm> {
                   _buildRoll(),
                   _buildYear(),
                   _buildRoom(),
-                  SizedBox(height: heightMobile * 0.022),
+                  SizedBox(height: heightMobile * 0.03),
                   _buildTime(),
-                  SizedBox(height: heightMobile * 0.022),
-                  _buildHostel(),
+                  //
+                  SizedBox(height: heightMobile * 0.015),
+                  purpose(),
+                  // SizedBox(height: heightMobile * 0.02),
                   _buildMessage(),
-                  SizedBox(height: heightMobile * 0.08),
+                  SizedBox(height: heightMobile * 0.03),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
@@ -313,7 +342,7 @@ class _ExitFormState extends State<ExitForm> {
                                     .collection('studentUser')
                                     .doc((FirebaseAuth.instance.currentUser!)
                                         .email)
-                                    .set({'purpose': dropdownValue},
+                                    .set({'purpose': _purpose},
                                         SetOptions(merge: true)),
                                 FirebaseFirestore.instance
                                     .collection('studentRegister')

@@ -175,41 +175,70 @@ class _completeProfileState extends State<completeProfile> {
                               _roomno = value;
                             }
                           }),
-                      SizedBox(height: heightMobile * 0.02),
-                      Container(
-                        height: heightMobile * 0.065,
-                        width: widthMobile * 0.9,
-                        margin: EdgeInsets.all(0),
-                        child: DropdownButtonHideUnderline(
-                          child: GFDropdown(
-                            padding: const EdgeInsets.all(15),
-                            borderRadius: BorderRadius.circular(5),
-                            border: const BorderSide(
-                                color: Colors.black12, width: 1),
-                            dropdownButtonColor: Colors.white,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: heightMobile * 0.02,
-                            ),
-                            value: hostelDropDown,
-                            onChanged: (newValue) {
-                              setState(() {
-                                hostelDropDown = newValue as String?;
-                              });
-                            },
-                            hint: Text(
-                              "Hostel",
-                            ),
-                            items: ['Hostel 1', 'Hostel 2']
-                                .map((value) => DropdownMenuItem(
-                                      value: value,
-                                      child: Text(value),
-                                    ))
-                                .toList(),
-                          ),
+                      SizedBox(height: heightMobile * 0.01),
+                      DropdownButtonFormField<String>(
+                        value: hostelDropDown,
+                        hint: Text(
+                          'Hostel Number',
                         ),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: heightMobile * 0.02,
+                        ),
+                        onChanged: (newValue) =>
+                            setState(() => hostelDropDown = newValue),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Select hostel number";
+                          } else {
+                            hostelDropDown = value;
+                            return null;
+                          }
+                        },
+                        items: ['Hostel-1', 'Hostel-2']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
                       ),
-                      SizedBox(height: heightMobile * 0.07),
+                      // Container(
+                      //   height: heightMobile * 0.065,
+                      //   width: widthMobile * 0.9,
+                      //   margin: EdgeInsets.all(0),
+                      //   child: DropdownButtonHideUnderline(
+                      //     child: GFDropdown(
+                      //       padding: const EdgeInsets.all(13),
+                      //       borderRadius: BorderRadius.circular(5),
+                      //       border: const BorderSide(
+                      //           color: Colors.black12, width: 1),
+                      //       dropdownButtonColor: Colors.white,
+                      //       style: TextStyle(
+                      //         color: Colors.black,
+                      //         fontSize: heightMobile * 0.02,
+                      //       ),
+                      //       value: hostelDropDown,
+
+                      //       onChanged: (newValue) =>
+                      //         setState(() =>
+                      //           hostelDropDown = newValue as String?,
+
+                      //         ),
+
+                      //       hint: Text(
+                      //         "Hostel",
+                      //       ),
+                      //       items: ['Hostel 1', 'Hostel 2']
+                      //           .map((value) => DropdownMenuItem(
+                      //                 value: value,
+                      //                 child: Text(value),
+                      //               ))
+                      //           .toList(),
+                      //     ),
+                      //   ),
+                      // ),
+                      SizedBox(height: heightMobile * 0.05),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               shape: new RoundedRectangleBorder(
