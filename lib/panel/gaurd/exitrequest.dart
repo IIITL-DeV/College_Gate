@@ -111,6 +111,8 @@ class _guard_requestsState extends State<guard_requests> {
         // .orderBy("exitisapproved")
         // .orderBy("purpose")
         // .orderBy("exitdatetime", descending: true)
+        .orderBy("date", descending: true)
+        .orderBy("time", descending: true)
         .snapshots();
   }
 

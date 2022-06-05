@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
-import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 //import 'package:image_picker/image_picker.dart';
@@ -32,8 +31,28 @@ class _idcardImageState extends State<idcardImage> {
     });
   }
 
+  Future<void> _cropImage() async {
+    if (_imageFile != null) {
+      File? croppedFile = await ImageCropper().cropImage(
+          sourcePath: _imageFile!.path,
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Edit',
+              toolbarColor: Color(0Xff15609c),
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          iosUiSettings: IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          ));
+      if (croppedFile != null) {
+        setState(() {
+          _imageFile = croppedFile;
+        });
+      }
+    }
+  }
   // Future<Null> _cropImage() async {
-  //   File? croppedFile = await ImageCropper.cropImage(
+  //   File? croppedFile = await ImageCropper().cropImage(
   //       sourcePath: _imageFile!.path,
   //       aspectRatioPresets: Platform.isAndroid
   //           ? [
@@ -63,9 +82,9 @@ class _idcardImageState extends State<idcardImage> {
   //         title: 'Cropper',
   //       ));
   //   if (croppedFile != null) {
-  //     _imageFile = croppedFile;
+  //     //  state = AppState.cropped;
   //     setState(() {
-  //       state = AppState.cropped;
+  //       _imageFile = croppedFile;
   //     });
   //   }
   // }
@@ -82,6 +101,7 @@ class _idcardImageState extends State<idcardImage> {
         customMetadata: {'picked-file-path': fileName});
     UploadTask uploadTask;
     //late StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+
     uploadTask = ref.putFile(File(_imageFile!.path), metadata);
 
     UploadTask task = await Future.value(uploadTask);
@@ -129,98 +149,131 @@ class _idcardImageState extends State<idcardImage> {
           ],
         ),
       ),
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: <Widget>[
-          // Container(
-          //   height: 360,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.only(
-          //         bottomLeft: Radius.circular(250.0),
-          //         bottomRight: Radius.circular(10.0)),
-          //   ),
-          // ),
-          Container(
-            // margin: const EdgeInsets.only(top: 80),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: heightMobile * 0.1),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "Capture your ID Card Image",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: heightMobile * 0.025,
-                        //fontStyle: FontStyle.italic
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: heightMobile * 0.01),
-
-                Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        //decoration: Decor,
-                        //width: double.infinity,
-                        height: heightMobile * 0.6,
-                        // margin: const EdgeInsets.only(
-                        //     left: 10.0, right: 10.0, top: 10.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30.0),
-                          child: _imageFile != null
-                              ? Image.file(_imageFile!)
-                              : FlatButton(
-                                  child: Icon(
-                                    Icons.add_a_photo,
-                                    color: Colors.blue,
-                                    size: 50,
-                                    //semanticLabel: "Take Picture",
-                                  ),
-                                  onPressed: pickImage,
-                                ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: heightMobile * 0.2,
-                ),
-                //uploadImageButton(context),
-                Padding(
-                  padding: EdgeInsets.all(heightMobile * 0.02),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: Size(widthMobile, heightMobile * 0.055),
-                        alignment: Alignment.center,
-                        primary: const Color(0xFF14619C)),
-                    onPressed: () async => {
-                      uploadImageToFirebase(context),
-                      if (idcard == null)
-                        {}
-                      else
-                        await Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => studentHome())),
-                    },
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: heightMobile * 0.022,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(height: heightMobile * 0.05),
+            Text(
+              "Capture your Student ID",
+              style: TextStyle(
+                color: Color(0Xff15609c),
+                fontSize: heightMobile * 0.025,
+                // fontStyle: FontStyle.itali
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 6),
+            Text(
+              "NOTE: IMMUTABLE",
+              style: TextStyle(
+                  color: Colors.red,
+                  fontSize: heightMobile * 0.015,
+                  fontStyle: FontStyle.italic),
+            ),
+            SizedBox(height: heightMobile * 0.03),
+            Container(
+              //decoration: Decor,
+              //width: double.infinity,
+              height: heightMobile * 0.4,
+              // margin: const EdgeInsets.only(
+              //     left: 10.0, right: 10.0, top: 10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: _imageFile != null
+                    ? Image.file(_imageFile!)
+                    : FlatButton(
+                        child: Icon(
+                          Icons.add_a_photo,
+                          color: Color(0Xff15609c),
+                          size: 50,
+                          //semanticLabel: "Take Picture",
+                        ),
+                        onPressed: pickImage,
+                      ),
+              ),
+            ),
+            SizedBox(
+              height: heightMobile * 0.08,
+            ),
+            Container(
+              child: _imageFile != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          child: Icon(
+                            Icons.add_a_photo,
+                            color: Color(0Xff15609c),
+                            size: 30,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _imageFile = null;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: widthMobile * 0.3,
+                        ),
+                        GestureDetector(
+                          child: Icon(
+                            Icons.edit,
+                            color: Color(0Xff15609c),
+                            size: 30,
+                          ),
+                          onTap: () {
+                            _cropImage();
+                          },
+                        )
+                      ],
+                    )
+                  : Text(""),
+            ),
+
+            SizedBox(
+              height: heightMobile * 0.07,
+            ),
+            //uploadImageButton(context),
+            Padding(
+              padding: EdgeInsets.all(heightMobile * 0.02),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(15.0),
+                    ),
+                    padding: EdgeInsets.all(heightMobile * 0.017),
+                    minimumSize: Size(widthMobile, heightMobile * 0.028),
+                    alignment: Alignment.center,
+                    primary: const Color(0xFF14619C)),
+                onPressed: () async => {
+                  if (_imageFile != null)
+                    {
+                      uploadImageToFirebase(context),
+                      await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => studentHome())),
+                    }
+                  else
+                    {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                'Please capture image of your ID Card, you might not be able to edit it later')),
+                      ),
+                    }
+                },
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: heightMobile * 0.022,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

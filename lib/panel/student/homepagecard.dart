@@ -98,24 +98,25 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                   style: TextStyle(fontSize: heightMobile * 0.028)),
             ],
           ),
-          actions: [
-            InkWell(
-              onTap: () {
-                AuthMethods().logout().then((s) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignIn()));
-                });
-              },
-              child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-                  child: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.deepPurple[50],
-                    size: heightMobile * 0.027,
-                  )),
-            )
-          ]),
+      ),
+          // actions: [
+          //   InkWell(
+          //     onTap: () {
+          //       AuthMethods().logout().then((s) {
+          //         Navigator.pushReplacement(context,
+          //             MaterialPageRoute(builder: (context) => SignIn()));
+          //       });
+          //     },
+          //     child: Container(
+          //         padding:
+          //             EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+          //         child: Icon(
+          //           Icons.exit_to_app,
+          //           color: Colors.deepPurple[50],
+          //           size: heightMobile * 0.027,
+          //         )),
+          //   )
+          // ]),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Container(
@@ -257,7 +258,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                               IconButton(
                                   alignment: Alignment.centerRight,
                                   onPressed: () {
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -278,6 +279,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               ],
             )),
       ),
-    );
+    ));
+
   }
 }

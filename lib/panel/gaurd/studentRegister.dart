@@ -65,11 +65,13 @@ class _StudentRegisterState extends State<StudentRegister> {
     ];
     stream = FirebaseFirestore.instance
         .collection("studentRegister")
-        .orderBy(
-          "purpose",
-        )
+        // .orderBy(
+        //   "purpose",
+        // )
         .where("purpose", isEqualTo: "Outing")
-        // .orderBy("exitdatetime", descending: true)
+        // .orderBy("purpose")
+        .orderBy("exitdate", descending: true)
+        .orderBy("exittime", descending: true)
         .snapshots();
   }
 
@@ -194,36 +196,44 @@ class _StudentRegisterState extends State<StudentRegister> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  SizedBox(
-                                    width: widthMobile * 0.001,
-                                  ),
                                   Text(
                                     "Room ${chatItem["room"]}",
+                                    textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: cardheight * 0.13,
                                     ),
                                   ),
-                                  //SizedBox(height: 5),
-                                  Text(
-                                    "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
-                                    style: TextStyle(
-                                      fontSize: cardheight * 0.13,
-                                      backgroundColor: Color(0XffD1F0E8),
-                                    ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                        width: widthMobile * 0.001,
+                                      ),
+
+                                      //SizedBox(height: 5),
+                                      Text(
+                                        "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
+                                        style: TextStyle(
+                                          fontSize: cardheight * 0.13,
+                                          backgroundColor: Color(0XffD1F0E8),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward,
+                                        color:
+                                            Color.fromARGB(255, 22, 180, 140),
+                                        size: cardheight * 0.1,
+                                      ),
+                                      Text(
+                                        "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
+                                        style: TextStyle(
+                                          fontSize: cardheight * 0.13,
+                                          backgroundColor: Color(0XffD1F0E8),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward,
-                                    color: Color(0XffD1F0E8),
-                                    size: cardheight * 0.1,
-                                  ),
-                                  Text(
-                                    "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
-                                    style: TextStyle(
-                                      fontSize: cardheight * 0.13,
-                                      backgroundColor: Color(0XffD1F0E8),
-                                    ),
-                                  )
                                 ],
                               )
                             ],

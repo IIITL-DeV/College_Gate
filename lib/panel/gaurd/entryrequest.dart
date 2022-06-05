@@ -22,9 +22,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
         .collection("studentUser")
         .where("entryisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
-        // .orderBy("entryisapproved")
-        // .orderBy("purpose")
-        // .orderBy("entrydatetime", descending: true)
+        .orderBy("entrydate", descending: true)
+        .orderBy("entrytime", descending: true)
         .snapshots();
   }
 

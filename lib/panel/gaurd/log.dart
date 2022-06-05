@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math' as math;
-
+import 'package:intl/intl.dart';
 
 class guardLog extends StatefulWidget {
   @override
@@ -92,8 +92,6 @@ class _guardLogState extends State<guardLog>
   }
 }
 
-
-
 class gaurdStudentLog extends StatefulWidget {
   // const guard_profile({Key? key}) : super(key: key);
 
@@ -109,8 +107,9 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
     stream = FirebaseFirestore.instance
         .collection("studentUser")
         .where("exitisapproved", isEqualTo: true)
-        // .where("entryisappr")
         .where("purpose", isEqualTo: "Outing")
+        .orderBy("date", descending: true)
+        .orderBy("time", descending: true)
         .snapshots();
   }
 
@@ -295,7 +294,6 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
   }
 }
 
-
 class guardGuestLog extends StatefulWidget {
   const guardGuestLog({Key? key}) : super(key: key);
 
@@ -309,10 +307,10 @@ class _guardGuestLogState extends State<guardGuestLog> {
   void initState() {
     super.initState();
     stream = FirebaseFirestore.instance
-        .collection("studentUser")
-        .where("exitisapproved", isEqualTo: true)
-    // .where("entryisappr")
-        .where("purpose", isEqualTo: "Outing")
+        .collection("guestRegister")
+        .where("entryisapproved", isEqualTo: true)
+        .orderBy("entrydate", descending: true)
+        .orderBy("entrytime", descending: true)
         .snapshots();
   }
 
@@ -324,134 +322,144 @@ class _guardGuestLogState extends State<guardGuestLog> {
 
     return Scaffold(
         body: StreamBuilder(
-          stream: stream,
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasData) {
-              int value;
-              value = snapshot.data!.docs.length;
-              if (value == 0 || value == null) {
-                print("issssss$value");
-                return SizedBox(
-                    width: widthMobile,
-                    height: heightMobile,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: heightMobile * 0.13),
-                        Image.asset(
-                          'assets/nonotices.png',
-                          //fit: BoxFit.fitWidth,
-                          width: widthMobile * 0.8,
-                          height: heightMobile * 0.4,
-                          alignment: Alignment.center,
-                        ),
-                        Text("No logs",
-                            style: TextStyle(
-                              fontSize: heightMobile * 0.04,
-                              fontWeight: FontWeight.w300,
-                              color: Color(0Xff14619C),
-                            )),
-                      ],
-                    ));
-              }
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  final chatItem = snapshot.data!.docs[index];
-                  return Padding(
-                    padding: EdgeInsets.all(heightMobile * 0.01),
-                    child: Card(
-                      elevation: 3.5,
-                      child: SizedBox(
-                        height: cardheight,
-                        width: widthMobile * 0.9,
-                        child: ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                            ListTile(
-                              onTap: () {}, //Zoom Image Function
-                              //name
-                              title: Row(
-                                children: [
-                                  SizedBox(width: cardheight * 0.06 ,),
-                                  Text(
-                                    "${chatItem["name"]}",
-                                    style: TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: cardheight * 0.22,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+      stream: stream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasData) {
+          int value;
+          value = snapshot.data!.docs.length;
+          if (value == 0 || value == null) {
+            print("issssss$value");
+            return SizedBox(
+                width: widthMobile,
+                height: heightMobile,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: heightMobile * 0.13),
+                    Image.asset(
+                      'assets/nonotices.png',
+                      //fit: BoxFit.fitWidth,
+                      width: widthMobile * 0.8,
+                      height: heightMobile * 0.4,
+                      alignment: Alignment.center,
+                    ),
+                    Text("No logs",
+                        style: TextStyle(
+                          fontSize: heightMobile * 0.04,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0Xff14619C),
+                        )),
+                  ],
+                ));
+          }
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              final chatItem = snapshot.data!.docs[index];
+              return Padding(
+                padding: EdgeInsets.all(heightMobile * 0.01),
+                child: Card(
+                  elevation: 3.5,
+                  child: SizedBox(
+                    height: cardheight,
+                    width: widthMobile * 0.9,
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        ListTile(
+                          title: Row(
+                            children: [
+                              SizedBox(
+                                width: cardheight * 0.06,
                               ),
+                              Text(
+                                "${chatItem["name"]}",
+                                style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: cardheight * 0.22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
 
-                              //Phone number and Time
-                              subtitle: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(width: cardheight * 0.06,),
-                                      Icon(
-                                        Icons.add_call,
-                                        size: cardheight * 0.15,
-                                      ),
-                                      SizedBox(
-                                        width: widthMobile * 0.02,
-                                      ),
-                                      Text(
-                                        "${chatItem["phone"]}",
-                                        style:
-                                        TextStyle(fontSize: cardheight * 0.17),
-                                      ),
-                                      // SizedBox(
-                                      //   height: cardheight * 0.03,
-                                      // ),
-                                      SizedBox(width: cardheight * 0.12,),
-                                      Icon(
-                                        Icons.access_alarm,
-                                        size: cardheight * 0.16,
-                                      ),
-                                      SizedBox(
-                                        width: widthMobile * 0.02,
-                                      ),
-                                      Text(
-                                        "${chatItem["time"]} | ${chatItem["date"]}",
-                                        style: TextStyle(
-                                          fontSize: cardheight * 0.17,
-                                          backgroundColor: Color(0XffD1F0E8),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                              trailing: Transform.rotate(
-                                angle: 180 * math.pi / 180,
-                                child: IconButton(
-                                  onPressed: (){
-
-                                  },
-                                  icon: Icon(
-                                    CupertinoIcons.square_arrow_left,
-                                    color: Color(0Xff19B38D),
-                                    size: cardheight * 0.35,
-                                  ),
+                          //Phone number and Time
+                          subtitle: Container(
+                              child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: cardheight * 0.06,
+                              ),
+                              Icon(
+                                Icons.directions_car,
+                                size: cardheight * 0.15,
+                              ),
+                              SizedBox(
+                                width: widthMobile * 0.02,
+                              ),
+                              Text(
+                                "${chatItem["vehicleno"]}",
+                                style: TextStyle(fontSize: cardheight * 0.17),
+                              ),
+                              // SizedBox(
+                              //   height: cardheight * 0.03,
+                              // ),
+                              SizedBox(
+                                width: cardheight * 0.12,
+                              ),
+                              Icon(
+                                Icons.access_alarm,
+                                size: cardheight * 0.16,
+                              ),
+                              SizedBox(
+                                width: widthMobile * 0.02,
+                              ),
+                              Text(
+                                "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
+                                style: TextStyle(
+                                  fontSize: cardheight * 0.17,
+                                  backgroundColor: Color(0XffD1F0E8),
                                 ),
                               ),
-                              contentPadding: EdgeInsets.fromLTRB(
-                                  cardheight * 0.14,
-                                  cardheight * 0.08,
-                                  cardheight * 0.14,
-                                  cardheight * 0.08),
+                            ],
+                          )),
+                          trailing: Transform.rotate(
+                            angle: 180 * math.pi / 180,
+                            child: IconButton(
+                              onPressed: () {
+                                DateTime times = DateTime.now();
+                                FirebaseFirestore.instance
+                                    .collection('guestRegister')
+                                    .doc(chatItem["name"]! +
+                                        chatItem["vehicleno"]!)
+                                    .update({
+                                  'exitdate':
+                                      DateFormat('dd-MM-yyyy').format(times),
+                                  'exittime':
+                                      DateFormat('kk:mm a').format(times),
+                                  'entryisapproved': false,
+                                });
+                              },
+                              icon: Icon(
+                                CupertinoIcons.square_arrow_left,
+                                color: Color(0Xff19B38D),
+                                size: cardheight * 0.35,
+                              ),
                             ),
-                          ],
+                          ),
+                          contentPadding: EdgeInsets.fromLTRB(cardheight * 0.13,
+                              0, cardheight * 0.14, cardheight * 0.08),
                         ),
-                      ),
+                      ],
                     ),
-                  );
-                },
+                  ),
+                ),
               );
-            }
-            return Center(child: CircularProgressIndicator());
-          },
-        ));
+            },
+          );
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    ));
   }
 }
-
