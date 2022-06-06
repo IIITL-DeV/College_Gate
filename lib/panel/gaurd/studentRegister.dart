@@ -187,15 +187,16 @@ class _StudentRegisterState extends State<StudentRegister> {
                                       fontSize: cardheight * 0.13,
                                     )),
                                 contentPadding: EdgeInsets.fromLTRB(
+                                    cardheight * 0.13,
                                     cardheight * 0.1,
-                                    cardheight * 0.1,
-                                    cardheight * 0.1,
+                                    cardheight * 0.14,
                                     cardheight * 0),
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                // mainAxisAlignment:
+                                //     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  SizedBox(width: cardheight* 0.14,),
                                   Text(
                                     "Room ${chatItem["room"]}",
                                     textAlign: TextAlign.start,
@@ -204,14 +205,24 @@ class _StudentRegisterState extends State<StudentRegister> {
                                       fontSize: cardheight * 0.13,
                                     ),
                                   ),
+                                  SizedBox(width: cardheight* 0.1,),
+
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       SizedBox(
                                         width: widthMobile * 0.001,
                                       ),
-
                                       //SizedBox(height: 5),
+                                      Icon(
+                                        Icons.access_alarm,
+                                        size: cardheight * 0.12,
+                                        color:
+                                        Color.fromARGB(255, 22, 180, 140),
+                                      ),
+                                      SizedBox(
+                                        width: cardheight * 0.05,
+                                      ),
                                       Text(
                                         "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
                                         style: TextStyle(
@@ -219,12 +230,14 @@ class _StudentRegisterState extends State<StudentRegister> {
                                           backgroundColor: Color(0XffD1F0E8),
                                         ),
                                       ),
+                                      SizedBox(width: cardheight* 0.05,),
                                       Icon(
                                         Icons.arrow_forward,
                                         color:
                                             Color.fromARGB(255, 22, 180, 140),
                                         size: cardheight * 0.1,
                                       ),
+                                      SizedBox(width: cardheight* 0.05,),
                                       Text(
                                         "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
                                         style: TextStyle(

@@ -279,7 +279,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               ],
             )),
       ),
-    ));
+    );
 
   }
 }

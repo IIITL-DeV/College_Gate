@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/services/auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class guestRegister extends StatefulWidget {
@@ -97,6 +98,7 @@ class _guestRegisterState extends State<guestRegister> {
               }
               return ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final chatItem = snapshot.data!.docs[index];
@@ -123,27 +125,37 @@ class _guestRegisterState extends State<guestRegister> {
                                       style: TextStyle(
                                         fontSize: cardheight * 0.13,
                                       )),
-                                  // contentPadding: EdgeInsets.fromLTRB(
-                                  //     cardheight * 0.13,
-                                  //     cardheight * 0.0,
-                                  //     cardheight * 0.14,
-                                  //     cardheight * 0),
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      cardheight * 0.13,
+                                      cardheight * 0.1,
+                                      cardheight * 0.14,
+                                      cardheight * 0),
                                 ),
-                                Column(
+                                Row(
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceEvenly,
                                   children: [
+                                    SizedBox(width: cardheight* 0.14,),
+                                    Text("${chatItem["purpose"]}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: cardheight * 0.13,
+                                        )),
+                                    //SizedBox(height: 5),
+                                    SizedBox(width: cardheight* 0.1,),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text("${chatItem["purpose"]}",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: cardheight * 0.13,
-                                            )),
-                                        //SizedBox(height: 5),
                                         SizedBox(
-                                          width: widthMobile * 0.003,
+                                          width: widthMobile * 0.001,
                                         ),
+                                        Icon(
+                                          Icons.access_alarm,
+                                          size: cardheight * 0.12,
+                                          color:
+                                          Color.fromARGB(255, 22, 180, 140),
+                                        ),
+                                        SizedBox(width: cardheight* 0.05,),
+
                                         Text(
                                           chatItem["entrytime"] == null
                                               ? "OUT | OUT"
@@ -153,12 +165,14 @@ class _guestRegisterState extends State<guestRegister> {
                                             backgroundColor: Color(0XffD1F0E8),
                                           ),
                                         ),
+                                        SizedBox(width: cardheight* 0.05,),
                                         Icon(
                                           Icons.arrow_forward,
                                           color:
-                                              Color.fromARGB(255, 22, 180, 140),
+                                          Color.fromARGB(255, 22, 180, 140),
                                           size: cardheight * 0.1,
                                         ),
+                                        SizedBox(width: cardheight* 0.05,),
 
                                         Text(
                                           chatItem["exittime"] == null
@@ -171,6 +185,7 @@ class _guestRegisterState extends State<guestRegister> {
                                         ),
                                       ],
                                     ),
+
                                   ],
                                 )
                               ],
