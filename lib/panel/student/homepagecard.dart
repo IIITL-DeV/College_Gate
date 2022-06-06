@@ -225,7 +225,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => FacultyList()));
+                        MaterialPageRoute(builder: (context) => FacultyList(isStudent: true,)));
                   },
                   child: Card(
                     elevation: 4,
@@ -262,7 +262,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                FacultyList()));
+                                                FacultyList(isStudent: true,)));
                                   },
                                   icon: Icon(
                                     Icons.chevron_right,
