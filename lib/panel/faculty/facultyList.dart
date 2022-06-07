@@ -79,82 +79,80 @@ class _FacultyListState extends State<FacultyList> {
                       ));
                 }
 
-                return SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        final chatItem = snapshot.data!.docs[index];
-                        return Padding(
-                          padding: EdgeInsets.all(heightMobile * 0.008),
-                          child: Card(
-                            elevation: 3.5,
-                            child: SizedBox(
-                              height: cardheight,
-                              width: widthMobile * 0.9,
-                              child: ListView(
-                                children: [
-                                  ListTile(
-                                    isThreeLine: false,
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => widget
-                                                      .isStudent
-                                                  ? studentfacultyappointment(
-                                                      email: chatItem["email"])
-                                                  : faculty_appointment(
-                                                      email: chatItem["email"],
-                                                      isStudent:
-                                                          widget.isStudent,
-                                                    )));
-                                    },
-                                    title: Text(
-                                      "${chatItem["name"]}",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: cardheight * 0.2,
-                                          fontWeight: FontWeight.bold),
+                return ListView.builder(
+
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      final chatItem = snapshot.data!.docs[index];
+                      return Padding(
+                        padding: EdgeInsets.all(heightMobile * 0.008),
+                        child: Card(
+                          elevation: 3.5,
+                          child: SizedBox(
+                            height: cardheight,
+                            width: widthMobile * 0.9,
+                            child: ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: [
+                                ListTile(
+                                  isThreeLine: false,
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => widget
+                                                    .isStudent
+                                                ? studentfacultyappointment(
+                                                    email: chatItem["email"])
+                                                : faculty_appointment(
+                                                    email: chatItem["email"],
+                                                    isStudent:
+                                                        widget.isStudent,
+                                                  )));
+                                  },
+                                  title: Text(
+                                    "${chatItem["name"]}",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: cardheight * 0.2,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  subtitle: Text(
+                                    "${chatItem["Designation"]}",
+                                    //overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: cardheight * 0.13),
+                                  ),
+                                  leading: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      minWidth: widthMobile * 0.1,
+                                      minHeight: cardheight * 0.4,
+                                      maxWidth: widthMobile * 0.2,
+                                      maxHeight: cardheight * 0.55,
                                     ),
-                                    subtitle: Text(
-                                      "${chatItem["Designation"]}",
-                                      //overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: cardheight * 0.13),
-                                    ),
-                                    leading: ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        minWidth: widthMobile * 0.1,
-                                        minHeight: cardheight * 0.4,
-                                        maxWidth: widthMobile * 0.2,
-                                        maxHeight: cardheight * 0.55,
-                                      ),
-                                      child: GestureDetector(
-                                          child: Hero(
-                                            tag: chatItem["ProfilePic"]!,
-                                            child: Image.network(
-                                                "${chatItem["ProfilePic"]}",
-                                                fit: BoxFit.contain),
-                                          ),
-                                          onTap: () async {
-                                            Navigator.push(context,
-                                                MaterialPageRoute(builder: (_) {
-                                              return viewImage(
-                                                  chatItem["ProfilePic"]);
-                                            }));
-                                          }),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                    child: GestureDetector(
+                                        child: Hero(
+                                          tag: chatItem["ProfilePic"]!,
+                                          child: Image.network(
+                                              "${chatItem["ProfilePic"]}",
+                                              fit: BoxFit.contain),
+                                        ),
+                                        onTap: () async {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (_) {
+                                            return viewImage(
+                                                chatItem["ProfilePic"]);
+                                          }));
+                                        }),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                        );
-                      }),
-                );
+                        ),
+                      );
+                    });
               }
               return Center(child: CircularProgressIndicator());
             }));

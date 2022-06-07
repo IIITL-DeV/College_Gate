@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:date_format/date_format.dart';
+
 
 class booking extends StatefulWidget {
   const booking({Key? key}) : super(key: key);
@@ -21,7 +23,131 @@ class _bookingState extends State<booking> {
   String? phone, name, genrollnment, gexitdate, gexittime;
   @override
   void initState() {
+    _dateController.text = DateFormat.yMd().format(DateTime.now());
+
+    _timeController.text = formatDate(
+        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
+        [hh, ':', nn, " ", am]).toString();
     super.initState();
+  }
+
+  late String _hour, _minute, _time;
+
+  late String dateTime;
+
+  DateTime selectedDate = DateTime.now();
+
+  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+
+  Widget _buildDate(){
+    return Row(
+      children: [
+        Expanded(child: TextField(
+          controller: _dateController,
+          decoration: InputDecoration(
+            labelText: 'Date',
+            // : Colors.white70,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(
+                color: Colors.blue,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(
+                color: Colors.black12,
+                width: 1,
+              ),
+            ),
+          ),
+          onTap: () async{
+            final DateTime? picked = await showDatePicker(
+              context: context,
+              initialDate: selectedDate,
+              initialDatePickerMode: DatePickerMode.day,
+              firstDate: DateTime(2021),
+              lastDate: DateTime(2101),
+              builder: (context, child) => Theme(
+                data: ThemeData().copyWith(
+                  colorScheme: ColorScheme.dark(
+                    primary: Color(0Xff19B38D), //Color(0Xff15609c)
+                    onSurface: Color(0Xff15609c),
+                    onPrimary: Colors.white,
+                    surface: Colors.white,
+                  ),
+                  dialogBackgroundColor: Colors.white,
+                ),
+                child: child!,
+              ),
+            );
+            if (picked != null)
+              setState(() {
+                selectedDate = picked;
+                _dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
+
+              });
+          },
+
+        )),
+        SizedBox(width: 10,),
+        Expanded(child: TextField(
+          controller: _timeController,
+          decoration: InputDecoration(
+            labelText: 'Time',
+            // : Colors.white70,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(
+                color: Colors.blue,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(
+                color: Colors.black12,
+                width: 1,
+              ),
+            ),
+          ),
+          onTap: () async{
+            final TimeOfDay? picked = await showTimePicker(
+              context: context,
+              initialTime: selectedTime,
+              builder: (context, child) => Theme(
+                data: ThemeData().copyWith(
+                  colorScheme: ColorScheme.dark(
+                    primary: Color(0Xff19B38D), //Color(0Xff15609c)
+                    onSurface: Color(0Xff15609c),
+                    onPrimary: Colors.white,
+                    surface: Colors.white,
+                  ),
+                  dialogBackgroundColor: Colors.white,
+                ),
+                child: child!,
+              ),
+            );
+            if (picked != null)
+              setState(() {
+                selectedTime = picked;
+                _hour = selectedTime.hour.toString();
+                _minute = selectedTime.minute.toString();
+                _time = _hour + ' : ' + _minute;
+                _timeController.text = _time;
+                _timeController.text = formatDate(
+                    DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute), [
+                  hh,
+                  ':',
+                  nn,
+                ]).toString();
+
+              });
+          },
+        )),
+      ],
+    );
   }
 
   Widget _buildName() {
@@ -95,77 +221,77 @@ class _bookingState extends State<booking> {
         });
   }
 
-  Widget _buildTime() {
-    DateTime times = DateTime.now();
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Date',
-                // : Colors.white70,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.black12,
-                    width: 1,
-                  ),
-                ),
-              ),
-              initialValue: DateFormat('dd-MM-yyyy').format(times),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Date is required";
-                } else {
-                  gexitdate = value;
-
-                  return null;
-                }
-              }),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Expanded(
-          child: TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Time',
-                // : Colors.white70,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.black12,
-                    width: 1,
-                  ),
-                ),
-              ),
-              initialValue: DateFormat('HH:mm a').format(times),
-              // decoration: const InputDecoration(labelText: 'Time'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Time is Required";
-                } else {
-                  gexittime = value;
-
-                  return null;
-                }
-              }),
-        ),
-      ],
-    );
-  }
+  // Widget _buildTime() {
+  //   DateTime times = DateTime.now();
+  //   return Row(
+  //     children: [
+  //       Expanded(
+  //         child: TextFormField(
+  //             decoration: InputDecoration(
+  //               labelText: 'Date',
+  //               // : Colors.white70,
+  //               focusedBorder: OutlineInputBorder(
+  //                 borderRadius: BorderRadius.circular(0),
+  //                 borderSide: BorderSide(
+  //                   color: Colors.blue,
+  //                 ),
+  //               ),
+  //               enabledBorder: OutlineInputBorder(
+  //                 borderRadius: BorderRadius.circular(0),
+  //                 borderSide: BorderSide(
+  //                   color: Colors.black12,
+  //                   width: 1,
+  //                 ),
+  //               ),
+  //             ),
+  //             initialValue: DateFormat('dd-MM-yyyy').format(times),
+  //             validator: (value) {
+  //               if (value == null || value.isEmpty) {
+  //                 return "Date is required";
+  //               } else {
+  //                 gexitdate = value;
+  //
+  //                 return null;
+  //               }
+  //             }),
+  //       ),
+  //       SizedBox(
+  //         width: 10,
+  //       ),
+  //       Expanded(
+  //         child: TextFormField(
+  //             decoration: InputDecoration(
+  //               labelText: 'Time',
+  //               // : Colors.white70,
+  //               focusedBorder: OutlineInputBorder(
+  //                 borderRadius: BorderRadius.circular(0),
+  //                 borderSide: BorderSide(
+  //                   color: Colors.blue,
+  //                 ),
+  //               ),
+  //               enabledBorder: OutlineInputBorder(
+  //                 borderRadius: BorderRadius.circular(0),
+  //                 borderSide: BorderSide(
+  //                   color: Colors.black12,
+  //                   width: 1,
+  //                 ),
+  //               ),
+  //             ),
+  //             initialValue: DateFormat('HH:mm a').format(times),
+  //             // decoration: const InputDecoration(labelText: 'Time'),
+  //             validator: (value) {
+  //               if (value == null || value.isEmpty) {
+  //                 return "Time is Required";
+  //               } else {
+  //                 gexittime = value;
+  //
+  //                 return null;
+  //               }
+  //             }),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildMessage() {
     return TextFormField(
@@ -216,7 +342,7 @@ class _bookingState extends State<booking> {
                   _buildemail(),
                   _buildRelation(),
                   SizedBox(height: heightMobile * 0.04),
-                  _buildTime(),
+                  _buildDate(),
                   // SizedBox(height: heightMobile * 0.015),
                   // _buildVehicle(),
                   _buildMessage(),
@@ -253,8 +379,8 @@ class _bookingState extends State<booking> {
                                   'guestname': name,
                                   'guestphone': phone,
                                   'vistingroll': genrollnment,
-                                  'guestentrydate': gexitdate,
-                                  'guestentrytime': gexittime,
+                                  'guestentrydate': _dateController.text,
+                                  'guestentrytime': _timeController.text,
                                   'gentryisapproved': false
                                 }, SetOptions(merge: true)),
                                 FirebaseFirestore.instance

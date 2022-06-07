@@ -167,90 +167,90 @@ class _StudentRegisterState extends State<StudentRegister> {
                     padding: EdgeInsets.all(heightMobile * 0.008),
                     child: Card(
                       elevation: 3.5,
-                      child: Expanded(
-                        child: SizedBox(
-                          height: cardheight,
-                          width: widthMobile * 0.9,
-                          child: ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: [
-                              ListTile(
-                                title: Text(
-                                  "${chatItem["name"]}",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: cardheight * 0.18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                trailing: Text("${chatItem["enrollment"]}",
-                                    style: TextStyle(
-                                      fontSize: cardheight * 0.13,
-                                    )),
-                                contentPadding: EdgeInsets.fromLTRB(
-                                    cardheight * 0.13,
-                                    cardheight * 0.1,
-                                    cardheight * 0.14,
-                                    cardheight * 0),
+                      child: SizedBox(
+                        height: cardheight,
+                        width: widthMobile * 0.9,
+                        child: ListView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                            ListTile(
+                              title: Text(
+                                "${chatItem["name"]}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: cardheight * 0.18,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              Row(
-                                // mainAxisAlignment:
-                                //     MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(width: cardheight* 0.14,),
-                                  Text(
-                                    "Room ${chatItem["room"]}",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: cardheight * 0.13,
-                                    ),
+                              trailing: Text("${chatItem["enrollment"]}",
+                                  style: TextStyle(
+                                    fontSize: cardheight * 0.13,
+                                  )),
+                              contentPadding: EdgeInsets.fromLTRB(
+                                  cardheight * 0.13,
+                                  cardheight * 0.1,
+                                  cardheight * 0.14,
+                                  cardheight * 0),
+                            ),
+                            Row(
+                              // mainAxisAlignment:
+                              //     MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(width: cardheight* 0.14,),
+                                Text(
+                                  "Room ${chatItem["room"]}",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: cardheight * 0.13,
                                   ),
-                                  SizedBox(width: cardheight* 0.1,),
+                                ),
+                                SizedBox(width: cardheight* 0.08,),
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      SizedBox(
-                                        width: widthMobile * 0.001,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [ //SizedBox(height: 5),
+                                    Icon(
+                                      Icons.access_alarm,
+                                      size: cardheight * 0.12,
+                                      color:
+                                      Color.fromARGB(255, 22, 180, 140),
+                                    ),
+                                    SizedBox(
+                                      width: cardheight * 0.05,
+                                    ),
+                                    Text(
+                                      chatItem["exittime"] == null
+                                          ? "IN | IN"
+                                          :
+                                      "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
+                                      style: TextStyle(
+                                        fontSize: cardheight * 0.13,
+                                        backgroundColor: Color(0XffD1F0E8),
                                       ),
-                                      //SizedBox(height: 5),
-                                      Icon(
-                                        Icons.access_alarm,
-                                        size: cardheight * 0.12,
-                                        color:
-                                        Color.fromARGB(255, 22, 180, 140),
+                                    ),
+                                    SizedBox(width: cardheight* 0.05,),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color:
+                                          Color.fromARGB(255, 22, 180, 140),
+                                      size: cardheight * 0.1,
+                                    ),
+                                    SizedBox(width: cardheight* 0.05,),
+                                    Text(
+                                      chatItem["entrytime"] == null
+                                          ? "OUT | OUT"
+                                          :
+                                      "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
+                                      style: TextStyle(
+                                        fontSize: cardheight * 0.13,
+                                        backgroundColor: Color(0XffD1F0E8),
                                       ),
-                                      SizedBox(
-                                        width: cardheight * 0.05,
-                                      ),
-                                      Text(
-                                        "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
-                                        style: TextStyle(
-                                          fontSize: cardheight * 0.13,
-                                          backgroundColor: Color(0XffD1F0E8),
-                                        ),
-                                      ),
-                                      SizedBox(width: cardheight* 0.05,),
-                                      Icon(
-                                        Icons.arrow_forward,
-                                        color:
-                                            Color.fromARGB(255, 22, 180, 140),
-                                        size: cardheight * 0.1,
-                                      ),
-                                      SizedBox(width: cardheight* 0.05,),
-                                      Text(
-                                        "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
-                                        style: TextStyle(
-                                          fontSize: cardheight * 0.13,
-                                          backgroundColor: Color(0XffD1F0E8),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ),
