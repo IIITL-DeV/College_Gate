@@ -34,7 +34,7 @@ dependencies:
   flutter_screenutil: ^5.3.1
   csv: ^5.0.1
   path_provider: ^2.0.9
-  flutter_email_sender: ^5.1.0
+  flutter_email_sender: 
   date_format: ^2.0.6
   fluttertoast: ^8.0.9
 
