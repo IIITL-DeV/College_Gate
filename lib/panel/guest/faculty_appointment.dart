@@ -92,16 +92,16 @@ class _faculty_appointmentState extends State<faculty_appointment> {
         });
   }
 
-  // Widget _buildVehicle() {
-  //   return TextFormField(
-  //       decoration: const InputDecoration(labelText: 'Vehicle Number'),
-  //       validator: (value) {
-  //         {
-  //           gvehicleno = value;
-  //           return null;
-  //         }
-  //       });
-  // }
+  Widget _buildVehicle() {
+    return TextFormField(
+        decoration: const InputDecoration(labelText: 'Vehicle Number'),
+        validator: (value) {
+          {
+            gvehicleno = value;
+            return null;
+          }
+        });
+  }
 
   Widget _buildRelation() {
     return TextFormField(
@@ -240,7 +240,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                   _buildemail(),
                   _buildphone(),
                   _buildRelation(),
-                  // _buildVehicle(),
+                  _buildVehicle(),
                   SizedBox(height: heightMobile * 0.06),
 
                   // SizedBox(height: heightMobile * 0.015),
@@ -285,6 +285,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                                   'guestappointtime': gappointtime,
                                   'guestappointdatetime':
                                       gappointdate! + gappointtime!,
+                                  'guestvehicleno': gvehicleno,
                                   'guestpurpose': gpurpose,
                                   'what': "Guest",
                                   'appointisapproved': false,

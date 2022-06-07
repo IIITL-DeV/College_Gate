@@ -106,91 +106,83 @@ class _guestRegisterState extends State<guestRegister> {
                     padding: EdgeInsets.all(heightMobile * 0.008),
                     child: Card(
                       elevation: 3.5,
-                      child: Expanded(
-                        child: Center(
-                          child: SizedBox(
-                            height: cardheight,
-                            width: widthMobile * 0.9,
-                            child: ListView(
+                      child: SizedBox(
+                        height: cardheight,
+                        width: widthMobile * 0.9,
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              title: Text(
+                                "${chatItem["name"]}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: cardheight * 0.18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              trailing: Text("${chatItem["vehicleno"]}",
+                                  style: TextStyle(
+                                    fontSize: cardheight * 0.13,
+                                  )),
+                              contentPadding: EdgeInsets.fromLTRB(
+                                  cardheight * 0.13,
+                                  cardheight * 0.1,
+                                  cardheight * 0.14,
+                                  cardheight * 0),
+                            ),
+                            Row(
+                              // mainAxisAlignment:
+                              //     MainAxisAlignment.spaceEvenly,
                               children: [
-                                ListTile(
-                                  title: Text(
-                                    "${chatItem["name"]}",
-                                    overflow: TextOverflow.ellipsis,
+                                SizedBox(width: cardheight* 0.14,),
+                                Text("${chatItem["purpose"]}",
                                     style: TextStyle(
-                                        fontSize: cardheight * 0.18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  trailing: Text("${chatItem["vehicleno"]}",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: cardheight * 0.13,
+                                    )),
+                                //SizedBox(height: 5),
+                                SizedBox(width: cardheight* 0.08,),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.access_alarm,
+                                      size: cardheight * 0.12,
+                                      color:
+                                      Color.fromARGB(255, 22, 180, 140),
+                                    ),
+                                    SizedBox(width: cardheight* 0.05,),
+
+                                    Text(
+                                      chatItem["entrytime"] == null
+                                          ? "OUT | OUT"
+                                          : "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
                                       style: TextStyle(
                                         fontSize: cardheight * 0.13,
-                                      )),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      cardheight * 0.13,
-                                      cardheight * 0.1,
-                                      cardheight * 0.14,
-                                      cardheight * 0),
-                                ),
-                                Row(
-                                  // mainAxisAlignment:
-                                  //     MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SizedBox(width: cardheight* 0.14,),
-                                    Text("${chatItem["purpose"]}",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: cardheight * 0.13,
-                                        )),
-                                    //SizedBox(height: 5),
-                                    SizedBox(width: cardheight* 0.1,),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: widthMobile * 0.001,
-                                        ),
-                                        Icon(
-                                          Icons.access_alarm,
-                                          size: cardheight * 0.12,
-                                          color:
-                                          Color.fromARGB(255, 22, 180, 140),
-                                        ),
-                                        SizedBox(width: cardheight* 0.05,),
-
-                                        Text(
-                                          chatItem["entrytime"] == null
-                                              ? "OUT | OUT"
-                                              : "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
-                                          style: TextStyle(
-                                            fontSize: cardheight * 0.13,
-                                            backgroundColor: Color(0XffD1F0E8),
-                                          ),
-                                        ),
-                                        SizedBox(width: cardheight* 0.05,),
-                                        Icon(
-                                          Icons.arrow_forward,
-                                          color:
-                                          Color.fromARGB(255, 22, 180, 140),
-                                          size: cardheight * 0.1,
-                                        ),
-                                        SizedBox(width: cardheight* 0.05,),
-
-                                        Text(
-                                          chatItem["exittime"] == null
-                                              ? "IN | IN"
-                                              : "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
-                                          style: TextStyle(
-                                            fontSize: cardheight * 0.13,
-                                            backgroundColor: Color(0XffD1F0E8),
-                                          ),
-                                        ),
-                                      ],
+                                        backgroundColor: Color(0XffD1F0E8),
+                                      ),
                                     ),
+                                    SizedBox(width: cardheight* 0.05,),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color:
+                                      Color.fromARGB(255, 22, 180, 140),
+                                      size: cardheight * 0.1,
+                                    ),
+                                    SizedBox(width: cardheight* 0.05,),
 
+                                    Text(
+                                      chatItem["exittime"] == null
+                                          ? "IN | IN"
+                                          : "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
+                                      style: TextStyle(
+                                        fontSize: cardheight * 0.13,
+                                        backgroundColor: Color(0XffD1F0E8),
+                                      ),
+                                    ),
                                   ],
-                                )
+                                ),
                               ],
-                            ),
-                          ),
+                            )
+                          ],
                         ),
                       ),
                     ),
