@@ -131,7 +131,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                   ),
                 ),
               ),
-              initialValue: DateFormat('kk:mm a').format(times),
+              initialValue: DateFormat('HH:mm a').format(times),
               // decoration: const InputDecoration(labelText: 'Time'),
               validator: (value) {
                 if (value == null || value.isEmpty) {

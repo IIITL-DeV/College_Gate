@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,10 +16,6 @@ class AppointmentRequest extends StatefulWidget {
 }
 
 class _AppointmentRequestState extends State<AppointmentRequest> {
-  /////// date time picker
-  ///
-  //late String _setTime, _setDate;
-
   late String _hour, _minute, _time;
 
   late String dateTime;
@@ -72,7 +66,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     if (picked != null)
       setState(() {
         selectedDate = picked;
-        _dateController.text = DateFormat.yMd().format(selectedDate);
+        _dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
+
         _selectTime(context, name, email);
       });
   }
@@ -103,8 +98,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
         _time = _hour + ' : ' + _minute;
         _timeController.text = _time;
         _timeController.text = formatDate(
-            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
-            [hh, ':', nn, " ", am]).toString();
+            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute), [
+          hh,
+          ':',
+          nn,
+        ]).toString();
 
         appointmentReschedule(context, name, email);
       });
@@ -140,13 +138,16 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   TextButton(
                       onPressed: () {
                         FirebaseFirestore.instance
-                            .collection('facultyGuest')
+                            .collection('facultyUser')
                             .doc((FirebaseAuth.instance.currentUser!).email)
                             .collection("guestemail")
                             .doc(email)
                             .update({
                           'guestappointdate': _dateController.text,
                           'guestappointtime': _timeController.text,
+                          'guestappointdatetime':
+                              _dateController.text + _timeController.text,
+                          'appointisapproved': true,
                         });
                         reschedulesendMail(
                           email,
@@ -173,7 +174,27 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   ),
                   TextButton(
                       onPressed: () {
-                        flutterToast("Appointment Declined");
+                        // FirebaseFirestore.instance
+                        //     .collection('facultyGuest')
+                        //     .doc((FirebaseAuth.instance.currentUser!).email)
+                        //     .collection("guestemail")
+                        //     .doc(email)
+                        //     .update({
+                        //   'appointisapproved': null,
+                        // });
+
+                        // declinesendMail(
+                        //   email,
+                        //   _dateController.text,
+                        //   _timeController.text,
+                        // ).whenComplete(() {
+                        //   setState(() {});
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //       const SnackBar(content: Text('Guest Notified')));
+                        // });
+                        // ;
+
+                        // flutterToast("Appointment Declined");
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
@@ -206,10 +227,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     super.initState();
     // getfacultyDetails;
     stream = FirebaseFirestore.instance
-        .collection("facultyGuest")
+        .collection("facultyUser")
         .doc((FirebaseAuth.instance.currentUser!).email)
         .collection("guestemail")
         .where("appointisapproved", isEqualTo: false)
+        .orderBy("guestappointdatetime", descending: false)
+        // .orderBy("guestappointtime", descending: true)
         .snapshots();
   }
 
@@ -514,7 +537,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                             });
 
                                             await FirebaseFirestore.instance
-                                                .collection("facultyGuest")
+                                                .collection("facultyUser")
                                                 .doc((FirebaseAuth
                                                         .instance.currentUser!)
                                                     .email)
@@ -699,19 +722,18 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                     FirebaseFirestore
                                                                         .instance
                                                                         .collection(
-                                                                            "facultyGuest")
+                                                                            "facultyUser")
                                                                         .doc((FirebaseAuth.instance.currentUser!)
                                                                             .email)
                                                                         .collection(
                                                                             "guestemail")
                                                                         .doc(chatItem[
                                                                             "guestemail"])
-                                                                        .update({
-                                                                      "appointisapproved":
-                                                                          null
-                                                                    }).then((_) {
+                                                                        .delete()
+                                                                        .then(
+                                                                            (_) {
                                                                       print(
-                                                                          "success!");
+                                                                          "Deleted succesfully!");
                                                                     });
                                                                   },
                                                                   child: Text(

@@ -24,18 +24,7 @@ class _facultyidcardState extends State<facultyidcard> {
 
   ///NOTE: Only supported on Android & iOS
   ///Needs image_picker plugin {https://pub.dev/packages/image_picker}
-
-  ImagePicker picker = ImagePicker();
-
-  // Future captureImage() async {
-  //   final pickedFile = await picker.getImage(
-  //     source: ImageSource.camera,
-  //   );
-
-  //   setState(() {
-  //     _imageFile = File(pickedFile!.path);
-  //   });
-  // }
+  final picker = ImagePicker();
 
   Future pickImage() async {
     final pickedFile = await picker.getImage(
@@ -47,10 +36,68 @@ class _facultyidcardState extends State<facultyidcard> {
     });
   }
 
+  Future<void> _cropImage() async {
+    if (_imageFile != null) {
+      File? croppedFile = await ImageCropper().cropImage(
+          sourcePath: _imageFile!.path,
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Edit',
+              toolbarColor: Color(0Xff15609c),
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          iosUiSettings: IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          ));
+      if (croppedFile != null) {
+        setState(() {
+          _imageFile = croppedFile;
+        });
+      }
+    }
+  }
+  // Future<Null> _cropImage() async {
+  //   File? croppedFile = await ImageCropper().cropImage(
+  //       sourcePath: _imageFile!.path,
+  //       aspectRatioPresets: Platform.isAndroid
+  //           ? [
+  //               CropAspectRatioPreset.square,
+  //               CropAspectRatioPreset.ratio3x2,
+  //               CropAspectRatioPreset.original,
+  //               CropAspectRatioPreset.ratio4x3,
+  //               CropAspectRatioPreset.ratio16x9
+  //             ]
+  //           : [
+  //               CropAspectRatioPreset.original,
+  //               CropAspectRatioPreset.square,
+  //               CropAspectRatioPreset.ratio3x2,
+  //               CropAspectRatioPreset.ratio4x3,
+  //               CropAspectRatioPreset.ratio5x3,
+  //               CropAspectRatioPreset.ratio5x4,
+  //               CropAspectRatioPreset.ratio7x5,
+  //               CropAspectRatioPreset.ratio16x9
+  //             ],
+  //       androidUiSettings: AndroidUiSettings(
+  //           toolbarTitle: 'Cropper',
+  //           toolbarColor: Colors.deepOrange,
+  //           toolbarWidgetColor: Colors.white,
+  //           initAspectRatio: CropAspectRatioPreset.original,
+  //           lockAspectRatio: false),
+  //       iosUiSettings: IOSUiSettings(
+  //         title: 'Cropper',
+  //       ));
+  //   if (croppedFile != null) {
+  //     //  state = AppState.cropped;
+  //     setState(() {
+  //       _imageFile = croppedFile;
+  //     });
+  //   }
+  // }
+
   var idcard;
 
   Future uploadImageToFirebase(BuildContext context) async {
-    String fileName = basename(_imageFile!.path);
+    String fileName = FirebaseAuth.instance.currentUser!.email.toString();
     Reference ref =
         FirebaseStorage.instance.ref().child('uploads').child('/$fileName');
 
@@ -59,6 +106,7 @@ class _facultyidcardState extends State<facultyidcard> {
         customMetadata: {'picked-file-path': fileName});
     UploadTask uploadTask;
     //late StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+
     uploadTask = ref.putFile(File(_imageFile!.path), metadata);
 
     UploadTask task = await Future.value(uploadTask);
@@ -106,106 +154,131 @@ class _facultyidcardState extends State<facultyidcard> {
           ],
         ),
       ),
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            // margin: const EdgeInsets.only(top: 80),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: heightMobile * 0.1),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "Upload Profile Picture",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: heightMobile * 0.025,
-                        //fontStyle: FontStyle.italic
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: heightMobile * 0.01),
-
-                Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        //decoration: Decor,
-                        //width: double.infinity,
-                        height: heightMobile * 0.6,
-                        // margin: const EdgeInsets.only(
-                        //     left: 10.0, right: 10.0, top: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // ClipRRect(
-                            //   borderRadius: BorderRadius.circular(30.0),
-                            //   child: _imageFile != null
-                            //       ? Image.file(_imageFile!)
-                            //       : FlatButton(
-                            //           child: Icon(
-                            //             Icons.add_a_photo,
-                            //             color: Colors.blue,
-                            //             size: 50,
-                            //             //semanticLabel: "Take Picture",
-                            //           ),
-                            //           onPressed: captureImage,
-                            //         ),
-                            // ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(30.0),
-                              child: _imageFile != null
-                                  ? Image.file(_imageFile!)
-                                  : FlatButton(
-                                      child: Icon(
-                                        Icons.photo,
-                                        color: Colors.blue,
-                                        size: 50,
-                                        //semanticLabel: "Take Picture",
-                                      ),
-                                      onPressed: pickImage,
-                                    ),
-                            ),
-                          ],
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(height: heightMobile * 0.05),
+            Text(
+              "Select Your Profile Picture",
+              style: TextStyle(
+                color: Color(0Xff15609c),
+                fontSize: heightMobile * 0.025,
+                // fontStyle: FontStyle.itali
+              ),
+            ),
+            SizedBox(height: 6),
+            // Text(
+            //   "NOTE: IMMUTABLE",
+            //   style: TextStyle(
+            //       color: Colors.red,
+            //       fontSize: heightMobile * 0.015,
+            //       fontStyle: FontStyle.italic),
+            // ),
+            SizedBox(height: heightMobile * 0.03),
+            Container(
+              //decoration: Decor,
+              //width: double.infinity,
+              height: heightMobile * 0.4,
+              // margin: const EdgeInsets.only(
+              //     left: 10.0, right: 10.0, top: 10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: _imageFile != null
+                    ? Image.file(_imageFile!)
+                    : FlatButton(
+                        child: Icon(
+                          Icons.photo,
+                          color: Color(0Xff15609c),
+                          size: 50,
+                          //semanticLabel: "Take Picture",
                         ),
+                        onPressed: pickImage,
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: heightMobile * 0.2,
-                ),
-                //uploadImageButton(context),
-                Padding(
-                  padding: EdgeInsets.all(heightMobile * 0.02),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: Size(widthMobile, heightMobile * 0.055),
-                        alignment: Alignment.center,
-                        primary: const Color(0xFF14619C)),
-                    onPressed: () => {
+              ),
+            ),
+            SizedBox(
+              height: heightMobile * 0.08,
+            ),
+            Container(
+              child: _imageFile != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          child: Icon(
+                            Icons.photo,
+                            color: Color(0Xff15609c),
+                            size: 30,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _imageFile = null;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: widthMobile * 0.3,
+                        ),
+                        GestureDetector(
+                          child: Icon(
+                            Icons.edit,
+                            color: Color(0Xff15609c),
+                            size: 30,
+                          ),
+                          onTap: () {
+                            _cropImage();
+                          },
+                        )
+                      ],
+                    )
+                  : Text(""),
+            ),
+
+            SizedBox(
+              height: heightMobile * 0.07,
+            ),
+            //uploadImageButton(context),
+            Padding(
+              padding: EdgeInsets.all(heightMobile * 0.02),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(15.0),
+                    ),
+                    padding: EdgeInsets.all(heightMobile * 0.017),
+                    minimumSize: Size(widthMobile, heightMobile * 0.028),
+                    alignment: Alignment.center,
+                    primary: const Color(0xFF14619C)),
+                onPressed: () async => {
+                  if (_imageFile != null)
+                    {
                       uploadImageToFirebase(context),
-                      Navigator.pushReplacement(
+                      await Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FacultyHome())),
-                    },
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: heightMobile * 0.022,
+                              builder: (context) => studentHome())),
+                    }
+                  else
+                    {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content:
+                                Text('Please select your profile picture.')),
                       ),
-                    ),
+                    }
+                },
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: heightMobile * 0.022,
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

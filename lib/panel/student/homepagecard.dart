@@ -83,40 +83,40 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0Xff15609c),
-          centerTitle: true,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                  height: heightMobile * 0.028,
-                  child: Image.asset("assets/cg_white.png")),
-              SizedBox(
-                width: 10,
-              ),
-              Text("College Gate",
-                  style: TextStyle(fontSize: heightMobile * 0.028)),
-            ],
-          ),
+        backgroundColor: Color(0Xff15609c),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: heightMobile * 0.028,
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 10,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: heightMobile * 0.028)),
+          ],
+        ),
       ),
-          // actions: [
-          //   InkWell(
-          //     onTap: () {
-          //       AuthMethods().logout().then((s) {
-          //         Navigator.pushReplacement(context,
-          //             MaterialPageRoute(builder: (context) => SignIn()));
-          //       });
-          //     },
-          //     child: Container(
-          //         padding:
-          //             EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-          //         child: Icon(
-          //           Icons.exit_to_app,
-          //           color: Colors.deepPurple[50],
-          //           size: heightMobile * 0.027,
-          //         )),
-          //   )
-          // ]),
+      // actions: [
+      //   InkWell(
+      //     onTap: () {
+      //       AuthMethods().logout().then((s) {
+      //         Navigator.pushReplacement(context,
+      //             MaterialPageRoute(builder: (context) => SignIn()));
+      //       });
+      //     },
+      //     child: Container(
+      //         padding:
+      //             EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+      //         child: Icon(
+      //           Icons.exit_to_app,
+      //           color: Colors.deepPurple[50],
+      //           size: heightMobile * 0.027,
+      //         )),
+      //   )
+      // ]),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Container(
@@ -224,8 +224,12 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => FacultyList()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FacultyList(
+                                  isStudent: true,
+                                )));
                   },
                   child: Card(
                     elevation: 4,
@@ -261,8 +265,9 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                FacultyList()));
+                                            builder: (context) => FacultyList(
+                                                  isStudent: true,
+                                                )));
                                   },
                                   icon: Icon(
                                     Icons.chevron_right,
@@ -279,7 +284,6 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               ],
             )),
       ),
-    ));
-
+    );
   }
 }

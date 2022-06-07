@@ -22,8 +22,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
         .collection("studentUser")
         .where("entryisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
-        .orderBy("entrydate", descending: true)
-        .orderBy("entrytime", descending: true)
+        .orderBy("entrydate", descending: false)
+        .orderBy("entrytime", descending: false)
         .snapshots();
   }
 
@@ -76,6 +76,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                     height: cardheight,
                     width: widthMobile * 0.9,
                     child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
                         ListTile(
                           title: Text(

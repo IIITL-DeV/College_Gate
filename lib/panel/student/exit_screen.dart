@@ -228,7 +228,7 @@ class _ExitFormState extends State<ExitForm> {
                   ),
                 ),
               ),
-              initialValue: DateFormat('kk:mm').format(times),
+              initialValue: DateFormat('HH:mm').format(times),
               // decoration: const InputDecoration(labelText: 'Time'),
               validator: (value) {
                 if (value == null || value.isEmpty) {

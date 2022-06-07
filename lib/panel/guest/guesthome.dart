@@ -92,8 +92,12 @@ class GuestHome extends StatelessWidget {
               //SizedBox(height: 10,),
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FacultyList()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FacultyList(
+                                isStudent: false,
+                              )));
                 },
                 child: Card(
                   elevation: 4,
@@ -129,7 +133,9 @@ class GuestHome extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => FacultyList()));
+                                          builder: (context) => FacultyList(
+                                                isStudent: false,
+                                              )));
                                 },
                                 icon: Icon(
                                   Icons.chevron_right,

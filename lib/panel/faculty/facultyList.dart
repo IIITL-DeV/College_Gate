@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/guest/faculty_appointment.dart';
+import 'package:college_gate/panel/student/studentfacutlyappointment.dart';
 import 'package:college_gate/panel/warden/viewimage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FacultyList extends StatefulWidget {
-  const FacultyList({Key? key}) : super(key: key);
+  bool isStudent;
+  FacultyList({Key? key, required this.isStudent}) : super(key: key);
 
   @override
   _FacultyListState createState() => _FacultyListState();
@@ -97,8 +99,11 @@ class _FacultyListState extends State<FacultyList> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  faculty_appointment(
+                                              builder: (context) => widget
+                                                      .isStudent
+                                                  ? studentfacultyappointment(
+                                                      email: chatItem["email"])
+                                                  : faculty_appointment(
                                                       email:
                                                           chatItem["email"])));
                                     },

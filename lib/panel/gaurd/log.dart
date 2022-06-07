@@ -436,7 +436,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
                                   'exitdate':
                                       DateFormat('dd-MM-yyyy').format(times),
                                   'exittime':
-                                      DateFormat('kk:mm a').format(times),
+                                      DateFormat('HH:mm a').format(times),
                                   'entryisapproved': false,
                                 });
                               },

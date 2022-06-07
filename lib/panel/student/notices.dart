@@ -32,8 +32,6 @@ class _noticesState extends State<notices> {
           if (!snapshot.hasData)
             return Center(child: const CircularProgressIndicator());
           final DocumentSnapshot _card = snapshot.data!.docs[0];
-          // if (_card['entryisapproved'] == null &&
-          //     _card['exitisapproved'] == null) return noNotices();
           if ((_card['exitisapproved'] == false) ||
               (_card['entryisapproved'] == false)) return requestpending();
           if (_card['entryisapproved'] == true) {

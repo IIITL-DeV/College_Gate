@@ -155,7 +155,7 @@ class _idcardImageState extends State<idcardImage> {
           children: [
             SizedBox(height: heightMobile * 0.05),
             Text(
-              "Capture your Student ID",
+              "Capture Your Student ID",
               style: TextStyle(
                 color: Color(0Xff15609c),
                 fontSize: heightMobile * 0.025,

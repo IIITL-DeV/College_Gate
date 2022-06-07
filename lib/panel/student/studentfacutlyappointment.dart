@@ -1,95 +1,139 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/main.dart';
-import 'package:college_gate/panel/guest/gpending.dart';
-import 'package:college_gate/panel/student/requestpending.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:intl/intl.dart';
 
-class booking extends StatefulWidget {
-  const booking({Key? key}) : super(key: key);
+class studentfacultyappointment extends StatefulWidget {
+  String email;
+
+  studentfacultyappointment({Key? key, required this.email}) : super(key: key);
 
   @override
-  _bookingState createState() => _bookingState();
+  State<studentfacultyappointment> createState() =>
+      _studentfacultyappointmentState();
 }
 
-class _bookingState extends State<booking> {
+class _studentfacultyappointmentState extends State<studentfacultyappointment> {
   final _formKey = GlobalKey<FormState>();
   var v;
-  String? ans;
-  String? phone, name, genrollnment, gexitdate, gexittime;
+
+  String? sphone, sname, semail, sappointdate, sappointtime, spurpose;
+
+  Future<void> _getUserDetails() async {
+    FirebaseFirestore.instance
+        .collection('studentUser')
+        .doc(await (FirebaseAuth.instance.currentUser)!.email)
+        .get()
+        .then((value) {
+      setState(() {
+        sname = value.data()!['name'].toString();
+        sphone = value.data()!['phone'].toString();
+        semail = value.data()!['email'].toString();
+      });
+    });
+  }
+
   @override
   void initState() {
+    _getUserDetails;
     super.initState();
+  }
+
+  Widget _buildfacultyemail() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Visiting Faculty's Email ID",
+      ),
+      readOnly: true,
+      initialValue: "${widget.email}",
+      // validator: (email) {
+      //   if (email == null || email.isEmpty) {
+      //     return "Visiting Faculty's Email ID is required";
+      //   } else {
+      //     genrollnment = email;
+      //     return null;
+      //   }}
+    );
   }
 
   Widget _buildName() {
     return TextFormField(
       decoration: const InputDecoration(labelText: 'Name'),
-      //initialValue: _username!,
-      validator: (value) {
-        // value:
-        if (value == null || value.isEmpty) {
-          return "Name is required";
-        } else {
-          name = value;
-          // FirebaseFirestore.instance.collection('studentGuest').doc().set({
-          //   'guestname': value,
-          // }, SetOptions(merge: true));
-          return null;
-        }
-      },
+      initialValue: sname,
+      readOnly: true,
+      // validator: (value) {
+      //   // value:
+      //   if (value == null || value.isEmpty) {
+      //     return "Name is required";
+      //   } else {
+      //     name = value;
+      //     return null;
+      //   }
+      // },
+    );
+  }
+
+  Widget _buildemail() {
+    return TextFormField(
+      //initialValue: _phoneno!,
+      // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      decoration: const InputDecoration(labelText: 'Email ID'),
+      initialValue: semail,
+      readOnly: true,
+      // validator: (value) {
+      //   if (value == null || value.isEmpty) {
+      //     return "Your email ID is required";
+      //   } else {
+      //     guestemail = value;
+      //     return null;
+      //   }
+      // }
     );
   }
 
   Widget _buildphone() {
     return TextFormField(
-        //initialValue: _phoneno!,
-        // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        decoration: const InputDecoration(labelText: 'Email ID'),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Email ID is required";
-          } else {
-            phone = value;
-            return null;
-          }
-        });
+      decoration: const InputDecoration(
+        labelText: "Phone Number",
+      ),
+      readOnly: true,
+      // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      // validator: (value) {
+      //   if (value == null || value.length != 10) {
+      //     return "Valid phone number is required";
+      //   } else {
+      //     phone = value;
+      //     return null;
+      //   }
+      // });
+    );
   }
 
-  Widget _buildemail() {
-    return TextFormField(
-        decoration:
-            const InputDecoration(labelText: "Visiting Student's Email ID"),
-        //initialValue: _enrollmentNo!,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Visiting Student's Email ID is required";
-          } else {
-            genrollnment = value;
-            return null;
-          }
-        });
-  }
-
-  Widget _buildVehicle() {
-    return TextFormField(
-        decoration: const InputDecoration(labelText: 'Vehicle Number'));
-    //initialValue: _roomno!,
-    // validator: (value) {
-
-    // });
-  }
+  // Widget _buildVehicle() {
+  //   return TextFormField(
+  //       decoration: const InputDecoration(labelText: 'Vehicle Number'),
+  //       validator: (value) {
+  //         {
+  //           gvehicleno = value;
+  //           return null;
+  //         }
+  //       });
+  // }
 
   Widget _buildRelation() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Relation/Purpose'),
+        decoration: const InputDecoration(labelText: 'Purpose'),
         //initialValue: _roomno!,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Relation/Purpose is required";
+            return "Purpose is required";
           } else {
+            spurpose = value;
             return null;
           }
         });
@@ -123,7 +167,7 @@ class _bookingState extends State<booking> {
                 if (value == null || value.isEmpty) {
                   return "Date is required";
                 } else {
-                  gexitdate = value;
+                  sappointdate = value;
 
                   return null;
                 }
@@ -151,13 +195,13 @@ class _bookingState extends State<booking> {
                   ),
                 ),
               ),
-              initialValue: DateFormat('HH:mm a').format(times),
+              initialValue: DateFormat('HH:mm').format(times),
               // decoration: const InputDecoration(labelText: 'Time'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "Time is Required";
                 } else {
-                  gexittime = value;
+                  sappointtime = value;
 
                   return null;
                 }
@@ -167,20 +211,21 @@ class _bookingState extends State<booking> {
     );
   }
 
-  Widget _buildMessage() {
-    return TextFormField(
-      keyboardType: TextInputType.multiline,
-      maxLines: 2,
-      maxLength: 100,
-      decoration: const InputDecoration(labelText: 'Description'),
-      // validator: (value) {
-      //   if (value == null || value.isEmpty) {
-      //     return "Reason is Required";
-      //   } else {
-      //     return null;
-      //   }
-    );
-  }
+  // Widget _buildMessage() {
+  //   return TextFormField(
+  //       keyboardType: TextInputType.multiline,
+  //       maxLines: 2,
+  //       maxLength: 100,
+  //       decoration: const InputDecoration(labelText: 'Description'),
+  //       validator: (value) {
+  //         if (value == null || value.isEmpty) {
+  //           return "Reason is Required";
+  //         } else {
+  //           gdescription = value;
+  //           return null;
+  //         }
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +242,7 @@ class _bookingState extends State<booking> {
             ),
             onPressed: () => {Navigator.pop(context)}),
         title: Text(
-          "Student Appointment Form",
+          "Faculty Appointment Form",
           style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
           textAlign: TextAlign.center,
         ),
@@ -211,16 +256,20 @@ class _bookingState extends State<booking> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  _buildfacultyemail(),
+                  SizedBox(height: heightMobile * 0.02),
                   _buildName(),
-                  _buildphone(),
                   _buildemail(),
+                  _buildphone(),
                   _buildRelation(),
-                  SizedBox(height: heightMobile * 0.04),
-                  _buildTime(),
-                  // SizedBox(height: heightMobile * 0.015),
                   // _buildVehicle(),
-                  _buildMessage(),
-                  SizedBox(height: heightMobile * 0.05),
+                  SizedBox(height: heightMobile * 0.06),
+
+                  // SizedBox(height: heightMobile * 0.015),
+
+                  _buildTime(),
+                  //  _buildMessage(),
+                  SizedBox(height: heightMobile * 0.06),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
@@ -245,42 +294,26 @@ class _bookingState extends State<booking> {
                                       content: Text('Processing Data')),
                                 ),
                                 FirebaseFirestore.instance
-                                    .collection('studentGuest')
-                                    .doc(genrollnment)
-                                    .collection('guestUser')
-                                    .doc(phone)
+                                    .collection('facultuGuest')
+                                    .doc(widget.email)
+                                    .collection("guestemail")
+                                    .doc(semail)
                                     .set({
-                                  'guestname': name,
-                                  'guestphone': phone,
-                                  'vistingroll': genrollnment,
-                                  'guestentrydate': gexitdate,
-                                  'guestentrytime': gexittime,
-                                  'gentryisapproved': false
+                                  'guestname': sname,
+                                  'guestphone': sphone,
+                                  'guestemail': semail,
+                                  // 'vistingfacultyemail': widget.email,
+                                  'guestappointdate': sappointdate,
+                                  'guestappointtime': sappointtime,
+                                  'guestappointdatetime':
+                                      sappointdate! + sappointtime!,
+                                  'guestpurpose': spurpose,
+                                  'what': "Student",
+                                  'appointisapproved': false,
                                 }, SetOptions(merge: true)),
-                                FirebaseFirestore.instance
-                                    .collection('studentGuest')
-                                    .doc(genrollnment)
-                                    .collection('guestUser')
-                                    .doc(phone)
-                                    .collection("gentryisapproved")
-                                    .doc()
-                                    .set({'gentryisapproved': false},
-                                        SetOptions(merge: true)),
-
                                 flutterToast("Request has been sent."),
                                 Navigator.of(context).pop(),
-
-                                // Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => grequestpending(
-                                //             genrollnment!, phone!))),
-                                // v = FirebaseFirestore.instance
-                                //     .collection("studentUser")
-                                //     .where("email", isEqualTo: email)
-                                //     .get(),
-                                // ans = v["userid"],
-                                // print("answerissssssssssssss$ans")
+                                Navigator.of(context).pop(),
                               }
                             else
                               {print("Not validated")}

@@ -60,23 +60,6 @@ class _FacultyHomeState extends State<FacultyHome> {
         currentIndex: _currentIndex,
         onTap: _onTapTapped,
       ),
-      // appBar: AppBar(
-      //     backgroundColor: Color(0Xff15609c),
-      //     title: Text("College Gate",
-      //         style: TextStyle(fontSize: heightMobile * 0.025)),
-      //     actions: [
-      //       InkWell(
-      //         onTap: () {},
-      //         child: Container(
-      //             padding:
-      //                 EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-      //             child: Icon(
-      //               Icons.exit_to_app,
-      //               color: Colors.deepPurple[50],
-      //               size: heightMobile * 0.027,
-      //             )),
-      //       )
-      //     ]),
       body: Container(
         child: _pages.elementAt(_currentIndex),
       ),
@@ -142,7 +125,7 @@ class _AppointmentListState extends State<AppointmentList> {
     if (picked != null)
       setState(() {
         selectedDate = picked;
-        _dateController.text = DateFormat.yMd().format(selectedDate);
+        _dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
         _selectTime(context, name, email);
       });
   }
@@ -173,8 +156,11 @@ class _AppointmentListState extends State<AppointmentList> {
         _time = _hour + ' : ' + _minute;
         _timeController.text = _time;
         _timeController.text = formatDate(
-            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
-            [hh, ':', nn, " ", am]).toString();
+            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute), [
+          hh,
+          ':',
+          nn,
+        ]).toString();
 
         appointmentReschedule(context, name, email);
       });
@@ -210,13 +196,15 @@ class _AppointmentListState extends State<AppointmentList> {
                   TextButton(
                       onPressed: () {
                         FirebaseFirestore.instance
-                            .collection('facultyGuest')
+                            .collection('facultyUser')
                             .doc((FirebaseAuth.instance.currentUser!).email)
                             .collection("guestemail")
                             .doc(email)
                             .update({
                           'guestappointdate': _dateController.text,
                           'guestappointtime': _timeController.text,
+                          'guestappointdatetime':
+                              _dateController.text + _timeController.text,
                         });
                         reschedulesendMail(
                           email,
@@ -257,14 +245,50 @@ class _AppointmentListState extends State<AppointmentList> {
   }
 
   var stream;
+  late DateTime times;
+  String? currentdate;
+  String? currenttime;
+
   void initState() {
     super.initState();
-    // getfacultyDetails;
-    stream = FirebaseFirestore.instance
-        .collection("facultyGuest")
+
+    times = DateTime.now();
+    DateTime minsadded = times.subtract(const Duration(
+      minutes: 30,
+    ));
+    currentdate = DateFormat('dd-MM-yyyy').format(times);
+    String? currenttime = DateFormat('HH:mm').format(minsadded);
+
+    FirebaseFirestore.instance
+        .collection("facultyUser")
         .doc((FirebaseAuth.instance.currentUser!).email)
         .collection("guestemail")
-        .where("appointisapproved", isEqualTo: true)
+        .where("guestappointdatetime", isLessThan: currentdate! + currenttime)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        FirebaseFirestore.instance
+          ..collection("facultyUser")
+              .doc((FirebaseAuth.instance.currentUser!).email)
+              .collection("guestemail")
+              .doc(element.id)
+              .delete()
+              .then((value) {
+            print("Success!");
+          });
+      });
+    });
+    // getfacultyDetails;
+    stream = FirebaseFirestore.instance
+        .collection("facultyUser")
+        .doc((FirebaseAuth.instance.currentUser!).email)
+        .collection("guestemail")
+        .orderBy("guestappointdatetime", descending: false)
+        // .where("guestappointdatetime",
+        //     isGreaterThanOrEqualTo: currentdate! + currenttime)
+        // .orderBy("guestappointdatetime")
+
+        // .orderBy("guestappointtime", descending: false)
         .snapshots();
   }
 

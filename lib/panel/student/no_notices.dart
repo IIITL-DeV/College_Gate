@@ -18,8 +18,7 @@ class _noNoticesState extends State<noNotices> {
   approvesendMail(
       String phone, String studentemail, String date, String time) async {
     final Email email = Email(
-      body:
-          'Your appointment with $studentemail on $time, $date has been approved.',
+      body: 'Your appointment with  on $time, $date has been approved.',
       subject: 'Appointment Booked!',
       recipients: [phone],
       isHTML: true,
@@ -166,7 +165,7 @@ class _noNoticesState extends State<noNotices> {
                                                   .instance.currentUser!)
                                               .email)
                                           .collection("guestUser")
-                                          .doc(chatItem["guestphone"])
+                                          .doc(chatItem["guestemail"])
                                           .collection("gentryisapproved")
                                           .doc()
                                           .update({

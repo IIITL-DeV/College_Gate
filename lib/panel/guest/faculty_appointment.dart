@@ -20,17 +20,13 @@ class faculty_appointment extends StatefulWidget {
 
 class _faculty_appointmentState extends State<faculty_appointment> {
   final _formKey = GlobalKey<FormState>();
-  var v;
-
-  String? ans;
-  String? phone,
-      name,
-      genrollnment,
-      gexitdate,
-      gexittime,
+  String? gphone,
+      gname,
+      gemail,
+      gappointdate,
+      gappointtime,
       gvehicleno,
       gdescription,
-      guestemail,
       gpurpose;
   @override
   void initState() {
@@ -39,19 +35,12 @@ class _faculty_appointmentState extends State<faculty_appointment> {
 
   Widget _buildfacultyemail() {
     return TextFormField(
-        decoration: const InputDecoration(
-          labelText: "Visiting Faculty's Email ID",
-        ),
-        readOnly: true,
-        initialValue: "${widget.email}",
-        validator: (email) {
-          if (email == null || email.isEmpty) {
-            return "Visiting Faculty's Email ID is required";
-          } else {
-            genrollnment = email;
-            return null;
-          }
-        });
+      decoration: const InputDecoration(
+        labelText: "Visiting Faculty's Email ID",
+      ),
+      readOnly: true,
+      initialValue: "${widget.email}",
+    );
   }
 
   Widget _buildName() {
@@ -63,7 +52,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
         if (value == null || value.isEmpty) {
           return "Name is required";
         } else {
-          name = value;
+          gname = value;
           return null;
         }
       },
@@ -79,7 +68,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
           if (value == null || value.isEmpty) {
             return "Your email ID is required";
           } else {
-            guestemail = value;
+            gemail = value;
             return null;
           }
         });
@@ -95,22 +84,22 @@ class _faculty_appointmentState extends State<faculty_appointment> {
           if (value == null || value.length != 10) {
             return "Valid phone number is required";
           } else {
-            phone = value;
+            gphone = value;
             return null;
           }
         });
   }
 
-  Widget _buildVehicle() {
-    return TextFormField(
-        decoration: const InputDecoration(labelText: 'Vehicle Number'),
-        validator: (value) {
-          {
-            gvehicleno = value;
-            return null;
-          }
-        });
-  }
+  // Widget _buildVehicle() {
+  //   return TextFormField(
+  //       decoration: const InputDecoration(labelText: 'Vehicle Number'),
+  //       validator: (value) {
+  //         {
+  //           gvehicleno = value;
+  //           return null;
+  //         }
+  //       });
+  // }
 
   Widget _buildRelation() {
     return TextFormField(
@@ -127,7 +116,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
   }
 
   Widget _buildTime() {
-    DateTime times = DateTime.now();
+    DateTime times = DateTime.now().toLocal();
     return Row(
       children: [
         Expanded(
@@ -154,7 +143,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                 if (value == null || value.isEmpty) {
                   return "Date is required";
                 } else {
-                  gexitdate = value;
+                  gappointdate = value;
 
                   return null;
                 }
@@ -182,13 +171,13 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                   ),
                 ),
               ),
-              initialValue: DateFormat('kk:mm a').format(times),
+              initialValue: DateFormat('HH:mm').format(times),
               // decoration: const InputDecoration(labelText: 'Time'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "Time is Required";
                 } else {
-                  gexittime = value;
+                  gappointtime = value;
 
                   return null;
                 }
@@ -249,7 +238,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                   _buildemail(),
                   _buildphone(),
                   _buildRelation(),
-                  _buildVehicle(),
+                  // _buildVehicle(),
                   SizedBox(height: heightMobile * 0.06),
 
                   // SizedBox(height: heightMobile * 0.015),
@@ -276,31 +265,31 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                       onPressed: () => {
                             if (_formKey.currentState!.validate())
                               {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
-                                ),
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //       content: Text('Processing Data')),
+                                // ),
                                 FirebaseFirestore.instance
-                                    .collection('facultyGuest')
-                                    .doc(genrollnment)
+                                    .collection('facultyUser')
+                                    .doc(widget.email)
                                     .collection("guestemail")
-                                    .doc(guestemail)
+                                    .doc(gemail)
                                     .set({
-                                  'guestname': name,
-                                  'guestphone': phone,
-                                  'guestemail': guestemail,
-                                  'vistingfacultyemail': genrollnment,
-                                  'guestappointdate': gexitdate,
-                                  'guestappointtime': gexittime,
-                                  'gentryisapproved': false,
-                                  'guestvehicleno': gvehicleno,
+                                  'guestname': gname,
+                                  'guestphone': gphone,
+                                  'guestemail': gemail,
+                                  // 'vistingfacultyemail': wid,
+                                  'guestappointdate': gappointdate,
+                                  'guestappointtime': gappointtime,
+                                  'guestappointdatetime':
+                                      gappointdate! + gappointtime!,
                                   'guestpurpose': gpurpose,
                                   'what': "Guest",
                                   'appointisapproved': false,
                                 }, SetOptions(merge: true)),
 
-
-                                flutterToast("Request has been sent."),
+                                flutterToast(
+                                    "Request has been sent, you will be notified further via on your email."),
                                 Navigator.of(context).pop(),
                                 Navigator.of(context).pop(),
 
