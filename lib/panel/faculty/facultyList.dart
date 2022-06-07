@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 
 class FacultyList extends StatefulWidget {
   bool isStudent;
-  FacultyList({Key? key, required this.isStudent}) : super(key: key);
+  FacultyList({
+    Key? key,
+    required this.isStudent,
+  }) : super(key: key);
 
   @override
   _FacultyListState createState() => _FacultyListState();
@@ -104,8 +107,10 @@ class _FacultyListState extends State<FacultyList> {
                                                   ? studentfacultyappointment(
                                                       email: chatItem["email"])
                                                   : faculty_appointment(
-                                                      email:
-                                                          chatItem["email"])));
+                                                      email: chatItem["email"],
+                                                      isStudent:
+                                                          widget.isStudent,
+                                                    )));
                                     },
                                     title: Text(
                                       "${chatItem["name"]}",
@@ -122,10 +127,10 @@ class _FacultyListState extends State<FacultyList> {
                                     ),
                                     leading: ConstrainedBox(
                                       constraints: BoxConstraints(
-                                        minWidth: widthMobile * 0.07,
-                                        minHeight: cardheight * 0.25,
-                                        maxWidth: widthMobile * 0.15,
-                                        maxHeight: cardheight * 0.45,
+                                        minWidth: widthMobile * 0.1,
+                                        minHeight: cardheight * 0.4,
+                                        maxWidth: widthMobile * 0.2,
+                                        maxHeight: cardheight * 0.55,
                                       ),
                                       child: GestureDetector(
                                           child: Hero(

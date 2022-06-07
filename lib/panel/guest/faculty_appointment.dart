@@ -11,8 +11,10 @@ import '../../main.dart';
 
 class faculty_appointment extends StatefulWidget {
   String email;
+  bool isStudent;
 
-  faculty_appointment({Key? key, required this.email}) : super(key: key);
+  faculty_appointment({Key? key, required this.email, required this.isStudent})
+      : super(key: key);
 
   @override
   _faculty_appointmentState createState() => _faculty_appointmentState();
