@@ -133,7 +133,6 @@ class GuestHome extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-
                                           builder: (context) => FacultyList(
                                                 isStudent: false,
                                               )));
