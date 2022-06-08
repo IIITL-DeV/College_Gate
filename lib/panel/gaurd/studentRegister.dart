@@ -79,7 +79,7 @@ class _StudentRegisterState extends State<StudentRegister> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.13;
+    double cardheight = widthMobile * heightMobile * 0.00033;
 
     return Scaffold(
       appBar: AppBar(
@@ -169,7 +169,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                       elevation: 3.5,
                       child: SizedBox(
                         height: cardheight,
-                        width: widthMobile * 0.9,
+                        width: widthMobile,
                         child: ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
