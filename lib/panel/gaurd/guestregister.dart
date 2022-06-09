@@ -3,6 +3,7 @@ import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class guestRegister extends StatefulWidget {
   const guestRegister({Key? key}) : super(key: key);
@@ -25,20 +26,19 @@ class _guestRegisterState extends State<guestRegister> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.13;
+
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
     // ]);
     return Scaffold(
         appBar: AppBar(
+          toolbarHeight: 56.h,
           backgroundColor: Color(0Xff15609c),
           centerTitle: true,
           title: Text(
             "Guest Register",
-            style: TextStyle(fontSize: heightMobile * 0.027),
+            style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500),
           ),
         ),
         // AppBar(
@@ -75,25 +75,29 @@ class _guestRegisterState extends State<guestRegister> {
               if (value == 0 || value == null) {
                 print("issssss$value");
                 return SizedBox(
-                    width: widthMobile,
-                    height: heightMobile,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: heightMobile * 0.13),
-                        Image.asset(
-                          'assets/nonotices.png',
-                          //fit: BoxFit.fitWidth,
-                          width: widthMobile * 0.8,
-                          height: heightMobile * 0.4,
-                          alignment: Alignment.center,
-                        ),
-                        Text("No Entry",
-                            style: TextStyle(
-                              fontSize: heightMobile * 0.04,
-                              fontWeight: FontWeight.w300,
-                              color: Color(0Xff14619C),
-                            )),
-                      ],
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 150.h),
+                      child: Column(
+                        children: <Widget>[
+                          //SizedBox(height: 266.h),
+                          Image.asset(
+                            'assets/nonotices.png',
+                            //fit: BoxFit.fitWidth,
+                            width: 228.w,
+                            height: 228.h,
+                            alignment: Alignment.center,
+                          ),
+                          SizedBox(height: 30.h,),
+                          Text("No Entry",
+                              style: TextStyle(
+                                fontSize: 28.sp,
+                                fontWeight: FontWeight.w300,
+                                color: Color(0Xff14619C),
+                              )),
+                        ],
+                      ),
                     ));
               }
               return ListView.builder(
@@ -103,12 +107,11 @@ class _guestRegisterState extends State<guestRegister> {
                 itemBuilder: (context, index) {
                   final chatItem = snapshot.data!.docs[index];
                   return Padding(
-                    padding: EdgeInsets.all(heightMobile * 0.008),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
                     child: Card(
-                      elevation: 3.5,
+                      elevation: 2.5,
                       child: SizedBox(
-                        height: cardheight,
-                        width: widthMobile * 0.9,
+                        height: 80.h,
                         child: ListView(
                           children: [
                             ListTile(
@@ -116,65 +119,65 @@ class _guestRegisterState extends State<guestRegister> {
                                 "${chatItem["name"]}",
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.18,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                               trailing: Text("${chatItem["vehicleno"]}",
                                   style: TextStyle(
-                                    fontSize: cardheight * 0.13,
+                                    fontSize: 13.sp,
                                   )),
-                              contentPadding: EdgeInsets.fromLTRB(
-                                  cardheight * 0.13,
-                                  cardheight * 0.1,
-                                  cardheight * 0.14,
-                                  cardheight * 0),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
                             ),
                             Row(
                               // mainAxisAlignment:
                               //     MainAxisAlignment.spaceEvenly,
                               children: [
-                                SizedBox(width: cardheight* 0.14,),
+                                SizedBox(width: 12.w,),
                                 Text("${chatItem["purpose"]}",
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: cardheight * 0.13,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 13.sp,
                                     )),
                                 //SizedBox(height: 5),
-                                SizedBox(width: cardheight* 0.08,),
+                                SizedBox(width: 8.w,),
                                 Row(
-                                  children: [
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [ //SizedBox(height: 5),
                                     Icon(
                                       Icons.access_alarm,
-                                      size: cardheight * 0.12,
+                                      size: 13.sp,
                                       color:
                                       Color.fromARGB(255, 22, 180, 140),
                                     ),
-                                    SizedBox(width: cardheight* 0.05,),
+                                    SizedBox(
+                                      width: 4.w,
+                                    ),
 
                                     Text(
                                       chatItem["entrytime"] == null
                                           ? "OUT | OUT"
                                           : "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.13,
+                                        fontSize: 13.sp,
                                         backgroundColor: Color(0XffD1F0E8),
                                       ),
                                     ),
-                                    SizedBox(width: cardheight* 0.05,),
+                                    SizedBox(width: 4.w,),
                                     Icon(
                                       Icons.arrow_forward,
                                       color:
                                       Color.fromARGB(255, 22, 180, 140),
-                                      size: cardheight * 0.1,
+                                      size: 13.sp,
                                     ),
-                                    SizedBox(width: cardheight* 0.05,),
+                                    SizedBox(width: 4.w,),
 
                                     Text(
                                       chatItem["exittime"] == null
                                           ? "IN | IN"
                                           : "${chatItem["exittime"]} | ${chatItem["exitdate"]}",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.13,
+                                        fontSize: 13.sp,
                                         backgroundColor: Color(0XffD1F0E8),
                                       ),
                                     ),

@@ -4,6 +4,8 @@ import 'package:college_gate/panel/student/complete_profile.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class SignIn extends StatefulWidget {
   //neeche nhi kiya because it's a constructor for sate widget;
@@ -23,25 +25,26 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+    //double widthMobile = MediaQuery.of(context).size.width;
+    //double heightMobile = MediaQuery.of(context).size.height;
     return loading
         ? CircularProgressIndicator()
         : Scaffold(
             appBar: AppBar(
+              toolbarHeight: 56.h,
               backgroundColor: Color(0Xff15609c),
               centerTitle: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                      height: heightMobile * 0.028,
+                      height: 24.h,
                       child: Image.asset("assets/cg_white.png")),
                   SizedBox(
-                    width: 10,
+                    width: 12.w,
                   ),
                   Text("College Gate",
-                      style: TextStyle(fontSize: heightMobile * 0.028)),
+                      style: TextStyle(fontSize: 24.sp)),
                 ],
               ),
             ),
@@ -55,48 +58,46 @@ class _SignInState extends State<SignIn> {
                     children: <Widget>[
                       Image.asset(
                         "assets/collegegate-01.png",
-                        height: MediaQuery.of(context).size.height * 0.45,
-                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: 400.h,
+                        width: 220.w,
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.width * 0.0001,
-                      ),
+
                       Center(
                         child: GestureDetector(
                           onTap: () {
                             AuthMethods().signInWithGoogle(context);
                           },
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 0.07,
-                            width: MediaQuery.of(context).size.width * 0.6,
+                            height: 55.h,
+                            //width: ,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius: BorderRadius.circular(24.r),
                               color: Colors.green,
                             ),
                             padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
+                                horizontal: 16.w, vertical: 5.h),
                             child: Center(
                               child: Text(
                                 "Sign in with Google",
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
+                                    fontSize: 16.sp, color: Colors.white),
                               ),
                             ),
                           ),
                         ),
                       ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.015),
+                          height: 15.h),
                       Row(children: <Widget>[
                         Expanded(child: Divider()),
                         Text(
                           "or",
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(color: Colors.grey,fontSize: 14.sp),
                         ),
                         Expanded(child: Divider()),
                       ]),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.015),
+                          height: 15.h),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
@@ -105,23 +106,24 @@ class _SignInState extends State<SignIn> {
                                   builder: (context) => GuestHome()));
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: 55.h,
+                          //width: MediaQuery.of(context).size.width * 0.6,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
+                            borderRadius: BorderRadius.circular(24.r),
                             color: Color(0Xff15609c),
                           ),
                           padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                              horizontal: 16.w, vertical: 5.h),
                           child: Center(
                             child: Text(
                               "Continue as Guest",
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  TextStyle(fontSize: 16.sp, color: Colors.white),
                             ),
                           ),
                         ),
                       ),
+                      SizedBox(height: 10,),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
@@ -130,8 +132,8 @@ class _SignInState extends State<SignIn> {
                                   builder: (context) => gaurdHome()));
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: 50,
+                          //width: MediaQuery.of(context).size.width * 0.6,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
                             color: Color(0Xff15609c),
@@ -149,7 +151,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       Text(
                         error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        style: TextStyle(color: Colors.red, fontSize: 14.sp),
                       ),
                     ],
                   ),

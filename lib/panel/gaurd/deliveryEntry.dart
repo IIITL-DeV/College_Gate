@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class DeliveryEntry extends StatefulWidget {
   const DeliveryEntry({Key? key}) : super(key: key);
@@ -18,7 +20,8 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
   Widget _buildName() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Name'),
+      style: TextStyle(fontSize: 16.sp),
+      decoration: InputDecoration(labelText: 'Name',labelStyle: TextStyle(fontSize: 15.sp)),
       validator: (value) {
         // value:
         if (value == null || value.isEmpty) {
@@ -33,7 +36,8 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
   Widget _buildVehicle() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Vehicle Number'),
+      style: TextStyle(fontSize: 16.sp),
+      decoration: InputDecoration(labelText: 'Vehicle Number',labelStyle: TextStyle(fontSize: 15.sp)),
       validator: (value) {
         // value:
         if (value == null || value.isEmpty) {
@@ -54,7 +58,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
       ),
       style: TextStyle(
         color: Colors.black,
-        // fontSize: heightMobile * 0.02,
+        fontSize: 15.sp,
       ),
       onChanged: (newValue) => setState(() => _purpose = newValue),
       validator: (value) {
@@ -69,7 +73,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value),
+          child: Text(value,style: TextStyle(fontSize: 16.sp),),
         );
       }).toList(),
     );
@@ -81,6 +85,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
       children: [
         Expanded(
           child: TextFormField(
+            readOnly: true,
               decoration: InputDecoration(
                 labelText: 'Date',
                 // : Colors.white70,
@@ -94,7 +99,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                   borderRadius: BorderRadius.circular(0),
                   borderSide: BorderSide(
                     color: Colors.black12,
-                    width: 1,
+                    width: 1.w,
                   ),
                 ),
               ),
@@ -110,10 +115,11 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
               }),
         ),
         SizedBox(
-          width: 10,
+          width: 10.w,
         ),
         Expanded(
           child: TextFormField(
+            readOnly: true,
               decoration: InputDecoration(
                 labelText: 'Time',
                 // : Colors.white70,
@@ -127,7 +133,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                   borderRadius: BorderRadius.circular(0),
                   borderSide: BorderSide(
                     color: Colors.black12,
-                    width: 1,
+                    width: 1.w,
                   ),
                 ),
               ),
@@ -148,39 +154,30 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: heightMobile * 0.028,
-            ),
-            onPressed: () => {Navigator.pop(context)}),
+        centerTitle: true,
         title: Text(
           "Guest Entry Form",
-          style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
-          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500),
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(
-              vertical: heightMobile * 0.04, horizontal: widthMobile * 0.08),
+              vertical: 40.h, horizontal: 20.w),
           child: Form(
               key: _formKey,
               child: Center(
                 child: Column(
                   children: [
-                    SizedBox(height: heightMobile * 0.02),
+                    SizedBox(height: 30.h),
                     SizedBox(
-                      height: heightMobile * 0.13,
+                      height: 108.h,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(1500),
+                        borderRadius: BorderRadius.circular(100.r),
                         child: Image.asset(
                           "assets/entry.png",
                           fit: BoxFit.contain,
@@ -188,38 +185,38 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                       ),
                     ),
                     SizedBox(
-                      height: heightMobile * 0.02,
+                      height: 20.h,
                     ),
                     _buildName(),
 
-                    SizedBox(height: heightMobile * 0.009),
+                    SizedBox(height: 8.h),
                     _buildVehicle(),
                     //SizedBox(height: heightMobile * 0.009),
-                    SizedBox(height: heightMobile * 0.04),
+                    SizedBox(height: 24.h),
                     _buildTime(),
-                    SizedBox(height: heightMobile * 0.03),
+                    SizedBox(height: 24.h),
                     _buildpurpose(),
-                    SizedBox(height: heightMobile * 0.009),
+                    SizedBox(height: 8.h),
                     _purpose == "Appointment"
                         ? customTextField(
-                            "Phone Number", "", heightMobile * 0.021)
+                            "Phone Number", "", 16.h)
                         : SizedBox.shrink(),
-                    SizedBox(height: heightMobile * 0.07),
+                    SizedBox(height: 50.h),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(15.0),
+                              borderRadius: new BorderRadius.circular(15.r),
                             ),
                             primary: Color(0Xff15609c),
-                            padding: EdgeInsets.all(heightMobile * 0.017),
+                            padding: EdgeInsets.all(15.h),
                             // padding: const EdgeInsets.all(10),
                             minimumSize:
-                                Size(widthMobile, heightMobile * 0.028)),
+                                Size(MediaQuery.of(context).size.width,50.h)),
                         child: Text(
                           'Done',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: heightMobile * 0.022,
+                            fontSize: 18.sp,
                           ),
                         ),
                         onPressed: () async {
@@ -257,7 +254,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
   Widget customTextField(String lab, String initValue, double fsize) {
     return TextFormField(
-      decoration: InputDecoration(labelText: lab.toString()),
+      decoration: InputDecoration(labelText: lab.toString(),labelStyle: TextStyle(fontSize: 15.sp)),
       initialValue: initValue,
       //readOnly: read,
       style: TextStyle(

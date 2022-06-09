@@ -3,7 +3,7 @@ import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:college_gate/panel/warden/viewimage.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class guard_entryrequests extends StatefulWidget {
@@ -32,6 +32,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
     double cardheight = heightMobile * 0.195;
+    if(cardheight>155) cardheight = 155;
     return Scaffold(
         body: StreamBuilder(
       stream: stream,
@@ -42,25 +43,29 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
           if (value == 0 || value == null) {
             print("issssss$value");
             return SizedBox(
-                width: widthMobile,
-                height: heightMobile,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: heightMobile * 0.13),
-                    Image.asset(
-                      'assets/nonotices.png',
-                      //fit: BoxFit.fitWidth,
-                      width: widthMobile * 0.8,
-                      height: heightMobile * 0.4,
-                      alignment: Alignment.center,
-                    ),
-                    Text("No Request",
-                        style: TextStyle(
-                          fontSize: heightMobile * 0.04,
-                          fontWeight: FontWeight.w300,
-                          color: Color(0Xff14619C),
-                        )),
-                  ],
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 150.h),
+                  child: Column(
+                    children: <Widget>[
+                      //SizedBox(height: 266.h),
+                      Image.asset(
+                        'assets/nonotices.png',
+                        //fit: BoxFit.fitWidth,
+                        width: 228.w,
+                        height: 228.h,
+                        alignment: Alignment.center,
+                      ),
+                      SizedBox(height: 30.h,),
+                      Text("No Requests",
+                          style: TextStyle(
+                            fontSize: 28.sp,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0Xff14619C),
+                          )),
+                    ],
+                  ),
                 ));
           }
           return ListView.builder(
