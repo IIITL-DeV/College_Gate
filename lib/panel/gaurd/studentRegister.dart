@@ -79,7 +79,9 @@ class _StudentRegisterState extends State<StudentRegister> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = widthMobile * heightMobile * 0.00033;
+    double cardheight = heightMobile * 0.13;
+    if(cardheight>101) cardheight = 100;
+    //print(cardheight);
 
     return Scaffold(
       appBar: AppBar(
