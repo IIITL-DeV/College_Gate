@@ -76,10 +76,9 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
               return Padding(
                 padding: EdgeInsets.all(heightMobile * 0.008),
                 child: Card(
-                  elevation: 3.5,
+                  elevation: 2.5,
                   child: SizedBox(
-                    height: cardheight,
-                    width: widthMobile * 0.9,
+                    height: 110.h,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
@@ -88,62 +87,62 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: cardheight * 0.13,
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
                           subtitle: Container(
                               child: Column(
-                            children: [
-                              SizedBox(
-                                height: cardheight * 0.04,
-                              ),
-                              Row(
                                 children: [
-                                  Icon(
-                                    Icons.add_call,
-                                    size: cardheight * 0.07,
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.add_call,
+                                        size: 12.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 7.w,
+                                      ),
+                                      Text(
+                                        "${chatItem["phone"]}",
+                                        style:
+                                        TextStyle(fontSize: 13.sp),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
-                                    width: widthMobile * 0.02,
+                                    height: 3.h,
                                   ),
-                                  Text(
-                                    "${chatItem["phone"]}",
-                                    style:
-                                        TextStyle(fontSize: cardheight * 0.09),
-                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_alarm,
+                                        size: 12.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 7.h,
+                                      ),
+                                      Text(
+                                        "${chatItem["time"]} | ${chatItem["date"]}",
+                                        style: TextStyle(
+                                          fontSize: 13.sp,
+                                          backgroundColor: Color(0XffD1F0E8),
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              ),
-                              SizedBox(
-                                height: cardheight * 0.03,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.access_alarm,
-                                    size: cardheight * 0.08,
-                                  ),
-                                  SizedBox(
-                                    width: widthMobile * 0.02,
-                                  ),
-                                  Text(
-                                    "${chatItem["time"]} | ${chatItem["date"]}",
-                                    style: TextStyle(
-                                      fontSize: cardheight * 0.08,
-                                      backgroundColor: Color(0XffD1F0E8),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          )),
+                              )),
                           //Id Image
                           leading: ConstrainedBox(
                             constraints: BoxConstraints(
-                              minWidth: widthMobile * 0.07,
-                              minHeight: cardheight * 0.25,
-                              maxWidth: widthMobile * 0.15,
-                              maxHeight: cardheight * 0.45,
+                              minWidth: 30.w,
+                              minHeight: 50.h,
+                              maxWidth: 60.h,
+                              maxHeight: 55.h,
                             ),
                             child: GestureDetector(
                                 child: Hero(
@@ -154,39 +153,34 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                 onTap: () async {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
-                                    return viewImage(chatItem["idcard"]);
-                                  }));
+                                        return viewImage(chatItem["idcard"]);
+                                      }));
                                 }),
                           ),
                           //Room Number
                           trailing: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: cardheight * 0.07),
+                              SizedBox(height: 9.h),
                               Text(
                                 "${chatItem["room"]}",
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.09,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              SizedBox(height: cardheight * 0.02),
+                              SizedBox(height: 3.h),
                               Text(
                                 "${chatItem["enrollment"]}",
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.09,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              //SizedBox(height: cardheight * 0.1,)
                             ],
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(
-                              cardheight * 0.1,
-                              cardheight * 0.1,
-                              cardheight * 0.1,
-                              cardheight * 0.05),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
                         ),
                         SizedBox(
-                          height: cardheight * 0.03,
+                          height: 6.h,
                         ),
                         //Accept, Decline button
                         Column(

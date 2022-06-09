@@ -55,6 +55,7 @@ class _guardLogState extends State<guardLog>
               ),
 
               labelColor: Color(0Xff15609c),
+              labelStyle: TextStyle(fontSize: 16.h),
               unselectedLabelColor: Color(0XffD4D4D4),
               tabs: [
                 // first tab [you can add an icon using the icon property]
