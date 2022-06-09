@@ -92,7 +92,7 @@ class _StudentRegisterState extends State<StudentRegister> {
         centerTitle: true,
         title: Text(
           "Student Register",
-          style: TextStyle(fontSize: 18.sp),
+          style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500),
         ),
       ),
       // appBar: AppBar(

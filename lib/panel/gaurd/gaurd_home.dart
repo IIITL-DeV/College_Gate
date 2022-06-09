@@ -10,6 +10,8 @@ import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/student/exit_screen.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class gaurdHome extends StatefulWidget {
   const gaurdHome({Key? key}) : super(key: key);
@@ -54,9 +56,9 @@ class _gaurdHomeState extends State<gaurdHome> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: heightMobile * 0.038,
+        iconSize: 27.sp,
         selectedIconTheme:
-            IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
+            IconThemeData(color: Color(0Xff15609c), size: 33.sp),
         showSelectedLabels: false,
 
         showUnselectedLabels: false,
@@ -79,17 +81,25 @@ class _gaurdHomeState extends State<gaurdHome> {
         onTap: _onTapTapped,
       ),
       appBar: AppBar(
+        toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
-        title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SizedBox(
-              height: heightMobile * 0.028,
-              child: Image.asset("assets/cg_white.png")),
-          SizedBox(
-            width: 10,
-          ),
-          Text("College Gate",
-              style: TextStyle(fontSize: heightMobile * 0.028)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                height: 24.h,
+                child: Image.asset("assets/cg_white.png")),
+            SizedBox(
+              width: 12.w,
+            ),
+            Text("College Gate",
+                style: TextStyle(fontSize: 24.sp)),
+            //SizedBox(width: 50.w,),
+
+          ],
+        ),
+        actions: [
           InkWell(
             onTap: () {
               AuthMethods().logout().then((s) {
@@ -98,14 +108,16 @@ class _gaurdHomeState extends State<gaurdHome> {
               });
             },
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
+                //padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Icon(
                   Icons.exit_to_app,
-                  color: Colors.deepPurple[50],
-                  size: heightMobile * 0.027,
+                  color: Colors.white,
+                  size: 23.sp,
                 )),
           ),
-        ]),
+          SizedBox(width: 20.w,)
+        ],
+
       ),
       // AppBar(
       //     backgroundColor: Color(0Xff15609c),
@@ -150,8 +162,7 @@ class gaurdHomeScreen extends StatefulWidget {
 class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
@@ -161,18 +172,18 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
         },
         label: Text(
           'New Entry',
-          style: TextStyle(fontSize: heightMobile * 0.02),
+          style: TextStyle(fontSize: 15.sp),
         ),
         icon: Icon(
           Icons.add,
-          size: heightMobile * 0.035,
+          size: 22.sp,
         ),
         backgroundColor: Color(0Xff15609c),
       ),
       body: Container(
-          height: heightMobile,
-          width: widthMobile,
-          padding: EdgeInsets.all(heightMobile * 0.02),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.h),
           child: Column(
             children: [
               InkWell(
@@ -183,21 +194,17 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                           builder: (context) => StudentRegister()));
                 },
                 child: Card(
-                  elevation: 4,
+                  elevation: 2,
                   child: Column(children: [
                     SizedBox(
-                      height: heightMobile * 0.2,
+                      height: 155.h,
                       child: Ink.image(
                         image: AssetImage("assets/studentAppointment.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
+                        padding: EdgeInsets.fromLTRB(15.w,8.h,5.w,8.h),
                         alignment: Alignment.centerLeft,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -205,7 +212,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                               Text(
                                 "Students",
                                 style: TextStyle(
-                                    fontSize: heightMobile * 0.021,
+                                    fontSize: 17.sp,
                                     color: Color(0Xff232F77)),
                               ),
                               IconButton(
@@ -218,7 +225,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                                 StudentRegister()));
                                   },
                                   icon: Icon(Icons.chevron_right,
-                                      size: heightMobile * 0.03,
+                                      size: 24.sp,
                                       color: Color(0Xff232F77))),
                             ])),
                   ]),
@@ -230,22 +237,18 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                       MaterialPageRoute(builder: (context) => guestRegister()));
                 },
                 child: Card(
-                  elevation: 4,
+                  elevation: 2,
                   child: Column(
                     children: [
                       SizedBox(
-                        height: heightMobile * 0.2,
+                        height: 155.h,
                         child: Ink.image(
                           image: AssetImage("assets/facultyAppointment.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
+                        padding: EdgeInsets.fromLTRB(15.w,8.h,5.w,8.h),
                         alignment: Alignment.centerLeft,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -253,7 +256,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                             Text(
                               "Guests",
                               style: TextStyle(
-                                  fontSize: heightMobile * 0.021,
+                                  fontSize: 17.sp,
                                   color: Color(0Xff232F77)),
                             ),
                             IconButton(
@@ -266,7 +269,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                               guestRegister()));
                                 },
                                 icon: Icon(Icons.chevron_right,
-                                    size: heightMobile * 0.03,
+                                    size: 24.sp,
                                     color: Color(0Xff232F77)))
                           ],
                         ),
