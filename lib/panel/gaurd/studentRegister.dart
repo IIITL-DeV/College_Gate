@@ -143,7 +143,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                           alignment: Alignment.center,
                         ),
                         SizedBox(height: 30.h,),
-                        Text("No Requests",
+                        Text("No Entry",
                             style: TextStyle(
                               fontSize: 28.sp,
                               fontWeight: FontWeight.w300,

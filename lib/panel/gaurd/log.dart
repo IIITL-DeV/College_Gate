@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class guardLog extends StatefulWidget {
   @override
@@ -30,18 +31,17 @@ class _guardLogState extends State<guardLog>
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Column(
         children: [
           // give the tab bar a height [can change hheight to preferred height]
           Container(
-            height: heightMobile * 0.073,
+            height: 58.h,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(
-                25.0,
+                25.r,
               ),
             ),
             child: TabBar(
@@ -49,7 +49,7 @@ class _guardLogState extends State<guardLog>
               // give the indicator a decoration (color and border radius)
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(
-                  0,
+                  0.r,
                 ),
                 color: Colors.grey[300],
               ),
@@ -115,9 +115,7 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.12;
+
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -140,25 +138,29 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
           if (value == 0 || value == null) {
             print("issssss$value");
             return SizedBox(
-                width: widthMobile,
-                height: heightMobile,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: heightMobile * 0.13),
-                    Image.asset(
-                      'assets/nonotices.png',
-                      //fit: BoxFit.fitWidth,
-                      width: widthMobile * 0.8,
-                      height: heightMobile * 0.4,
-                      alignment: Alignment.center,
-                    ),
-                    Text("No logs",
-                        style: TextStyle(
-                          fontSize: heightMobile * 0.04,
-                          fontWeight: FontWeight.w300,
-                          color: Color(0Xff14619C),
-                        )),
-                  ],
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 150.h),
+                  child: Column(
+                    children: <Widget>[
+                      //SizedBox(height: 266.h),
+                      Image.asset(
+                        'assets/nonotices.png',
+                        //fit: BoxFit.fitWidth,
+                        width: 228.w,
+                        height: 228.h,
+                        alignment: Alignment.center,
+                      ),
+                      SizedBox(height: 30.h,),
+                      Text("No Logs",
+                          style: TextStyle(
+                            fontSize: 28.sp,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0Xff14619C),
+                          )),
+                    ],
+                  ),
                 ));
           }
           return ListView.builder(
@@ -167,65 +169,64 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.all(heightMobile * 0.01),
+                padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
                 child: Card(
-                  elevation: 3.5,
+                  elevation: 2.5,
                   child: SizedBox(
-                    height: cardheight,
-                    width: widthMobile * 0.9,
+                    height: 75.h,
+                    //width: widthMobile * 0.9,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         ListTile(
-                          onTap: () {}, //Zoom Image Function
+                          onTap: null, //Zoom Image Function
                           //name
                           title: Text(
                             "${chatItem["name"]}",
                             style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
-                                fontSize: cardheight * 0.18,
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.bold),
                           ),
-
                           //Phone number and Time
                           subtitle: Container(
                               child: Column(
                             children: [
                               SizedBox(
-                                height: cardheight * 0.06,
+                                height: 2.h,
                               ),
                               Row(
                                 children: [
                                   Icon(
                                     Icons.add_call,
-                                    size: cardheight * 0.12,
+                                    size: 12.sp,
                                   ),
                                   SizedBox(
-                                    width: widthMobile * 0.02,
+                                    width: 7.w,
                                   ),
                                   Text(
                                     "${chatItem["phone"]}",
                                     style:
-                                        TextStyle(fontSize: cardheight * 0.14),
+                                        TextStyle(fontSize: 13.sp),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: cardheight * 0.03,
+                                height: 3.h,
                               ),
                               Row(
                                 children: [
                                   Icon(
                                     Icons.access_alarm,
-                                    size: cardheight * 0.13,
+                                    size: 12.sp,
                                   ),
                                   SizedBox(
-                                    width: widthMobile * 0.02,
+                                    width: 7.h,
                                   ),
                                   Text(
                                     "${chatItem["time"]} | ${chatItem["date"]}",
                                     style: TextStyle(
-                                      fontSize: cardheight * 0.14,
+                                      fontSize: 13.sp,
                                       backgroundColor: Color(0XffD1F0E8),
                                     ),
                                   ),
@@ -236,10 +237,10 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                           //Id Image
                           leading: ConstrainedBox(
                             constraints: BoxConstraints(
-                              minWidth: widthMobile * 0.07,
-                              minHeight: cardheight * 0.25,
-                              maxWidth: widthMobile * 0.15,
-                              maxHeight: cardheight * 0.55,
+                              minWidth: 30.w,
+                              minHeight: 50.h,
+                              maxWidth: 60.h,
+                              maxHeight: 55.h,
                             ),
                             child: GestureDetector(
                                 child: Hero(
@@ -258,27 +259,23 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                           trailing: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: cardheight * 0.1),
+                              SizedBox(height: 9.h),
                               Text(
                                 "${chatItem["room"]}",
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.15,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              SizedBox(height: heightMobile * 0.004),
+                              SizedBox(height: 3.h),
                               Text(
                                 "${chatItem["enrollment"]}",
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.15,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(
-                              cardheight * 0.13,
-                              cardheight * 0.1,
-                              cardheight * 0.14,
-                              cardheight * 0.08),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
                         ),
                       ],
                     ),
@@ -330,25 +327,29 @@ class _guardGuestLogState extends State<guardGuestLog> {
           if (value == 0 || value == null) {
             print("issssss$value");
             return SizedBox(
-                width: widthMobile,
-                height: heightMobile,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: heightMobile * 0.13),
-                    Image.asset(
-                      'assets/nonotices.png',
-                      //fit: BoxFit.fitWidth,
-                      width: widthMobile * 0.8,
-                      height: heightMobile * 0.4,
-                      alignment: Alignment.center,
-                    ),
-                    Text("No logs",
-                        style: TextStyle(
-                          fontSize: heightMobile * 0.04,
-                          fontWeight: FontWeight.w300,
-                          color: Color(0Xff14619C),
-                        )),
-                  ],
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 150.h),
+                  child: Column(
+                    children: <Widget>[
+                      //SizedBox(height: 266.h),
+                      Image.asset(
+                        'assets/nonotices.png',
+                        //fit: BoxFit.fitWidth,
+                        width: 228.w,
+                        height: 228.h,
+                        alignment: Alignment.center,
+                      ),
+                      SizedBox(height: 30.h,),
+                      Text("No Logs",
+                          style: TextStyle(
+                            fontSize: 28.sp,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0Xff14619C),
+                          )),
+                    ],
+                  ),
                 ));
           }
           return ListView.builder(
@@ -359,65 +360,58 @@ class _guardGuestLogState extends State<guardGuestLog> {
               return Padding(
                 padding: EdgeInsets.all(heightMobile * 0.01),
                 child: Card(
-                  elevation: 3.5,
+                  elevation: 2.5,
                   child: SizedBox(
-                    height: cardheight,
-                    width: widthMobile * 0.9,
+                    height: 70.h,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         ListTile(
                           title: Row(
                             children: [
-                              SizedBox(
-                                width: cardheight * 0.06,
-                              ),
                               Text(
                                 "${chatItem["name"]}",
                                 style: TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    fontSize: cardheight * 0.22,
+                                    fontSize: 18.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-
                           //Phone number and Time
                           subtitle: Container(
                               child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                width: cardheight * 0.06,
-                              ),
+
                               Icon(
                                 Icons.directions_car,
-                                size: cardheight * 0.15,
+                                size: 12.sp,
                               ),
                               SizedBox(
-                                width: widthMobile * 0.02,
+                                width: 6.w,
                               ),
                               Text(
                                 "${chatItem["vehicleno"]}",
-                                style: TextStyle(fontSize: cardheight * 0.17),
+                                style: TextStyle(fontSize: 13.sp),
                               ),
                               // SizedBox(
                               //   height: cardheight * 0.03,
                               // ),
                               SizedBox(
-                                width: cardheight * 0.12,
+                                width: 10.w,
                               ),
                               Icon(
                                 Icons.access_alarm,
-                                size: cardheight * 0.16,
+                                size: 12.sp,
                               ),
                               SizedBox(
-                                width: widthMobile * 0.02,
+                                width: 6.w,
                               ),
                               Text(
                                 "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
                                 style: TextStyle(
-                                  fontSize: cardheight * 0.17,
+                                  fontSize: 13.sp,
                                   backgroundColor: Color(0XffD1F0E8),
                                 ),
                               ),
@@ -443,12 +437,11 @@ class _guardGuestLogState extends State<guardGuestLog> {
                               icon: Icon(
                                 CupertinoIcons.square_arrow_left,
                                 color: Color(0Xff19B38D),
-                                size: cardheight * 0.35,
+                                size: 25.sp,
                               ),
                             ),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(cardheight * 0.13,
-                              0, cardheight * 0.14, cardheight * 0.08),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12.w)
                         ),
                       ],
                     ),
