@@ -67,8 +67,8 @@ class _SignInState extends State<SignIn> {
                             AuthMethods().signInWithGoogle(context);
                           },
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 0.07,
-                            width: MediaQuery.of(context).size.width * 0.6,
+                            height: 50,
+                            //width: ,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                               color: Colors.green,
@@ -105,8 +105,8 @@ class _SignInState extends State<SignIn> {
                                   builder: (context) => GuestHome()));
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: 50,
+                          //width: MediaQuery.of(context).size.width * 0.6,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
                             color: Color(0Xff15609c),
@@ -122,6 +122,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 10,),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
@@ -130,8 +131,8 @@ class _SignInState extends State<SignIn> {
                                   builder: (context) => gaurdHome()));
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: 50,
+                          //width: MediaQuery.of(context).size.width * 0.6,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
                             color: Color(0Xff15609c),

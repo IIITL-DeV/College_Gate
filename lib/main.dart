@@ -7,6 +7,7 @@ import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'panel/gaurd/gaurd_home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -89,18 +90,22 @@ class _MyAppState extends State<MyApp> {
       backgroundColor: Color(0xFF01579B),
     );
 
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(),
-        home: FutureBuilder(
-          future: AuthMethods().getCurrentUser(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasData)
-              return example1;
-            else
-              return example2;
-          },
-        ));
+    return ScreenUtilInit(
+
+      builder: () => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(),
+          home: FutureBuilder(
+            future: AuthMethods().getCurrentUser(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasData)
+                return example1;
+              else
+                return example2;
+            },
+          )),
+      designSize: const Size(375,812),
+    );
   }
 }
 
