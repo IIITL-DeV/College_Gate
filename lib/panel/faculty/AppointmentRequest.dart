@@ -103,7 +103,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
           ':',
           nn,
         ]).toString();
-
         appointmentReschedule(context, name, email);
       });
     //Navigator.of(context).pop();
@@ -220,8 +219,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     _dateController.text = DateFormat.yMd().format(DateTime.now());
 
     _timeController.text = formatDate(
-        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
-        [hh, ':', nn, " ", am]).toString();
+        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute), [
+      hh,
+      ':',
+      nn,
+    ]).toString();
 
     ///
     super.initState();

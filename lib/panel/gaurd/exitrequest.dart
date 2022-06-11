@@ -1,15 +1,8 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/gaurd/entryrequest.dart';
-import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/warden/viewimage.dart';
-import 'package:college_gate/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class guardRequestHome extends StatefulWidget {
   @override
@@ -107,13 +100,9 @@ class _guard_requestsState extends State<guard_requests> {
     super.initState();
     stream = FirebaseFirestore.instance
         .collection("studentUser")
-        .where("exitisapproved", isEqualTo: false)
         .where("purpose", isEqualTo: "Outing")
-        .orderBy("exitisapproved")
-        .orderBy("purpose")
-        .orderBy("exitdatetime", descending: true)
-        .orderBy("date", descending: false)
-        .orderBy("time", descending: false)
+        .where("exitisapproved", isEqualTo: "ExitPending")
+        .orderBy("exitdatetime", descending: false)
         .snapshots();
   }
 
@@ -123,7 +112,7 @@ class _guard_requestsState extends State<guard_requests> {
     double heightMobile = MediaQuery.of(context).size.height;
     double cardheight = heightMobile * 0.195;
     //print(cardheight);
-    if(cardheight>155) cardheight = 155;
+    if (cardheight > 155) cardheight = 155;
     return Scaffold(
         body: StreamBuilder(
       stream: stream,
@@ -137,7 +126,7 @@ class _guard_requestsState extends State<guard_requests> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 150.h),
+                  padding: EdgeInsets.symmetric(vertical: 100.h),
                   child: Column(
                     children: <Widget>[
                       //SizedBox(height: 266.h),
@@ -148,10 +137,12 @@ class _guard_requestsState extends State<guard_requests> {
                         height: 228.h,
                         alignment: Alignment.center,
                       ),
-                      SizedBox(height: 30.h,),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                       Text("No Requests",
                           style: TextStyle(
-                            fontSize: 28.sp,
+                            fontSize: 25.sp,
                             fontWeight: FontWeight.w300,
                             color: Color(0Xff14619C),
                           )),
@@ -165,11 +156,13 @@ class _guard_requestsState extends State<guard_requests> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.all(heightMobile * 0.008),
+                padding: EdgeInsets.all(
+                  heightMobile * 0.008,
+                ),
                 child: Card(
                   elevation: 2.5,
                   child: SizedBox(
-                    height: 110.h,
+                    height: 150.h,
                     child: ListView(
                       children: [
                         ListTile(
@@ -177,8 +170,7 @@ class _guard_requestsState extends State<guard_requests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 18.sp, fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
                           subtitle: Container(
@@ -198,32 +190,10 @@ class _guard_requestsState extends State<guard_requests> {
                                   ),
                                   Text(
                                     "${chatItem["phone"]}",
-                                    style:
-                                        TextStyle(fontSize: 13.sp),
+                                    style: TextStyle(fontSize: 13.sp),
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.access_alarm,
-                                    size: 12.sp,
-                                  ),
-                                  SizedBox(
-                                    width: 7.h,
-                                  ),
-                                  Text(
-                                    "${chatItem["time"]} | ${chatItem["date"]}",
-                                    style: TextStyle(
-                                      fontSize: 13.sp,
-                                      backgroundColor: Color(0XffD1F0E8),
-                                    ),
-                                  ),
-                                ],
-                              )
                             ],
                           )),
                           //Id Image
@@ -251,27 +221,28 @@ class _guard_requestsState extends State<guard_requests> {
                           trailing: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: 9.h),
+                              SizedBox(height: 15.h),
                               Text(
-                                "${chatItem["room"]}",
+                                " ${chatItem["hostelno"]}/${chatItem["room"]}",
                                 style: TextStyle(
-                                    fontSize: 14.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                               SizedBox(height: 3.h),
                               Text(
                                 "${chatItem["enrollment"]}",
                                 style: TextStyle(
-                                    fontSize: 14.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12.w),
                         ),
-                        SizedBox(
-                          height: 6.h,
-                        ),
+                        // SizedBox(
+                        //   height: 6.h,
+                        // ),
                         //Accept, Decline button
                         Column(
                           children: [
@@ -288,7 +259,8 @@ class _guard_requestsState extends State<guard_requests> {
                                           .collection("studentUser")
                                           .doc(chatItem["email"])
                                           .update({
-                                        "exitisapproved": true
+                                        "exitisapproved": "ExitApproved",
+                                        "exitdatetime": DateTime.now(),
                                       }).then((_) {
                                         print("success!");
                                       });

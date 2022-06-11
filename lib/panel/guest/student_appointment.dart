@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/main.dart';
-import 'package:college_gate/panel/guest/gpending.dart';
+
 import 'package:college_gate/panel/student/requestpending.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
-
 
 class booking extends StatefulWidget {
   const booking({Key? key}) : super(key: key);
@@ -20,31 +19,36 @@ class _bookingState extends State<booking> {
   final _formKey = GlobalKey<FormState>();
   var v;
   String? ans;
-  String? phone, name, genrollnment, gexitdate, gexittime;
+  String? email, name, genrollnment, gexitdate, gexittime;
   @override
   void initState() {
-    _dateController.text = DateFormat.yMd().format(DateTime.now());
+    _dateController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
     _timeController.text = formatDate(
-        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
-        [hh, ':', nn, " ", am]).toString();
+        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute), [
+      hh,
+      ':',
+      nn,
+    ]).toString();
     super.initState();
   }
 
   late String _hour, _minute, _time;
 
-  late String dateTime;
+  // late String dateTime;
 
   DateTime selectedDate = DateTime.now();
 
-  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+  TimeOfDay selectedTime =
+      TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
 
-  Widget _buildDate(){
+  Widget _buildDate() {
     return Row(
       children: [
-        Expanded(child: TextField(
+        Expanded(
+            child: TextField(
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -63,7 +67,7 @@ class _bookingState extends State<booking> {
               ),
             ),
           ),
-          onTap: () async{
+          onTap: () async {
             final DateTime? picked = await showDatePicker(
               context: context,
               initialDate: selectedDate,
@@ -86,14 +90,16 @@ class _bookingState extends State<booking> {
             if (picked != null)
               setState(() {
                 selectedDate = picked;
-                _dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
-
+                _dateController.text =
+                    DateFormat('dd-MM-yyyy').format(selectedDate);
               });
           },
-
         )),
-        SizedBox(width: 10,),
-        Expanded(child: TextField(
+        SizedBox(
+          width: 10,
+        ),
+        Expanded(
+            child: TextField(
           controller: _timeController,
           decoration: InputDecoration(
             labelText: 'Time',
@@ -112,7 +118,7 @@ class _bookingState extends State<booking> {
               ),
             ),
           ),
-          onTap: () async{
+          onTap: () async {
             final TimeOfDay? picked = await showTimePicker(
               context: context,
               initialTime: selectedTime,
@@ -137,12 +143,13 @@ class _bookingState extends State<booking> {
                 _time = _hour + ' : ' + _minute;
                 _timeController.text = _time;
                 _timeController.text = formatDate(
-                    DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute), [
-                  hh,
-                  ':',
-                  nn,
-                ]).toString();
-
+                    DateTime(
+                        2019, 08, 1, selectedTime.hour, selectedTime.minute),
+                    [
+                      hh,
+                      ':',
+                      nn,
+                    ]).toString();
               });
           },
         )),
@@ -169,22 +176,22 @@ class _bookingState extends State<booking> {
     );
   }
 
-  Widget _buildphone() {
+  Widget _buildemail() {
     return TextFormField(
-        //initialValue: _phoneno!,
+        //initialValue: _emailno!,
         // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: const InputDecoration(labelText: 'Email ID'),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Email ID is required";
           } else {
-            phone = value;
+            email = value;
             return null;
           }
         });
   }
 
-  Widget _buildemail() {
+  Widget _buildstudentemail() {
     return TextFormField(
         decoration:
             const InputDecoration(labelText: "Visiting Student's Email ID"),
@@ -338,8 +345,8 @@ class _bookingState extends State<booking> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildName(),
-                  _buildphone(),
                   _buildemail(),
+                  _buildstudentemail(),
                   _buildRelation(),
                   SizedBox(height: heightMobile * 0.04),
                   _buildDate(),
@@ -371,27 +378,20 @@ class _bookingState extends State<booking> {
                                       content: Text('Processing Data')),
                                 ),
                                 FirebaseFirestore.instance
-                                    .collection('studentGuest')
+                                    .collection('studentUser')
                                     .doc(genrollnment)
-                                    .collection('guestUser')
-                                    .doc(phone)
+                                    .collection('guestemail')
+                                    .doc(email)
                                     .set({
                                   'guestname': name,
-                                  'guestphone': phone,
-                                  'vistingroll': genrollnment,
-                                  'guestentrydate': _dateController.text,
-                                  'guestentrytime': _timeController.text,
-                                  'gentryisapproved': false
+                                  'guestemail': email,
+                                  'guestappointdatetime': DateTime(
+                                      selectedDate.year,
+                                      selectedDate.month,
+                                      selectedDate.day,
+                                      selectedTime.hour,
+                                      selectedTime.minute),
                                 }, SetOptions(merge: true)),
-                                FirebaseFirestore.instance
-                                    .collection('studentGuest')
-                                    .doc(genrollnment)
-                                    .collection('guestUser')
-                                    .doc(phone)
-                                    .collection("gentryisapproved")
-                                    .doc()
-                                    .set({'gentryisapproved': false},
-                                        SetOptions(merge: true)),
 
                                 flutterToast("Request has been sent."),
                                 Navigator.of(context).pop(),
@@ -400,7 +400,7 @@ class _bookingState extends State<booking> {
                                 //     context,
                                 //     MaterialPageRoute(
                                 //         builder: (context) => grequestpending(
-                                //             genrollnment!, phone!))),
+                                //             genrollnment!, email!))),
                                 // v = FirebaseFirestore.instance
                                 //     .collection("studentUser")
                                 //     .where("email", isEqualTo: email)

@@ -9,7 +9,6 @@ import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 
-
 class studentfacultyappointment extends StatefulWidget {
   String email;
 
@@ -22,18 +21,30 @@ class studentfacultyappointment extends StatefulWidget {
 
 class _studentfacultyappointmentState extends State<studentfacultyappointment> {
   final _formKey = GlobalKey<FormState>();
-  var v;
+
+  late String _hour, _minute, _time;
+
+  late String dateTime;
+
+  DateTime selectedDate = DateTime.now();
+
+  TimeOfDay selectedTime =
+      TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+  // var v;
 
   String? sphone, sname, semail, sappointdate, sappointtime, spurpose;
 
-  Future<void> _getUserDetails() async {
+  Future<void> getUserDetails() async {
     FirebaseFirestore.instance
         .collection('studentUser')
-        .doc(await (FirebaseAuth.instance.currentUser)!.email)
+        .doc((FirebaseAuth.instance.currentUser)!.email)
         .get()
         .then((value) {
       setState(() {
         sname = value.data()!['name'].toString();
+        print(sname);
         sphone = value.data()!['phone'].toString();
         semail = value.data()!['email'].toString();
       });
@@ -42,29 +53,21 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
 
   @override
   void initState() {
-    _dateController.text = DateFormat.yMd().format(DateTime.now());
+    _dateController.text = DateFormat("dd-MM-yyyy").format(DateTime.now());
 
     _timeController.text = formatDate(
         DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
-        [hh, ':', nn, " ", am]).toString();
-    _getUserDetails;
+        [hh, ':', nn]).toString();
+
     super.initState();
+    getUserDetails();
   }
 
-  late String _hour, _minute, _time;
-
-  late String dateTime;
-
-  DateTime selectedDate = DateTime.now();
-
-  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
-
-  Widget _buildDate(){
+  Widget _buildDate() {
     return Row(
       children: [
-        Expanded(child: TextField(
+        Expanded(
+            child: TextField(
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -83,7 +86,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
               ),
             ),
           ),
-          onTap: () async{
+          onTap: () async {
             final DateTime? picked = await showDatePicker(
               context: context,
               initialDate: selectedDate,
@@ -106,14 +109,16 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
             if (picked != null)
               setState(() {
                 selectedDate = picked;
-                _dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
-
+                _dateController.text =
+                    DateFormat('dd-MM-yyyy').format(selectedDate);
               });
           },
-
         )),
-        SizedBox(width: 10,),
-        Expanded(child: TextField(
+        SizedBox(
+          width: 10,
+        ),
+        Expanded(
+            child: TextField(
           controller: _timeController,
           decoration: InputDecoration(
             labelText: 'Time',
@@ -132,7 +137,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
               ),
             ),
           ),
-          onTap: () async{
+          onTap: () async {
             final TimeOfDay? picked = await showTimePicker(
               context: context,
               initialTime: selectedTime,
@@ -157,12 +162,13 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
                 _time = _hour + ' : ' + _minute;
                 _timeController.text = _time;
                 _timeController.text = formatDate(
-                    DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute), [
-                  hh,
-                  ':',
-                  nn,
-                ]).toString();
-
+                    DateTime(
+                        2019, 08, 1, selectedTime.hour, selectedTime.minute),
+                    [
+                      hh,
+                      ':',
+                      nn,
+                    ]).toString();
               });
           },
         )),
@@ -172,19 +178,19 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
 
   Widget _buildfacultyemail() {
     return TextFormField(
-      decoration: const InputDecoration(
-        labelText: "Visiting Faculty's Email ID",
-      ),
-      readOnly: true,
-      initialValue: "${widget.email}",
-      // validator: (email) {
-      //   if (email == null || email.isEmpty) {
-      //     return "Visiting Faculty's Email ID is required";
-      //   } else {
-      //     genrollnment = email;
-      //     return null;
-      //   }}
-    );
+        decoration: const InputDecoration(
+          labelText: "Visiting Faculty's Email ID",
+        ),
+        readOnly: true,
+        initialValue: "${widget.email}",
+        validator: (email) {
+          if (email == null || email.isEmpty) {
+            return "Visiting Faculty's Email ID is required";
+          } else {
+            // genrollnment = email;
+            return null;
+          }
+        });
   }
 
   Widget _buildName() {
@@ -197,7 +203,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
       //   if (value == null || value.isEmpty) {
       //     return "Name is required";
       //   } else {
-      //     name = value;
+      //     sname = value;
       //     return null;
       //   }
       // },
@@ -206,7 +212,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
 
   Widget _buildemail() {
     return TextFormField(
-      //initialValue: _phoneno!,
+      // initialValue: _phoneno!,
       // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: const InputDecoration(labelText: 'Email ID'),
       initialValue: semail,
@@ -224,6 +230,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
 
   Widget _buildphone() {
     return TextFormField(
+      initialValue: sphone,
       decoration: const InputDecoration(
         labelText: "Phone Number",
       ),
@@ -357,97 +364,110 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0Xff15609c),
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: heightMobile * 0.028,
-            ),
-            onPressed: () => {Navigator.pop(context)}),
-        title: Text(
-          "Faculty Appointment Form",
-          style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
-          textAlign: TextAlign.center,
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-            padding: EdgeInsets.all(heightMobile * 0.025),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildfacultyemail(),
-                  SizedBox(height: heightMobile * 0.02),
-                  _buildName(),
-                  _buildemail(),
-                  _buildphone(),
-                  _buildRelation(),
-                  // _buildVehicle(),
-                  SizedBox(height: heightMobile * 0.06),
+    DateTime ans;
 
-                  // SizedBox(height: heightMobile * 0.015),
-
-                  _buildDate(),
-                  //  _buildMessage(),
-                  SizedBox(height: heightMobile * 0.06),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(15.0),
-                          ),
-                          primary: Color(0Xff15609c),
-                          padding: EdgeInsets.all(heightMobile * 0.017),
-                          // padding: const EdgeInsets.all(10),
-                          minimumSize: Size(widthMobile, heightMobile * 0.028)),
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: heightMobile * 0.02,
-                        ),
-                      ),
-                      onPressed: () => {
-                            if (_formKey.currentState!.validate())
-                              {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
-                                ),
-                                FirebaseFirestore.instance
-                                    .collection('facultuGuest')
-                                    .doc(widget.email)
-                                    .collection("guestemail")
-                                    .doc(semail)
-                                    .set({
-                                  'guestname': sname,
-                                  'guestphone': sphone,
-                                  'guestemail': semail,
-                                  // 'vistingfacultyemail': widget.email,
-                                  'guestappointdate': _dateController.text,
-                                  'guestappointtime': _timeController.text,
-                                  'guestappointdatetime':
-                                  _dateController.text +  _timeController.text,
-                                  'guestpurpose': spurpose,
-                                  'what': "Student",
-                                  'appointisapproved': false,
-                                }, SetOptions(merge: true)),
-                                flutterToast("Request has been sent."),
-                                Navigator.of(context).pop(),
-                                Navigator.of(context).pop(),
-                              }
-                            else
-                              {print("Not validated")}
-                          })
-                ],
+    if (sname == null) {
+      return Center(child: CircularProgressIndicator());
+    } else
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0Xff15609c),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: heightMobile * 0.028,
               ),
-            )),
-      ),
-    );
+              onPressed: () => {Navigator.pop(context)}),
+          title: Text(
+            "Faculty Appointment Form",
+            style:
+                TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
+            textAlign: TextAlign.center,
+          ),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+              padding: EdgeInsets.all(heightMobile * 0.025),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildfacultyemail(),
+                    SizedBox(height: heightMobile * 0.02),
+                    _buildName(),
+                    _buildemail(),
+                    _buildphone(),
+                    _buildRelation(),
+                    // _buildVehicle(),
+                    SizedBox(height: heightMobile * 0.06),
+
+                    // SizedBox(height: heightMobile * 0.015),
+
+                    _buildDate(),
+                    //  _buildMessage(),
+                    SizedBox(height: heightMobile * 0.06),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(15.0),
+                            ),
+                            primary: Color(0Xff15609c),
+                            padding: EdgeInsets.all(heightMobile * 0.017),
+                            // padding: const EdgeInsets.all(10),
+                            minimumSize:
+                                Size(widthMobile, heightMobile * 0.028)),
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: heightMobile * 0.02,
+                          ),
+                        ),
+                        onPressed: () => {
+                              if (_formKey.currentState!.validate())
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Processing Data')),
+                                  ),
+                                  // ans=new DateTime(selectedDate.year, selectedDate.month,selectedDate.day,selectedTime.hour,selectedTime.minute),
+
+                                  FirebaseFirestore.instance
+                                      .collection('facultyUser')
+                                      .doc(widget.email)
+                                      .collection("guestemail")
+                                      .doc(semail)
+                                      .set({
+                                    'guestname': sname,
+                                    'guestphone': sphone,
+                                    'guestemail': semail,
+                                    // 'vistingfacultyemail': widget.email,
+                                    'guestappointdatetime': DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month,
+                                        selectedDate.day,
+                                        selectedTime.hour,
+                                        selectedTime.minute),
+                                    // 'guestappointtime': _timeController.text,
+                                    'guestpurpose': spurpose,
+                                    'isStudent': true,
+                                    'appointisapproved': false,
+                                  }, SetOptions(merge: true)),
+                                  flutterToast(
+                                      "Request has been sent. You will be updated further through email."),
+                                  Navigator.of(context).pop(),
+                                  Navigator.of(context).pop(),
+                                }
+                              else
+                                {"invalid data"}
+                            })
+                  ],
+                ),
+              )),
+        ),
+      );
   }
 }

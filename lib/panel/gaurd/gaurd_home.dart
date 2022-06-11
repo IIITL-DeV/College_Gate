@@ -7,11 +7,9 @@ import 'package:college_gate/panel/gaurd/guestregister.dart';
 import 'package:college_gate/panel/gaurd/log.dart';
 import 'package:college_gate/panel/gaurd/exitrequest.dart';
 import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/panel/student/exit_screen.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class gaurdHome extends StatefulWidget {
   const gaurdHome({Key? key}) : super(key: key);
@@ -57,8 +55,7 @@ class _gaurdHomeState extends State<gaurdHome> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 27.sp,
-        selectedIconTheme:
-            IconThemeData(color: Color(0Xff15609c), size: 33.sp),
+        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: 33.sp),
         showSelectedLabels: false,
 
         showUnselectedLabels: false,
@@ -87,16 +84,12 @@ class _gaurdHomeState extends State<gaurdHome> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-                height: 24.h,
-                child: Image.asset("assets/cg_white.png")),
+            SizedBox(height: 24.h, child: Image.asset("assets/cg_white.png")),
             SizedBox(
               width: 12.w,
             ),
-            Text("College Gate",
-                style: TextStyle(fontSize: 24.sp)),
+            Text("College Gate", style: TextStyle(fontSize: 24.sp)),
             //SizedBox(width: 50.w,),
-
           ],
         ),
         actions: [
@@ -110,14 +103,15 @@ class _gaurdHomeState extends State<gaurdHome> {
             child: Container(
                 //padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Icon(
-                  Icons.exit_to_app,
-                  color: Colors.white,
-                  size: 23.sp,
-                )),
+              Icons.exit_to_app,
+              color: Colors.white,
+              size: 23.sp,
+            )),
           ),
-          SizedBox(width: 20.w,)
+          SizedBox(
+            width: 20.w,
+          )
         ],
-
       ),
       // AppBar(
       //     backgroundColor: Color(0Xff15609c),
@@ -162,7 +156,6 @@ class gaurdHomeScreen extends StatefulWidget {
 class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
@@ -183,7 +176,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.h),
+          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.h),
           child: Column(
             children: [
               InkWell(
@@ -204,7 +197,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.fromLTRB(15.w,8.h,5.w,8.h),
+                        padding: EdgeInsets.fromLTRB(15.w, 8.h, 5.w, 8.h),
                         alignment: Alignment.centerLeft,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,8 +205,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                               Text(
                                 "Students",
                                 style: TextStyle(
-                                    fontSize: 17.sp,
-                                    color: Color(0Xff232F77)),
+                                    fontSize: 17.sp, color: Color(0Xff232F77)),
                               ),
                               IconButton(
                                   alignment: Alignment.centerRight,
@@ -225,8 +217,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                                 StudentRegister()));
                                   },
                                   icon: Icon(Icons.chevron_right,
-                                      size: 24.sp,
-                                      color: Color(0Xff232F77))),
+                                      size: 24.sp, color: Color(0Xff232F77))),
                             ])),
                   ]),
                 ),
@@ -248,7 +239,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(15.w,8.h,5.w,8.h),
+                        padding: EdgeInsets.fromLTRB(15.w, 8.h, 5.w, 8.h),
                         alignment: Alignment.centerLeft,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,8 +247,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                             Text(
                               "Guests",
                               style: TextStyle(
-                                  fontSize: 17.sp,
-                                  color: Color(0Xff232F77)),
+                                  fontSize: 17.sp, color: Color(0Xff232F77)),
                             ),
                             IconButton(
                                 alignment: Alignment.centerRight,
@@ -269,8 +259,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                               guestRegister()));
                                 },
                                 icon: Icon(Icons.chevron_right,
-                                    size: 24.sp,
-                                    color: Color(0Xff232F77)))
+                                    size: 24.sp, color: Color(0Xff232F77)))
                           ],
                         ),
                       ),

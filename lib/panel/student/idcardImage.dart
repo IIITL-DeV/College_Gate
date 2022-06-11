@@ -110,7 +110,7 @@ class _idcardImageState extends State<idcardImage> {
         .onError((error, stackTrace) =>
             {print("Upload file path error ${error.toString()} ")});
 
-    uploadTask.whenComplete(() async {
+    await uploadTask.whenComplete(() async {
       try {
         idcard = await ref.getDownloadURL();
       } catch (onError) {

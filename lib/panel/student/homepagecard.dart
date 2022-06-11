@@ -1,13 +1,14 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/main.dart';
 import 'package:college_gate/panel/faculty/facultyList.dart';
 import 'package:college_gate/panel/gaurd/log.dart';
 import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/panel/student/entry.dart';
-import 'package:college_gate/panel/student/exit_screen.dart';
 import 'package:college_gate/panel/student/notices.dart';
 import 'package:college_gate/panel/student/profile.dart';
 import 'package:college_gate/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -77,10 +78,13 @@ class studentHomeScreen extends StatefulWidget {
 }
 
 class _studentHomeScreenState extends State<studentHomeScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String? _purpose = "Outing";
   @override
   Widget build(BuildContext context) {
     double widthMobile = MediaQuery.of(context).size.width;
     double heightMobile = MediaQuery.of(context).size.height;
+    // var _formKey;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff15609c),
@@ -99,24 +103,6 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
           ],
         ),
       ),
-      // actions: [
-      //   InkWell(
-      //     onTap: () {
-      //       AuthMethods().logout().then((s) {
-      //         Navigator.pushReplacement(context,
-      //             MaterialPageRoute(builder: (context) => SignIn()));
-      //       });
-      //     },
-      //     child: Container(
-      //         padding:
-      //             EdgeInsets.symmetric(horizontal: heightMobile * 0.024),
-      //         child: Icon(
-      //           Icons.exit_to_app,
-      //           color: Colors.deepPurple[50],
-      //           size: heightMobile * 0.027,
-      //         )),
-      //   )
-      // ]),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Container(
@@ -127,8 +113,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ExitForm()));
+                    showpurpose(context);
                   },
                   child: Card(
                     elevation: 4,
@@ -160,10 +145,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                               IconButton(
                                   alignment: Alignment.centerRight,
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ExitForm()));
+                                    showpurpose(context);
                                   },
                                   icon: Icon(Icons.chevron_right,
                                       size: heightMobile * 0.03,
@@ -177,8 +159,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EntryForm()));
+                    showentry(context);
                   },
                   child: Card(
                     elevation: 4,
@@ -209,11 +190,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                 IconButton(
                                     alignment: Alignment.centerRight,
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EntryForm()));
+                                      showentry(context);
                                     },
                                     icon: Icon(Icons.chevron_right,
                                         size: heightMobile * 0.03,
@@ -284,6 +261,176 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               ],
             )),
       ),
+    );
+  }
+
+  showentry(
+    BuildContext context,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          double widthMobile = MediaQuery.of(context).size.width;
+          double heightMobile = MediaQuery.of(context).size.height;
+          return AlertDialog(
+            title: Text(
+              "Entry Request",
+              style: TextStyle(
+                  fontSize: heightMobile * 0.027, color: Color(0Xff15609c)),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // SizedBox(
+                  //   width: MediaQuery.of(context).size.width * 0.03,
+                  // ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        // Navigator.of(context).pop();
+                      },
+                      child: Text("Cancel",
+                          style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.02,
+                              color: Colors.red[700]))),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        // if (_formKey.currentState!.validate()) {
+                        FirebaseFirestore.instance
+                            .collection('studentUser')
+                            .doc((FirebaseAuth.instance.currentUser!).email)
+                            .update({
+                          'entryisapproved': "EntryPending",
+                        });
+
+                        flutterToast("Entry Form Submitted");
+                        // Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          color: Color(0Xff19B38D),
+                        ),
+                      )),
+                ],
+              )
+            ],
+          );
+        });
+  }
+
+  showpurpose(
+    BuildContext context,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          double widthMobile = MediaQuery.of(context).size.width;
+          double heightMobile = MediaQuery.of(context).size.height;
+          return AlertDialog(
+            title: Text(
+              "Select Purpose",
+              style: TextStyle(
+                  fontSize: heightMobile * 0.027, color: Color(0Xff15609c)),
+            ),
+            content: Form(
+              key: _formKey,
+              child: Container(
+                child: purpose(),
+              ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        // Navigator.of(context).pop();
+                      },
+                      child: Text("Cancel",
+                          style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.02,
+                              color: Colors.red[700]))),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          FirebaseFirestore.instance
+                              .collection('studentUser')
+                              .doc((FirebaseAuth.instance.currentUser!).email)
+                              .update({
+                            'exitisapproved': "ExitPending",
+                            'purpose': _purpose,
+                          });
+                        } else {
+                          print("Not validated");
+                        }
+                        // reschedulesendMail(
+                        //   email,
+                        //   _dateController.text,
+                        //   _timeController.text,
+                        // ).whenComplete(() {
+                        //   setState(() {});
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //       const SnackBar(content: Text('Guest Notified')));
+                        // });
+                        flutterToast("Exit Form Submitted");
+                        // Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          color: Color(0Xff19B38D),
+                        ),
+                      )),
+                ],
+              )
+            ],
+          );
+        });
+  }
+
+  Widget purpose() {
+    return DropdownButtonFormField<String>(
+      value: _purpose,
+      hint: Text(
+        'Purpose',
+      ),
+      style: TextStyle(
+        color: Colors.black,
+        // fontSize: heightMobile * 0.02,
+      ),
+      onChanged: (newValue) => setState(() => _purpose = newValue),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Select purpose";
+        } else {
+          _purpose = value;
+          return null;
+        }
+      },
+      items: ['Outing', 'Home'].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }

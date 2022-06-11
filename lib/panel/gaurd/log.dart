@@ -31,7 +31,6 @@ class _guardLogState extends State<guardLog>
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Column(
         children: [
@@ -107,16 +106,14 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
     super.initState();
     stream = FirebaseFirestore.instance
         .collection("studentUser")
-        .where("exitisapproved", isEqualTo: true)
         .where("purpose", isEqualTo: "Outing")
-        .orderBy("date", descending: true)
-        .orderBy("time", descending: true)
+        .where("exitisapproved", isEqualTo: "ExitApproved")
+        .orderBy("exitdatetime", descending: false)
         .snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
-
     // final tab = new TabBar(tabs: <Tab>[
     //   new Tab(text: "Exit Requests"),
     //   new Tab(text: "Entry Requests"),
@@ -142,7 +139,7 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 150.h),
+                  padding: EdgeInsets.symmetric(vertical: 100.h),
                   child: Column(
                     children: <Widget>[
                       //SizedBox(height: 266.h),
@@ -153,10 +150,12 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                         height: 228.h,
                         alignment: Alignment.center,
                       ),
-                      SizedBox(height: 30.h,),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                       Text("No Logs",
                           style: TextStyle(
-                            fontSize: 28.sp,
+                            fontSize: 25.sp,
                             fontWeight: FontWeight.w300,
                             color: Color(0Xff14619C),
                           )),
@@ -170,11 +169,11 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                 child: Card(
                   elevation: 2.5,
                   child: SizedBox(
-                    height: 75.h,
+                    height: 95.h,
                     //width: widthMobile * 0.9,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
@@ -207,8 +206,7 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                                   ),
                                   Text(
                                     "${chatItem["phone"]}",
-                                    style:
-                                        TextStyle(fontSize: 13.sp),
+                                    style: TextStyle(fontSize: 13.sp),
                                   ),
                                 ],
                               ),
@@ -225,7 +223,7 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                                     width: 7.h,
                                   ),
                                   Text(
-                                    "${chatItem["time"]} | ${chatItem["date"]}",
+                                    "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                                     style: TextStyle(
                                       fontSize: 13.sp,
                                       backgroundColor: Color(0XffD1F0E8),
@@ -262,21 +260,22 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                             children: [
                               SizedBox(height: 9.h),
                               Text(
-                                "${chatItem["room"]}",
+                                "${chatItem["hostelno"]}/${chatItem["room"]}",
                                 style: TextStyle(
-                                    fontSize: 14.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                               SizedBox(height: 3.h),
                               Text(
                                 "${chatItem["enrollment"]}",
                                 style: TextStyle(
-                                    fontSize: 14.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12.w),
                         ),
                       ],
                     ),
@@ -306,9 +305,8 @@ class _guardGuestLogState extends State<guardGuestLog> {
     super.initState();
     stream = FirebaseFirestore.instance
         .collection("guestRegister")
-        .where("entryisapproved", isEqualTo: true)
-        .orderBy("entrydate", descending: true)
-        .orderBy("entrytime", descending: true)
+        .where("exitisapproved", isEqualTo: true)
+        .orderBy("exitdatetime", descending: false)
         .snapshots();
   }
 
@@ -331,7 +329,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 150.h),
+                  padding: EdgeInsets.symmetric(vertical: 100.h),
                   child: Column(
                     children: <Widget>[
                       //SizedBox(height: 266.h),
@@ -342,10 +340,12 @@ class _guardGuestLogState extends State<guardGuestLog> {
                         height: 228.h,
                         alignment: Alignment.center,
                       ),
-                      SizedBox(height: 30.h,),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                       Text("No Logs",
                           style: TextStyle(
-                            fontSize: 28.sp,
+                            fontSize: 25.sp,
                             fontWeight: FontWeight.w300,
                             color: Color(0Xff14619C),
                           )),
@@ -359,11 +359,12 @@ class _guardGuestLogState extends State<guardGuestLog> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.all(heightMobile * 0.01),
+                padding: EdgeInsets.fromLTRB(heightMobile * 0.01, 0,
+                    heightMobile * 0.01, heightMobile * 0.01),
                 child: Card(
                   elevation: 2.5,
                   child: SizedBox(
-                    height: 70.h,
+                    height: 80.h,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
@@ -384,7 +385,6 @@ class _guardGuestLogState extends State<guardGuestLog> {
                               child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-
                               Icon(
                                 Icons.directions_car,
                                 size: 12.sp,
@@ -410,7 +410,9 @@ class _guardGuestLogState extends State<guardGuestLog> {
                                 width: 6.w,
                               ),
                               Text(
-                                "${chatItem["entrytime"]} | ${chatItem["entrydate"]}",
+                                chatItem["entrydatetime"] == null
+                                    ? "OUT | OUT"
+                                    : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   backgroundColor: Color(0XffD1F0E8),
@@ -425,14 +427,10 @@ class _guardGuestLogState extends State<guardGuestLog> {
                                 DateTime times = DateTime.now();
                                 FirebaseFirestore.instance
                                     .collection('guestRegister')
-                                    .doc(chatItem["name"]! +
-                                        chatItem["vehicleno"]!)
+                                    .doc(chatItem.id)
                                     .update({
-                                  'exitdate':
-                                      DateFormat('dd-MM-yyyy').format(times),
-                                  'exittime':
-                                      DateFormat('HH:mm a').format(times),
-                                  'entryisapproved': false,
+                                  'exitdatetime': DateTime.now(),
+                                  'exitisapproved': false,
                                 });
                               },
                               icon: Icon(
@@ -442,7 +440,8 @@ class _guardGuestLogState extends State<guardGuestLog> {
                               ),
                             ),
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12.w)
+                          // contentPadding:
+                          //     EdgeInsets.symmetric(horizontal: 12.w)
                         ),
                       ],
                     ),

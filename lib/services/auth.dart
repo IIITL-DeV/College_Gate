@@ -65,13 +65,16 @@ class AuthMethods {
                   .set({
                 "userid": userDetails.uid,
                 "email": userDetails.email,
-                "enrollment": userDetails.email!.replaceAll("@iiitl.ac.in", ""),
+                "enrollment": userDetails.email!
+                    .replaceAll("@iiitl.ac.in", "")
+                    .toUpperCase(),
                 "name": userDetails.displayName,
                 "exitisapproved": null,
                 "entryisapproved": null,
                 "purpose": null,
                 "exitdatetime": null,
                 "entrydatetime": null,
+                "hostelno": null,
                 "room": null,
                 "phone": null,
                 "idcard": null,

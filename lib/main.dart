@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'panel/gaurd/gaurd_home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -91,7 +92,6 @@ class _MyAppState extends State<MyApp> {
     );
 
     return ScreenUtilInit(
-
       builder: () => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
@@ -104,11 +104,10 @@ class _MyAppState extends State<MyApp> {
                 return example2;
             },
           )),
-      designSize: const Size(375,812),
+      designSize: const Size(375, 812),
     );
   }
 }
-
 
 Future<bool?> flutterToast(String str) {
   return Fluttertoast.showToast(

@@ -5,7 +5,7 @@ import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:intl/intl.dart';
 
 class DeliveryEntry extends StatefulWidget {
   const DeliveryEntry({Key? key}) : super(key: key);
@@ -16,12 +16,13 @@ class DeliveryEntry extends StatefulWidget {
 
 class _DeliveryEntryState extends State<DeliveryEntry> {
   final _formKey = GlobalKey<FormState>();
-  String? name, vehicleno, _purpose, entrytime, entrydate, _phone;
+  String? name, vehicleno, _purpose = "Delivery";
 
   Widget _buildName() {
     return TextFormField(
       style: TextStyle(fontSize: 16.sp),
-      decoration: InputDecoration(labelText: 'Name',labelStyle: TextStyle(fontSize: 15.sp)),
+      decoration: InputDecoration(
+          labelText: 'Name', labelStyle: TextStyle(fontSize: 15.sp)),
       validator: (value) {
         // value:
         if (value == null || value.isEmpty) {
@@ -37,7 +38,8 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
   Widget _buildVehicle() {
     return TextFormField(
       style: TextStyle(fontSize: 16.sp),
-      decoration: InputDecoration(labelText: 'Vehicle Number',labelStyle: TextStyle(fontSize: 15.sp)),
+      decoration: InputDecoration(
+          labelText: 'Vehicle Number', labelStyle: TextStyle(fontSize: 15.sp)),
       validator: (value) {
         // value:
         if (value == null || value.isEmpty) {
@@ -73,7 +75,10 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value,style: TextStyle(fontSize: 16.sp),),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 16.sp),
+          ),
         );
       }).toList(),
     );
@@ -86,33 +91,34 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
         Expanded(
           child: TextFormField(
             readOnly: true,
-              decoration: InputDecoration(
-                labelText: 'Date',
-                // : Colors.white70,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.black12,
-                    width: 1.w,
-                  ),
+            decoration: InputDecoration(
+              labelText: 'Date',
+              // : Colors.white70,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0),
+                borderSide: BorderSide(
+                  color: Colors.blue,
                 ),
               ),
-              initialValue: DateFormat('dd-MM-yyyy').format(times),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Date is Required";
-                } else {
-                  entrydate = value;
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0),
+                borderSide: BorderSide(
+                  color: Colors.black12,
+                  width: 1.w,
+                ),
+              ),
+            ),
+            initialValue: DateFormat('dd-MM-yyyy').format(times),
+            // validator: (value) {
+            //   if (value == null || value.isEmpty) {
+            //     return "Date is Required";
+            //   } else {
+            //     entrydate = value;
 
-                  return null;
-                }
-              }),
+            //     return null;
+            //   }
+            // }
+          ),
         ),
         SizedBox(
           width: 10.w,
@@ -120,33 +126,34 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
         Expanded(
           child: TextFormField(
             readOnly: true,
-              decoration: InputDecoration(
-                labelText: 'Time',
-                // : Colors.white70,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(
-                    color: Colors.black12,
-                    width: 1.w,
-                  ),
+            decoration: InputDecoration(
+              labelText: 'Time',
+              // : Colors.white70,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0),
+                borderSide: BorderSide(
+                  color: Colors.blue,
                 ),
               ),
-              initialValue: DateFormat('HH:mm a').format(times),
-              // decoration: const InputDecoration(labelText: 'Time'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Time is Required";
-                } else {
-                  entrytime = value;
-                  return null;
-                }
-              }),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0),
+                borderSide: BorderSide(
+                  color: Colors.black12,
+                  width: 1.w,
+                ),
+              ),
+            ),
+            initialValue: DateFormat('HH:mm').format(times),
+            // decoration: const InputDecoration(labelText: 'Time'),
+            // validator: (value) {
+            //   if (value == null || value.isEmpty) {
+            //     return "Time is Required";
+            //   } else {
+            //     entrytime = value;
+            //     return null;
+            //   }
+            // }
+          ),
         ),
       ],
     );
@@ -161,13 +168,12 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
         centerTitle: true,
         title: Text(
           "Guest Entry Form",
-          style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: 40.h, horizontal: 20.w),
+          padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 20.w),
           child: Form(
               key: _formKey,
               child: Center(
@@ -198,8 +204,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                     _buildpurpose(),
                     SizedBox(height: 8.h),
                     _purpose == "Appointment"
-                        ? customTextField(
-                            "Phone Number", "", 16.h)
+                        ? customTextField("Phone Number", "", 16.h)
                         : SizedBox.shrink(),
                     SizedBox(height: 50.h),
                     ElevatedButton(
@@ -211,7 +216,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                             padding: EdgeInsets.all(15.h),
                             // padding: const EdgeInsets.all(10),
                             minimumSize:
-                                Size(MediaQuery.of(context).size.width,50.h)),
+                                Size(MediaQuery.of(context).size.width, 50.h)),
                         child: Text(
                           'Done',
                           style: TextStyle(
@@ -227,15 +232,13 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
                             FirebaseFirestore.instance
                                 .collection('guestRegister')
-                                .doc(name! + vehicleno!)
+                                .doc()
                                 .set({
                               'name': name,
                               'vehicleno': vehicleno,
-                              'entrydate': entrydate,
-                              'entrytime': entrytime,
-                              'entryisapproved': true,
-                              'exitdate': null,
-                              'exittime': null,
+                              'entrydatetime': DateTime.now(),
+                              'exitisapproved': true,
+                              'exitdatetime': null,
                               'purpose': _purpose,
                             }, SetOptions(merge: true));
 
@@ -254,7 +257,8 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
   Widget customTextField(String lab, String initValue, double fsize) {
     return TextFormField(
-      decoration: InputDecoration(labelText: lab.toString(),labelStyle: TextStyle(fontSize: 15.sp)),
+      decoration: InputDecoration(
+          labelText: lab.toString(), labelStyle: TextStyle(fontSize: 15.sp)),
       initialValue: initValue,
       //readOnly: read,
       style: TextStyle(

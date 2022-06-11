@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/guest/gpending.dart';
 import 'package:college_gate/panel/student/requestpending.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
-
 
 import '../../main.dart';
 
@@ -34,11 +32,11 @@ class _faculty_appointmentState extends State<faculty_appointment> {
       gpurpose;
   @override
   void initState() {
-    _dateController.text = DateFormat.yMd().format(DateTime.now());
+    _dateController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
     _timeController.text = formatDate(
         DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
-        [hh, ':', nn, " ", am]).toString();
+        [hh, ':', nn]).toString();
     super.initState();
   }
 
@@ -47,15 +45,16 @@ class _faculty_appointmentState extends State<faculty_appointment> {
   late String dateTime;
 
   DateTime selectedDate = DateTime.now();
-
-  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+  TimeOfDay selectedTime =
+      TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
 
-  Widget _buildDate(){
+  Widget _buildDate() {
     return Row(
       children: [
-        Expanded(child: TextField(
+        Expanded(
+            child: TextField(
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -74,7 +73,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
               ),
             ),
           ),
-          onTap: () async{
+          onTap: () async {
             final DateTime? picked = await showDatePicker(
               context: context,
               initialDate: selectedDate,
@@ -97,14 +96,16 @@ class _faculty_appointmentState extends State<faculty_appointment> {
             if (picked != null)
               setState(() {
                 selectedDate = picked;
-                _dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
-
+                _dateController.text =
+                    DateFormat('dd-MM-yyyy').format(selectedDate);
               });
           },
-
         )),
-        SizedBox(width: 10,),
-        Expanded(child: TextField(
+        SizedBox(
+          width: 10,
+        ),
+        Expanded(
+            child: TextField(
           controller: _timeController,
           decoration: InputDecoration(
             labelText: 'Time',
@@ -123,7 +124,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
               ),
             ),
           ),
-          onTap: () async{
+          onTap: () async {
             final TimeOfDay? picked = await showTimePicker(
               context: context,
               initialTime: selectedTime,
@@ -148,12 +149,13 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                 _time = _hour + ' : ' + _minute;
                 _timeController.text = _time;
                 _timeController.text = formatDate(
-                    DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute), [
-                  hh,
-                  ':',
-                  nn,
-                ]).toString();
-
+                    DateTime(
+                        2019, 08, 1, selectedTime.hour, selectedTime.minute),
+                    [
+                      hh,
+                      ':',
+                      nn,
+                    ]).toString();
               });
           },
         )),
@@ -406,12 +408,12 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                                   'guestname': gname,
                                   'guestphone': gphone,
                                   'guestemail': gemail,
-                                  // 'vistingfacultyemail': wid,
-                                  'guestappointdate': _dateController.text,
-                                  'guestappointtime': _timeController.text,
-                                  'guestappointdatetime':
-                                      _dateController.text +  _timeController.text,
-                                  'guestvehicleno': gvehicleno,
+                                  'guestappointdatetime': DateTime(
+                                      selectedDate.year,
+                                      selectedDate.month,
+                                      selectedDate.day,
+                                      selectedTime.hour,
+                                      selectedTime.minute),
                                   'guestpurpose': gpurpose,
                                   'what': "Guest",
                                   'appointisapproved': false,
