@@ -195,7 +195,9 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => facultyidcard()));
+                                  builder: (context) => facultyidcard(
+                                        isnewuser: true,
+                                      )));
                         } else {
                           print("Not validated");
                         }
