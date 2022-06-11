@@ -306,7 +306,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
     stream = FirebaseFirestore.instance
         .collection("guestRegister")
         .where("exitisapproved", isEqualTo: true)
-        .orderBy("exitdatetime", descending: false)
+        .orderBy("entrydatetime", descending: false)
         .snapshots();
   }
 

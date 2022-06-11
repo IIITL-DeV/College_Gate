@@ -112,7 +112,6 @@ class _guestRegisterState extends State<guestRegister> {
             }
             return ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 final chatItem = snapshot.data!.docs[index];
@@ -132,6 +131,7 @@ class _guestRegisterState extends State<guestRegister> {
                     child: SizedBox(
                       height: 80.h,
                       child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           ListTile(
                             isThreeLine: true,

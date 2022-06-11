@@ -22,7 +22,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
 
   DateTime selectedDate = DateTime.now();
 
-  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+  TimeOfDay selectedTime =
+      TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
 
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
@@ -30,11 +31,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   reschedulesendMail(
     String guestemail,
     String date,
-    String time,
+    String phonenumber,
+    String officenumber,
   ) async {
     final Email email = Email(
       body:
-          "I have to reschedule our appointment due to some unforeseen circumsatnces at $time, $date. ",
+          "I won't be available in the aforementioned time. I have rescheduled our meeting to $date at my office, ${officenumber} in the Administration Building. You may also reach at +91${phonenumber}. ",
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
       isHTML: true,
@@ -142,24 +144,52 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                             .collection("guestemail")
                             .doc(email)
                             .update({
-                          'guestappointdate': _dateController.text,
-                          'guestappointtime': _timeController.text,
-                          'guestappointdatetime':
-                              _dateController.text + _timeController.text,
+                          'guestappointdatetime': DateTime(
+                              selectedDate.year,
+                              selectedDate.month,
+                              selectedDate.day,
+                              selectedTime.hour,
+                              selectedTime.minute),
                           'appointisapproved': true,
                         });
-                        reschedulesendMail(
-                          email,
-                          _dateController.text,
-                          _timeController.text,
-                        ).whenComplete(() {
-                          setState(() {});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Guest Notified')));
+                        FirebaseFirestore.instance
+                            .collection('facultyUser')
+                            .doc((FirebaseAuth.instance.currentUser)!.email)
+                            .get()
+                            .then((value) {
+                          setState(() {
+                            officenumber = value.data()!['officeno'].toString();
+                            phonenumber = value.data()!['phone'].toString();
+                          });
+                          reschedulesendMail(
+                                  email,
+                                  "${DateFormat('HH:mm').format(
+                                    DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month,
+                                        selectedDate.day,
+                                        selectedTime.hour,
+                                        selectedTime.minute),
+                                  )} | ${DateFormat('dd-MM-yyyy').format(
+                                    DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month,
+                                        selectedDate.day,
+                                        selectedTime.hour,
+                                        selectedTime.minute),
+                                  )}",
+                                  phonenumber!,
+                                  officenumber!)
+                              .whenComplete(() {
+                            setState(() {});
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Guest Notified')));
+                          });
+                          flutterToast("Rescheduled Successfully");
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                         });
-                        flutterToast("Rescheduled Successfully");
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
                       },
                       child: Text(
                         "Confirm",
@@ -239,13 +269,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   }
 
   @override
-  approvesendMail(String guestemail, String date, String time,
-      String? phonenumber, String? officenumber) async {
+  approvesendMail(String guestemail, String date, String? phonenumber,
+      String? officenumber) async {
     final Email email = Email(
       body:
-          "I hereby confirm our appointment at $time, $date in Admin block at "
-          "Office number: ${officenumber}."
-          " Contact number: ${phonenumber}.",
+          "I confirm our scheduled meeting for $date at my office, ${officenumber} in the Administration Building. You may also reach at +91${phonenumber}.",
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -253,10 +281,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     await FlutterEmailSender.send(email);
   }
 
-  declinesendMail(String guestemail, String date, String time) async {
+  declinesendMail(String guestemail) async {
     final Email email = Email(
-      body:
-          'Your appointment with $guestemail on $time, $date has been declined.',
+      body: 'I will be unable to meet with you.',
       subject: 'Request Declined!',
       recipients: [guestemail],
       isHTML: true,
@@ -320,7 +347,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                       ));
                 }
                 return ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  // physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
@@ -379,7 +406,10 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                           width: widthMobile * 0.02,
                                         ),
                                         Text(
-                                          "${chatItem["guestappointtime"]} | ${chatItem["guestappointdate"]}",
+                                          chatItem["guestappointdatetime"] ==
+                                                  null
+                                              ? "NA | NA"
+                                              : "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
                                           style: TextStyle(
                                             fontSize: cardheight * 0.08,
                                             backgroundColor: Color(0XffD1F0E8),
@@ -401,7 +431,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                         padding: const EdgeInsets.fromLTRB(
                                             0.0, 0.0, 08.0, 0.0),
                                         child: Text(
-                                          "${chatItem["what"]}",
+                                          chatItem["isStudent"]
+                                              ? "Student"
+                                              : "Guest",
                                           style: TextStyle(
                                               fontSize: cardheight * 0.09,
                                               fontWeight: FontWeight.bold),
@@ -520,10 +552,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                 print("myyyyyyyyyyyyy${name}");
                                                 approvesendMail(
                                                         chatItem["guestemail"],
-                                                        chatItem[
-                                                            "guestappointdate"],
-                                                        chatItem[
-                                                            "guestappointtime"],
+                                                        "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
                                                         phonenumber,
                                                         officenumber)
                                                     .whenComplete(() {
@@ -715,12 +744,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                             context)
                                                                         .pop();
                                                                     declinesendMail(
-                                                                        chatItem[
-                                                                            "guestemail"],
-                                                                        chatItem[
-                                                                            "guestappointdate"],
-                                                                        chatItem[
-                                                                            "guestappointtime"]);
+                                                                      chatItem[
+                                                                          "guestemail"],
+                                                                    );
                                                                     FirebaseFirestore
                                                                         .instance
                                                                         .collection(

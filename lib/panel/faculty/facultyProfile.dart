@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/panel/faculty/facultyidcard.dart';
 import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/warden/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
@@ -105,55 +106,59 @@ class _facultyProfileState extends State<facultyProfile> {
                       // SizedBox(height: heightMobile * 0.025),
                       SizedBox(
                         height: heightMobile * 0.2,
-                        child: isEdit ?
-                            InkWell(
-                              onTap: (){
-                                ////image picker
-
-
-                                /////
-                              },
-                              child: Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
+                        child: isEdit
+                            ? InkWell(
+                                onTap: () {
+                                  ////image picker
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => facultyidcard(
+                                                isnewuser: false,
+                                              )));
+                                  /////
+                                },
+                                child: Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Hero(
+                                        tag: _idcard!,
+                                        child: Image.network(_idcard!,
+                                            fit: BoxFit.contain),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 0,
+                                      bottom: 0,
+                                      child: CircleAvatar(
+                                        radius: 18.0,
+                                        backgroundColor: Color(0Xff15609c),
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: Colors.white,
+                                          size: 19.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: GestureDetector(
                                     child: Hero(
                                       tag: _idcard!,
                                       child: Image.network(_idcard!,
                                           fit: BoxFit.contain),
                                     ),
-                                  ),
-                                  const Positioned(
-                                    right: 0,
-                                    top: 0,
-                                    child: CircleAvatar(
-                                      radius: 15.0,
-                                      backgroundColor: Color(0Xff15609c),
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
-                                        size: 19.0,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                    onTap: () async {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (_) {
+                                        return viewImage(_idcard!);
+                                      }));
+                                    }),
                               ),
-                            )
-                            : ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: GestureDetector(
-                              child: Hero(
-                                tag: _idcard!,
-                                child: Image.network(_idcard!,
-                                    fit: BoxFit.contain),
-                              ),
-                              onTap: () async {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (_) {
-                                  return viewImage(_idcard!);
-                                }));
-                              }),
-                        ),
                       ),
                       SizedBox(height: heightMobile * 0.016),
                       Text(

@@ -15,6 +15,9 @@ ImagePicker picker = ImagePicker();
 //import 'package:image_picker/image_picker.dart';
 
 class facultyidcard extends StatefulWidget {
+  bool isnewuser;
+
+  facultyidcard({Key? key, required this.isnewuser}) : super(key: key);
   @override
   _facultyidcardState createState() => _facultyidcardState();
 }
@@ -254,10 +257,18 @@ class _facultyidcardState extends State<facultyidcard> {
                   if (_imageFile != null)
                     {
                       uploadImageToFirebase(context),
-                      await Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => studentHome())),
+                      await widget.isnewuser
+                          ? Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FacultyHome()))
+                          : {
+                              Navigator.of(context).pop(),
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FacultyHome()))
+                            },
                     }
                   else
                     {

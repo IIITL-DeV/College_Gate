@@ -81,7 +81,8 @@ class _AppointmentListState extends State<AppointmentList> {
 
   DateTime selectedDate = DateTime.now();
 
-  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+  TimeOfDay selectedTime =
+      TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
 
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
@@ -201,10 +202,14 @@ class _AppointmentListState extends State<AppointmentList> {
                             .collection("guestemail")
                             .doc(email)
                             .update({
-                          'guestappointdate': _dateController.text,
-                          'guestappointtime': _timeController.text,
-                          'guestappointdatetime':
-                              _dateController.text + _timeController.text,
+                          // 'guestappointdate': _dateController.text,
+                          // 'guestappointtime': _timeController.text,
+                          'guestappointdatetime': DateTime(
+                              selectedDate.year,
+                              selectedDate.month,
+                              selectedDate.day,
+                              selectedTime.hour,
+                              selectedTime.minute),
                         });
                         reschedulesendMail(
                           email,
@@ -245,37 +250,34 @@ class _AppointmentListState extends State<AppointmentList> {
   }
 
   var stream;
-  late DateTime times;
-  String? currentdate;
-  String? currenttime;
 
   void initState() {
     super.initState();
 
-    times = DateTime.now();
+    DateTime times = DateTime.now();
     DateTime minsadded = times.subtract(const Duration(
       minutes: 30,
     ));
-    currentdate = DateFormat('dd-MM-yyyy').format(times);
-    String? currenttime = DateFormat('HH:mm').format(minsadded);
 
     FirebaseFirestore.instance
         .collection("facultyUser")
         .doc((FirebaseAuth.instance.currentUser!).email)
         .collection("guestemail")
-        .where("guestappointdatetime", isLessThan: currentdate! + currenttime)
+        .where("guestappointdatetime",
+            isLessThan: DateTime(times.year, times.month, times.day,
+                minsadded.hour, minsadded.minute))
         .get()
         .then((value) {
       value.docs.forEach((element) {
         FirebaseFirestore.instance
-          ..collection("facultyUser")
-              .doc((FirebaseAuth.instance.currentUser!).email)
-              .collection("guestemail")
-              .doc(element.id)
-              .delete()
-              .then((value) {
-            print("Success!");
-          });
+            .collection("facultyUser")
+            .doc((FirebaseAuth.instance.currentUser!).email)
+            .collection("guestemail")
+            .doc(element.id)
+            .delete()
+            .then((value) {
+          print("Success!");
+        });
       });
     });
     // getfacultyDetails;
@@ -283,12 +285,8 @@ class _AppointmentListState extends State<AppointmentList> {
         .collection("facultyUser")
         .doc((FirebaseAuth.instance.currentUser!).email)
         .collection("guestemail")
+        .where("appointisapproved", isEqualTo: true)
         .orderBy("guestappointdatetime", descending: false)
-        // .where("guestappointdatetime",
-        //     isGreaterThanOrEqualTo: currentdate! + currenttime)
-        // .orderBy("guestappointdatetime")
-
-        // .orderBy("guestappointtime", descending: false)
         .snapshots();
   }
 
@@ -405,7 +403,10 @@ class _AppointmentListState extends State<AppointmentList> {
                                       width: widthMobile * 0.02,
                                     ),
                                     Text(
-                                      "${chatItem["guestappointtime"]} | ${chatItem["guestappointdate"]}",
+                                      chatItem["guestappointdatetime"] == null
+                                          ? "NA | NA"
+                                          : "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                      // "${chatItem["guestappointtime"]} | ${chatItem["guestappointdate"]}",
                                       style: TextStyle(
                                         fontSize: cardheight * 0.08,
                                         backgroundColor: Color(0XffD1F0E8),
@@ -426,7 +427,9 @@ class _AppointmentListState extends State<AppointmentList> {
                                       padding: const EdgeInsets.fromLTRB(
                                           0.0, 0.0, 08.0, 0.0),
                                       child: Text(
-                                        "${chatItem["what"]}",
+                                        chatItem["isStudent"]
+                                            ? "Student"
+                                            : "Guest",
                                         style: TextStyle(
                                             fontSize: cardheight * 0.09,
                                             fontWeight: FontWeight.bold),

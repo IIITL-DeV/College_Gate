@@ -415,7 +415,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                                       selectedTime.hour,
                                       selectedTime.minute),
                                   'guestpurpose': gpurpose,
-                                  'what': "Guest",
+                                  'isStudent': false,
                                   'appointisapproved': false,
                                 }, SetOptions(merge: true)),
 
