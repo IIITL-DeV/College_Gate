@@ -45,8 +45,7 @@ class _completeProfileState extends State<completeProfile> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     if (_username == null) {
       return Center(child: CircularProgressIndicator());
     } else
@@ -77,7 +76,7 @@ class _completeProfileState extends State<completeProfile> {
                       children: [
                         //SizedBox(height: heightMobile * 0.02),
                         SizedBox(
-                          height: heightMobile * 0.13,
+                          height: 100.h,
                           child: CircleAvatar(
                             radius: 52.r,
                             backgroundImage: AssetImage(
@@ -139,6 +138,7 @@ class _completeProfileState extends State<completeProfile> {
                             }),
                         SizedBox(height: 6.h),
                         TextFormField(
+                            keyboardType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly
                             ],
@@ -157,6 +157,7 @@ class _completeProfileState extends State<completeProfile> {
                             }),
                         SizedBox(height: 6.h),
                         TextFormField(
+                            keyboardType: TextInputType.number,
                             onSaved: (value) => _roomno = value,
 
                             //controller: ,

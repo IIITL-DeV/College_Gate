@@ -215,6 +215,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
 
   Widget _buildphone() {
     return TextFormField(
+      keyboardType: TextInputType.number,
         decoration: const InputDecoration(
           labelText: "Phone Number",
         ),

@@ -329,8 +329,7 @@ class _bookingState extends State<booking> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56.h,

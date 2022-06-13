@@ -6,6 +6,8 @@ import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class facultyProfile extends StatefulWidget {
   const facultyProfile({Key? key}) : super(key: key);
@@ -46,8 +48,7 @@ class _facultyProfileState extends State<facultyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     if (_idcard == null) {
       return Center(child: CircularProgressIndicator());
     }
@@ -56,13 +57,13 @@ class _facultyProfileState extends State<facultyProfile> {
             ? AppBar(
                 backgroundColor: Color(0Xff15609c),
                 title: Text("Edit Profile",
-                    style: TextStyle(fontSize: heightMobile * 0.025)),
+                    style: TextStyle(fontSize: 18.sp)),
                 centerTitle: true,
                 leading: IconButton(
                     icon: Icon(
                       Icons.arrow_back,
                       color: Colors.white,
-                      size: heightMobile * 0.028,
+                      size: 22.sp,
                     ),
                     onPressed: () {
                       setState(() {
@@ -73,7 +74,7 @@ class _facultyProfileState extends State<facultyProfile> {
             : AppBar(
                 backgroundColor: Color(0Xff15609c),
                 title: Text("Profile",
-                    style: TextStyle(fontSize: heightMobile * 0.025)),
+                    style: TextStyle(fontSize: 18.sp)),
                 actions: [
                     InkWell(
                       onTap: () {
@@ -83,21 +84,19 @@ class _facultyProfileState extends State<facultyProfile> {
                       },
                       child: Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: heightMobile * 0.024),
+                              horizontal: 20.w),
                           child: Icon(
                             Icons.edit,
                             color: Colors.deepPurple[50],
-                            size: heightMobile * 0.027,
+                            size: 18.sp,
                           )),
                     )
                   ]),
         body: SingleChildScrollView(
           child: Container(
               // height: MediaQuery.of(context).size.height,
-              width: widthMobile,
-              padding: EdgeInsets.symmetric(
-                  vertical: heightMobile * 0.04,
-                  horizontal: widthMobile * 0.08),
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 26.h),
               child: Form(
                   key: _formKey,
                   child: Center(
@@ -105,7 +104,7 @@ class _facultyProfileState extends State<facultyProfile> {
                     children: [
                       // SizedBox(height: heightMobile * 0.025),
                       SizedBox(
-                        height: heightMobile * 0.2,
+                        height: 150.h,
                         child: isEdit
                             ? InkWell(
                                 onTap: () {
@@ -120,70 +119,66 @@ class _facultyProfileState extends State<facultyProfile> {
                                 },
                                 child: Stack(
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: Hero(
-                                        tag: _idcard!,
-                                        child: Image.network(_idcard!,
-                                            fit: BoxFit.contain),
+                                    Hero(
+                                      tag: _idcard!,
+                                      child: CircleAvatar(
+                                        radius: 70.r,
+                                        backgroundImage: NetworkImage(_idcard!,),
                                       ),
                                     ),
                                     Positioned(
-                                      right: 0,
-                                      bottom: 0,
+                                      right: 10,
+                                      bottom: 10,
                                       child: CircleAvatar(
-                                        radius: 18.0,
+                                        radius: 16.r,
                                         backgroundColor: Color(0Xff15609c),
                                         child: Icon(
                                           Icons.edit,
                                           color: Colors.white,
-                                          size: 19.0,
+                                          size: 18.sp,
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: GestureDetector(
-                                    child: Hero(
-                                      tag: _idcard!,
-                                      child: Image.network(_idcard!,
-                                          fit: BoxFit.contain),
-                                    ),
-                                    onTap: () async {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (_) {
-                                        return viewImage(_idcard!);
-                                      }));
-                                    }),
-                              ),
+                            : GestureDetector(
+                                child: Hero(
+                                  tag: _idcard!,
+                                  child: CircleAvatar(
+                                    radius: 70.r,
+                                    backgroundImage: NetworkImage(_idcard!,),),),
+                                  onTap: () async {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                    return viewImage(_idcard!);
+                                  }));
+                                }),
                       ),
-                      SizedBox(height: heightMobile * 0.016),
+                      SizedBox(height: 15.h),
                       Text(
                         _username!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: heightMobile * 0.024,
+                          fontSize: 18.sp,
                         ),
                       ),
-                      SizedBox(height: heightMobile * 0.01),
+                      SizedBox(height: 15.h),
                       TextFormField(
                         decoration: const InputDecoration(labelText: 'Email'),
                         initialValue: _email,
                         style: TextStyle(
-                          fontSize: heightMobile * 0.021,
+                          fontSize: 15.sp,
                         ),
                         readOnly: true,
                       ),
-                      SizedBox(height: heightMobile * 0.009),
+                      SizedBox(height: 6.h),
                       TextFormField(
                           decoration:
                               const InputDecoration(labelText: 'Designation'),
                           initialValue: _designation,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: 15.sp,
                           ),
                           readOnly: !isEdit,
                           validator: (value) {
@@ -193,15 +188,16 @@ class _facultyProfileState extends State<facultyProfile> {
                               _designation = value;
                             }
                           }),
-                      SizedBox(height: heightMobile * 0.009),
+                      SizedBox(height: 5.h),
                       TextFormField(
                           readOnly: !isEdit,
                           decoration:
                               const InputDecoration(labelText: 'Phone Number'),
                           initialValue: _phoneno,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: 15.sp,
                           ),
+                          keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
@@ -213,15 +209,16 @@ class _facultyProfileState extends State<facultyProfile> {
                               return null;
                             }
                           }),
-                      SizedBox(height: heightMobile * 0.009),
+                      SizedBox(height: 5.h),
                       TextFormField(
                           readOnly: !isEdit,
                           decoration:
                               const InputDecoration(labelText: 'Office Number'),
                           initialValue: _roomno,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: 15.sp,
                           ),
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Office number is required";
@@ -229,7 +226,7 @@ class _facultyProfileState extends State<facultyProfile> {
                               _roomno = value;
                             }
                           }),
-                      SizedBox(height: heightMobile * 0.04),
+                      SizedBox(height: 45.h),
                       isEdit
                           ? ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -238,15 +235,15 @@ class _facultyProfileState extends State<facultyProfile> {
                                         new BorderRadius.circular(15.0),
                                   ),
                                   primary: Color(0Xff15609c),
-                                  padding: EdgeInsets.all(heightMobile * 0.017),
+                                  padding: EdgeInsets.all(12),
                                   // padding: const EdgeInsets.all(10),
                                   minimumSize:
-                                      Size(widthMobile, heightMobile * 0.028)),
+                                      Size(MediaQuery.of(context).size.width,38.h)),
                               child: Text(
                                 'Save Details',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: heightMobile * 0.02,
+                                  fontSize: 16.sp,
                                 ),
                               ),
                               onPressed: () async {
@@ -284,15 +281,15 @@ class _facultyProfileState extends State<facultyProfile> {
                                         new BorderRadius.circular(15.0),
                                   ),
                                   primary: Colors.white,
-                                  padding: EdgeInsets.all(heightMobile * 0.017),
+                                  padding: EdgeInsets.all(12),
                                   // padding: const EdgeInsets.all(10),
                                   minimumSize:
-                                      Size(widthMobile, heightMobile * 0.028)),
+                                      Size(MediaQuery.of(context).size.width,38.h)),
                               child: Text(
                                 'Logout',
                                 style: TextStyle(
                                   color: Color(0XffDB0000),
-                                  fontSize: heightMobile * 0.02,
+                                  fontSize: 16.sp,
                                 ),
                               ),
                               onPressed: () {

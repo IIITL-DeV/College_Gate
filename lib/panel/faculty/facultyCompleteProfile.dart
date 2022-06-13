@@ -4,6 +4,8 @@ import 'package:college_gate/panel/faculty/facultyidcard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class FacultyCompleteProfile extends StatefulWidget {
   const FacultyCompleteProfile({Key? key}) : super(key: key);
@@ -41,74 +43,72 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     if (_username == null) {
       return Center(child: CircularProgressIndicator());
     }
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
             SizedBox(
-                height: heightMobile * 0.028,
-                child: Image.asset("assets/cg_white.png")),
-            SizedBox(
-              width: 10,
+              width: 12.w,
             ),
-            Text("College Gate",
-                style: TextStyle(fontSize: heightMobile * 0.028)),
+            Text("College Gate", style: TextStyle(fontSize: 21.sp)),
+            //SizedBox(width: 50.w,),
           ],
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: heightMobile * 0.04, horizontal: widthMobile * 0.08),
+          padding: EdgeInsets.symmetric(vertical: 60.h, horizontal: 26.h),
           child: Form(
             key: _formKey,
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(height: heightMobile * 0.02),
                   SizedBox(
-                    height: heightMobile * 0.13,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(1500),
-                      child: Image.asset(
+                    height: 100.h,
+                    child: CircleAvatar(
+                      radius: 52.r,
+                      backgroundImage: AssetImage(
                         "assets/iiitl.png",
-                        fit: BoxFit.contain,
+                        //fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                  SizedBox(height: heightMobile * 0.02),
+                  SizedBox(height: 18.h),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Name'),
                     initialValue: _username,
                     style: TextStyle(
-                      fontSize: heightMobile * 0.02,
+                      fontSize: 14.sp,
                     ),
                     readOnly: true,
                   ),
-                  SizedBox(height: heightMobile * 0.009),
+                  SizedBox(height: 6.h),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Email'),
                     initialValue: _email,
                     style: TextStyle(
-                      fontSize: heightMobile * 0.02,
+                      fontSize: 14.sp,
                     ),
                     readOnly: true,
                   ),
-                  SizedBox(height: heightMobile * 0.009),
+                  SizedBox(height: 6.h),
+                  //SizedBox(height: heightMobile * 0.009),
                   //phone number
                   TextFormField(
+                    keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onSaved: (value) => _phoneno = value,
                       style: TextStyle(
-                        fontSize: heightMobile * 0.021,
+                        fontSize: 14.sp,
                       ),
                       decoration:
                           const InputDecoration(labelText: 'Phone Number'),
@@ -119,12 +119,13 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                           return "Valid phone number is required";
                         }
                       }),
-                  SizedBox(height: heightMobile * 0.009),
+                  //SizedBox(height: heightMobile * 0.009),
+                  SizedBox(height: 6.h),
                   TextFormField(
                       decoration:
                           const InputDecoration(labelText: 'Designation'),
                       style: TextStyle(
-                        fontSize: heightMobile * 0.02,
+                        fontSize: 14.sp,
                       ),
                       // readOnly: true,
                       onSaved: (value) => _designation = value,
@@ -135,14 +136,16 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                           _designation = value;
                         }
                       }),
-                  SizedBox(height: heightMobile * 0.009),
+                  //SizedBox(height: heightMobile * 0.009),
+                  SizedBox(height: 6.h),
                   TextFormField(
+                      keyboardType: TextInputType.number,
                       onSaved: (value) => _roomno = value,
 
                       //controller: ,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       style: TextStyle(
-                        fontSize: heightMobile * 0.02,
+                        fontSize: 14.sp,
                       ),
                       decoration:
                           const InputDecoration(labelText: 'Office Number'),
@@ -156,21 +159,21 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                   //SizedBox(height: heightMobile * 0.009),
                   //customTextField("Name", "Jagnik Chaurasiya", heightMobile * 0.021, true),
                   //
-                  SizedBox(height: heightMobile * 0.07),
+                  SizedBox(height: 45.h),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(15.0),
                           ),
                           primary: Color(0Xff15609c),
-                          padding: EdgeInsets.all(heightMobile * 0.017),
+                          padding: EdgeInsets.all(12),
                           // padding: const EdgeInsets.all(10),
-                          minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                          minimumSize: Size(MediaQuery.of(context).size.width,38.h)),
                       child: Text(
                         'Done',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: heightMobile * 0.022,
+                          fontSize: 16.sp,
                         ),
                       ),
                       onPressed: () async {

@@ -131,8 +131,7 @@ class _idcardImageState extends State<idcardImage> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56.h,
@@ -236,7 +235,7 @@ class _idcardImageState extends State<idcardImage> {
             ),
             //uploadImageButton(context),
             Padding(
-              padding: EdgeInsets.all(heightMobile * 0.02),
+              padding: EdgeInsets.symmetric(horizontal: 25.w),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     shape: new RoundedRectangleBorder(
