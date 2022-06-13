@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class studentfacultyappointment extends StatefulWidget {
   String email;
@@ -68,6 +70,8 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
       children: [
         Expanded(
             child: TextField(
+              readOnly: true,
+              style: TextStyle(fontSize: 14.sp),
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -91,7 +95,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
               context: context,
               initialDate: selectedDate,
               initialDatePickerMode: DatePickerMode.day,
-              firstDate: DateTime(2021),
+              firstDate: DateTime.now(),
               lastDate: DateTime(2101),
               builder: (context, child) => Theme(
                 data: ThemeData().copyWith(
@@ -115,10 +119,12 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
           },
         )),
         SizedBox(
-          width: 10,
+          width: 10.w,
         ),
         Expanded(
             child: TextField(
+              style: TextStyle(fontSize: 14.sp),
+          readOnly: true,
           controller: _timeController,
           decoration: InputDecoration(
             labelText: 'Time',
@@ -181,6 +187,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
         decoration: const InputDecoration(
           labelText: "Visiting Faculty's Email ID",
         ),
+        style: TextStyle(fontSize: 14.sp),
         readOnly: true,
         initialValue: "${widget.email}",
         validator: (email) {
@@ -198,6 +205,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
       decoration: const InputDecoration(labelText: 'Name'),
       initialValue: sname,
       readOnly: true,
+      style: TextStyle(fontSize: 14.sp),
       // validator: (value) {
       //   // value:
       //   if (value == null || value.isEmpty) {
@@ -217,6 +225,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
       decoration: const InputDecoration(labelText: 'Email ID'),
       initialValue: semail,
       readOnly: true,
+      style: TextStyle(fontSize: 14.sp),
       // validator: (value) {
       //   if (value == null || value.isEmpty) {
       //     return "Your email ID is required";
@@ -235,6 +244,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
         labelText: "Phone Number",
       ),
       readOnly: true,
+      style: TextStyle(fontSize: 14.sp),
       // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       // validator: (value) {
       //   if (value == null || value.length != 10) {
@@ -261,6 +271,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
   Widget _buildRelation() {
     return TextFormField(
         decoration: const InputDecoration(labelText: 'Purpose'),
+        style: TextStyle(fontSize: 14.sp),
         //initialValue: _roomno!,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -376,54 +387,69 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
-                size: heightMobile * 0.028,
+                size: 22.sp,
               ),
               onPressed: () => {Navigator.pop(context)}),
           title: Text(
             "Faculty Appointment Form",
             style:
-                TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
+                TextStyle(color: Colors.white, fontSize: 18.sp),
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Container(
-              padding: EdgeInsets.all(heightMobile * 0.025),
+              padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 24.h),
+
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    //SizedBox(height: 0.h),
+                    SizedBox(
+                      height: 108.h,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100.r),
+                        child: Image.asset(
+                          "assets/facultyAppointment.jpg",
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
                     _buildfacultyemail(),
-                    SizedBox(height: heightMobile * 0.02),
+                    //SizedBox(height: heightMobile * 0.02),
                     _buildName(),
                     _buildemail(),
                     _buildphone(),
                     _buildRelation(),
                     // _buildVehicle(),
-                    SizedBox(height: heightMobile * 0.06),
+                    SizedBox(height: 24.h),
 
                     // SizedBox(height: heightMobile * 0.015),
 
                     _buildDate(),
                     //  _buildMessage(),
-                    SizedBox(height: heightMobile * 0.06),
+                    SizedBox(height: 45.h),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(15.0),
                             ),
                             primary: Color(0Xff15609c),
-                            padding: EdgeInsets.all(heightMobile * 0.017),
+                            padding: EdgeInsets.all(12),
                             // padding: const EdgeInsets.all(10),
                             minimumSize:
-                                Size(widthMobile, heightMobile * 0.028)),
+                                Size(MediaQuery.of(context).size.width, 38.h)),
                         child: Text(
                           'Submit',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: heightMobile * 0.02,
+                            fontSize: 16.sp,
                           ),
                         ),
                         onPressed: () => {

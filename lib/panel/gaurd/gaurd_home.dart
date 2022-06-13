@@ -54,8 +54,8 @@ class _gaurdHomeState extends State<gaurdHome> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 27.sp,
-        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: 33.sp),
+        iconSize: 24.sp,
+        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: 29.sp),
         showSelectedLabels: false,
 
         showUnselectedLabels: false,
@@ -176,7 +176,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.h),
+          padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 13.h),
           child: Column(
             children: [
               InkWell(
@@ -190,7 +190,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                   elevation: 2,
                   child: Column(children: [
                     SizedBox(
-                      height: 155.h,
+                      height: 145.h,
                       child: Ink.image(
                         image: AssetImage("assets/studentAppointment.png"),
                         fit: BoxFit.cover,
@@ -232,7 +232,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 155.h,
+                        height: 145.h,
                         child: Ink.image(
                           image: AssetImage("assets/facultyAppointment.jpg"),
                           fit: BoxFit.cover,

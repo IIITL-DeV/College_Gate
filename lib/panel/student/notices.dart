@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class notices extends StatefulWidget {
   @override
@@ -68,24 +70,21 @@ class _noticesState extends State<notices> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.16;
+
     return Scaffold(
         appBar: AppBar(
+          toolbarHeight: 56.h,
           backgroundColor: Color(0Xff15609c),
           centerTitle: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
               SizedBox(
-                  height: heightMobile * 0.028,
-                  child: Image.asset("assets/cg_white.png")),
-              SizedBox(
-                width: 10,
+                width: 12.w,
               ),
-              Text("College Gate",
-                  style: TextStyle(fontSize: heightMobile * 0.028)),
+              Text("College Gate", style: TextStyle(fontSize: 21.sp)),
+              //SizedBox(width: 50.w,),
             ],
           ),
         ),
@@ -118,12 +117,11 @@ class _noticesState extends State<notices> {
                 itemBuilder: (context, index) {
                   final chatItem = snapshot.data!.docs[index];
                   return Padding(
-                    padding: EdgeInsets.all(heightMobile * 0.008),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                     child: Card(
-                      elevation: 3.5,
+                      elevation: 2,
                       child: SizedBox(
-                        height: cardheight * 1.1,
-                        width: widthMobile * 0.9,
+                        height: 135.h,
                         child: ListView(
                           children: [
                             ListTile(
@@ -132,15 +130,15 @@ class _noticesState extends State<notices> {
                               title: Text(
                                 "${chatItem["guestname"]}",
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.137,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                               subtitle: Text(
-                                "wants to meets you on ${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} on ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
-                                style: TextStyle(fontSize: cardheight * 0.102),
+                                "wants to meets you at ${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} on ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                style: TextStyle(fontSize: 13.sp),
                               ),
-                              // contentPadding: EdgeInsets.fromLTRB(
-                              //     cardheight * 0.1, 0, cardheight * 0.1, 0),
+                              contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
                             ),
 
                             //Accept, Decline button
@@ -149,8 +147,8 @@ class _noticesState extends State<notices> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: cardheight * 0.32,
-                                  width: widthMobile * 0.42,
+                                  height: 38.h,
+                                  width: 150.w,
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       await approvesendMail(
@@ -187,7 +185,7 @@ class _noticesState extends State<notices> {
                                     child: Text(
                                       "Accept",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.12,
+                                        fontSize: 14.sp,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -199,11 +197,11 @@ class _noticesState extends State<notices> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: widthMobile * 0.03,
+                                  width: 20.w,
                                 ),
                                 Container(
-                                  height: cardheight * 0.3,
-                                  width: widthMobile * 0.42,
+                                  height: 38.h,
+                                  width: 150.w,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       declinesendMail(
@@ -240,7 +238,7 @@ class _noticesState extends State<notices> {
                                     child: Text(
                                       "Decline",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.12,
+                                        fontSize: 14.sp,
                                         color: Colors.red[700],
                                       ),
                                     ),
@@ -253,6 +251,9 @@ class _noticesState extends State<notices> {
                                 )
                               ],
                             )),
+                            SizedBox(
+                              height: 10.h,
+                            )
                           ],
                         ),
                       ),

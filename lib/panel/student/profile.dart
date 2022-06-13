@@ -52,8 +52,9 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
+
+    print("IDDDDDDD is : $_idcard");
     if (_idcard == null) {
       return Center(child: CircularProgressIndicator());
     } else
@@ -62,13 +63,13 @@ class _ProfileState extends State<Profile> {
               ? AppBar(
                   backgroundColor: Color(0Xff15609c),
                   title: Text("Edit Profile",
-                      style: TextStyle(fontSize: heightMobile * 0.025)),
+                      style: TextStyle(fontSize: 18.sp)),
                   centerTitle: true,
                   leading: IconButton(
                       icon: Icon(
                         Icons.arrow_back,
                         color: Colors.white,
-                        size: heightMobile * 0.028,
+                        size: 22.sp,
                       ),
                       onPressed: () {
                         setState(() {
@@ -79,7 +80,7 @@ class _ProfileState extends State<Profile> {
               : AppBar(
                   backgroundColor: Color(0Xff15609c),
                   title: Text("Profile",
-                      style: TextStyle(fontSize: heightMobile * 0.025)),
+                      style: TextStyle(fontSize: 18.sp)),
                   actions: [
                       InkWell(
                         onTap: () {
@@ -89,21 +90,19 @@ class _ProfileState extends State<Profile> {
                         },
                         child: Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: heightMobile * 0.024),
+                                horizontal: 20.w),
                             child: Icon(
                               Icons.edit,
                               color: Colors.deepPurple[50],
-                              size: heightMobile * 0.027,
+                              size: 18.sp,
                             )),
                       )
                     ]),
           body: SingleChildScrollView(
             child: Container(
                 // height: MediaQuery.of(context).size.height,
-                width: widthMobile,
-                padding: EdgeInsets.symmetric(
-                    vertical: heightMobile * 0.04,
-                    horizontal: widthMobile * 0.08),
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 26.h),
                 child: Form(
                     key: _formKey,
                     child: Center(
@@ -111,63 +110,64 @@ class _ProfileState extends State<Profile> {
                       children: [
                         // SizedBox(height: heightMobile * 0.015),
                         SizedBox(
-                          height: heightMobile * 0.2,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: GestureDetector(
-                                child: _idcard == null
-                                    ? CircularProgressIndicator()
-                                    : Hero(
-                                        tag: _idcard!,
-                                        child: _idcard == null
-                                            ? Image.network(
-                                                "https://www.citypng.com/photo/20701/loading-load-icon-transparent-png")
-                                            : Image.network(_idcard!,
-                                                fit: BoxFit.contain),
-                                      ),
-                                onTap: () async {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) {
-                                    return viewImage(_idcard!);
-                                  }));
-                                }),
-                          ),
+                          height: 150.h,
+                          child: GestureDetector(
+
+                              child: _idcard == null
+                                  ? CircularProgressIndicator()
+                                  : Hero(
+                                      tag: _idcard!,
+                                      child: _idcard == null
+                                          ? CircleAvatar(
+                                            radius: 70.r,
+                                            backgroundImage: AssetImage("assets/profile_darkbluecolor.png"),)
+                                          : CircleAvatar(
+                                            radius: 70.r,
+                                              backgroundImage: NetworkImage(_idcard!,),
+                                          ),
+                                    ),
+                              onTap: () async {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) {
+                                  return viewImage(_idcard!);
+                                }));
+                              }),
                         ),
-                        SizedBox(height: heightMobile * 0.016),
+                        SizedBox(height: 15.h),
                         Text(
                           _username!,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.024,
+                            fontSize: 18.sp,
                           ),
                         ),
-                        SizedBox(height: heightMobile * 0.01),
+                        SizedBox(height: 15.h),
                         TextFormField(
                           decoration: const InputDecoration(
                               labelText: 'Enrollnment Number'),
                           initialValue: _enrollmentNo,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: 15.sp,
                           ),
                           readOnly: true,
                         ),
-                        SizedBox(height: heightMobile * 0.009),
+                        SizedBox(height: 5.h),
                         TextFormField(
                           decoration: const InputDecoration(labelText: 'Email'),
                           initialValue: _email,
                           style: TextStyle(
-                            fontSize: heightMobile * 0.021,
+                            fontSize: 15.sp,
                           ),
                           readOnly: true,
                         ),
-                        SizedBox(height: heightMobile * 0.009),
+                        SizedBox(height: 5.h),
                         TextFormField(
                             readOnly: !isEdit,
                             decoration: const InputDecoration(
                                 labelText: 'Phone Number'),
                             initialValue: _phoneno,
                             style: TextStyle(
-                              fontSize: heightMobile * 0.021,
+                              fontSize: 15.sp,
                             ),
                             validator: (value) {
                               if (value == null || value.length != 10) {
@@ -177,14 +177,14 @@ class _ProfileState extends State<Profile> {
                                 return null;
                               }
                             }),
-                        SizedBox(height: heightMobile * 0.009),
+                        SizedBox(height: 5.h),
                         TextFormField(
                             readOnly: !isEdit,
                             decoration:
                                 const InputDecoration(labelText: 'Room number'),
                             initialValue: _roomno,
                             style: TextStyle(
-                              fontSize: heightMobile * 0.021,
+                              fontSize: 15.sp,
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -194,7 +194,7 @@ class _ProfileState extends State<Profile> {
                                 return null;
                               }
                             }),
-                        SizedBox(height: heightMobile * 0.01),
+                        SizedBox(height: 5.h),
                         isEdit
                             ? DropdownButtonFormField<String>(
                                 value: hostelDropDown,
@@ -203,7 +203,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: heightMobile * 0.02,
+                                  fontSize: 15.sp,
                                 ),
                                 onChanged: (newValue) =>
                                     setState(() => hostelDropDown = newValue),
@@ -231,10 +231,10 @@ class _ProfileState extends State<Profile> {
                                     const InputDecoration(labelText: 'Hostel'),
                                 initialValue: hostelDropDown,
                                 style: TextStyle(
-                                  fontSize: heightMobile * 0.021,
+                                  fontSize: 15.sp,
                                 ),
                               ),
-                        SizedBox(height: heightMobile * 0.05),
+                        SizedBox(height: 40.h),
                         isEdit
                             ? ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -244,15 +244,15 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     primary: Color(0Xff15609c),
                                     padding:
-                                        EdgeInsets.all(heightMobile * 0.017),
+                                        EdgeInsets.all(12),
                                     // padding: const EdgeInsets.all(10),
                                     minimumSize: Size(
-                                        widthMobile, heightMobile * 0.028)),
+                                        MediaQuery.of(context).size.width, 38.h)),
                                 child: Text(
                                   'Save Details',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: heightMobile * 0.02,
+                                    fontSize: 16.sp,
                                   ),
                                 ),
                                 onPressed: () async {
@@ -295,15 +295,15 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     primary: Colors.white,
                                     padding:
-                                        EdgeInsets.all(heightMobile * 0.017),
+                                        EdgeInsets.all(12),
                                     // padding: const EdgeInsets.all(10),
                                     minimumSize: Size(
-                                        widthMobile, heightMobile * 0.028)),
+                                        MediaQuery.of(context).size.width, 38.h)),
                                 child: Text(
                                   'Logout',
                                   style: TextStyle(
                                     color: Color(0XffDB0000),
-                                    fontSize: heightMobile * 0.02,
+                                    fontSize: 16.sp,
                                   ),
                                 ),
                                 onPressed: () {
