@@ -16,10 +16,18 @@ class GuestHome extends StatelessWidget {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Color(0Xff15609c),
-          title: Text(
-            "Book Appointment",
-            style: TextStyle(fontSize: 19.sp),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                width: 12.w,
+              ),
+              Text("Book Appointment", style: TextStyle(fontSize: 20.sp)),
+              //SizedBox(width: 50.w,),
+            ],
           ),
         ),
         body: Container(
