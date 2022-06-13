@@ -382,21 +382,13 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
     } else
       return Scaffold(
         appBar: AppBar(
+          toolbarHeight: 56.h,
           backgroundColor: Color(0Xff15609c),
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: 22.sp,
-              ),
-              onPressed: () => {Navigator.pop(context)}),
+          centerTitle: true,
           title: Text(
             "Faculty Appointment Form",
-            style:
-                TextStyle(color: Colors.white, fontSize: 18.sp),
-            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
           ),
-          centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Container(

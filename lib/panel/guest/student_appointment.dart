@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class booking extends StatefulWidget {
   const booking({Key? key}) : super(key: key);
@@ -49,6 +51,8 @@ class _bookingState extends State<booking> {
       children: [
         Expanded(
             child: TextField(
+              readOnly: true,
+              style: TextStyle(fontSize: 14.sp),
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -72,7 +76,7 @@ class _bookingState extends State<booking> {
               context: context,
               initialDate: selectedDate,
               initialDatePickerMode: DatePickerMode.day,
-              firstDate: DateTime(2021),
+              firstDate: DateTime.now(),
               lastDate: DateTime(2101),
               builder: (context, child) => Theme(
                 data: ThemeData().copyWith(
@@ -96,10 +100,12 @@ class _bookingState extends State<booking> {
           },
         )),
         SizedBox(
-          width: 10,
+          width: 10.w,
         ),
         Expanded(
             child: TextField(
+              readOnly: true,
+              style: TextStyle(fontSize: 14.sp),
           controller: _timeController,
           decoration: InputDecoration(
             labelText: 'Time',
@@ -159,6 +165,7 @@ class _bookingState extends State<booking> {
 
   Widget _buildName() {
     return TextFormField(
+      style: TextStyle(fontSize: 14.sp),
       decoration: const InputDecoration(labelText: 'Name'),
       //initialValue: _username!,
       validator: (value) {
@@ -178,6 +185,7 @@ class _bookingState extends State<booking> {
 
   Widget _buildemail() {
     return TextFormField(
+        style: TextStyle(fontSize: 14.sp),
         //initialValue: _emailno!,
         // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: const InputDecoration(labelText: 'Email ID'),
@@ -193,6 +201,7 @@ class _bookingState extends State<booking> {
 
   Widget _buildstudentemail() {
     return TextFormField(
+        style: TextStyle(fontSize: 14.sp),
         decoration:
             const InputDecoration(labelText: "Visiting Student's Email ID"),
         //initialValue: _enrollmentNo!,
@@ -208,6 +217,7 @@ class _bookingState extends State<booking> {
 
   Widget _buildVehicle() {
     return TextFormField(
+        style: TextStyle(fontSize: 14.sp),
         decoration: const InputDecoration(labelText: 'Vehicle Number'));
     //initialValue: _roomno!,
     // validator: (value) {
@@ -217,6 +227,7 @@ class _bookingState extends State<booking> {
 
   Widget _buildRelation() {
     return TextFormField(
+        style: TextStyle(fontSize: 14.sp),
         decoration: const InputDecoration(labelText: 'Relation/Purpose'),
         //initialValue: _roomno!,
         validator: (value) {
@@ -302,6 +313,7 @@ class _bookingState extends State<booking> {
 
   Widget _buildMessage() {
     return TextFormField(
+      style: TextStyle(fontSize: 14.sp),
       keyboardType: TextInputType.multiline,
       maxLines: 2,
       maxLength: 100,
@@ -321,53 +333,59 @@ class _bookingState extends State<booking> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: heightMobile * 0.028,
-            ),
-            onPressed: () => {Navigator.pop(context)}),
+        centerTitle: true,
         title: Text(
           "Student Appointment Form",
-          style: TextStyle(color: Colors.white, fontSize: heightMobile * 0.025),
-          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
-            padding: EdgeInsets.all(heightMobile * 0.025),
+            padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 24.h),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 108.h,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100.r),
+                      child: Image.asset(
+                        "assets/studentAppointment.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   _buildName(),
                   _buildemail(),
                   _buildstudentemail(),
                   _buildRelation(),
-                  SizedBox(height: heightMobile * 0.04),
+                  SizedBox(height: 24.h),
                   _buildDate(),
                   // SizedBox(height: heightMobile * 0.015),
                   // _buildVehicle(),
                   _buildMessage(),
-                  SizedBox(height: heightMobile * 0.05),
+                  SizedBox(height: 45.h),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(15.0),
                           ),
                           primary: Color(0Xff15609c),
-                          padding: EdgeInsets.all(heightMobile * 0.017),
+                          padding: EdgeInsets.all(12),
                           // padding: const EdgeInsets.all(10),
-                          minimumSize: Size(widthMobile, heightMobile * 0.028)),
+                          minimumSize: Size(MediaQuery.of(context).size.width, 38.h)),
                       child: Text(
                         'Submit',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: heightMobile * 0.02,
+                          fontSize: 16.sp,
                         ),
                       ),
                       onPressed: () => {
