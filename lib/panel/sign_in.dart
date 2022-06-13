@@ -38,13 +38,13 @@ class _SignInState extends State<SignIn> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                      height: 24.h,
+                      height: 21.sp,
                       child: Image.asset("assets/cg_white.png")),
                   SizedBox(
                     width: 12.w,
                   ),
                   Text("College Gate",
-                      style: TextStyle(fontSize: 24.sp)),
+                      style: TextStyle(fontSize: 21.sp)),
                 ],
               ),
             ),

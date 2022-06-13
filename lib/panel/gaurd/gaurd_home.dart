@@ -84,11 +84,11 @@ class _gaurdHomeState extends State<gaurdHome> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 24.h, child: Image.asset("assets/cg_white.png")),
+            SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
             SizedBox(
               width: 12.w,
             ),
-            Text("College Gate", style: TextStyle(fontSize: 24.sp)),
+            Text("College Gate", style: TextStyle(fontSize: 21.sp)),
             //SizedBox(width: 50.w,),
           ],
         ),
@@ -105,7 +105,7 @@ class _gaurdHomeState extends State<gaurdHome> {
                 child: Icon(
               Icons.exit_to_app,
               color: Colors.white,
-              size: 23.sp,
+              size: 20.sp,
             )),
           ),
           SizedBox(
@@ -165,11 +165,11 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
         },
         label: Text(
           'New Entry',
-          style: TextStyle(fontSize: 15.sp),
+          style: TextStyle(fontSize: 13.sp),
         ),
         icon: Icon(
           Icons.add,
-          size: 22.sp,
+          size: 20.sp,
         ),
         backgroundColor: Color(0Xff15609c),
       ),
@@ -205,7 +205,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                               Text(
                                 "Students",
                                 style: TextStyle(
-                                    fontSize: 17.sp, color: Color(0Xff232F77)),
+                                    fontSize: 16.sp, color: Color(0Xff232F77)),
                               ),
                               IconButton(
                                   alignment: Alignment.centerRight,
@@ -217,7 +217,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                                 StudentRegister()));
                                   },
                                   icon: Icon(Icons.chevron_right,
-                                      size: 24.sp, color: Color(0Xff232F77))),
+                                      size: 23.sp, color: Color(0Xff232F77))),
                             ])),
                   ]),
                 ),
@@ -247,7 +247,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                             Text(
                               "Guests",
                               style: TextStyle(
-                                  fontSize: 17.sp, color: Color(0Xff232F77)),
+                                  fontSize: 16.sp, color: Color(0Xff232F77)),
                             ),
                             IconButton(
                                 alignment: Alignment.centerRight,
@@ -259,7 +259,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                                               guestRegister()));
                                 },
                                 icon: Icon(Icons.chevron_right,
-                                    size: 24.sp, color: Color(0Xff232F77)))
+                                    size: 23.sp, color: Color(0Xff232F77)))
                           ],
                         ),
                       ),

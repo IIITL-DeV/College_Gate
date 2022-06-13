@@ -80,7 +80,7 @@ class _StudentRegisterState extends State<StudentRegister> {
         centerTitle: true,
         title: Text(
           "Student Register",
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
         ),
       ),
       // appBar: AppBar(
@@ -162,11 +162,11 @@ class _StudentRegisterState extends State<StudentRegister> {
 
                 return Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                   child: Card(
-                    elevation: 2.5,
+                    elevation: 2,
                     child: SizedBox(
-                      height: 85.h,
+                      height: 80.h,
                       child: ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
@@ -189,7 +189,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                                   child: Text("${chatItem["enrollment"]}",
                                       textAlign: TextAlign.end,
                                       style: TextStyle(
-                                        fontSize: 13.sp,
+                                        fontSize: 11.sp,
                                       )),
                                 ),
                               ],
@@ -198,7 +198,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                             subtitle: Column(
                               children: [
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
                                 // SizedBox(
                                 //   width: 12.w,
@@ -220,18 +220,18 @@ class _StudentRegisterState extends State<StudentRegister> {
                                   children: [
                                     Icon(
                                       Icons.access_alarm,
-                                      size: 13.sp,
+                                      size: 11.sp,
                                       color: Color.fromARGB(255, 22, 180, 140),
                                     ),
                                     SizedBox(
-                                      width: 4.w,
+                                      width: 5.w,
                                     ),
                                     Text(
                                       chatItem["exitdatetime"] == null
                                           ? "IN | IN"
                                           : "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                                       style: TextStyle(
-                                        fontSize: 13.sp,
+                                        fontSize: 11.sp,
                                         backgroundColor: Color(0XffD1F0E8),
                                       ),
                                     ),
@@ -241,7 +241,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                                     Icon(
                                       Icons.arrow_forward,
                                       color: Color.fromARGB(255, 22, 180, 140),
-                                      size: 13.sp,
+                                      size: 11.sp,
                                     ),
                                     SizedBox(
                                       width: 4.w,
@@ -251,7 +251,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                                           ? "OUT | OUT"
                                           : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
                                       style: TextStyle(
-                                        fontSize: 13.sp,
+                                        fontSize: 11.sp,
                                         backgroundColor: Color(0XffD1F0E8),
                                       ),
                                     )
@@ -259,8 +259,8 @@ class _StudentRegisterState extends State<StudentRegister> {
                                 ),
                               ],
                             ),
-                            // contentPadding:
-                            //     EdgeInsets.fromLTRB(12.w, 0, 12.w, 0),
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
                           ),
                         ],
                       ),
@@ -299,11 +299,11 @@ class _StudentRegisterState extends State<StudentRegister> {
         },
         label: Text(
           'csv File',
-          style: TextStyle(fontSize: 18.sp),
+          style: TextStyle(fontSize: 15.sp),
         ),
         icon: Icon(
           Icons.download,
-          size: 24.sp,
+          size: 20.sp,
         ),
         backgroundColor: Color(0Xff15609c),
       ),

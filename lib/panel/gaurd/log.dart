@@ -36,7 +36,7 @@ class _guardLogState extends State<guardLog>
         children: [
           // give the tab bar a height [can change hheight to preferred height]
           Container(
-            height: 58.h,
+            height: 54.h,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(
@@ -54,7 +54,7 @@ class _guardLogState extends State<guardLog>
               ),
 
               labelColor: Color(0Xff15609c),
-              labelStyle: TextStyle(fontSize: 16.h),
+              labelStyle: TextStyle(fontSize: 14.h),
               unselectedLabelColor: Color(0XffD4D4D4),
               tabs: [
                 // first tab [you can add an icon using the icon property]
@@ -169,11 +169,11 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                 child: Card(
-                  elevation: 2.5,
+                  elevation: 2,
                   child: SizedBox(
-                    height: 95.h,
+                    height: 90.h,
                     //width: widthMobile * 0.9,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
@@ -185,7 +185,7 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                             "${chatItem["name"]}",
                             style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
-                                fontSize: 18.sp,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
@@ -199,14 +199,14 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                                 children: [
                                   Icon(
                                     Icons.add_call,
-                                    size: 12.sp,
+                                    size: 11.sp,
                                   ),
                                   SizedBox(
                                     width: 7.w,
                                   ),
                                   Text(
                                     "${chatItem["phone"]}",
-                                    style: TextStyle(fontSize: 13.sp),
+                                    style: TextStyle(fontSize: 11.sp),
                                   ),
                                 ],
                               ),
@@ -217,15 +217,15 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                                 children: [
                                   Icon(
                                     Icons.access_alarm,
-                                    size: 12.sp,
+                                    size: 11.sp,
                                   ),
                                   SizedBox(
-                                    width: 7.h,
+                                    width: 7.w,
                                   ),
                                   Text(
                                     "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                                     style: TextStyle(
-                                      fontSize: 13.sp,
+                                      fontSize: 11.sp,
                                       backgroundColor: Color(0XffD1F0E8),
                                     ),
                                   ),
@@ -262,20 +262,20 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                               Text(
                                 "${chatItem["hostelno"]}/${chatItem["room"]}",
                                 style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 11.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                               SizedBox(height: 3.h),
                               Text(
                                 "${chatItem["enrollment"]}",
                                 style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 11.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                           contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12.w),
+                              EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
                         ),
                       ],
                     ),
@@ -362,7 +362,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
                 padding: EdgeInsets.fromLTRB(heightMobile * 0.01, 0,
                     heightMobile * 0.01, heightMobile * 0.01),
                 child: Card(
-                  elevation: 2.5,
+                  elevation: 2,
                   child: SizedBox(
                     height: 80.h,
                     child: ListView(
@@ -375,7 +375,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
                                 "${chatItem["name"]}",
                                 style: TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    fontSize: 18.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -387,34 +387,34 @@ class _guardGuestLogState extends State<guardGuestLog> {
                             children: [
                               Icon(
                                 Icons.directions_car,
-                                size: 12.sp,
+                                size: 11.sp,
                               ),
                               SizedBox(
-                                width: 6.w,
+                                width: 5.w,
                               ),
                               Text(
                                 "${chatItem["vehicleno"]}",
-                                style: TextStyle(fontSize: 13.sp),
+                                style: TextStyle(fontSize: 11.sp),
                               ),
                               // SizedBox(
                               //   height: cardheight * 0.03,
                               // ),
                               SizedBox(
-                                width: 10.w,
+                                width: 7.w,
                               ),
                               Icon(
                                 Icons.access_alarm,
-                                size: 12.sp,
+                                size: 11.sp,
                               ),
                               SizedBox(
-                                width: 6.w,
+                                width: 5.w,
                               ),
                               Text(
                                 chatItem["entrydatetime"] == null
                                     ? "OUT | OUT"
                                     : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
                                 style: TextStyle(
-                                  fontSize: 13.sp,
+                                  fontSize: 11.sp,
                                   backgroundColor: Color(0XffD1F0E8),
                                 ),
                               ),
@@ -436,12 +436,12 @@ class _guardGuestLogState extends State<guardGuestLog> {
                               icon: Icon(
                                 CupertinoIcons.square_arrow_left,
                                 color: Color(0Xff19B38D),
-                                size: 25.sp,
+                                size: 22.sp,
                               ),
                             ),
                           ),
-                          // contentPadding:
-                          //     EdgeInsets.symmetric(horizontal: 12.w)
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h)
                         ),
                       ],
                     ),
