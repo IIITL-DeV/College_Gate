@@ -7,6 +7,8 @@ import 'dart:io';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 //import 'package:image_picker/image_picker.dart';
 
 class idcardImage extends StatefulWidget {
@@ -129,23 +131,21 @@ class _idcardImageState extends State<idcardImage> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
             SizedBox(
-                height: heightMobile * 0.028,
-                child: Image.asset("assets/cg_white.png")),
-            SizedBox(
-              width: 10,
+              width: 12.w,
             ),
-            Text("College Gate",
-                style: TextStyle(fontSize: heightMobile * 0.028)),
+            Text("College Gate", style: TextStyle(fontSize: 21.sp)),
+            //SizedBox(width: 50.w,),
           ],
         ),
       ),
@@ -153,28 +153,28 @@ class _idcardImageState extends State<idcardImage> {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: heightMobile * 0.05),
+            SizedBox(height: 50.h),
             Text(
               "Capture Your Student ID",
               style: TextStyle(
                 color: Color(0Xff15609c),
-                fontSize: heightMobile * 0.025,
+                fontSize: 19.h,
                 // fontStyle: FontStyle.itali
               ),
             ),
-            SizedBox(height: 6),
+            SizedBox(height: 6.h),
             Text(
               "NOTE: IMMUTABLE",
               style: TextStyle(
                   color: Colors.red,
-                  fontSize: heightMobile * 0.015,
+                  fontSize: 13.h,
                   fontStyle: FontStyle.italic),
             ),
-            SizedBox(height: heightMobile * 0.03),
+            SizedBox(height: 30.h),
             Container(
               //decoration: Decor,
               //width: double.infinity,
-              height: heightMobile * 0.4,
+              height: 300.h,
               // margin: const EdgeInsets.only(
               //     left: 10.0, right: 10.0, top: 10.0),
               child: ClipRRect(
@@ -185,7 +185,7 @@ class _idcardImageState extends State<idcardImage> {
                         child: Icon(
                           Icons.add_a_photo,
                           color: Color(0Xff15609c),
-                          size: 50,
+                          size: 50.sp,
                           //semanticLabel: "Take Picture",
                         ),
                         onPressed: pickImage,
@@ -193,7 +193,7 @@ class _idcardImageState extends State<idcardImage> {
               ),
             ),
             SizedBox(
-              height: heightMobile * 0.08,
+              height: 50.h,
             ),
             Container(
               child: _imageFile != null
@@ -204,7 +204,7 @@ class _idcardImageState extends State<idcardImage> {
                           child: Icon(
                             Icons.add_a_photo,
                             color: Color(0Xff15609c),
-                            size: 30,
+                            size: 30.sp,
                           ),
                           onTap: () {
                             setState(() {
@@ -213,13 +213,13 @@ class _idcardImageState extends State<idcardImage> {
                           },
                         ),
                         SizedBox(
-                          width: widthMobile * 0.3,
+                          width: 100.w,
                         ),
                         GestureDetector(
                           child: Icon(
                             Icons.edit,
                             color: Color(0Xff15609c),
-                            size: 30,
+                            size: 30.sp,
                           ),
                           onTap: () {
                             _cropImage();
@@ -231,18 +231,18 @@ class _idcardImageState extends State<idcardImage> {
             ),
 
             SizedBox(
-              height: heightMobile * 0.07,
+              height: 60.h,
             ),
             //uploadImageButton(context),
             Padding(
-              padding: EdgeInsets.all(heightMobile * 0.02),
+              padding: EdgeInsets.symmetric(horizontal: 25.w),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(15.0),
                     ),
-                    padding: EdgeInsets.all(heightMobile * 0.017),
-                    minimumSize: Size(widthMobile, heightMobile * 0.028),
+                    padding: EdgeInsets.all(12),
+                    minimumSize: Size(MediaQuery.of(context).size.width,38.h),
                     alignment: Alignment.center,
                     primary: const Color(0xFF14619C)),
                 onPressed: () async => {
@@ -267,7 +267,7 @@ class _idcardImageState extends State<idcardImage> {
                   'Submit',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: heightMobile * 0.022,
+                    fontSize: 16.sp,
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class requestpending extends StatefulWidget {
   const requestpending({Key? key}) : super(key: key);
@@ -14,8 +15,8 @@ class _requestpendingState extends State<requestpending> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SizedBox(
-          width: widthMobile,
-          height: heightMobile,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: <Widget>[
               Column(
@@ -23,13 +24,13 @@ class _requestpendingState extends State<requestpending> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: heightMobile * 0.04,
+                    height: 30.h,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(heightMobile * 0.025),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.h),
                     child: Text("Your request is pending...",
                         style: TextStyle(
-                          fontSize: heightMobile * 0.042,
+                          fontSize: 30.sp,
                           fontWeight: FontWeight.w400,
                           color: Color(0Xff14619C),
                         )),
@@ -40,7 +41,7 @@ class _requestpendingState extends State<requestpending> {
                 child: Image.asset(
                   'assets/requestpending.png',
                   fit: BoxFit.fitWidth,
-                  width: widthMobile * 0.82,
+                  width: MediaQuery.of(context).size.width * 0.82,
                   alignment: Alignment.center,
                 ),
               ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class no_notices extends StatefulWidget {
   const no_notices({Key? key}) : super(key: key);
@@ -14,32 +16,32 @@ class _no_noticesState extends State<no_notices> {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SizedBox(
-          width: widthMobile,
-          height: heightMobile,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Padding(
-            padding: EdgeInsets.all(heightMobile * 0.025),
+            padding: EdgeInsets.symmetric(vertical: 150.h),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
+                //SizedBox(height: 266.h),
                 Image.asset(
                   'assets/nonotices.png',
-                  fit: BoxFit.fitWidth,
-                  width: widthMobile * 0.5,
+                  //fit: BoxFit.fitWidth,
+                  width: 228.w,
+                  height: 228.h,
                   alignment: Alignment.center,
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 30.h,
                 ),
                 Text("No Notices",
                     style: TextStyle(
-                      fontSize: heightMobile * 0.042,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 25.sp,
+                      fontWeight: FontWeight.w300,
                       color: Color(0Xff14619C),
                     )),
               ],
             ),
-          )),
+          ))
     );
   }
 }

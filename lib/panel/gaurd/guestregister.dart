@@ -71,7 +71,7 @@ class _guestRegisterState extends State<guestRegister> {
         centerTitle: true,
         title: Text(
           "Guest Register",
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
         ),
       ),
       body: StreamBuilder(
@@ -125,9 +125,9 @@ class _guestRegisterState extends State<guestRegister> {
 
                 return Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                   child: Card(
-                    elevation: 2.5,
+                    elevation: 2,
                     child: SizedBox(
                       height: 80.h,
                       child: ListView(
@@ -152,7 +152,7 @@ class _guestRegisterState extends State<guestRegister> {
                                   child: Text("${chatItem["vehicleno"]}",
                                       textAlign: TextAlign.end,
                                       style: TextStyle(
-                                        fontSize: 13.sp,
+                                        fontSize: 11.sp,
                                       )),
                                 ),
                               ],
@@ -161,7 +161,7 @@ class _guestRegisterState extends State<guestRegister> {
                             subtitle: Column(
                               children: [
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
                                 // SizedBox(
                                 //   width: 12.w,
@@ -183,7 +183,7 @@ class _guestRegisterState extends State<guestRegister> {
                                   children: [
                                     Icon(
                                       Icons.access_alarm,
-                                      size: 13.sp,
+                                      size: 11.sp,
                                       color: Color.fromARGB(255, 22, 180, 140),
                                     ),
                                     SizedBox(
@@ -194,7 +194,7 @@ class _guestRegisterState extends State<guestRegister> {
                                           ? "OUT | OUT"
                                           : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                                       style: TextStyle(
-                                        fontSize: 13.sp,
+                                        fontSize: 11.sp,
                                         backgroundColor: Color(0XffD1F0E8),
                                       ),
                                     ),
@@ -204,7 +204,7 @@ class _guestRegisterState extends State<guestRegister> {
                                     Icon(
                                       Icons.arrow_forward,
                                       color: Color.fromARGB(255, 22, 180, 140),
-                                      size: 13.sp,
+                                      size: 11.sp,
                                     ),
                                     SizedBox(
                                       width: 4.w,
@@ -214,7 +214,7 @@ class _guestRegisterState extends State<guestRegister> {
                                           ? "IN | IN"
                                           : "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
                                       style: TextStyle(
-                                        fontSize: 13.sp,
+                                        fontSize: 11.sp,
                                         backgroundColor: Color(0XffD1F0E8),
                                       ),
                                     )
@@ -222,8 +222,8 @@ class _guestRegisterState extends State<guestRegister> {
                                 ),
                               ],
                             ),
-                            // contentPadding:
-                            //     EdgeInsets.fromLTRB(12.w, 0, 12.w, 0),
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
                           ),
                         ],
                       ),
@@ -285,11 +285,11 @@ class _guestRegisterState extends State<guestRegister> {
         },
         label: Text(
           'csv File',
-          style: TextStyle(fontSize: 18.sp),
+          style: TextStyle(fontSize: 15.sp),
         ),
         icon: Icon(
           Icons.download,
-          size: 24.sp,
+          size: 20.sp,
         ),
         backgroundColor: Color(0Xff15609c),
       ),

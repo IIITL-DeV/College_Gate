@@ -12,6 +12,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class studentHome extends StatefulWidget {
   const studentHome({Key? key}) : super(key: key);
@@ -36,13 +38,12 @@ class _studentHomeState extends State<studentHome> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: heightMobile * 0.038,
+        iconSize: 24.sp,
         selectedIconTheme:
-            IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
+            IconThemeData(color: Color(0Xff15609c), size: 29.sp),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         // this will be set when a new tab is tapped
@@ -82,33 +83,31 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
   String? _purpose = "Outing";
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     // var _formKey;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
             SizedBox(
-                height: heightMobile * 0.028,
-                child: Image.asset("assets/cg_white.png")),
-            SizedBox(
-              width: 10,
+              width: 12.w,
             ),
-            Text("College Gate",
-                style: TextStyle(fontSize: heightMobile * 0.028)),
+            Text("College Gate", style: TextStyle(fontSize: 21.sp)),
+            //SizedBox(width: 50.w,),
           ],
         ),
       ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Container(
-            height: heightMobile,
-            width: widthMobile,
-            padding: EdgeInsets.all(heightMobile * 0.02),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 13.h),
             child: Column(
               children: [
                 InkWell(
@@ -129,22 +128,18 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                     });
                   },
                   child: Card(
-                    elevation: 4,
+                    elevation: 2,
                     child: Column(
                       children: [
                         SizedBox(
-                          height: heightMobile * 0.169,
+                          height: 138.h,
                           child: Ink.image(
                             image: AssetImage("assets/exit.png"),
                             fit: BoxFit.cover,
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(
-                              heightMobile * 0.02,
-                              heightMobile * 0.01,
-                              heightMobile * 0.015,
-                              heightMobile * 0.01),
+                          padding: EdgeInsets.fromLTRB(15.w, 8.h, 5.w, 8.h),
                           alignment: Alignment.centerLeft,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,7 +147,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                               Text(
                                 "Campus Exit Form",
                                 style: TextStyle(
-                                    fontSize: heightMobile * 0.021,
+                                    fontSize: 16.sp,
                                     color: Color(0Xff15609c)),
                               ),
                               IconButton(
@@ -179,7 +174,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                     });
                                   },
                                   icon: Icon(Icons.chevron_right,
-                                      size: heightMobile * 0.03,
+                                      size: 23.sp,
                                       color: Color(0Xff15609c)))
                             ],
                           ),
@@ -207,21 +202,17 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                     });
                   },
                   child: Card(
-                    elevation: 4,
+                    elevation: 2,
                     child: Column(children: [
                       SizedBox(
-                        height: heightMobile * 0.169,
+                        height: 138.h,
                         child: Ink.image(
                           image: AssetImage("assets/entry.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
                       Container(
-                          padding: EdgeInsets.fromLTRB(
-                              heightMobile * 0.02,
-                              heightMobile * 0.01,
-                              heightMobile * 0.015,
-                              heightMobile * 0.01),
+                          padding: EdgeInsets.fromLTRB(15.w, 8.h, 5.w, 8.h),
                           alignment: Alignment.centerLeft,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -229,7 +220,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                 Text(
                                   "Campus Entry Form",
                                   style: TextStyle(
-                                      fontSize: heightMobile * 0.021,
+                                      fontSize: 16.sp,
                                       color: Color(0Xff15609c)),
                                 ),
                                 IconButton(
@@ -257,7 +248,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                       });
                                     },
                                     icon: Icon(Icons.chevron_right,
-                                        size: heightMobile * 0.03,
+                                        size: 23.sp,
                                         color: Color(0Xff15609c))),
                               ])),
                     ]),
@@ -273,22 +264,18 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                 )));
                   },
                   child: Card(
-                    elevation: 4,
+                    elevation: 2,
                     child: Column(
                       children: [
                         SizedBox(
-                          height: heightMobile * 0.169,
+                          height: 138.h,
                           child: Ink.image(
                             image: AssetImage("assets/facultyAppointment.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(
-                              heightMobile * 0.02,
-                              heightMobile * 0.01,
-                              heightMobile * 0.015,
-                              heightMobile * 0.01),
+                          padding: EdgeInsets.fromLTRB(15.w, 8.h, 5.w, 8.h),
                           alignment: Alignment.centerLeft,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -296,7 +283,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                               Text(
                                 "Book Appointment",
                                 style: TextStyle(
-                                    fontSize: heightMobile * 0.021,
+                                    fontSize: 16.sp,
                                     color: Color(0Xff15609c)),
                               ),
                               //SizedBox(width: widthMobile * 0.1,),
@@ -312,7 +299,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                   },
                                   icon: Icon(
                                     Icons.chevron_right,
-                                    size: heightMobile * 0.03,
+                                    size: 23.sp,
                                     color: Color(0Xff15609c),
                                   ))
                             ],
@@ -334,13 +321,12 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          double widthMobile = MediaQuery.of(context).size.width;
-          double heightMobile = MediaQuery.of(context).size.height;
           return AlertDialog(
+            //contentPadding: EdgeInsets.zero,
             title: Text(
               "Entry Request",
               style: TextStyle(
-                  fontSize: heightMobile * 0.027, color: Color(0Xff15609c)),
+                  fontSize: 18.sp, color: Color(0Xff15609c)),
             ),
             actions: [
               Row(
@@ -356,11 +342,10 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                       },
                       child: Text("Cancel",
                           style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.02,
+                              fontSize: 14.sp,
                               color: Colors.red[700]))),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.03,
+                    width: 15.w,
                   ),
                   TextButton(
                       onPressed: () {
@@ -379,7 +364,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                       child: Text(
                         "Submit",
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          fontSize: 14.sp,
                           color: Color(0Xff19B38D),
                         ),
                       )),
@@ -396,13 +381,12 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          double widthMobile = MediaQuery.of(context).size.width;
-          double heightMobile = MediaQuery.of(context).size.height;
+
           return AlertDialog(
             title: Text(
               "Select Purpose",
               style: TextStyle(
-                  fontSize: heightMobile * 0.027, color: Color(0Xff15609c)),
+                  fontSize: 18.sp, color: Color(0Xff15609c)),
             ),
             content: Form(
               key: _formKey,
@@ -414,9 +398,9 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.03,
-                  ),
+                  // SizedBox(
+                  //   width: MediaQuery.of(context).size.width * 0.03,
+                  // ),
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -424,11 +408,10 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                       },
                       child: Text("Cancel",
                           style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.02,
+                              fontSize: 14.sp,
                               color: Colors.red[700]))),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.03,
+                    width: 15.w,
                   ),
                   TextButton(
                       onPressed: () {
@@ -450,7 +433,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                       child: Text(
                         "Submit",
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          fontSize:14.sp,
                           color: Color(0Xff19B38D),
                         ),
                       )),
@@ -469,7 +452,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
       ),
       style: TextStyle(
         color: Colors.black,
-        // fontSize: heightMobile * 0.02,
+        fontSize: 14.sp,
       ),
       onChanged: (newValue) => setState(() => _purpose = newValue),
       validator: (value) {

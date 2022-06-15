@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'AppointmentRequest.dart';
 import 'facultyProfile.dart';
 import 'package:intl/intl.dart';
@@ -33,13 +33,12 @@ class _FacultyHomeState extends State<FacultyHome> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: heightMobile * 0.038,
+        iconSize: 24.sp,
         selectedIconTheme:
-            IconThemeData(color: Color(0Xff15609c), size: heightMobile * 0.042),
+            IconThemeData(color: Color(0Xff15609c), size: 29.sp),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         // this will be set when a new tab is tapped
@@ -108,7 +107,7 @@ class _AppointmentListState extends State<AppointmentList> {
       context: context,
       initialDate: selectedDate,
       initialDatePickerMode: DatePickerMode.day,
-      firstDate: DateTime(2021),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2101),
       builder: (context, child) => Theme(
         data: ThemeData().copyWith(
@@ -173,20 +172,19 @@ class _AppointmentListState extends State<AppointmentList> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          double widthMobile = MediaQuery.of(context).size.width;
-          double heightMobile = MediaQuery.of(context).size.height;
+
           return AlertDialog(
             title: Text(
               "Reschedule",
               style: TextStyle(
-                  fontSize: heightMobile * 0.027, color: Color(0Xff15609c)),
+                  fontSize: 16.sp, color: Color(0Xff15609c)),
             ),
             content: Container(
               child: Text(
                 'Reschedule Appointment with $name at ${_timeController.text} on ${_dateController.text}.',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: heightMobile * 0.021,
+                  fontSize: 13.sp,
                 ),
               ),
             ),
@@ -226,12 +224,12 @@ class _AppointmentListState extends State<AppointmentList> {
                       child: Text(
                         "Confirm",
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          fontSize: 14.sp,
                           color: Color(0Xff19B38D),
                         ),
                       )),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.03,
+                    width: 10.w,
                   ),
                   TextButton(
                       onPressed: () {
@@ -240,7 +238,7 @@ class _AppointmentListState extends State<AppointmentList> {
                       child: Text("Cancel",
                           style: TextStyle(
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.02,
+                                  14.sp,
                               color: Colors.red[700]))),
                 ],
               )
@@ -292,24 +290,21 @@ class _AppointmentListState extends State<AppointmentList> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.195;
+
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
             SizedBox(
-                height: heightMobile * 0.028,
-                child: Image.asset("assets/cg_white.png")),
-            SizedBox(
-              width: 10,
+              width: 12.w,
             ),
-            Text("College Gate",
-                style: TextStyle(fontSize: heightMobile * 0.028)),
+            Text("College Gate", style: TextStyle(fontSize: 21.sp)),
+            //SizedBox(width: 50.w,),
           ],
         ),
       ),
@@ -323,25 +318,31 @@ class _AppointmentListState extends State<AppointmentList> {
               if (value == 0 || value == null) {
                 print("issssss$value");
                 return SizedBox(
-                    width: widthMobile,
-                    height: heightMobile,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: heightMobile * 0.13),
-                        Image.asset(
-                          'assets/nonotices.png',
-                          //fit: BoxFit.fitWidth,
-                          width: widthMobile * 0.8,
-                          height: heightMobile * 0.4,
-                          alignment: Alignment.center,
-                        ),
-                        Text("No Appointment",
-                            style: TextStyle(
-                              fontSize: heightMobile * 0.04,
-                              fontWeight: FontWeight.w300,
-                              color: Color(0Xff14619C),
-                            )),
-                      ],
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 150.h),
+                      child: Column(
+                        children: <Widget>[
+                          //SizedBox(height: 266.h),
+                          Image.asset(
+                            'assets/nonotices.png',
+                            //fit: BoxFit.fitWidth,
+                            width: 228.w,
+                            height: 228.h,
+                            alignment: Alignment.center,
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          Text("No Appointments",
+                              style: TextStyle(
+                                fontSize: 25.sp,
+                                fontWeight: FontWeight.w300,
+                                color: Color(0Xff14619C),
+                              )),
+                        ],
+                      ),
                     ));
               }
 
@@ -351,12 +352,11 @@ class _AppointmentListState extends State<AppointmentList> {
                 itemBuilder: (context, index) {
                   final chatItem = snapshot.data!.docs[index];
                   return Padding(
-                    padding: EdgeInsets.all(heightMobile * 0.008),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                     child: Card(
-                      elevation: 3.5,
+                      elevation: 2,
                       child: SizedBox(
-                        height: cardheight,
-                        width: widthMobile * 0.9,
+                        height: 135.h,
                         child: ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
@@ -365,125 +365,161 @@ class _AppointmentListState extends State<AppointmentList> {
                                 "${chatItem["guestname"]}",
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.13,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                               //Phone number and Time
                               subtitle: Container(
-                                  child: Column(children: [
-                                SizedBox(
-                                  height: cardheight * 0.04,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.add_call,
-                                      size: cardheight * 0.07,
-                                    ),
-                                    SizedBox(
-                                      width: widthMobile * 0.02,
-                                    ),
-                                    Text(
-                                      "${chatItem["guestphone"]}",
-                                      style: TextStyle(
-                                          fontSize: cardheight * 0.09),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: cardheight * 0.03,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.access_alarm,
-                                      size: cardheight * 0.08,
-                                    ),
-                                    SizedBox(
-                                      width: widthMobile * 0.02,
-                                    ),
-                                    Text(
-                                      chatItem["guestappointdatetime"] == null
-                                          ? "NA | NA"
-                                          : "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
-                                      // "${chatItem["guestappointtime"]} | ${chatItem["guestappointdate"]}",
-                                      style: TextStyle(
-                                        fontSize: cardheight * 0.08,
-                                        backgroundColor: Color(0XffD1F0E8),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 2.h,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ])),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.add_call,
+                                            size: 11.sp,
+                                          ),
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          Text(
+                                            "${chatItem["guestphone"]}",
+                                            style: TextStyle(
+                                                fontSize: 11.sp),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.access_alarm,
+                                            size: 11.sp,
+                                          ),
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          Text(
+                                            chatItem["guestappointdatetime"] ==
+                                                null
+                                                ? "NA | NA"
+                                                : "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                            style: TextStyle(
+                                              fontSize: 11.sp,
+                                              backgroundColor: Color(0XffD1F0E8),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  )),
                               //Id Image
                               //Room Number
-                              trailing: SingleChildScrollView(
-                                physics: const NeverScrollableScrollPhysics(),
+                              trailing: SizedBox(
+                                width: 78.w,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     //SizedBox(height: cardheight * 0.07),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0.0, 0.0, 08.0, 0.0),
-                                      child: Text(
-                                        chatItem["isStudent"]
-                                            ? "Student"
-                                            : "Guest",
-                                        style: TextStyle(
-                                            fontSize: cardheight * 0.09,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                    SizedBox(height: 15.h),
+                                    Text(
+                                      chatItem["isStudent"]
+                                          ? "Student"
+                                          : "Guest",
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     // SizedBox(height: cardheight * 0.07),
-                                    TextButton.icon(
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                double widthMobile =
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .width;
-                                                double heightMobile =
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height;
-                                                return AlertDialog(
-                                                  title: Text(
-                                                    "Description",
+                                    SizedBox(height: 3.h),
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder:
+                                                (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                  "Description",
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                      color: Color(
+                                                          0Xff15609c)),
+                                                ),
+                                                content: Container(
+                                                  child: Text(
+                                                    '${chatItem["guestpurpose"]}',
+                                                    //softWrap: true,
                                                     style: TextStyle(
-                                                        fontSize: heightMobile *
-                                                            0.027,
-                                                        color:
-                                                            Color(0Xff15609c)),
-                                                  ),
-                                                  content: Container(
-                                                    child: Text(
-                                                      '${chatItem["guestpurpose"]}',
-                                                      //softWrap: true,
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: heightMobile *
-                                                            0.021,
-                                                      ),
+                                                      color: Colors.black,
+                                                      fontSize: 13.sp,
                                                     ),
                                                   ),
-                                                );
-                                              });
-                                        },
-                                        icon: Icon(
-                                          CupertinoIcons
-                                              .arrowtriangle_down_circle_fill,
-                                          size: cardheight * 0.11,
-                                          color: Color(0Xff14619C),
-                                        ),
-                                        label: Text(
-                                          "Description",
-                                          style: TextStyle(
-                                              fontSize: heightMobile * 0.016,
-                                              color: Color(0Xff15609c)),
-                                        ))
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            CupertinoIcons
+                                                .arrowtriangle_down_circle_fill,
+                                            size: 12.sp,
+                                            color: Color(0Xff14619C),
+                                          ),
+                                          SizedBox(width: 3.w,),
+                                          Text(
+                                            "Description",
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: Color(0Xff15609c)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // TextButton.icon(
+                                    //     onPressed: () {
+                                    //       showDialog(
+                                    //           context: context,
+                                    //           builder:
+                                    //               (BuildContext context) {
+                                    //             return AlertDialog(
+                                    //               title: Text(
+                                    //                 "Description",
+                                    //                 style: TextStyle(
+                                    //                     fontSize: 16.sp,
+                                    //                     color: Color(
+                                    //                         0Xff15609c)),
+                                    //               ),
+                                    //               content: Container(
+                                    //                 child: Text(
+                                    //                   '${chatItem["guestpurpose"]}',
+                                    //                   //softWrap: true,
+                                    //                   style: TextStyle(
+                                    //                     color: Colors.black,
+                                    //                     fontSize: 13.sp,
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //             );
+                                    //           });
+                                    //     },
+                                    //     icon: Icon(
+                                    //       CupertinoIcons
+                                    //           .arrowtriangle_down_circle_fill,
+                                    //       size: 12.sp,
+                                    //       color: Color(0Xff14619C),
+                                    //     ),
+                                    //     label: Text(
+                                    //       "Description",
+                                    //       style: TextStyle(
+                                    //           fontSize: 12.sp,
+                                    //           color: Color(0Xff15609c)),
+                                    //     ))
                                     // InkWell(
                                     //     onTap: () {
                                     //       dialogBox();
@@ -503,11 +539,8 @@ class _AppointmentListState extends State<AppointmentList> {
                                   ],
                                 ),
                               ),
-                              contentPadding: EdgeInsets.fromLTRB(
-                                  cardheight * 0.1,
-                                  cardheight * 0.1,
-                                  cardheight * 0.1,
-                                  cardheight * 0.05),
+                              contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
                             ),
                             // SizedBox(
                             //   height: cardheight * 0.05,
@@ -516,8 +549,8 @@ class _AppointmentListState extends State<AppointmentList> {
                             Column(
                               children: [
                                 Container(
-                                  height: cardheight * 0.25,
-                                  width: widthMobile * 0.88,
+                                  height: 38.h,
+                                  width: 320.w,
                                   child: OutlinedButton(
                                     onPressed: () {
                                       _selectDate(
@@ -528,7 +561,7 @@ class _AppointmentListState extends State<AppointmentList> {
                                     child: Text(
                                       'Reschedule',
                                       style: TextStyle(
-                                          fontSize: heightMobile * 0.022,
+                                          fontSize: 16.sp,
                                           color: Color(0Xff19B38D)),
                                     ),
                                     style: OutlinedButton.styleFrom(
@@ -563,7 +596,7 @@ class _AppointmentListState extends State<AppointmentList> {
                               ],
                             ),
                             SizedBox(
-                              height: cardheight * 0.1,
+                              height: 10.h,
                             )
                           ],
                         ),

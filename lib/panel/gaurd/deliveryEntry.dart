@@ -20,9 +20,9 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
   Widget _buildName() {
     return TextFormField(
-      style: TextStyle(fontSize: 16.sp),
+      style: TextStyle(fontSize: 14.sp),
       decoration: InputDecoration(
-          labelText: 'Name', labelStyle: TextStyle(fontSize: 15.sp)),
+          labelText: 'Name', labelStyle: TextStyle(fontSize: 13.sp)),
       validator: (value) {
         // value:
         if (value == null || value.isEmpty) {
@@ -37,9 +37,9 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
 
   Widget _buildVehicle() {
     return TextFormField(
-      style: TextStyle(fontSize: 16.sp),
+      style: TextStyle(fontSize: 14.sp),
       decoration: InputDecoration(
-          labelText: 'Vehicle Number', labelStyle: TextStyle(fontSize: 15.sp)),
+          labelText: 'Vehicle Number', labelStyle: TextStyle(fontSize: 13.sp)),
       validator: (value) {
         // value:
         if (value == null || value.isEmpty) {
@@ -60,7 +60,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
       ),
       style: TextStyle(
         color: Colors.black,
-        fontSize: 15.sp,
+        fontSize: 13.sp,
       ),
       onChanged: (newValue) => setState(() => _purpose = newValue),
       validator: (value) {
@@ -77,7 +77,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
           value: value,
           child: Text(
             value,
-            style: TextStyle(fontSize: 16.sp),
+            style: TextStyle(fontSize: 14.sp),
           ),
         );
       }).toList(),
@@ -90,6 +90,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
       children: [
         Expanded(
           child: TextFormField(
+            style: TextStyle(fontSize: 14.sp),
             readOnly: true,
             decoration: InputDecoration(
               labelText: 'Date',
@@ -125,6 +126,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
         ),
         Expanded(
           child: TextFormField(
+            style: TextStyle(fontSize: 14.sp),
             readOnly: true,
             decoration: InputDecoration(
               labelText: 'Time',
@@ -168,7 +170,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
         centerTitle: true,
         title: Text(
           "Guest Entry Form",
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
         ),
       ),
       body: SingleChildScrollView(
@@ -195,16 +197,16 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                     ),
                     _buildName(),
 
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 6.h),
                     _buildVehicle(),
                     //SizedBox(height: heightMobile * 0.009),
-                    SizedBox(height: 24.h),
+                    SizedBox(height: 22.h),
                     _buildTime(),
-                    SizedBox(height: 24.h),
+                    SizedBox(height: 22.h),
                     _buildpurpose(),
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 6.h),
                     _purpose == "Appointment"
-                        ? customTextField("Phone Number", "", 16.h)
+                        ? customTextField("Phone Number", "", 14.h)
                         : SizedBox.shrink(),
                     SizedBox(height: 50.h),
                     ElevatedButton(
@@ -216,12 +218,12 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
                             padding: EdgeInsets.all(15.h),
                             // padding: const EdgeInsets.all(10),
                             minimumSize:
-                                Size(MediaQuery.of(context).size.width, 50.h)),
+                                Size(MediaQuery.of(context).size.width, 48.h)),
                         child: Text(
                           'Done',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.sp,
+                            fontSize: 16.sp,
                           ),
                         ),
                         onPressed: () async {
@@ -258,7 +260,7 @@ class _DeliveryEntryState extends State<DeliveryEntry> {
   Widget customTextField(String lab, String initValue, double fsize) {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: lab.toString(), labelStyle: TextStyle(fontSize: 15.sp)),
+          labelText: lab.toString(), labelStyle: TextStyle(fontSize: 13.sp)),
       initialValue: initValue,
       //readOnly: read,
       style: TextStyle(

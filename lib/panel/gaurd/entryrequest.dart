@@ -29,9 +29,9 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.195;
+    // double widthMobile = MediaQuery.of(context).size.width;
+    // double heightMobile = MediaQuery.of(context).size.height;
+    // double cardheight = heightMobile * 0.195;
     return Scaffold(
         body: StreamBuilder(
       stream: stream,
@@ -75,12 +75,11 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.all(heightMobile * 0.008),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                 child: Card(
                   elevation: 3.5,
                   child: SizedBox(
-                    height: cardheight,
-                    width: widthMobile * 0.9,
+                    height: 135.h,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
@@ -89,7 +88,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: cardheight * 0.13,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
@@ -97,21 +96,20 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               child: Column(
                             children: [
                               SizedBox(
-                                height: cardheight * 0.04,
+                                height: 2.h,
                               ),
                               Row(
                                 children: [
                                   Icon(
                                     Icons.add_call,
-                                    size: cardheight * 0.07,
+                                    size: 11.sp,
                                   ),
                                   SizedBox(
-                                    width: widthMobile * 0.02,
+                                    width: 5.w,
                                   ),
                                   Text(
                                     "${chatItem["phone"]}",
-                                    style:
-                                        TextStyle(fontSize: cardheight * 0.09),
+                                    style: TextStyle(fontSize: 11.sp),
                                   ),
                                 ],
                               ),
@@ -141,10 +139,10 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                           //Id Image
                           leading: ConstrainedBox(
                             constraints: BoxConstraints(
-                              minWidth: widthMobile * 0.07,
-                              minHeight: cardheight * 0.25,
-                              maxWidth: widthMobile * 0.15,
-                              maxHeight: cardheight * 0.45,
+                              minWidth: 30.w,
+                              minHeight: 50.h,
+                              maxWidth: 60.h,
+                              maxHeight: 55.h,
                             ),
                             child: GestureDetector(
                                 child: Hero(
@@ -163,28 +161,24 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                           trailing: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: cardheight * 0.07),
+                              SizedBox(height: 15.h),
                               Text(
-                                "${chatItem["hostelno"]}/${chatItem["room"]}",
+                                " ${chatItem["hostelno"]}/${chatItem["room"]}",
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.09,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              SizedBox(height: cardheight * 0.02),
+                              SizedBox(height: 3.h),
                               Text(
                                 "${chatItem["enrollment"]}",
                                 style: TextStyle(
-                                    fontSize: cardheight * 0.09,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              //SizedBox(height: cardheight * 0.1,)
                             ],
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(
-                              cardheight * 0.1,
-                              cardheight * 0.1,
-                              cardheight * 0.1,
-                              cardheight * 0.0),
+                          contentPadding:
+                          EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
                         ),
                         // SizedBox(
                         //   height: cardheight * 0.03,
@@ -197,8 +191,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: cardheight * 0.25,
-                                  width: widthMobile * 0.42,
+                                  height: 38.h,
+                                  width: 150.w,
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       await FirebaseFirestore.instance
@@ -230,7 +224,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                     child: Text(
                                       "Accept",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.1,
+                                        fontSize: 14.sp,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -242,11 +236,11 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: widthMobile * 0.05,
+                                  width: 20.w,
                                 ),
                                 Container(
-                                  height: cardheight * 0.25,
-                                  width: widthMobile * 0.42,
+                                  height: 38.h,
+                                  width: 150.w,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       FirebaseFirestore.instance
@@ -261,7 +255,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                     child: Text(
                                       "Decline",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.1,
+                                        fontSize: 14.sp,
                                         color: Colors.red[700],
                                       ),
                                     ),
@@ -275,7 +269,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               ],
                             )),
                             SizedBox(
-                              height: cardheight * 0.1,
+                              height: 10.h,
                             )
                           ],
                         ),

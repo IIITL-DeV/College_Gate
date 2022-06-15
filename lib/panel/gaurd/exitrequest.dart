@@ -32,7 +32,7 @@ class _guardRequestHomeState extends State<guardRequestHome>
         children: [
           // give the tab bar a height [can change hheight to preferred height]
           Container(
-            height: 58.h,
+            height: 54.h,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(
@@ -50,7 +50,7 @@ class _guardRequestHomeState extends State<guardRequestHome>
               ),
 
               labelColor: Color(0Xff15609c),
-              labelStyle: TextStyle(fontSize: 16.h),
+              labelStyle: TextStyle(fontSize: 14.h),
               unselectedLabelColor: Color(0XffD4D4D4),
               tabs: [
                 // first tab [you can add an icon using the icon property]
@@ -107,11 +107,11 @@ class _guard_requestsState extends State<guard_requests> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.195;
-    //print(cardheight);
-    if (cardheight > 155) cardheight = 155;
+    // double widthMobile = MediaQuery.of(context).size.width;
+    // double heightMobile = MediaQuery.of(context).size.height;
+    // double cardheight = heightMobile * 0.195;
+    // //print(cardheight);
+    // if (cardheight > 155) cardheight = 155;
     return Scaffold(
         body: StreamBuilder(
       stream: stream,
@@ -155,13 +155,11 @@ class _guard_requestsState extends State<guard_requests> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.all(
-                  heightMobile * 0.008,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                 child: Card(
-                  elevation: 2.5,
+                  elevation: 2,
                   child: SizedBox(
-                    height: 150.h,
+                    height: 135.h,
                     child: ListView(
                       children: [
                         ListTile(
@@ -169,7 +167,7 @@ class _guard_requestsState extends State<guard_requests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 18.sp, fontWeight: FontWeight.bold),
+                                fontSize: 16.sp, fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
                           subtitle: Container(
@@ -182,14 +180,14 @@ class _guard_requestsState extends State<guard_requests> {
                                 children: [
                                   Icon(
                                     Icons.add_call,
-                                    size: 12.sp,
+                                    size: 11.sp,
                                   ),
                                   SizedBox(
-                                    width: 7.w,
+                                    width: 5.w,
                                   ),
                                   Text(
                                     "${chatItem["phone"]}",
-                                    style: TextStyle(fontSize: 13.sp),
+                                    style: TextStyle(fontSize: 11.sp),
                                   ),
                                 ],
                               ),
@@ -224,20 +222,20 @@ class _guard_requestsState extends State<guard_requests> {
                               Text(
                                 " ${chatItem["hostelno"]}/${chatItem["room"]}",
                                 style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 11.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                               SizedBox(height: 3.h),
                               Text(
                                 "${chatItem["enrollment"]}",
                                 style: TextStyle(
-                                    fontSize: 12.sp,
+                                    fontSize: 11.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                           contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12.w),
+                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
                         ),
                         // SizedBox(
                         //   height: 6.h,
@@ -250,8 +248,8 @@ class _guard_requestsState extends State<guard_requests> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: cardheight * 0.25,
-                                  width: widthMobile * 0.42,
+                                  height: 38.h,
+                                  width: 150.w,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       FirebaseFirestore.instance
@@ -268,7 +266,7 @@ class _guard_requestsState extends State<guard_requests> {
                                     child: Text(
                                       "Accept",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.1,
+                                        fontSize: 14.sp,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -280,11 +278,11 @@ class _guard_requestsState extends State<guard_requests> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: widthMobile * 0.05,
+                                  width: 20.w,
                                 ),
                                 Container(
-                                  height: cardheight * 0.25,
-                                  width: widthMobile * 0.42,
+                                  height: 38.h,
+                                  width: 150.w,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       FirebaseFirestore.instance
@@ -299,7 +297,7 @@ class _guard_requestsState extends State<guard_requests> {
                                     child: Text(
                                       "Decline",
                                       style: TextStyle(
-                                        fontSize: cardheight * 0.1,
+                                        fontSize: 14.sp,
                                         color: Colors.red[700],
                                       ),
                                     ),
@@ -313,7 +311,7 @@ class _guard_requestsState extends State<guard_requests> {
                               ],
                             )),
                             SizedBox(
-                              height: cardheight * 0.1,
+                              height: 10.h,
                             )
                           ],
                         ),

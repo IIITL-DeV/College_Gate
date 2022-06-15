@@ -4,6 +4,8 @@ import 'package:college_gate/panel/guest/student_appointment.dart';
 import 'package:college_gate/panel/guest/faculty_appointment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class GuestHome extends StatelessWidget {
   const GuestHome({Key? key}) : super(key: key);
@@ -14,16 +16,24 @@ class GuestHome extends StatelessWidget {
     double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Color(0Xff15609c),
-          title: Text(
-            "Book Appointment",
-            style: TextStyle(fontSize: heightMobile * 0.025),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                width: 12.w,
+              ),
+              Text("Book Appointment", style: TextStyle(fontSize: 20.sp)),
+              //SizedBox(width: 50.w,),
+            ],
           ),
         ),
         body: Container(
-          height: heightMobile,
-          width: widthMobile,
-          padding: EdgeInsets.all(heightMobile * 0.02),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 13.h),
           child: Column(
             children: [
               // Container(
@@ -42,22 +52,18 @@ class GuestHome extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => booking()));
                 },
                 child: Card(
-                  elevation: 4,
+                  elevation: 2,
                   child: Column(
                     children: [
                       SizedBox(
-                        height: heightMobile * 0.2,
+                        height: 138.h,
                         child: Ink.image(
                           image: AssetImage("assets/studentAppointment.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
+                        padding: EdgeInsets.fromLTRB(15.w, 8.h, 5.w, 8.h),
                         alignment: Alignment.centerLeft,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +71,7 @@ class GuestHome extends StatelessWidget {
                             Text(
                               "Student",
                               style: TextStyle(
-                                  fontSize: heightMobile * 0.021,
+                                  fontSize: 16.sp,
                                   color: Color(0Xff232F77)),
                             ),
                             //SizedBox(width: widthMobile * 0.1,),
@@ -79,7 +85,7 @@ class GuestHome extends StatelessWidget {
                                 },
                                 icon: Icon(
                                   Icons.chevron_right,
-                                  size: heightMobile * 0.03,
+                                  size: 23.sp,
                                   color: Color(0Xff232F77),
                                 ))
                           ],
@@ -100,22 +106,18 @@ class GuestHome extends StatelessWidget {
                               )));
                 },
                 child: Card(
-                  elevation: 4,
+                  elevation: 2,
                   child: Column(
                     children: [
                       SizedBox(
-                        height: heightMobile * 0.2,
+                        height: 138.h,
                         child: Ink.image(
                           image: AssetImage("assets/facultyAppointment.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(
-                            heightMobile * 0.02,
-                            heightMobile * 0.01,
-                            heightMobile * 0.015,
-                            heightMobile * 0.01),
+                        padding: EdgeInsets.fromLTRB(15.w, 8.h, 5.w, 8.h),
                         alignment: Alignment.centerLeft,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +125,7 @@ class GuestHome extends StatelessWidget {
                             Text(
                               "Faculty",
                               style: TextStyle(
-                                  fontSize: heightMobile * 0.021,
+                                  fontSize: 16.sp,
                                   color: Color(0Xff232F77)),
                             ),
                             //SizedBox(width: widthMobile * 0.1,),
@@ -139,7 +141,7 @@ class GuestHome extends StatelessWidget {
                                 },
                                 icon: Icon(
                                   Icons.chevron_right,
-                                  size: heightMobile * 0.03,
+                                  size: 23.sp,
                                   color: Color(0Xff232F77),
                                 ))
                           ],
