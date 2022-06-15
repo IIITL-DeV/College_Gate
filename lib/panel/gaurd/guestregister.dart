@@ -119,8 +119,8 @@ class _guestRegisterState extends State<guestRegister> {
                   chatItem.get('name').toString(),
                   chatItem.get('vehicleno').toString(),
                   chatItem.get('purpose').toString(),
-                  "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                   "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
+                  "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                 ]);
 
                 return Padding(
@@ -190,9 +190,9 @@ class _guestRegisterState extends State<guestRegister> {
                                       width: 4.w,
                                     ),
                                     Text(
-                                      chatItem["exitdatetime"] == null
-                                          ? "IN | IN"
-                                          : "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
+                                      chatItem["entrydatetime"] == null
+                                          ? "OUT | OUT"
+                                          : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                                       style: TextStyle(
                                         fontSize: 13.sp,
                                         backgroundColor: Color(0XffD1F0E8),
@@ -210,9 +210,9 @@ class _guestRegisterState extends State<guestRegister> {
                                       width: 4.w,
                                     ),
                                     Text(
-                                      chatItem["entrydatetime"] == null
-                                          ? "OUT | OUT"
-                                          : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
+                                      chatItem["exitdatetime"] == null
+                                          ? "IN | IN"
+                                          : "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
                                       style: TextStyle(
                                         fontSize: 13.sp,
                                         backgroundColor: Color(0XffD1F0E8),

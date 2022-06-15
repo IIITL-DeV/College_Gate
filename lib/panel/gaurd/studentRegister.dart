@@ -148,12 +148,21 @@ class _StudentRegisterState extends State<StudentRegister> {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 final chatItem = snapshot.data!.docs[index];
+
+                String exittime = chatItem["exitdatetime"] == null
+                    ? "Home"
+                    : DateFormat('HH:mm')
+                        .format(chatItem["exitdatetime"].toDate());
+                String exitdate = chatItem["exitdatetime"] == null
+                    ? "Home"
+                    : DateFormat('dd-MM-yyyy')
+                        .format(chatItem["exitdatetime"].toDate());
                 // ignore: unnecessary_statements
                 rows.add(<String>[
                   chatItem.get('name').toString(),
                   chatItem.get('enrollment').toString(),
-                  chatItem.get('purpose').toString(),
-                  "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
+                  chatItem["purpose"] == null ? "Home" : chatItem["purpose"],
+                  "${exittime} | ${exitdate}",
                   "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
                 ]);
 
@@ -228,7 +237,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                                     ),
                                     Text(
                                       chatItem["exitdatetime"] == null
-                                          ? "IN | IN"
+                                          ? "HOME | HOME"
                                           : "${DateFormat('HH:mm').format(chatItem["exitdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["exitdatetime"].toDate())}",
                                       style: TextStyle(
                                         fontSize: 13.sp,

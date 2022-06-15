@@ -113,7 +113,20 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    showpurpose(context);
+                    FirebaseFirestore.instance
+                        .collection('studentUser')
+                        .doc((FirebaseAuth.instance.currentUser)!.email)
+                        .get()
+                        .then((value) {
+                      String? exitapproved =
+                          value.data()!['exitisapproved']?.toString();
+                      if (exitapproved == "ExitApproved") {
+                        flutterToast("Exit request is already approved");
+                      } else if (exitapproved == "ExitPending")
+                        flutterToast("Exit request is already sent");
+                      else
+                        showpurpose(context);
+                    });
                   },
                   child: Card(
                     elevation: 4,
@@ -145,7 +158,25 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                               IconButton(
                                   alignment: Alignment.centerRight,
                                   onPressed: () {
-                                    showpurpose(context);
+                                    FirebaseFirestore.instance
+                                        .collection('studentUser')
+                                        .doc(
+                                            (FirebaseAuth.instance.currentUser)!
+                                                .email)
+                                        .get()
+                                        .then((value) {
+                                      String? exitapproved = value
+                                          .data()!['exitisapproved']
+                                          ?.toString();
+                                      if (exitapproved == "ExitApproved") {
+                                        flutterToast(
+                                            "Exit request is already approved");
+                                      } else if (exitapproved == "ExitPending")
+                                        flutterToast(
+                                            "Exit request is already sent");
+                                      else
+                                        showpurpose(context);
+                                    });
                                   },
                                   icon: Icon(Icons.chevron_right,
                                       size: heightMobile * 0.03,
@@ -159,7 +190,21 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    showentry(context);
+                    FirebaseFirestore.instance
+                        .collection('studentUser')
+                        .doc((FirebaseAuth.instance.currentUser)!.email)
+                        .get()
+                        .then((value) {
+                      String? entryapproved =
+                          value.data()!['entryisapproved']?.toString();
+                      if (entryapproved == "EntryApproved") {
+                        flutterToast(
+                            "Cannot send entry request before exit is made.");
+                      } else if (entryapproved == "EntryPending")
+                        flutterToast("Entry request is already sent");
+                      else
+                        showentry(context);
+                    });
                   },
                   child: Card(
                     elevation: 4,
@@ -190,7 +235,26 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                 IconButton(
                                     alignment: Alignment.centerRight,
                                     onPressed: () {
-                                      showentry(context);
+                                      FirebaseFirestore.instance
+                                          .collection('studentUser')
+                                          .doc((FirebaseAuth
+                                                  .instance.currentUser)!
+                                              .email)
+                                          .get()
+                                          .then((value) {
+                                        String? entryapproved = value
+                                            .data()!['entryisapproved']
+                                            ?.toString();
+                                        if (entryapproved == "EntryApproved") {
+                                          flutterToast(
+                                              "Cannot send entry request before exit is made.");
+                                        } else if (entryapproved ==
+                                            "EntryPending")
+                                          flutterToast(
+                                              "Entry request is already sent");
+                                        else
+                                          showentry(context);
+                                      });
                                     },
                                     icon: Icon(Icons.chevron_right,
                                         size: heightMobile * 0.03,
@@ -379,17 +443,8 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                         } else {
                           print("Not validated");
                         }
-                        // reschedulesendMail(
-                        //   email,
-                        //   _dateController.text,
-                        //   _timeController.text,
-                        // ).whenComplete(() {
-                        //   setState(() {});
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //       const SnackBar(content: Text('Guest Notified')));
-                        // });
                         flutterToast("Exit Form Submitted");
-                        // Navigator.of(context).pop();
+
                         Navigator.of(context).pop();
                       },
                       child: Text(

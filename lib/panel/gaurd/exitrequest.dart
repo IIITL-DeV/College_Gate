@@ -100,9 +100,8 @@ class _guard_requestsState extends State<guard_requests> {
     super.initState();
     stream = FirebaseFirestore.instance
         .collection("studentUser")
-        .where("purpose", isEqualTo: "Outing")
         .where("exitisapproved", isEqualTo: "ExitPending")
-        .orderBy("exitdatetime", descending: false)
+        // .orderBy("exitdatetime", descending: false)
         .snapshots();
   }
 
@@ -261,6 +260,7 @@ class _guard_requestsState extends State<guard_requests> {
                                           .update({
                                         "exitisapproved": "ExitApproved",
                                         "exitdatetime": DateTime.now(),
+                                        "entryisapproved": null,
                                       }).then((_) {
                                         print("success!");
                                       });

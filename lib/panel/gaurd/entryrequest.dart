@@ -21,9 +21,9 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
     super.initState();
     stream = FirebaseFirestore.instance
         .collection("studentUser")
-        .where("purpose", isEqualTo: "Outing")
+        // .where("purpose", isEqualTo: "Outing")
         .where("entryisapproved", isEqualTo: "EntryPending")
-        .orderBy("entrydatetime", descending: false)
+        // .orderBy("exitdatetime", descending: false)
         .snapshots();
   }
 
@@ -210,7 +210,9 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                         "exitdatetime":
                                             chatItem["exitdatetime"],
                                         "entrydatetime": DateTime.now(),
-                                        "purpose": "Outing",
+                                        "purpose": chatItem["purpose"] == null
+                                            ? "Home"
+                                            : chatItem["purpose"],
                                       });
 
                                       await FirebaseFirestore.instance
