@@ -10,7 +10,6 @@ import 'package:getwidget/getwidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class completeProfile extends StatefulWidget {
   @override
   _completeProfileState createState() => _completeProfileState();
@@ -45,9 +44,10 @@ class _completeProfileState extends State<completeProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_username == null) {
-      return Center(child: CircularProgressIndicator());
+      return Container(
+          color: Colors.white,
+          child: Center(child: CircularProgressIndicator()));
     } else
       return Scaffold(
           appBar: AppBar(
@@ -57,7 +57,8 @@ class _completeProfileState extends State<completeProfile> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
+                SizedBox(
+                    height: 21.sp, child: Image.asset("assets/cg_white.png")),
                 SizedBox(
                   width: 12.w,
                 ),
@@ -248,8 +249,8 @@ class _completeProfileState extends State<completeProfile> {
                                 primary: Color(0Xff15609c),
                                 padding: EdgeInsets.all(12),
                                 // padding: const EdgeInsets.all(10),
-                                minimumSize:
-                                    Size(MediaQuery.of(context).size.width,38.h)),
+                                minimumSize: Size(
+                                    MediaQuery.of(context).size.width, 38.h)),
                             child: Text(
                               'Done',
                               style: TextStyle(

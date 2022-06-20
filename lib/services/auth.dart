@@ -77,7 +77,7 @@ class AuthMethods {
                 "hostelno": null,
                 "room": null,
                 "phone": null,
-                "idcard": null,
+                "idcard": "empty",
               });
               await Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => completeProfile()));
@@ -92,7 +92,7 @@ class AuthMethods {
                 "officeno": null,
                 "Designation": null,
                 "phone": null,
-                "ProfilePic": null,
+                "ProfilePic": "empty",
               });
               await Navigator.pushReplacement(
                   context,
@@ -109,8 +109,26 @@ class AuthMethods {
         print(getemail);
         if ("@iiitl.ac.in" == getemail) {
           if (isstudent == true) {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => studentHome()));
+            FirebaseFirestore.instance
+                .collection("studentUser")
+                .doc(userDetails.email)
+                .get()
+                .then((value) => {
+                      if (value.data()!['idcard'] == "empty")
+                        {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => completeProfile()))
+                        }
+                      else
+                        {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => studentHome())),
+                        }
+                    });
           } else {
             await Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => FacultyHome()));

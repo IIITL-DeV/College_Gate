@@ -14,7 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'panel/gaurd/gaurd_home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,13 +33,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
-    // FlutterNativeSplash.remove();
-    // new Future.delayed(
-    //   const Duration(seconds: 3),
-    // );
   }
 
-  Widget? getScreen() {
+  Widget getScreen() {
     if (FirebaseAuth.instance.currentUser != null) {
       String? getemail = FirebaseAuth.instance.currentUser!.email;
       if (getemail != null && getemail.length >= 11) {
@@ -50,16 +46,14 @@ class _MyAppState extends State<MyApp> {
       bool isstudent = fullemail!.contains(new RegExp(r'[0-9]'));
       if (FirebaseAuth.instance.currentUser!.email ==
           "iiitlcollegegate12@gmail.com") return gaurdHome();
-      // if (FirebaseAuth.instance.currentUser!.email == "singhanu3113@gmail.com")
-      //   return wardenHome();
       if ("@iiitl.ac.in" == getemail && isstudent == true) {
         FirebaseFirestore.instance
-            .collection('facultyUser')
+            .collection('studentUser')
             .doc((FirebaseAuth.instance.currentUser)!.email)
             .get()
             .then((value) {
-          String? idcard = value.data()!['idcard']?.toString();
-          if (idcard == null)
+          String? idcard = value.data()!['idcard'].toString();
+          if (idcard == "empty")
             return completeProfile();
           else
             return studentHome();
@@ -70,63 +64,75 @@ class _MyAppState extends State<MyApp> {
             .doc((FirebaseAuth.instance.currentUser)!.email)
             .get()
             .then((value) {
-          String? idcard = value.data()!['ProfilePic']?.toString();
-          if (idcard == null)
+          String? idcard = value.data()?['ProfilePic'];
+          if (idcard == "empty")
             return FacultyCompleteProfile();
           else
             return FacultyHome();
         });
-      else
-        return SignIn();
-    } else
-      return SignIn();
+    }
+    return gaurdHome();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Widget example1 = SplashScreenView(
-    //   navigateRoute: getScreen(),
-    //   duration: 500,
-    //   imageSize: 500,
-    //   imageSrc: "assets/From.png",
-    //   // text: "College Gate",
-    //   textType: TextType.ColorizeAnimationText,
-    //   backgroundColor: Colors.white,
-    //   textStyle: TextStyle(
-    //     fontSize: 40.0,
-    //   ),
-    //   colors: [
-    //     Color(0xFF388E3C),
-    //     Color(0xFF01579B)
-    //     // Color(0xFF388E3C),
-    //   ],
-    // );
-    // Widget example2 = SplashScreenView(
-    //   navigateRoute: SignIn(),
-    //   imageSize: 500,
-    //   duration: 500,
-    //   imageSrc: "assets/From.png",
-    //   // text: "College Gate",
-    //   textType: TextType.ColorizeAnimationText,
-    //   textStyle: TextStyle(
-    //     fontSize: 40.0,
-    //   ),
-    //   colors: [
-    //     Color(0xFF388E3C),
-    //     Color(0xFF01579B),
-    //   ],
-    //   backgroundColor: Colors.white,
-    // );
+    Widget example1 = SplashScreenView(
+      navigateRoute: getScreen(),
+      duration: 500,
+      imageSize: 500,
+      imageSrc: "assets/from.png",
+      // text: "College Gate",
+      textType: TextType.ColorizeAnimationText,
+      backgroundColor: Colors.white,
+      textStyle: TextStyle(
+        fontSize: 40.0,
+      ),
+      colors: [
+        Color(0xFF388E3C),
+        Color(0xFF01579B)
+        // Color(0xFF388E3C),
+      ],
+    );
+    Widget example2 = SplashScreenView(
+      navigateRoute: SignIn(),
+      imageSize: 500,
+      duration: 500,
+      imageSrc: "assets/from.png",
+      // text: "College Gate",
+      textType: TextType.ColorizeAnimationText,
+      textStyle: TextStyle(
+        fontSize: 40.0,
+      ),
+      colors: [
+        Color(0xFF388E3C),
+        Color(0xFF01579B),
+      ],
+      backgroundColor: Colors.white,
+    );
 
     return ScreenUtilInit(
       builder: () => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
-          home: FutureBuilder(
-            future: AuthMethods().getCurrentUser(),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.hasData) getScreen();
-              return SignIn();
+          home: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (BuildContext context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                  ),
+                );
+              if (snapshot.hasError)
+                return Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.black,
+                  ),
+                );
+              if (snapshot.hasData) {
+                return example1;
+              } else
+                return example2;
             },
           )),
       designSize: const Size(375, 812),

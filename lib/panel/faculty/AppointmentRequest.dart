@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import '../../main.dart';
 
 class AppointmentRequest extends StatefulWidget {
@@ -117,12 +116,10 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-
           return AlertDialog(
             title: Text(
               "Reschedule",
-              style: TextStyle(
-                  fontSize: 16.sp, color: Color(0Xff15609c)),
+              style: TextStyle(fontSize: 16.sp, color: Color(0Xff15609c)),
             ),
             content: Container(
               child: Text(
@@ -204,15 +201,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   ),
                   TextButton(
                       onPressed: () {
-
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                       child: Text("Cancel",
                           style: TextStyle(
-                              fontSize:
-                                  14.sp,
-                              color: Colors.red[700]))),
+                              fontSize: 14.sp, color: Colors.red[700]))),
                 ],
               )
             ],
@@ -275,7 +269,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 56.h,
@@ -284,7 +277,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                  height: 21.sp, child: Image.asset("assets/cg_white.png")),
               SizedBox(
                 width: 12.w,
               ),
@@ -337,7 +331,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   itemBuilder: (context, index) {
                     final chatItem = snapshot.data!.docs[index];
                     return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                       child: Card(
                         elevation: 2,
                         child: SizedBox(
@@ -371,8 +366,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                         ),
                                         Text(
                                           "${chatItem["guestphone"]}",
-                                          style: TextStyle(
-                                              fontSize: 11.sp),
+                                          style: TextStyle(fontSize: 11.sp),
                                         ),
                                       ],
                                     ),
@@ -425,15 +419,14 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                         onTap: () {
                                           showDialog(
                                               context: context,
-                                              builder:
-                                                  (BuildContext context) {
+                                              builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   title: Text(
                                                     "Description",
                                                     style: TextStyle(
                                                         fontSize: 16.sp,
-                                                        color: Color(
-                                                            0Xff15609c)),
+                                                        color:
+                                                            Color(0Xff15609c)),
                                                   ),
                                                   content: Container(
                                                     child: Text(
@@ -450,13 +443,15 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                         },
                                         child: Row(
                                           children: [
-                                          Icon(
-                                                CupertinoIcons
-                                                     .arrowtriangle_down_circle_fill,
-                                                 size: 12.sp,
-                                                 color: Color(0Xff14619C),
-                                               ),
-                                            SizedBox(width: 3.w,),
+                                            Icon(
+                                              CupertinoIcons
+                                                  .arrowtriangle_down_circle_fill,
+                                              size: 12.sp,
+                                              color: Color(0Xff14619C),
+                                            ),
+                                            SizedBox(
+                                              width: 3.w,
+                                            ),
                                             Text(
                                               "Description",
                                               style: TextStyle(
@@ -524,8 +519,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                     ],
                                   ),
                                 ),
-                                contentPadding:
-                                EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 12.w, vertical: 5.h),
                               ),
                               // SizedBox(
                               //   height: cardheight * 0.05,
@@ -617,7 +612,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                 context: context,
                                                 builder:
                                                     (BuildContext context) {
-
                                                   return AlertDialog(
                                                     elevation: 3,
                                                     title: Column(
@@ -625,8 +619,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                         Text(
                                                           "Are you sure you want to decline?",
                                                           style: TextStyle(
-                                                              fontSize:
-                                                                  16.sp),
+                                                              fontSize: 16.sp),
                                                         ),
                                                         SizedBox(
                                                           height: 8.h,
@@ -662,7 +655,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                         //softWrap: true,
                                                         style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize:13.sp,
+                                                          fontSize: 13.sp,
                                                         ),
                                                       ),
                                                     ),
@@ -693,7 +686,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                     "Reschedule",
                                                                     style:
                                                                         TextStyle(
-                                                                      fontSize: 14.sp,
+                                                                      fontSize:
+                                                                          14.sp,
                                                                       color: Colors
                                                                           .white,
                                                                     ),
@@ -708,8 +702,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                 ),
                                                               ),
                                                               SizedBox(
-                                                                width: 10.w
-                                                              ),
+                                                                  width: 10.w),
                                                               Container(
                                                                 height: 38.h,
                                                                 width: 120.w,
@@ -745,7 +738,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                     "Decline",
                                                                     style:
                                                                         TextStyle(
-                                                                      fontSize: 14.sp,
+                                                                      fontSize:
+                                                                          14.sp,
                                                                       color: Colors
                                                                               .red[
                                                                           700],
