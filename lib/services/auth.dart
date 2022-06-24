@@ -4,7 +4,6 @@ import 'package:college_gate/panel/faculty/facultyhome.dart';
 import 'package:college_gate/panel/gaurd/gaurd_home.dart';
 import 'package:college_gate/panel/student/complete_profile.dart';
 import 'package:college_gate/panel/student/homepagecard.dart';
-import 'package:college_gate/panel/warden/wardenhome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +48,6 @@ class AuthMethods {
           "iiitlcollegegate12@gmail.com") {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => gaurdHome()));
-      } else if (FirebaseAuth.instance.currentUser!.email ==
-          "singhanu3113@gmail.com") {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => wardenHome()));
       } else if (userCredentialResult.additionalUserInfo!.isNewUser) {
         if (userDetails != null) {
           if ("@iiitl.ac.in" == getemail) {
