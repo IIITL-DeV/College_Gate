@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/faculty/facultyidcard.dart';
 import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/panel/warden/viewimage.dart';
+import 'package:college_gate/panel/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class facultyProfile extends StatefulWidget {
   const facultyProfile({Key? key}) : super(key: key);
@@ -48,7 +47,6 @@ class _facultyProfileState extends State<facultyProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_idcard == null) {
       return Center(child: CircularProgressIndicator());
     }
@@ -56,8 +54,7 @@ class _facultyProfileState extends State<facultyProfile> {
         appBar: isEdit
             ? AppBar(
                 backgroundColor: Color(0Xff15609c),
-                title: Text("Edit Profile",
-                    style: TextStyle(fontSize: 18.sp)),
+                title: Text("Edit Profile", style: TextStyle(fontSize: 18.sp)),
                 centerTitle: true,
                 leading: IconButton(
                     icon: Icon(
@@ -73,8 +70,7 @@ class _facultyProfileState extends State<facultyProfile> {
               )
             : AppBar(
                 backgroundColor: Color(0Xff15609c),
-                title: Text("Profile",
-                    style: TextStyle(fontSize: 18.sp)),
+                title: Text("Profile", style: TextStyle(fontSize: 18.sp)),
                 actions: [
                     InkWell(
                       onTap: () {
@@ -83,8 +79,7 @@ class _facultyProfileState extends State<facultyProfile> {
                         });
                       },
                       child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20.w),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Icon(
                             Icons.edit,
                             color: Colors.deepPurple[50],
@@ -123,7 +118,9 @@ class _facultyProfileState extends State<facultyProfile> {
                                       tag: _idcard!,
                                       child: CircleAvatar(
                                         radius: 70.r,
-                                        backgroundImage: NetworkImage(_idcard!,),
+                                        backgroundImage: NetworkImage(
+                                          _idcard!,
+                                        ),
                                       ),
                                     ),
                                     Positioned(
@@ -147,8 +144,12 @@ class _facultyProfileState extends State<facultyProfile> {
                                   tag: _idcard!,
                                   child: CircleAvatar(
                                     radius: 70.r,
-                                    backgroundImage: NetworkImage(_idcard!,),),),
-                                  onTap: () async {
+                                    backgroundImage: NetworkImage(
+                                      _idcard!,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () async {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
                                     return viewImage(_idcard!);
@@ -237,8 +238,8 @@ class _facultyProfileState extends State<facultyProfile> {
                                   primary: Color(0Xff15609c),
                                   padding: EdgeInsets.all(12),
                                   // padding: const EdgeInsets.all(10),
-                                  minimumSize:
-                                      Size(MediaQuery.of(context).size.width,38.h)),
+                                  minimumSize: Size(
+                                      MediaQuery.of(context).size.width, 38.h)),
                               child: Text(
                                 'Save Details',
                                 style: TextStyle(
@@ -283,8 +284,8 @@ class _facultyProfileState extends State<facultyProfile> {
                                   primary: Colors.white,
                                   padding: EdgeInsets.all(12),
                                   // padding: const EdgeInsets.all(10),
-                                  minimumSize:
-                                      Size(MediaQuery.of(context).size.width,38.h)),
+                                  minimumSize: Size(
+                                      MediaQuery.of(context).size.width, 38.h)),
                               child: Text(
                                 'Logout',
                                 style: TextStyle(
