@@ -111,7 +111,7 @@ class _MyAppState extends State<MyApp> {
     );
 
     return ScreenUtilInit(
-      builder: () => MaterialApp(
+      builder: (context, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
           home: StreamBuilder<User?>(

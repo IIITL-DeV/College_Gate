@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/faculty/facultyProfile.dart';
 import 'package:college_gate/panel/faculty/facultyhome.dart';
-import 'package:college_gate/panel/student/homepagecard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
-import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +14,7 @@ ImagePicker picker = ImagePicker();
 //import 'package:image_picker/image_picker.dart';
 
 class facultyidcard extends StatefulWidget {
-  bool isnewuser;
+  final bool isnewuser;
 
   facultyidcard({Key? key, required this.isnewuser}) : super(key: key);
   @override
@@ -189,7 +186,7 @@ class _facultyidcardState extends State<facultyidcard> {
                 borderRadius: BorderRadius.circular(30.0),
                 child: _imageFile != null
                     ? Image.file(_imageFile!)
-                    : FlatButton(
+                    : TextButton(
                         child: Icon(
                           Icons.photo,
                           color: Color(0Xff15609c),

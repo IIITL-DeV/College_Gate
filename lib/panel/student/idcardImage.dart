@@ -24,7 +24,7 @@ class _idcardImageState extends State<idcardImage> {
   final picker = ImagePicker();
 
   Future pickImage() async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.camera,
     );
 
@@ -181,7 +181,7 @@ class _idcardImageState extends State<idcardImage> {
                 borderRadius: BorderRadius.circular(30.0),
                 child: _imageFile != null
                     ? Image.file(_imageFile!)
-                    : FlatButton(
+                    : TextButton(
                         child: Icon(
                           Icons.add_a_photo,
                           color: Color(0Xff15609c),
