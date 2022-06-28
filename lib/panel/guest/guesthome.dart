@@ -58,7 +58,7 @@ class GuestHome extends StatelessWidget {
                       SizedBox(
                         height: 138.h,
                         child: Ink.image(
-                          image: AssetImage("assets/studentAppointment.png"),
+                          image: AssetImage("assets/appointmentStudent.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -112,7 +112,7 @@ class GuestHome extends StatelessWidget {
                       SizedBox(
                         height: 138.h,
                         child: Ink.image(
-                          image: AssetImage("assets/facultyAppointment.jpg"),
+                          image: AssetImage("assets/appointmentFaculty.png"),
                           fit: BoxFit.cover,
                         ),
                       ),

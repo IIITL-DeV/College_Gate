@@ -1,5 +1,5 @@
 import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/panel/warden/viewimage.dart';
+import 'package:college_gate/panel/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -274,8 +274,8 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                               ),
                             ],
                           ),
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w, vertical: 7.h),
                         ),
                       ],
                     ),
@@ -312,9 +312,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.1;
+
 
     return Scaffold(
         body: StreamBuilder(
@@ -359,8 +357,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.fromLTRB(heightMobile * 0.01, 0,
-                    heightMobile * 0.01, heightMobile * 0.01),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                 child: Card(
                   elevation: 2,
                   child: SizedBox(
@@ -369,80 +366,79 @@ class _guardGuestLogState extends State<guardGuestLog> {
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         ListTile(
-                          title: Row(
-                            children: [
-                              Text(
-                                "${chatItem["name"]}",
-                                style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          //Phone number and Time
-                          subtitle: Container(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.directions_car,
-                                size: 11.sp,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                "${chatItem["vehicleno"]}",
-                                style: TextStyle(fontSize: 11.sp),
-                              ),
-                              // SizedBox(
-                              //   height: cardheight * 0.03,
-                              // ),
-                              SizedBox(
-                                width: 7.w,
-                              ),
-                              Icon(
-                                Icons.access_alarm,
-                                size: 11.sp,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                chatItem["entrydatetime"] == null
-                                    ? "OUT | OUT"
-                                    : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
-                                style: TextStyle(
-                                  fontSize: 11.sp,
-                                  backgroundColor: Color(0XffD1F0E8),
+                            title: Row(
+                              children: [
+                                Text(
+                                  "${chatItem["name"]}",
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            //Phone number and Time
+                            subtitle: Container(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.directions_car,
+                                  size: 11.sp,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  "${chatItem["vehicleno"]}",
+                                  style: TextStyle(fontSize: 11.sp),
+                                ),
+                                // SizedBox(
+                                //   height: cardheight * 0.03,
+                                // ),
+                                SizedBox(
+                                  width: 7.w,
+                                ),
+                                Icon(
+                                  Icons.access_alarm,
+                                  size: 11.sp,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  chatItem["entrydatetime"] == null
+                                      ? "OUT | OUT"
+                                      : "${DateFormat('HH:mm').format(chatItem["entrydatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["entrydatetime"].toDate())}",
+                                  style: TextStyle(
+                                    fontSize: 11.sp,
+                                    backgroundColor: Color(0XffD1F0E8),
+                                  ),
+                                ),
+                              ],
+                            )),
+                            trailing: Transform.rotate(
+                              angle: 180 * math.pi / 180,
+                              child: IconButton(
+                                onPressed: () {
+                                  DateTime times = DateTime.now();
+                                  FirebaseFirestore.instance
+                                      .collection('guestRegister')
+                                      .doc(chatItem.id)
+                                      .update({
+                                    'exitdatetime': DateTime.now(),
+                                    'exitisapproved': false,
+                                  });
+                                },
+                                icon: Icon(
+                                  CupertinoIcons.square_arrow_left,
+                                  color: Color(0Xff19B38D),
+                                  size: 22.sp,
                                 ),
                               ),
-                            ],
-                          )),
-                          trailing: Transform.rotate(
-                            angle: 180 * math.pi / 180,
-                            child: IconButton(
-                              onPressed: () {
-                                DateTime times = DateTime.now();
-                                FirebaseFirestore.instance
-                                    .collection('guestRegister')
-                                    .doc(chatItem.id)
-                                    .update({
-                                  'exitdatetime': DateTime.now(),
-                                  'exitisapproved': false,
-                                });
-                              },
-                              icon: Icon(
-                                CupertinoIcons.square_arrow_left,
-                                color: Color(0Xff19B38D),
-                                size: 22.sp,
-                              ),
                             ),
-                          ),
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h)
-                        ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 5.h)),
                       ],
                     ),
                   ),

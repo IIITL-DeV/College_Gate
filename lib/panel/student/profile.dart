@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 
 import '../../main.dart';
-import '../warden/viewimage.dart';
+import '../viewimage.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -52,8 +52,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-
-
     print("IDDDDDDD is : $_idcard");
     if (_idcard == null) {
       return Center(child: CircularProgressIndicator());
@@ -62,8 +60,8 @@ class _ProfileState extends State<Profile> {
           appBar: isEdit
               ? AppBar(
                   backgroundColor: Color(0Xff15609c),
-                  title: Text("Edit Profile",
-                      style: TextStyle(fontSize: 18.sp)),
+                  title:
+                      Text("Edit Profile", style: TextStyle(fontSize: 18.sp)),
                   centerTitle: true,
                   leading: IconButton(
                       icon: Icon(
@@ -79,8 +77,7 @@ class _ProfileState extends State<Profile> {
                 )
               : AppBar(
                   backgroundColor: Color(0Xff15609c),
-                  title: Text("Profile",
-                      style: TextStyle(fontSize: 18.sp)),
+                  title: Text("Profile", style: TextStyle(fontSize: 18.sp)),
                   actions: [
                       InkWell(
                         onTap: () {
@@ -89,8 +86,7 @@ class _ProfileState extends State<Profile> {
                           });
                         },
                         child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20.w),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Icon(
                               Icons.edit,
                               color: Colors.deepPurple[50],
@@ -112,19 +108,22 @@ class _ProfileState extends State<Profile> {
                         SizedBox(
                           height: 150.h,
                           child: GestureDetector(
-
                               child: _idcard == null
                                   ? CircularProgressIndicator()
                                   : Hero(
                                       tag: _idcard!,
                                       child: _idcard == null
                                           ? CircleAvatar(
-                                            radius: 70.r,
-                                            backgroundImage: AssetImage("assets/profile_darkbluecolor.png"),)
+                                              radius: 70.r,
+                                              backgroundImage: AssetImage(
+                                                  "assets/profile_darkbluecolor.png"),
+                                            )
                                           : CircleAvatar(
-                                            radius: 70.r,
-                                              backgroundImage: NetworkImage(_idcard!,),
-                                          ),
+                                              radius: 70.r,
+                                              backgroundImage: NetworkImage(
+                                                _idcard!,
+                                              ),
+                                            ),
                                     ),
                               onTap: () async {
                                 Navigator.push(context,
@@ -243,11 +242,11 @@ class _ProfileState extends State<Profile> {
                                           new BorderRadius.circular(15.0),
                                     ),
                                     primary: Color(0Xff15609c),
-                                    padding:
-                                        EdgeInsets.all(12),
+                                    padding: EdgeInsets.all(12),
                                     // padding: const EdgeInsets.all(10),
                                     minimumSize: Size(
-                                        MediaQuery.of(context).size.width, 38.h)),
+                                        MediaQuery.of(context).size.width,
+                                        38.h)),
                                 child: Text(
                                   'Save Details',
                                   style: TextStyle(
@@ -294,11 +293,11 @@ class _ProfileState extends State<Profile> {
                                           new BorderRadius.circular(15.0),
                                     ),
                                     primary: Colors.white,
-                                    padding:
-                                        EdgeInsets.all(12),
+                                    padding: EdgeInsets.all(12),
                                     // padding: const EdgeInsets.all(10),
                                     minimumSize: Size(
-                                        MediaQuery.of(context).size.width, 38.h)),
+                                        MediaQuery.of(context).size.width,
+                                        38.h)),
                                 child: Text(
                                   'Logout',
                                   style: TextStyle(

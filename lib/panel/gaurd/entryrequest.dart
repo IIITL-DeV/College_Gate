@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:college_gate/panel/warden/viewimage.dart';
+import 'package:college_gate/panel/viewimage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,8 +88,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 16.sp, fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
                           subtitle: Container(
@@ -177,8 +176,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               ),
                             ],
                           ),
-                          contentPadding:
-                          EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w, vertical: 5.h),
                         ),
                         // SizedBox(
                         //   height: cardheight * 0.03,

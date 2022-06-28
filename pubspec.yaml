@@ -105,7 +105,10 @@ flutter:
     - assets/iiitl.png
     - assets/cg_white.png
     - assets/from.png
-
+    - assets/appointmentFaculty.png
+    - assets/appointmentStudent.png
+    - assets/registerGuest.png
+    - assets/registerStudent.png
     - assets/profile_darkbluecolor.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

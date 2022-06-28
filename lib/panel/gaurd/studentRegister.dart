@@ -29,8 +29,8 @@ class _StudentRegisterState extends State<StudentRegister> {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    filePath = ['$path/data.csv'];
-    return File('$path/data.csv').create();
+    filePath = ['$path/studentRegister.csv'];
+    return File('$path/studentRegister.csv').create();
   }
 
   getCsv() async {
@@ -307,7 +307,7 @@ class _StudentRegisterState extends State<StudentRegister> {
           }
         },
         label: Text(
-          'csv File',
+          'CSV File',
           style: TextStyle(fontSize: 15.sp),
         ),
         icon: Icon(

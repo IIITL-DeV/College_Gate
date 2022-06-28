@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/gaurd/entryrequest.dart';
-import 'package:college_gate/panel/warden/viewimage.dart';
+import 'package:college_gate/panel/viewimage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -234,8 +234,8 @@ class _guard_requestsState extends State<guard_requests> {
                               ),
                             ],
                           ),
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w, vertical: 5.h),
                         ),
                         // SizedBox(
                         //   height: 6.h,
