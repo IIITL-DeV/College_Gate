@@ -34,6 +34,7 @@ class _facultyidcardState extends State<facultyidcard> {
   Future pickImage() async {
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,
+      imageQuality: 30,
     );
 
     setState(() {

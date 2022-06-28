@@ -26,6 +26,7 @@ class _idcardImageState extends State<idcardImage> {
   Future pickImage() async {
     final pickedFile = await picker.getImage(
       source: ImageSource.camera,
+      imageQuality: 30,
     );
 
     setState(() {
