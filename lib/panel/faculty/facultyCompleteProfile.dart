@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class FacultyCompleteProfile extends StatefulWidget {
   const FacultyCompleteProfile({Key? key}) : super(key: key);
 
@@ -43,7 +42,6 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_username == null) {
       return Center(child: CircularProgressIndicator());
     }
@@ -104,7 +102,7 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                   //SizedBox(height: heightMobile * 0.009),
                   //phone number
                   TextFormField(
-                    keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onSaved: (value) => _phoneno = value,
                       style: TextStyle(
@@ -168,7 +166,8 @@ class _FacultyCompleteProfileState extends State<FacultyCompleteProfile> {
                           primary: Color(0Xff15609c),
                           padding: EdgeInsets.all(12),
                           // padding: const EdgeInsets.all(10),
-                          minimumSize: Size(MediaQuery.of(context).size.width,38.h)),
+                          minimumSize:
+                              Size(MediaQuery.of(context).size.width, 38.h)),
                       child: Text(
                         'Done',
                         style: TextStyle(

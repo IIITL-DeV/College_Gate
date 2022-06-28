@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/guest/faculty_appointment.dart';
 import 'package:college_gate/panel/student/studentfacutlyappointment.dart';
-import 'package:college_gate/panel/warden/viewimage.dart';
+import 'package:college_gate/panel/viewimage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class FacultyList extends StatefulWidget {
   bool isStudent;
@@ -80,13 +79,13 @@ class _FacultyListState extends State<FacultyList> {
                 }
 
                 return ListView.builder(
-
                     shrinkWrap: true,
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       final chatItem = snapshot.data!.docs[index];
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.w, vertical: 5.h),
                         child: Card(
                           elevation: 2,
                           child: SizedBox(
@@ -106,8 +105,7 @@ class _FacultyListState extends State<FacultyList> {
                                                     email: chatItem["email"])
                                                 : faculty_appointment(
                                                     email: chatItem["email"],
-                                                    isStudent:
-                                                        widget.isStudent,
+                                                    isStudent: widget.isStudent,
                                                   )));
                                   },
                                   title: Text(
@@ -120,8 +118,7 @@ class _FacultyListState extends State<FacultyList> {
                                   subtitle: Text(
                                     "${chatItem["Designation"]}",
                                     //overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 11.sp),
+                                    style: TextStyle(fontSize: 11.sp),
                                   ),
                                   leading: ConstrainedBox(
                                     constraints: BoxConstraints(

@@ -270,7 +270,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                         SizedBox(
                           height: 138.h,
                           child: Ink.image(
-                            image: AssetImage("assets/facultyAppointment.jpg"),
+                            image: AssetImage("assets/appointmentFaculty.png"),
                             fit: BoxFit.cover,
                           ),
                         ),

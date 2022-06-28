@@ -243,7 +243,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
         .snapshots();
   }
 
-  @override
   approvesendMail(String guestemail, String date, String? phonenumber,
       String? officenumber) async {
     final Email email = Email(
@@ -294,7 +293,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
               if (snapshot.hasData) {
                 int value;
                 value = snapshot.data!.docs.length;
-                if (value == 0 || value == null) {
+                if (value == 0) {
                   print("issssss$value");
                   return SizedBox(
                       width: MediaQuery.of(context).size.width,
