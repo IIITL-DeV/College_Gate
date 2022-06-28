@@ -312,9 +312,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    double cardheight = heightMobile * 0.1;
+
 
     return Scaffold(
         body: StreamBuilder(
@@ -359,8 +357,7 @@ class _guardGuestLogState extends State<guardGuestLog> {
             itemBuilder: (context, index) {
               final chatItem = snapshot.data!.docs[index];
               return Padding(
-                padding: EdgeInsets.fromLTRB(heightMobile * 0.01, 0,
-                    heightMobile * 0.01, heightMobile * 0.01),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                 child: Card(
                   elevation: 2,
                   child: SizedBox(

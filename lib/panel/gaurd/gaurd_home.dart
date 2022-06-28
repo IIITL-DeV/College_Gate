@@ -192,7 +192,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                     SizedBox(
                       height: 145.h,
                       child: Ink.image(
-                        image: AssetImage("assets/studentAppointment.png"),
+                        image: AssetImage("assets/registerStudent.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -234,7 +234,7 @@ class _gaurdHomeScreenState extends State<gaurdHomeScreen> {
                       SizedBox(
                         height: 145.h,
                         child: Ink.image(
-                          image: AssetImage("assets/facultyAppointment.jpg"),
+                          image: AssetImage("assets/registerGuest.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
