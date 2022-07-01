@@ -157,9 +157,10 @@ class _guard_requestsState extends State<guard_requests> {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                 child: Card(
+                  color: Color(0XFFD8D7D5),
                   elevation: 2,
                   child: SizedBox(
-                    height: 135.h,
+                    height: 145.h,
                     child: ListView(
                       children: [
                         ListTile(
@@ -167,7 +168,9 @@ class _guard_requestsState extends State<guard_requests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                color: Color(0Xff14619C),
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
                           subtitle: Container(
@@ -234,8 +237,8 @@ class _guard_requestsState extends State<guard_requests> {
                               ),
                             ],
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 5.h),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(12.w, 0, 12.w, 5.h),
                         ),
                         // SizedBox(
                         //   height: 6.h,

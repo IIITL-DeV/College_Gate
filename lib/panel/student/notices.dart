@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/main.dart';
+import 'package:college_gate/panel/aboutus.dart';
 import 'package:college_gate/panel/student/no_notices.dart';
 import 'package:college_gate/panel/student/readytogo.dart';
 import 'package:college_gate/panel/student/requestpending.dart';
@@ -8,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class notices extends StatefulWidget {
   @override
@@ -45,7 +46,11 @@ class _noticesState extends State<notices> {
     String? StudentRoll,
   ) async {
     final Email email = Email(
+<<<<<<< Updated upstream
       body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no: $roomnumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$StudentName - $StudentRoll <br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
+=======
+      body: 'I confirm our scheduled meeting at $time on $date.',
+>>>>>>> Stashed changes
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -78,16 +83,31 @@ class _noticesState extends State<notices> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 56.h,
           backgroundColor: Color(0Xff15609c),
           centerTitle: true,
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AboutUs()));
+              },
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Icon(
+                    Icons.info_outline,
+                    color: Colors.white,
+                    size: 22.sp,
+                  )),
+            )
+          ],
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                  height: 21.sp, child: Image.asset("assets/cg_white.png")),
               SizedBox(
                 width: 12.w,
               ),
@@ -119,13 +139,15 @@ class _noticesState extends State<notices> {
                 } else
                   return no_notices();
               }
+
               return ListView.builder(
                 shrinkWrap: true,
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final chatItem = snapshot.data!.docs[index];
                   return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                     child: Card(
                       elevation: 2,
                       child: SizedBox(
@@ -145,8 +167,8 @@ class _noticesState extends State<notices> {
                                 "wants to meets you at ${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} on ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
                                 style: TextStyle(fontSize: 13.sp),
                               ),
-                              contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 12.w, vertical: 5.h),
                             ),
 
                             //Accept, Decline button

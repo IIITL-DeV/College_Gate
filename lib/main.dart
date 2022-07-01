@@ -1,27 +1,29 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/faculty/facultyCompleteProfile.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:college_gate/panel/faculty/facultyhome.dart';
 import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/panel/student/complete_profile.dart';
 import 'package:college_gate/panel/student/homepagecard.dart';
 import 'package:college_gate/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:splash_screen_view/SplashScreenView.dart';
 import 'panel/gaurd/gaurd_home.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
+
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 class MyApp extends StatefulWidget {
   @override
@@ -30,84 +32,122 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   void initState() {
+    requestPermission();
+    loadFCM();
+    listenFCM();
     super.initState();
   }
 
-  Widget getScreen() {
-    if (FirebaseAuth.instance.currentUser != null) {
-      String? getemail = FirebaseAuth.instance.currentUser!.email;
-      if (getemail != null && getemail.length >= 11) {
-        getemail = getemail.substring(getemail.length - 12);
-      }
+  void loadFCM() async {
+    if (!kIsWeb) {
+      var channel = const AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        importance: Importance.high,
+        enableVibration: true,
+      );
 
-      String? fullemail = FirebaseAuth.instance.currentUser!.email;
-      bool isstudent = fullemail!.contains(new RegExp(r'[0-9]'));
-      if (FirebaseAuth.instance.currentUser!.email ==
-          "iiitlcollegegate12@gmail.com") return gaurdHome();
-      if ("@iiitl.ac.in" == getemail && isstudent == true) {
-        FirebaseFirestore.instance
-            .collection('studentUser')
-            .doc((FirebaseAuth.instance.currentUser)!.email)
-            .get()
-            .then((value) {
-          String? idcard = value.data()!['idcard'].toString();
-          if (idcard == "empty")
-            return completeProfile();
-          else
-            return studentHome();
-        });
-      } else if ("@iiitl.ac.in" == getemail)
-        FirebaseFirestore.instance
-            .collection('facultyUser')
-            .doc((FirebaseAuth.instance.currentUser)!.email)
-            .get()
-            .then((value) {
-          String? idcard = value.data()?['ProfilePic'];
-          if (idcard == "empty")
-            return FacultyCompleteProfile();
-          else
-            return FacultyHome();
-        });
+      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+      /// Create an Android Notification Channel.
+      ///
+      /// We use this channel in the `AndroidManifest.xml` file to override the
+      /// default FCM channel to enable heads up notifications.
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
+
+      /// Update the iOS foreground notification presentation options to allow
+      /// heads up notifications.
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
     }
-    return gaurdHome();
+  }
+
+  void listenFCM() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null && !kIsWeb) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              "123",
+              "ANU",
+              icon: "@mipmap/ic_launcher",
+            ),
+          ),
+        );
+      }
+    });
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  Widget getScreen() {
+    String? getemail = FirebaseAuth.instance.currentUser!.email;
+
+    bool isstudent = getemail!.contains(new RegExp(r'[0-9]'));
+    getemail = getemail.substring(getemail.length - 12);
+    if (FirebaseAuth.instance.currentUser!.email == "collegegate@iiitl.ac.in")
+      return gaurdHome();
+    else if ("@iiitl.ac.in" == getemail && isstudent == true) {
+      // await FirebaseFirestore.instance
+      //     .collection('studentUser')
+      //     .doc((FirebaseAuth.instance.currentUser)!.email)
+      //     .get()
+      //     .then((value) {
+      //   String? idcard = value.data()!['idcard'].toString();
+      //   if (idcard == "empty") return completeProfile();
+
+      return studentHome();
+      // });
+    } else if ("@iiitl.ac.in" == getemail && isstudent == false) {
+      // await FirebaseFirestore.instance
+      //     .collection('facultyUser')
+      //     .doc((FirebaseAuth.instance.currentUser)!.email)
+      //     .get()
+      //     .then((value) {
+      //   String? idcard = value.data()?['ProfilePic'];
+      //   if (idcard == "empty") return FacultyCompleteProfile();
+
+      return FacultyHome();
+      // });
+    }
+    return SignIn();
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget example1 = SplashScreenView(
-      navigateRoute: getScreen(),
-      duration: 500,
-      imageSize: 500,
-      imageSrc: "assets/from.png",
-      // text: "College Gate",
-      textType: TextType.ColorizeAnimationText,
-      backgroundColor: Colors.white,
-      textStyle: TextStyle(
-        fontSize: 40.0,
-      ),
-      colors: [
-        Color(0xFF388E3C),
-        Color(0xFF01579B)
-        // Color(0xFF388E3C),
-      ],
-    );
-    Widget example2 = SplashScreenView(
-      navigateRoute: SignIn(),
-      imageSize: 500,
-      duration: 500,
-      imageSrc: "assets/from.png",
-      // text: "College Gate",
-      textType: TextType.ColorizeAnimationText,
-      textStyle: TextStyle(
-        fontSize: 40.0,
-      ),
-      colors: [
-        Color(0xFF388E3C),
-        Color(0xFF01579B),
-      ],
-      backgroundColor: Colors.white,
-    );
-
     return ScreenUtilInit(
       builder: () => MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -121,20 +161,51 @@ class _MyAppState extends State<MyApp> {
                     backgroundColor: Colors.white,
                   ),
                 );
-              if (snapshot.hasError)
+              else if (snapshot.hasError)
                 return Center(
                   child: CircularProgressIndicator(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.white,
                   ),
                 );
-              if (snapshot.hasData) {
-                return example1;
+              else if (snapshot.hasData) {
+                return getScreen();
               } else
-                return example2;
+                return SignIn();
             },
           )),
       designSize: const Size(375, 812),
     );
+  }
+}
+
+void sendPushMessage(String body, String title, String token) async {
+  try {
+    await http.post(
+      Uri.parse('https://fcm.googleapis.com/fcm/send'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization':
+            'key=AAAATJ-qFwk:APA91bGo60cYWNc5st2be2OSLvMHm9eEF7TFrz2dEkLrdl6nBWgTjz-CC_6UOWHj2xApzNtpOyRj-_3_w-RRC2Yc-iXfEh_5NkTgxH3sIYoA3GhE6NNSgdAMeYHcXf0w_5Ck5mZR1U0B',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': body,
+            'title': title,
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          "to": token,
+        },
+      ),
+    );
+    print('done');
+  } catch (e) {
+    print("error push notification");
   }
 }
 

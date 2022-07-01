@@ -79,7 +79,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                 child: Card(
                   elevation: 3.5,
                   child: SizedBox(
-                    height: 135.h,
+                    height: 145.h,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
@@ -176,8 +176,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               ),
                             ],
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 5.h),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(12.w, 0, 12.w, 5.h),
                         ),
                         // SizedBox(
                         //   height: cardheight * 0.03,

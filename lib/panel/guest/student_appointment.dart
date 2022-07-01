@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class booking extends StatefulWidget {
   const booking({Key? key}) : super(key: key);
 
@@ -51,8 +50,8 @@ class _bookingState extends State<booking> {
       children: [
         Expanded(
             child: TextField(
-              readOnly: true,
-              style: TextStyle(fontSize: 14.sp),
+          readOnly: true,
+          style: TextStyle(fontSize: 14.sp),
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -104,8 +103,8 @@ class _bookingState extends State<booking> {
         ),
         Expanded(
             child: TextField(
-              readOnly: true,
-              style: TextStyle(fontSize: 14.sp),
+          readOnly: true,
+          style: TextStyle(fontSize: 14.sp),
           controller: _timeController,
           decoration: InputDecoration(
             labelText: 'Time',
@@ -329,7 +328,7 @@ class _bookingState extends State<booking> {
 
   @override
   Widget build(BuildContext context) {
-
+    String? token;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56.h,
@@ -379,7 +378,8 @@ class _bookingState extends State<booking> {
                           primary: Color(0Xff15609c),
                           padding: EdgeInsets.all(12),
                           // padding: const EdgeInsets.all(10),
-                          minimumSize: Size(MediaQuery.of(context).size.width, 38.h)),
+                          minimumSize:
+                              Size(MediaQuery.of(context).size.width, 38.h)),
                       child: Text(
                         'Submit',
                         style: TextStyle(
@@ -395,6 +395,13 @@ class _bookingState extends State<booking> {
                                       content: Text('Processing Data')),
                                 ),
                                 FirebaseFirestore.instance
+                                  ..collection('studentUser')
+                                      .doc(genrollnment)
+                                      .get()
+                                      .then((value) {
+                                    token = value.data()!['token'].toString();
+                                  }),
+                                FirebaseFirestore.instance
                                     .collection('studentUser')
                                     .doc(genrollnment)
                                     .collection('guestemail')
@@ -409,6 +416,11 @@ class _bookingState extends State<booking> {
                                       selectedTime.hour,
                                       selectedTime.minute),
                                 }, SetOptions(merge: true)),
+
+                                sendPushMessage(
+                                    "You have a new appointment request.",
+                                    "Appointment Request!",
+                                    token!),
 
                                 flutterToast("Request has been sent."),
                                 Navigator.of(context).pop(),

@@ -33,12 +33,10 @@ class _FacultyHomeState extends State<FacultyHome> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 24.sp,
-        selectedIconTheme:
-            IconThemeData(color: Color(0Xff15609c), size: 29.sp),
+        selectedIconTheme: IconThemeData(color: Color(0Xff15609c), size: 29.sp),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         // this will be set when a new tab is tapped
@@ -74,10 +72,8 @@ class AppointmentList extends StatefulWidget {
 }
 
 class _AppointmentListState extends State<AppointmentList> {
-
   late String _hour, _minute, _time;
   String? officenumber, phonenumber, facultyName, facultyEmail;
-
 
   late String dateTime;
 
@@ -98,8 +94,8 @@ class _AppointmentListState extends State<AppointmentList> {
     String facultyEmail,
   ) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has rescheduled to <b>$date</b> in Room no: $officenumber.<br>Sorry for the inconvenience caused. Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
-
+      body:
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has rescheduled to <b>$date</b> in Room no: $officenumber.<br>Sorry for the inconvenience caused. Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
       isHTML: true,
@@ -178,12 +174,10 @@ class _AppointmentListState extends State<AppointmentList> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-
           return AlertDialog(
             title: Text(
               "Reschedule",
-              style: TextStyle(
-                  fontSize: 16.sp, color: Color(0Xff15609c)),
+              style: TextStyle(fontSize: 16.sp, color: Color(0Xff15609c)),
             ),
             content: Container(
               child: Text(
@@ -214,7 +208,6 @@ class _AppointmentListState extends State<AppointmentList> {
                               selectedDate.day,
                               selectedTime.hour,
                               selectedTime.minute),
-
                         });
                         FirebaseFirestore.instance
                             .collection('facultyUser')
@@ -227,35 +220,37 @@ class _AppointmentListState extends State<AppointmentList> {
                             facultyName = value.data()!['name'].toString();
                             facultyEmail = value.data()!['email'].toString();
                           });
-                        reschedulesendMail(
-                          email,
-                          "${DateFormat('HH:mm').format(
-                            DateTime(
-                                selectedDate.year,
-                                selectedDate.month,
-                                selectedDate.day,
-                                selectedTime.hour,
-                                selectedTime.minute),
-                          )} | ${DateFormat('dd-MM-yyyy').format(
-                            DateTime(
-                                selectedDate.year,
-                                selectedDate.month,
-                                selectedDate.day,
-                                selectedTime.hour,
-                                selectedTime.minute),
-                          )}",
-                          phonenumber!,
-                          officenumber!, facultyName!, facultyEmail!,
-
-                        ).whenComplete(() {
-                          setState(() {});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Guest Notified')));
+                          reschedulesendMail(
+                            email,
+                            "${DateFormat('HH:mm').format(
+                              DateTime(
+                                  selectedDate.year,
+                                  selectedDate.month,
+                                  selectedDate.day,
+                                  selectedTime.hour,
+                                  selectedTime.minute),
+                            )} | ${DateFormat('dd-MM-yyyy').format(
+                              DateTime(
+                                  selectedDate.year,
+                                  selectedDate.month,
+                                  selectedDate.day,
+                                  selectedTime.hour,
+                                  selectedTime.minute),
+                            )}",
+                            phonenumber!,
+                            officenumber!,
+                            facultyName!,
+                            facultyEmail!,
+                          ).whenComplete(() {
+                            setState(() {});
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Guest Notified')));
+                          });
+                          flutterToast("Rescheduled Successfully");
+                          Navigator.of(context).pop();
                         });
-                        flutterToast("Rescheduled Successfully");
-                        Navigator.of(context).pop();
-                      });
-                    },
+                      },
                       child: Text(
                         "Confirm",
                         style: TextStyle(
@@ -272,9 +267,7 @@ class _AppointmentListState extends State<AppointmentList> {
                       },
                       child: Text("Cancel",
                           style: TextStyle(
-                              fontSize:
-                                  14.sp,
-                              color: Colors.red[700]))),
+                              fontSize: 14.sp, color: Colors.red[700]))),
                 ],
               )
             ],
@@ -325,7 +318,6 @@ class _AppointmentListState extends State<AppointmentList> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56.h,
@@ -387,7 +379,8 @@ class _AppointmentListState extends State<AppointmentList> {
                 itemBuilder: (context, index) {
                   final chatItem = snapshot.data!.docs[index];
                   return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                     child: Card(
                       elevation: 2,
                       child: SizedBox(
@@ -406,52 +399,50 @@ class _AppointmentListState extends State<AppointmentList> {
                               //Phone number and Time
                               subtitle: Container(
                                   child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+                                  Row(
                                     children: [
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.add_call,
-                                            size: 11.sp,
-                                          ),
-                                          SizedBox(
-                                            width: 5.w,
-                                          ),
-                                          Text(
-                                            "${chatItem["guestphone"]}",
-                                            style: TextStyle(
-                                                fontSize: 11.sp),
-                                          ),
-                                        ],
+                                      Icon(
+                                        Icons.add_call,
+                                        size: 11.sp,
                                       ),
                                       SizedBox(
-                                        height: 5.h,
+                                        width: 5.w,
                                       ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.access_alarm,
-                                            size: 11.sp,
-                                          ),
-                                          SizedBox(
-                                            width: 5.w,
-                                          ),
-                                          Text(
-                                            chatItem["guestappointdatetime"] ==
-                                                null
-                                                ? "NA | NA"
-                                                : "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
-                                            style: TextStyle(
-                                              fontSize: 11.sp,
-                                              backgroundColor: Color(0XffD1F0E8),
-                                            ),
-                                          ),
-                                        ],
-                                      )
+                                      Text(
+                                        "${chatItem["guestphone"]}",
+                                        style: TextStyle(fontSize: 11.sp),
+                                      ),
                                     ],
-                                  )),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_alarm,
+                                        size: 11.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Text(
+                                        chatItem["guestappointdatetime"] == null
+                                            ? "NA | NA"
+                                            : "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                        style: TextStyle(
+                                          fontSize: 11.sp,
+                                          backgroundColor: Color(0XffD1F0E8),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )),
                               //Id Image
                               //Room Number
                               trailing: SizedBox(
@@ -475,15 +466,13 @@ class _AppointmentListState extends State<AppointmentList> {
                                       onTap: () {
                                         showDialog(
                                             context: context,
-                                            builder:
-                                                (BuildContext context) {
+                                            builder: (BuildContext context) {
                                               return AlertDialog(
                                                 title: Text(
                                                   "Description",
                                                   style: TextStyle(
                                                       fontSize: 16.sp,
-                                                      color: Color(
-                                                          0Xff15609c)),
+                                                      color: Color(0Xff15609c)),
                                                 ),
                                                 content: Container(
                                                   child: Text(
@@ -506,7 +495,9 @@ class _AppointmentListState extends State<AppointmentList> {
                                             size: 12.sp,
                                             color: Color(0Xff14619C),
                                           ),
-                                          SizedBox(width: 3.w,),
+                                          SizedBox(
+                                            width: 3.w,
+                                          ),
                                           Text(
                                             "Description",
                                             style: TextStyle(
@@ -574,8 +565,8 @@ class _AppointmentListState extends State<AppointmentList> {
                                   ],
                                 ),
                               ),
-                              contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 12.w, vertical: 5.h),
                             ),
                             // SizedBox(
                             //   height: cardheight * 0.05,
