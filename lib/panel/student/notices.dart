@@ -34,14 +34,18 @@ class _noticesState extends State<notices> {
   // var stream;
   // bool exitstatus = false;
   // bool entrystatus = false;
+  String? phonenumber, roomnumber, StudentName, StudentEmail, StudentRoll;
   @override
   approvesendMail(
     String guestemail,
-    String time,
     String date,
+    String? phonenumber,
+    String? roomnumber,String? StudentName,
+    String? StudentEmail,
+    String? StudentRoll,
   ) async {
     final Email email = Email(
-      body: 'I confirm your appointment with me at $time on $date.',
+      body: '<p>Greetings for the day!</p> <p>It is informed to you that $StudentName - $StudentRoll has accepted your appointment request. He/She will be available on <strong>$date</strong> in Room no: $roomnumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -50,9 +54,13 @@ class _noticesState extends State<notices> {
     await FlutterEmailSender.send(email);
   }
 
-  declinesendMail(String guestemail, String date, String time) async {
+  declinesendMail(String guestemail,
+      String date,
+      String? phonenumber,
+      String? StudentName,
+      String? StudentEmail,String? StudentRoll) async {
     final Email email = Email(
-      body: "I won't be available at $time on $date.",
+      body: '<p>Greetings for the day!</p> <p>It is informed to you that $StudentName - $StudentRoll has cancelled your appointment request due to some unavoidable circumstances. Please accept sincere apologies for the inconvenience caused.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
       subject: 'Request Declined!',
       recipients: [guestemail],
       isHTML: true,
@@ -151,26 +159,35 @@ class _noticesState extends State<notices> {
                                   width: 150.w,
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      await approvesendMail(
-                                              chatItem["guestemail"],
-                                              DateFormat('HH:mm')
-                                                  .format(chatItem[
-                                                          "guestappointdatetime"]
-                                                      .toDate())
-                                                  .toString(),
-                                              DateFormat('dd-MM-yyyy')
-                                                  .format(chatItem[
-                                                          "guestappointdatetime"]
-                                                      .toDate())
-                                                  .toString())
-                                          .whenComplete(() {
-                                        setState(() {});
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content:
+                                      FirebaseFirestore.instance
+                                          .collection('studentUser')
+                                          .doc(await (FirebaseAuth.instance.currentUser)!.email)
+                                          .get()
+                                          .then((value) {
+                                        setState(() {
+                                          StudentName = value.data()!['name'].toString();
+                                          StudentRoll = value.data()!['enrollment'].toString();
+                                          StudentEmail = value.data()!['email'].toString();
+                                          phonenumber = value.data()!['phone'].toString();
+                                          roomnumber = value.data()!['hostelno'].toString() + '/' + value.data()!['room'].toString();
+
+                                          approvesendMail(
+                                            chatItem["guestemail"],
+                                            "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                            phonenumber,
+                                            roomnumber, StudentName, StudentEmail, StudentRoll
+                                          )
+                                              .whenComplete(() {
+                                            setState(() {});
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                  content:
                                                   Text('Request Accepted')),
-                                        );
+                                            );
+                                          });
+
+                                        });
                                       });
 
                                       await FirebaseFirestore.instance
@@ -203,27 +220,35 @@ class _noticesState extends State<notices> {
                                   height: 38.h,
                                   width: 150.w,
                                   child: ElevatedButton(
-                                    onPressed: () {
-                                      declinesendMail(
+                                    onPressed: () async{
+                                      FirebaseFirestore.instance
+                                          .collection('studentUser')
+                                          .doc(await (FirebaseAuth.instance.currentUser)!.email)
+                                          .get()
+                                          .then((value) {
+                                        setState(() {
+                                          StudentName = value.data()!['name'].toString();
+                                          StudentRoll = value.data()!['enrollment'].toString();
+                                          StudentEmail = value.data()!['email'].toString();
+                                          phonenumber = value.data()!['phone'].toString();
+
+                                          declinesendMail(
                                               chatItem["guestemail"],
-                                              DateFormat('HH:mm')
-                                                  .format(chatItem[
-                                                          "guestappointdatetime"]
-                                                      .toDate())
-                                                  .toString(),
-                                              DateFormat('dd-MM-yyyy')
-                                                  .format(chatItem[
-                                                          "guestappointdatetime"]
-                                                      .toDate())
-                                                  .toString())
-                                          .whenComplete(() {
-                                        setState(() {});
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content:
+                                              "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                              phonenumber,
+                                              StudentName, StudentEmail,StudentRoll
+                                          )
+                                              .whenComplete(() {
+                                            setState(() {});
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                  content:
                                                   Text('Request Declined')),
-                                        );
+                                            );
+                                          });
+
+                                        });
                                       });
 
                                       FirebaseFirestore.instance
