@@ -41,7 +41,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     String facultyEmail,
   ) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has rescheduled your appointment request. He/She will be available on <b>$date</b> in Room no: $officenumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has rescheduled to <b>$date</b> in Room no: $officenumber.<br>Sorry for the inconvenience. Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
       isHTML: true,
@@ -255,7 +255,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
       String? officenumber,String? facultyName,
       String? facultyEmail,) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has accepted your appointment request. He/She will be available on <b>$date</b> in Room no: $officenumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no: $officenumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -265,7 +265,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
 
   declinesendMail(String guestemail, String? phonenumber, String? facultyName, String? facultyEmail) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has cancelled your appointment request due to some unavoidable circumstances. Please accept sincere apologies for the inconvenience caused.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment cannot be scheduled at the moment due to unavoidable circumstances. Please accept sincere apologies for the inconvenience caused and try again later!. <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
 
       subject: 'Request Declined!',
       recipients: [guestemail],

@@ -45,7 +45,7 @@ class _noticesState extends State<notices> {
     String? StudentRoll,
   ) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is informed to you that $StudentName - $StudentRoll has accepted your appointment request. He/She will be available on <strong>$date</strong> in Room no: $roomnumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
+      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no: $roomnumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$StudentName - $StudentRoll <br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -60,7 +60,7 @@ class _noticesState extends State<notices> {
       String? StudentName,
       String? StudentEmail,String? StudentRoll) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is informed to you that $StudentName - $StudentRoll has cancelled your appointment request due to some unavoidable circumstances. Please accept sincere apologies for the inconvenience caused.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
+      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment cannot be scheduled at the moment due to unavoidable circumstances. Please accept sincere apologies for the inconvenience caused and try again later!. <br>Thank You.</p><p>Regards,<br>$StudentName - $StudentRoll <br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
       subject: 'Request Declined!',
       recipients: [guestemail],
       isHTML: true,
