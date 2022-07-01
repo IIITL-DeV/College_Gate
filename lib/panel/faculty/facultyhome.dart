@@ -74,7 +74,10 @@ class AppointmentList extends StatefulWidget {
 }
 
 class _AppointmentListState extends State<AppointmentList> {
+
   late String _hour, _minute, _time;
+  String? officenumber, phonenumber, facultyName, facultyEmail;
+
 
   late String dateTime;
 
@@ -89,11 +92,14 @@ class _AppointmentListState extends State<AppointmentList> {
   reschedulesendMail(
     String guestemail,
     String date,
-    String time,
+    String phonenumber,
+    String officenumber,
+    String facultyName,
+    String facultyEmail,
   ) async {
     final Email email = Email(
-      body:
-          "I have to reschedule our appointment due to some unforeseen circumsatnces at $time, $date. ",
+      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has rescheduled your appointment request. He/She will be available on <b>$date</b> in Room no: $officenumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
       isHTML: true,
@@ -208,11 +214,39 @@ class _AppointmentListState extends State<AppointmentList> {
                               selectedDate.day,
                               selectedTime.hour,
                               selectedTime.minute),
+
                         });
+                        FirebaseFirestore.instance
+                            .collection('facultyUser')
+                            .doc((FirebaseAuth.instance.currentUser)!.email)
+                            .get()
+                            .then((value) {
+                          setState(() {
+                            officenumber = value.data()!['officeno'].toString();
+                            phonenumber = value.data()!['phone'].toString();
+                            facultyName = value.data()!['name'].toString();
+                            facultyEmail = value.data()!['email'].toString();
+                          });
                         reschedulesendMail(
                           email,
-                          _dateController.text,
-                          _timeController.text,
+                          "${DateFormat('HH:mm').format(
+                            DateTime(
+                                selectedDate.year,
+                                selectedDate.month,
+                                selectedDate.day,
+                                selectedTime.hour,
+                                selectedTime.minute),
+                          )} | ${DateFormat('dd-MM-yyyy').format(
+                            DateTime(
+                                selectedDate.year,
+                                selectedDate.month,
+                                selectedDate.day,
+                                selectedTime.hour,
+                                selectedTime.minute),
+                          )}",
+                          phonenumber!,
+                          officenumber!, facultyName!, facultyEmail!,
+
                         ).whenComplete(() {
                           setState(() {});
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -220,7 +254,8 @@ class _AppointmentListState extends State<AppointmentList> {
                         });
                         flutterToast("Rescheduled Successfully");
                         Navigator.of(context).pop();
-                      },
+                      });
+                    },
                       child: Text(
                         "Confirm",
                         style: TextStyle(

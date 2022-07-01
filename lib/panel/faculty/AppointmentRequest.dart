@@ -17,6 +17,8 @@ class AppointmentRequest extends StatefulWidget {
 }
 
 class _AppointmentRequestState extends State<AppointmentRequest> {
+
+  String? officenumber, phonenumber, facultyName, facultyEmail, name;
   late String _hour, _minute, _time;
 
   late String dateTime;
@@ -29,15 +31,17 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
 
+
   reschedulesendMail(
     String guestemail,
     String date,
     String phonenumber,
     String officenumber,
+    String facultyName,
+    String facultyEmail,
   ) async {
     final Email email = Email(
-      body:
-          "I won't be available in the aforementioned time. I have rescheduled our meeting to $date at my office, ${officenumber} in the Administration Building. You may also reach at +91${phonenumber}. ",
+      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has rescheduled your appointment request. He/She will be available on <b>$date</b> in Room no: $officenumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
       isHTML: true,
@@ -158,6 +162,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                           setState(() {
                             officenumber = value.data()!['officeno'].toString();
                             phonenumber = value.data()!['phone'].toString();
+                            facultyName = value.data()!['name'].toString();
+                            facultyEmail = value.data()!['email'].toString();
                           });
                           reschedulesendMail(
                                   email,
@@ -177,7 +183,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                         selectedTime.minute),
                                   )}",
                                   phonenumber!,
-                                  officenumber!)
+                                  officenumber!, facultyName!, facultyEmail!,
+
+                          )
                               .whenComplete(() {
                             setState(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -217,7 +225,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   //////
   var stream;
 
-  String? officenumber, phonenumber, name;
+
 
   void initState() {
     ////
@@ -244,10 +252,10 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   }
 
   approvesendMail(String guestemail, String date, String? phonenumber,
-      String? officenumber) async {
+      String? officenumber,String? facultyName,
+      String? facultyEmail,) async {
     final Email email = Email(
-      body:
-          "I confirm our scheduled meeting for $date at my office, ${officenumber} in the Administration Building. You may also reach at +91${phonenumber}.",
+      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has accepted your appointment request. He/She will be available on <b>$date</b> in Room no: $officenumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -255,9 +263,10 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     await FlutterEmailSender.send(email);
   }
 
-  declinesendMail(String guestemail) async {
+  declinesendMail(String guestemail, String? phonenumber, String? facultyName, String? facultyEmail) async {
     final Email email = Email(
-      body: 'I will be unable to meet with you.',
+      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has cancelled your appointment request due to some unavoidable circumstances. Please accept sincere apologies for the inconvenience caused.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+
       subject: 'Request Declined!',
       recipients: [guestemail],
       isHTML: true,
@@ -553,13 +562,21 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                 phonenumber = value
                                                     .data()!['phone']
                                                     .toString();
+                                                facultyName = value
+                                                    .data()!['name']
+                                                    .toString();
+                                                facultyEmail = value
+                                                    .data()!['email']
+                                                    .toString();
 
                                                 print("myyyyyyyyyyyyy${name}");
                                                 approvesendMail(
                                                         chatItem["guestemail"],
                                                         "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
                                                         phonenumber,
-                                                        officenumber)
+                                                        officenumber, facultyName, facultyEmail,
+
+                                                )
                                                     .whenComplete(() {
                                                   setState(() {});
                                                   ScaffoldMessenger.of(context)
@@ -708,14 +725,46 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                 child:
                                                                     ElevatedButton(
                                                                   onPressed:
-                                                                      () {
+                                                                      () async{
                                                                     Navigator.of(
                                                                             context)
                                                                         .pop();
-                                                                    declinesendMail(
-                                                                      chatItem[
+                                                                    FirebaseFirestore.instance
+                                                                        .collection('facultyUser')
+                                                                        .doc(await (FirebaseAuth
+                                                                        .instance.currentUser)!
+                                                                        .email)
+                                                                        .get()
+                                                                        .then((value) {
+                                                                      setState(() {
+                                                                        phonenumber = value
+                                                                            .data()!['phone']
+                                                                            .toString();
+                                                                        facultyName = value
+                                                                            .data()!['name']
+                                                                            .toString();
+                                                                        facultyEmail = value
+                                                                            .data()!['email']
+                                                                            .toString();
+
+                                                                        print("myyyyyyyyyyyyy${name}");
+                                                                        declinesendMail(
+                                                                          chatItem[
                                                                           "guestemail"],
-                                                                    );
+                                                                          phonenumber, facultyName, facultyEmail
+                                                                        )
+                                                                            .whenComplete(() {
+                                                                          setState(() {});
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(
+                                                                            const SnackBar(
+                                                                                content: Text(
+                                                                                    'Guest Notified')),
+                                                                          );
+                                                                        });
+                                                                      });
+                                                                    });
+
                                                                     FirebaseFirestore
                                                                         .instance
                                                                         .collection(

@@ -18,6 +18,9 @@ class _guestRegisterState extends State<guestRegister> {
   List<String>? filePath;
   List<List<String>> rows = [];
 
+  String _mailBody =
+  '<p>Greetings of the day,</p>\n <p>Please find the attached document of the guest register compiled at ${DateFormat('HH:mm').format(DateTime.now())} on ${DateFormat('dd-MM-yyyy').format(DateTime.now())} .</p> \n <p>Regards,<br>College Gate</p>';
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.absolute.path;
@@ -37,10 +40,9 @@ class _guestRegisterState extends State<guestRegister> {
 
   sendMailAndAttachment() async {
     await FlutterEmailSender.send(Email(
-      body:
-          'Please find the data to Guest Register in the CSV file attached below.',
+      body: _mailBody,
       subject:
-          'Register for ${DateFormat('dd-MM-yyyy').format(DateTime.now())} | ${DateFormat('HH:mm').format(DateTime.now())}',
+      'Guest Register | ${DateFormat('dd-MM-yyyy').format(DateTime.now())}',
       recipients: ['iiitlcollegegate12@gmail.com'],
       isHTML: true,
       attachmentPaths: filePath,
