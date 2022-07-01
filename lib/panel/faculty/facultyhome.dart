@@ -98,7 +98,7 @@ class _AppointmentListState extends State<AppointmentList> {
     String facultyEmail,
   ) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is informed to you that $facultyName has rescheduled your appointment request. He/She will be available on <b>$date</b> in Room no: $officenumber.<br>Hope to see you soon! <br>Thank You.</p><p>For further information/clarifications-<br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has rescheduled to <b>$date</b> in Room no: $officenumber.<br>Sorry for the inconvenience caused. Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
 
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
