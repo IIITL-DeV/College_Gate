@@ -46,11 +46,10 @@ class _MyAppState extends State<MyApp> {
         importance: Importance.high,
         enableVibration: true,
       );
-
       flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
       /// Create an Android Notification Channel.
-      ///
+
       /// We use this channel in the `AndroidManifest.xml` file to override the
       /// default FCM channel to enable heads up notifications.
       await flutterLocalNotificationsPlugin
