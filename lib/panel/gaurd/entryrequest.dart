@@ -79,7 +79,7 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                 child: Card(
                   elevation: 3.5,
                   child: SizedBox(
-                    height: 135.h,
+                    height: 140.h,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
@@ -88,7 +88,11 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                color: chatItem["purpose"] == "Home"
+                                    ? Color(0Xff14619C)
+                                    : Colors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
                           subtitle: Container(
@@ -176,8 +180,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               ),
                             ],
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 5.h),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(12.w, 0, 12.w, 5.h),
                         ),
                         // SizedBox(
                         //   height: cardheight * 0.03,
@@ -255,14 +259,18 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                       "Decline",
                                       style: TextStyle(
                                         fontSize: 14.sp,
-                                        color: Colors.red[700],
+                                        color: chatItem["purpose"] == "Home"
+                                            ? Colors.white
+                                            : Colors.red[700],
                                       ),
                                     ),
                                     style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.white),
-                                    ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color?>(
+                                      chatItem["purpose"] == "Home"
+                                          ? Colors.red[700]
+                                          : Colors.white,
+                                    )),
                                   ),
                                 )
                               ],

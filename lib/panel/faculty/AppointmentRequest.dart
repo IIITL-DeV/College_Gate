@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/panel/aboutus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class AppointmentRequest extends StatefulWidget {
 }
 
 class _AppointmentRequestState extends State<AppointmentRequest> {
+  String? officenumber, phonenumber, facultyName, facultyEmail, name;
   late String _hour, _minute, _time;
 
   late String dateTime;
@@ -34,10 +36,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     String date,
     String phonenumber,
     String officenumber,
+    String facultyName,
+    String facultyEmail,
   ) async {
     final Email email = Email(
       body:
-          "I won't be available in the aforementioned time. I have rescheduled our meeting to $date at my office, ${officenumber} in the Administration Building. You may also reach at +91${phonenumber}. ",
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has rescheduled to <b>$date</b> in Room no.: $officenumber.<br>Apologies  for the inconvenience caused. Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
       isHTML: true,
@@ -158,27 +162,31 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                           setState(() {
                             officenumber = value.data()!['officeno'].toString();
                             phonenumber = value.data()!['phone'].toString();
+                            facultyName = value.data()!['name'].toString();
+                            facultyEmail = value.data()!['email'].toString();
                           });
                           reschedulesendMail(
-                                  email,
-                                  "${DateFormat('HH:mm').format(
-                                    DateTime(
-                                        selectedDate.year,
-                                        selectedDate.month,
-                                        selectedDate.day,
-                                        selectedTime.hour,
-                                        selectedTime.minute),
-                                  )} | ${DateFormat('dd-MM-yyyy').format(
-                                    DateTime(
-                                        selectedDate.year,
-                                        selectedDate.month,
-                                        selectedDate.day,
-                                        selectedTime.hour,
-                                        selectedTime.minute),
-                                  )}",
-                                  phonenumber!,
-                                  officenumber!)
-                              .whenComplete(() {
+                            email,
+                            "${DateFormat('HH:mm').format(
+                              DateTime(
+                                  selectedDate.year,
+                                  selectedDate.month,
+                                  selectedDate.day,
+                                  selectedTime.hour,
+                                  selectedTime.minute),
+                            )} | ${DateFormat('dd-MM-yyyy').format(
+                              DateTime(
+                                  selectedDate.year,
+                                  selectedDate.month,
+                                  selectedDate.day,
+                                  selectedTime.hour,
+                                  selectedTime.minute),
+                            )}",
+                            phonenumber!,
+                            officenumber!,
+                            facultyName!,
+                            facultyEmail!,
+                          ).whenComplete(() {
                             setState(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -217,8 +225,6 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   //////
   var stream;
 
-  String? officenumber, phonenumber, name;
-
   void initState() {
     ////
     _dateController.text = DateFormat.yMd().format(DateTime.now());
@@ -243,11 +249,17 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
         .snapshots();
   }
 
-  approvesendMail(String guestemail, String date, String? phonenumber,
-      String? officenumber) async {
+  approvesendMail(
+    String guestemail,
+    String date,
+    String? phonenumber,
+    String? officenumber,
+    String? facultyName,
+    String? facultyEmail,
+  ) async {
     final Email email = Email(
       body:
-          "I confirm our scheduled meeting for $date at my office, ${officenumber} in the Administration Building. You may also reach at +91${phonenumber}.",
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no.: $officenumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -255,9 +267,11 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     await FlutterEmailSender.send(email);
   }
 
-  declinesendMail(String guestemail) async {
+  declinesendMail(String guestemail, String? phonenumber, String? facultyName,
+      String? facultyEmail) async {
     final Email email = Email(
-      body: 'I will be unable to meet with you.',
+      body:
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment cannot be scheduled at the moment due to unavoidable circumstances. Please accept sincere apologies for the inconvenience caused and try again later!. <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Request Declined!',
       recipients: [guestemail],
       isHTML: true,
@@ -270,6 +284,21 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AboutUs()));
+              },
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Icon(
+                    Icons.info_outline,
+                    color: Colors.white,
+                    size: 22.sp,
+                  )),
+            )
+          ],
           toolbarHeight: 56.h,
           backgroundColor: Color(0Xff15609c),
           centerTitle: true,
@@ -453,8 +482,9 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                             ),
                                             Text(
                                               "Description",
+                                              textAlign: TextAlign.left,
                                               style: TextStyle(
-                                                  fontSize: 12.sp,
+                                                  fontSize: 10.sp,
                                                   color: Color(0Xff15609c)),
                                             ),
                                           ],
@@ -553,14 +583,22 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                 phonenumber = value
                                                     .data()!['phone']
                                                     .toString();
+                                                facultyName = value
+                                                    .data()!['name']
+                                                    .toString();
+                                                facultyEmail = value
+                                                    .data()!['email']
+                                                    .toString();
 
                                                 print("myyyyyyyyyyyyy${name}");
                                                 approvesendMail(
-                                                        chatItem["guestemail"],
-                                                        "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
-                                                        phonenumber,
-                                                        officenumber)
-                                                    .whenComplete(() {
+                                                  chatItem["guestemail"],
+                                                  "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                                  phonenumber,
+                                                  officenumber,
+                                                  facultyName,
+                                                  facultyEmail,
+                                                ).whenComplete(() {
                                                   setState(() {});
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
@@ -708,14 +746,49 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                                                 child:
                                                                     ElevatedButton(
                                                                   onPressed:
-                                                                      () {
+                                                                      () async {
                                                                     Navigator.of(
                                                                             context)
                                                                         .pop();
-                                                                    declinesendMail(
-                                                                      chatItem[
-                                                                          "guestemail"],
-                                                                    );
+                                                                    FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'facultyUser')
+                                                                        .doc(await (FirebaseAuth.instance.currentUser)!
+                                                                            .email)
+                                                                        .get()
+                                                                        .then(
+                                                                            (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        phonenumber = value
+                                                                            .data()!['phone']
+                                                                            .toString();
+                                                                        facultyName = value
+                                                                            .data()!['name']
+                                                                            .toString();
+                                                                        facultyEmail = value
+                                                                            .data()!['email']
+                                                                            .toString();
+
+                                                                        print(
+                                                                            "myyyyyyyyyyyyy${name}");
+                                                                        declinesendMail(
+                                                                                chatItem["guestemail"],
+                                                                                phonenumber,
+                                                                                facultyName,
+                                                                                facultyEmail)
+                                                                            .whenComplete(() {
+                                                                          setState(
+                                                                              () {});
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(
+                                                                            const SnackBar(content: Text('Guest Notified')),
+                                                                          );
+                                                                        });
+                                                                      });
+                                                                    });
+
                                                                     FirebaseFirestore
                                                                         .instance
                                                                         .collection(

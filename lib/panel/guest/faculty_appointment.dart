@@ -8,14 +8,18 @@ import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import '../../main.dart';
 
 class faculty_appointment extends StatefulWidget {
   String email;
+  String token;
   bool isStudent;
 
-  faculty_appointment({Key? key, required this.email, required this.isStudent})
+  faculty_appointment(
+      {Key? key,
+      required this.token,
+      required this.email,
+      required this.isStudent})
       : super(key: key);
 
   @override
@@ -57,8 +61,8 @@ class _faculty_appointmentState extends State<faculty_appointment> {
       children: [
         Expanded(
             child: TextField(
-              readOnly: true,
-              style: TextStyle(fontSize: 14.sp),
+          readOnly: true,
+          style: TextStyle(fontSize: 14.sp),
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -110,8 +114,8 @@ class _faculty_appointmentState extends State<faculty_appointment> {
         ),
         Expanded(
             child: TextField(
-              readOnly: true,
-              style: TextStyle(fontSize: 14.sp),
+          readOnly: true,
+          style: TextStyle(fontSize: 14.sp),
           controller: _timeController,
           decoration: InputDecoration(
             labelText: 'Time',
@@ -215,7 +219,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
 
   Widget _buildphone() {
     return TextFormField(
-      keyboardType: TextInputType.number,
+        keyboardType: TextInputType.number,
         decoration: const InputDecoration(
           labelText: "Phone Number",
         ),
@@ -348,7 +352,6 @@ class _faculty_appointmentState extends State<faculty_appointment> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56.h,
@@ -361,13 +364,12 @@ class _faculty_appointmentState extends State<faculty_appointment> {
       ),
       body: SingleChildScrollView(
         child: Container(
-            padding:  EdgeInsets.symmetric(vertical: 25.h, horizontal: 24.h),
+            padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 24.h),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   SizedBox(
                     height: 108.h,
                     child: ClipRRect(
@@ -403,7 +405,8 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                           primary: Color(0Xff15609c),
                           padding: EdgeInsets.all(12),
                           // padding: const EdgeInsets.all(10),
-                          minimumSize: Size(MediaQuery.of(context).size.width, 38.h)),
+                          minimumSize:
+                              Size(MediaQuery.of(context).size.width, 38.h)),
                       child: Text(
                         'Submit',
                         style: TextStyle(
@@ -437,7 +440,10 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                                   'isStudent': false,
                                   'appointisapproved': false,
                                 }, SetOptions(merge: true)),
-
+                                sendPushMessage(
+                                    "You have received a new appointment request from someone outside the insitute.",
+                                    "Appointment Request!",
+                                    widget.token),
                                 flutterToast(
                                     "Request has been sent, you will be notified further via on your email."),
                                 Navigator.of(context).pop(),
