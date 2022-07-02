@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
             android: AndroidNotificationDetails(
               "123",
               "ANU",
-              icon: "@mipmap/ic_launcher",
+              icon: "@mipmap/launcher_icon",
             ),
           ),
         );

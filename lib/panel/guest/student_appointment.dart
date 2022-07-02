@@ -395,35 +395,41 @@ class _bookingState extends State<booking> {
                                       content: Text('Processing Data')),
                                 ),
                                 FirebaseFirestore.instance
-                                  ..collection('studentUser')
-                                      .doc(genrollnment)
-                                      .get()
-                                      .then((value) {
-                                    token = value.data()!['token'].toString();
-                                  }),
-                                FirebaseFirestore.instance
                                     .collection('studentUser')
                                     .doc(genrollnment)
-                                    .collection('guestemail')
-                                    .doc(email)
-                                    .set({
-                                  'guestname': name,
-                                  'guestemail': email,
-                                  'guestappointdatetime': DateTime(
-                                      selectedDate.year,
-                                      selectedDate.month,
-                                      selectedDate.day,
-                                      selectedTime.hour,
-                                      selectedTime.minute),
-                                }, SetOptions(merge: true)),
+                                    .get()
+                                    .then((value) {
+                                  if (value.exists) {
+                                    token = value.data()!['token'].toString();
+                                    FirebaseFirestore.instance
+                                        .collection('studentUser')
+                                        .doc(genrollnment)
+                                        .collection('guestemail')
+                                        .doc(email)
+                                        .set({
+                                      'guestname': name,
+                                      'guestemail': email,
+                                      'guestappointdatetime': DateTime(
+                                          selectedDate.year,
+                                          selectedDate.month,
+                                          selectedDate.day,
+                                          selectedTime.hour,
+                                          selectedTime.minute),
+                                    }, SetOptions(merge: true));
 
-                                sendPushMessage(
-                                    "You have a new appointment request.",
-                                    "Appointment Request!",
-                                    token!),
+                                    sendPushMessage(
+                                        "You have a new appointment request.",
+                                        "Appointment Request!",
+                                        token!);
 
-                                flutterToast("Request has been sent."),
-                                Navigator.of(context).pop(),
+                                    flutterToast(
+                                        "Request has been sent. You will be notified further via email.");
+                                    Navigator.of(context).pop();
+                                  } else {
+                                    flutterToast("Invalid student's email");
+                                    Navigator.of(context).pop();
+                                  }
+                                }),
 
                                 // Navigator.pushReplacement(
                                 //     context,
