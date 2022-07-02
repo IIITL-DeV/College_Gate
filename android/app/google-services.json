@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "329096238857-ctcbe2lhb6vok5nu6om2fle445ihb6r7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.college_gate",
+            "certificate_hash": "716c26e610ad862dbabe2d51715a0b3e2677a719"
+          }
+        },
+        {
           "client_id": "329096238857-rp9kob387scd1hob99lpflds0ott6dsp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -54,6 +62,49 @@
             {
               "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "329096238857-38f5rltqp81pi4horaf868uu3mp3kbvo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "mnxak"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329096238857:android:d20220c6c0ec957156a5d8",
+        "android_client_info": {
+          "package_name": "com.iiitl.college_gate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtvTX8omMEKFaIPmR47VTnUXbR04qP0vw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "329096238857-38f5rltqp81pi4horaf868uu3mp3kbvo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "mnxak"
+              }
             }
           ]
         }

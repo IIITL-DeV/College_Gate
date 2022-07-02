@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 ImagePicker picker = ImagePicker();
 //import 'package:image_picker/image_picker.dart';
 
@@ -137,7 +136,6 @@ class _facultyidcardState extends State<facultyidcard> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56.h,
@@ -248,7 +246,7 @@ class _facultyidcardState extends State<facultyidcard> {
                       borderRadius: new BorderRadius.circular(15.0),
                     ),
                     padding: EdgeInsets.all(12),
-                    minimumSize: Size(MediaQuery.of(context).size.width,38.h),
+                    minimumSize: Size(MediaQuery.of(context).size.width, 38.h),
                     alignment: Alignment.center,
                     primary: const Color(0xFF14619C)),
                 onPressed: () async => {

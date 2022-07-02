@@ -102,8 +102,11 @@ class _FacultyListState extends State<FacultyList> {
                                             builder: (context) => widget
                                                     .isStudent
                                                 ? studentfacultyappointment(
-                                                    email: chatItem["email"])
+                                                    email: chatItem["email"],
+                                                    token: chatItem["token"],
+                                                  )
                                                 : faculty_appointment(
+                                                    token: chatItem["token"],
                                                     email: chatItem["email"],
                                                     isStudent: widget.isStudent,
                                                   )));

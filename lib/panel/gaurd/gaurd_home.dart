@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:io';
+import 'package:college_gate/panel/aboutus.dart';
 import 'package:college_gate/panel/gaurd/deliveryEntry.dart';
 import 'package:college_gate/panel/gaurd/studentRegister.dart';
 import 'package:path_provider/path_provider.dart';
@@ -78,39 +79,58 @@ class _gaurdHomeState extends State<gaurdHome> {
         onTap: _onTapTapped,
       ),
       appBar: AppBar(
+        leading: InkWell(
+          onTap: () {
+            AuthMethods().logout().then((s) {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => SignIn()));
+            });
+          },
+          child: Container(
+            child: Transform.scale(
+              scaleX: -1,
+              child: Icon(
+                Icons.logout,
+                color: Colors.white,
+                size: 20.sp,
+              ),
+            ),
+
+            // //padding: EdgeInsets.symmetric(horizontal: 10.w),
+            // child: Icon(
+            //   Icons.logout,
+            //   color: Colors.white,
+            //   size: 20.sp,
+            // )
+          ),
+        ),
         toolbarHeight: 56.h,
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
-            SizedBox(
-              width: 12.w,
-            ),
-            Text("College Gate", style: TextStyle(fontSize: 21.sp)),
-            //SizedBox(width: 50.w,),
-          ],
-        ),
+        title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
+          SizedBox(
+            width: 12.w,
+          ),
+          Text("College Gate", style: TextStyle(fontSize: 21.sp)),
+        ]),
         actions: [
           InkWell(
             onTap: () {
-              AuthMethods().logout().then((s) {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => SignIn()));
-              });
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AboutUs()));
             },
             child: Container(
-                //padding: EdgeInsets.symmetric(horizontal: 10.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Icon(
-              Icons.exit_to_app,
-              color: Colors.white,
-              size: 20.sp,
-            )),
+                  Icons.info_outline,
+                  color: Colors.white,
+                  size: 22.sp,
+                )),
           ),
-          SizedBox(
-            width: 20.w,
-          )
+          // SizedBox(
+          //   width: 20.w,
+          // )
         ],
       ),
       // AppBar(

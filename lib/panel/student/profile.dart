@@ -52,7 +52,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    print("IDDDDDDD is : $_idcard");
     if (_idcard == null) {
       return Center(child: CircularProgressIndicator());
     } else
