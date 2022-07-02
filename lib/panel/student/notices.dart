@@ -41,16 +41,14 @@ class _noticesState extends State<notices> {
     String guestemail,
     String date,
     String? phonenumber,
-    String? roomnumber,String? StudentName,
+    String? roomnumber,
+    String? StudentName,
     String? StudentEmail,
     String? StudentRoll,
   ) async {
     final Email email = Email(
-<<<<<<< Updated upstream
-      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no: $roomnumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$StudentName - $StudentRoll <br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
-=======
-      body: 'I confirm our scheduled meeting at $time on $date.',
->>>>>>> Stashed changes
+      body:
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no: $roomnumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$StudentName - $StudentRoll <br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,
@@ -59,13 +57,11 @@ class _noticesState extends State<notices> {
     await FlutterEmailSender.send(email);
   }
 
-  declinesendMail(String guestemail,
-      String date,
-      String? phonenumber,
-      String? StudentName,
-      String? StudentEmail,String? StudentRoll) async {
+  declinesendMail(String guestemail, String date, String? phonenumber,
+      String? StudentName, String? StudentEmail, String? StudentRoll) async {
     final Email email = Email(
-      body: '<p>Greetings for the day!</p> <p>It is to inform you that your appointment cannot be scheduled at the moment due to unavoidable circumstances. Please accept sincere apologies for the inconvenience caused and try again later!. <br>Thank You.</p><p>Regards,<br>$StudentName - $StudentRoll <br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
+      body:
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment cannot be scheduled at the moment due to unavoidable circumstances. Please accept sincere apologies for the inconvenience caused and try again later!. <br>Thank You.</p><p>Regards,<br>$StudentName - $StudentRoll <br>Phone No.: +91$phonenumber <br>Email: $StudentEmail</p>',
       subject: 'Request Declined!',
       recipients: [guestemail],
       isHTML: true,
@@ -183,32 +179,44 @@ class _noticesState extends State<notices> {
                                     onPressed: () async {
                                       FirebaseFirestore.instance
                                           .collection('studentUser')
-                                          .doc(await (FirebaseAuth.instance.currentUser)!.email)
+                                          .doc(await (FirebaseAuth
+                                                  .instance.currentUser)!
+                                              .email)
                                           .get()
                                           .then((value) {
                                         setState(() {
-                                          StudentName = value.data()!['name'].toString();
-                                          StudentRoll = value.data()!['enrollment'].toString();
-                                          StudentEmail = value.data()!['email'].toString();
-                                          phonenumber = value.data()!['phone'].toString();
-                                          roomnumber = value.data()!['hostelno'].toString() + '/' + value.data()!['room'].toString();
+                                          StudentName =
+                                              value.data()!['name'].toString();
+                                          StudentRoll = value
+                                              .data()!['enrollment']
+                                              .toString();
+                                          StudentEmail =
+                                              value.data()!['email'].toString();
+                                          phonenumber =
+                                              value.data()!['phone'].toString();
+                                          roomnumber = value
+                                                  .data()!['hostelno']
+                                                  .toString() +
+                                              '/' +
+                                              value.data()!['room'].toString();
 
                                           approvesendMail(
-                                            chatItem["guestemail"],
-                                            "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
-                                            phonenumber,
-                                            roomnumber, StudentName, StudentEmail, StudentRoll
-                                          )
+                                                  chatItem["guestemail"],
+                                                  "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                                  phonenumber,
+                                                  roomnumber,
+                                                  StudentName,
+                                                  StudentEmail,
+                                                  StudentRoll)
                                               .whenComplete(() {
                                             setState(() {});
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               const SnackBar(
                                                   content:
-                                                  Text('Request Accepted')),
+                                                      Text('Request Accepted')),
                                             );
                                           });
-
                                         });
                                       });
 
@@ -242,34 +250,41 @@ class _noticesState extends State<notices> {
                                   height: 38.h,
                                   width: 150.w,
                                   child: ElevatedButton(
-                                    onPressed: () async{
+                                    onPressed: () async {
                                       FirebaseFirestore.instance
                                           .collection('studentUser')
-                                          .doc(await (FirebaseAuth.instance.currentUser)!.email)
+                                          .doc(await (FirebaseAuth
+                                                  .instance.currentUser)!
+                                              .email)
                                           .get()
                                           .then((value) {
                                         setState(() {
-                                          StudentName = value.data()!['name'].toString();
-                                          StudentRoll = value.data()!['enrollment'].toString();
-                                          StudentEmail = value.data()!['email'].toString();
-                                          phonenumber = value.data()!['phone'].toString();
+                                          StudentName =
+                                              value.data()!['name'].toString();
+                                          StudentRoll = value
+                                              .data()!['enrollment']
+                                              .toString();
+                                          StudentEmail =
+                                              value.data()!['email'].toString();
+                                          phonenumber =
+                                              value.data()!['phone'].toString();
 
                                           declinesendMail(
-                                              chatItem["guestemail"],
-                                              "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
-                                              phonenumber,
-                                              StudentName, StudentEmail,StudentRoll
-                                          )
+                                                  chatItem["guestemail"],
+                                                  "${DateFormat('HH:mm').format(chatItem["guestappointdatetime"].toDate())} | ${DateFormat('dd-MM-yyyy').format(chatItem["guestappointdatetime"].toDate())}",
+                                                  phonenumber,
+                                                  StudentName,
+                                                  StudentEmail,
+                                                  StudentRoll)
                                               .whenComplete(() {
                                             setState(() {});
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               const SnackBar(
                                                   content:
-                                                  Text('Request Declined')),
+                                                      Text('Request Declined')),
                                             );
                                           });
-
                                         });
                                       });
 

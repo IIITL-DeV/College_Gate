@@ -40,7 +40,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   ) async {
     final Email email = Email(
       body:
-          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has rescheduled to <b>$date</b> in Room no: $officenumber.<br>Sorry for the inconvenience caused. Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has rescheduled to <b>$date</b> in Room no.: $officenumber.<br>Apologies  for the inconvenience caused. Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Rescheduled!',
       recipients: [guestemail],
       isHTML: true,
@@ -258,7 +258,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   ) async {
     final Email email = Email(
       body:
-          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no: $officenumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
+          '<p>Greetings for the day!</p> <p>It is to inform you that your appointment has scheduled on <b>$date</b> in Room no.: $officenumber.<br>Please be present accordingly! <br>Thank You.</p><p>Regards,<br>$facultyName <br>Phone No.: +91$phonenumber <br>Email: $facultyEmail</p>',
       subject: 'Appointment Booked!',
       recipients: [guestemail],
       isHTML: true,

@@ -38,7 +38,6 @@ dependencies:
   http: ^0.13.4
   google_fonts: ^3.0.1
   date_format: ^2.0.6
-  # flutter_native_splash: ^2.1.6
   fluttertoast: ^8.0.9
 
 

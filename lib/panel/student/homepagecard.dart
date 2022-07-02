@@ -1,13 +1,8 @@
-import 'dart:ui';
 import 'package:college_gate/panel/aboutus.dart';
 import 'package:intl/intl.dart';
-import 'package:date_format/date_format.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/main.dart';
 import 'package:college_gate/panel/faculty/facultyList.dart';
-import 'package:college_gate/panel/gaurd/log.dart';
-import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/student/notices.dart';
 import 'package:college_gate/panel/student/profile.dart';
 import 'package:college_gate/services/auth.dart';
@@ -90,10 +85,10 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
   sendMail(String? name, String? date, String? phonenumber,
       String? hostelnumber, String? room) async {
     final Email email = Email(
-      body: "Respected Sir/Ma'am,\n"
-          "This is to inform you that I, $name residing in $hostelnumber, room number $room will be be out of the hostel premises from $date for next few days, with my parents consent. For any other details please contact me at Mob: +91$phonenumber.",
+      body:
+          "<p>Respected Sir/Ma'am,<p> <p>This is to inform you that I, $name residing in $hostelnumber, room number $room will be be out of the hostel premises from $date for next few days, with my parents' consent.<p><b> For any other details please contact me at Mob: +91$phonenumber.<b><p> Sincerely.<p>",
       subject: 'Permission to go Home($date)',
-      recipients: ["", "collegegate@iiitl.ac.in"],
+      recipients: ["warden.girls@iiitl.ac.in", "warden.boys@iiitl.ac.in"],
       isHTML: true,
     );
     await FlutterEmailSender.send(email);

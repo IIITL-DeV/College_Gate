@@ -25,7 +25,7 @@ class _AboutUsState extends State<AboutUs> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.h),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             dragStartBehavior: DragStartBehavior.down,
@@ -42,12 +42,12 @@ class _AboutUsState extends State<AboutUs> {
                     child: Text(
                       "To report any bug or for any queries feel free to contact us.",
                       style:
-                          TextStyle(color: Color(0Xff15609c), fontSize: 9.sp),
+                          TextStyle(color: Color(0Xff15609c), fontSize: 8.sp),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(
-                    height: 2,
+                    height: 2.h,
                   ),
                   Center(
                     child: Text(
@@ -99,14 +99,14 @@ class _AboutUsState extends State<AboutUs> {
               name: "Kratika Jain",
               phone: "+919929160355",
               title: "Product Designer",
-              subtitle: "(Product Documentation)",
+              subtitle: "(Documentation)",
             ),
             ProductCard(
               image: "assets/Sameer.jpeg",
               name: "Sameer Makar",
               phone: "+919549571425",
-              title: "Q/A Engineer",
-              subtitle: "",
+              title: "QA Engineer",
+              subtitle: "(Unit Testing)",
             ),
             // ProductCard(
             //   image: "assets/profile_darkbluecolor.png",
@@ -146,16 +146,16 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        // color: Color(0Xff15609c),
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(color: Color(0xfff8f8f8), blurRadius: 15, spreadRadius: 10),
-        ],
-      ),
-      margin: EdgeInsets.symmetric(vertical: 0),
+      // decoration: BoxDecoration(
+      //   // color: Color(0Xff15609c),
+      //   borderRadius: BorderRadius.all(Radius.circular(20)),
+      //   boxShadow: <BoxShadow>[
+      //     BoxShadow(color: Color(0xfff8f8f8), blurRadius: 15, spreadRadius: 10),
+      //   ],
+      // ),
+      // margin: EdgeInsets.symmetric(vertical: 0),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.w),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
@@ -182,7 +182,7 @@ class ProductCard extends StatelessWidget {
                     children: <Widget>[
                       CircleAvatar(
                         backgroundImage: AssetImage(image!),
-                        radius: 60,
+                        radius: 70.r,
                         backgroundColor: Color(0Xff15609c),
                       ),
                     ],
@@ -191,25 +191,25 @@ class ProductCard extends StatelessWidget {
                 // SizedBox(height: 5),
                 TitleText(
                   text: title!,
-                  fontSize: 13,
+                  fontSize: 13.sp,
                   color: Color(0Xff15609c),
                 ),
                 TitleText(
                   text: subtitle,
-                  fontSize: 8,
+                  fontSize: 8.sp,
                   color: Color.fromARGB(255, 96, 146, 188),
                 ),
                 SizedBox(
-                  height: 4,
+                  height: 4.h,
                 ),
                 TitleText(
                   text: name!,
-                  fontSize: 12,
+                  fontSize: 10.sp,
                   color: Colors.grey,
                 ),
                 TitleText(
                   text: phone!,
-                  fontSize: 10,
+                  fontSize: 8.sp,
                   color: Colors.grey,
                 ),
               ],
@@ -229,8 +229,8 @@ class TitleText extends StatelessWidget {
   const TitleText(
       {Key? key,
       required this.text,
-      this.fontSize = 4,
-      this.color = Colors.green,
+      this.fontSize = 0,
+      this.color = Colors.white,
       this.fontWeight = FontWeight.w800})
       : super(key: key);
   @override
