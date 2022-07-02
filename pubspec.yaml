@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^3.0.1
   date_format: ^2.0.6
   fluttertoast: ^8.0.9
+  flutter_native_splash: ^2.1.6
 
 
 
@@ -65,7 +66,7 @@ flutter_icons:
 flutter_native_splash:
   android: true 
   ios: true 
-  image: assets/from.png
+  image: assets/sp.png
   color: "#ffffff" 
   android_gravity: fill 
   ios_content_mode: scaleAspectFill 
@@ -119,6 +120,7 @@ flutter:
     - assets/nik.jpg
     - assets/kratika.jpg
     - assets/Sameer.jpeg
+    - assets/sp.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

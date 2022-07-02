@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/main.dart';
+import 'package:college_gate/panel/aboutus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -321,6 +322,21 @@ class _AppointmentListState extends State<AppointmentList> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56.h,
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AboutUs()));
+            },
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Icon(
+                  Icons.info_outline,
+                  color: Colors.white,
+                  size: 22.sp,
+                )),
+          )
+        ],
         backgroundColor: Color(0Xff15609c),
         centerTitle: true,
         title: Row(
