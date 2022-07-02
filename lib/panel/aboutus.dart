@@ -51,7 +51,7 @@ class _AboutUsState extends State<AboutUs> {
                   ),
                   Center(
                     child: Text(
-                      "© 2019 Indian Insitute of Information Technology Lucknow. All rights reserved.",
+                      "© 2022 Indian Institute of Information Technology Lucknow. All rights reserved.",
                       style:
                           TextStyle(color: Color(0Xff15609c), fontSize: 9.sp),
                       textAlign: TextAlign.center,
