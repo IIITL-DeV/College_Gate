@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:college_gate/services/auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:college_gate/panel/faculty/facultyhome.dart';
 import 'package:college_gate/panel/sign_in.dart';
@@ -113,36 +114,30 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget getScreen() {
-    String? getemail = FirebaseAuth.instance.currentUser!.email;
+    return AuthMethods().signInWithGoogle(context);
+    // return Center(child: CircularProgressIndicator());
+    // String? getemail = FirebaseAuth.instance.currentUser!.email;
 
-    bool isstudent = getemail!.contains(new RegExp(r'[0-9]'));
-    getemail = getemail.substring(getemail.length - 12);
-    if (FirebaseAuth.instance.currentUser!.email == "collegegate@iiitl.ac.in")
-      return gaurdHome();
-    else if ("@iiitl.ac.in" == getemail && isstudent == true) {
-      // await FirebaseFirestore.instance
-      //     .collection('studentUser')
-      //     .doc((FirebaseAuth.instance.currentUser)!.email)
-      //     .get()
-      //     .then((value) {
-      //   String? idcard = value.data()!['idcard'].toString();
-      //   if (idcard == "empty") return completeProfile();
+    // bool isstudent = getemail!.contains(new RegExp(r'[0-9]'));
+    // getemail = getemail.substring(getemail.length - 12);
+    // if (FirebaseAuth.instance.currentUser!.email == "collegegate@iiitl.ac.in")
+    //   return gaurdHome();
+    // else if ("@iiitl.ac.in" == getemail && isstudent == true) {
+    //   return studentHome();
+    //   // });
+    // } else if ("@iiitl.ac.in" == getemail && isstudent == false) {
+    //   // await FirebaseFirestore.instance
+    //   //     .collection('facultyUser')
+    //   //     .doc((FirebaseAuth.instance.currentUser)!.email)
+    //   //     .get()
+    //   //     .then((value) {
+    //   //   String? idcard = value.data()?['ProfilePic'];
+    //   //   if (idcard == "empty") return FacultyCompleteProfile();
 
-      return studentHome();
-      // });
-    } else if ("@iiitl.ac.in" == getemail && isstudent == false) {
-      // await FirebaseFirestore.instance
-      //     .collection('facultyUser')
-      //     .doc((FirebaseAuth.instance.currentUser)!.email)
-      //     .get()
-      //     .then((value) {
-      //   String? idcard = value.data()?['ProfilePic'];
-      //   if (idcard == "empty") return FacultyCompleteProfile();
-
-      return FacultyHome();
-      // });
-    }
-    return SignIn();
+    //   return FacultyHome();
+    //   // });
+    // }
+    // return SignIn();
   }
 
   @override
@@ -154,22 +149,36 @@ class _MyAppState extends State<MyApp> {
           home: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (BuildContext context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting)
-                return Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  ),
+              try {
+                if (snapshot.connectionState == ConnectionState.waiting)
+                  return Container(
+                    color: Colors.white,
+                    child: Center(
+                        child: CircularProgressIndicator(
+                            // backgroundColor: Colors.white,
+                            )),
+                  );
+                else if (snapshot.hasError)
+                  return Container(
+                    color: Colors.white,
+                    child: Center(
+                        child: CircularProgressIndicator(
+                            // backgroundColor: Colors.white,
+                            )),
+                  );
+                else if (snapshot.hasData) {
+                  return AuthMethods().signInWithGoogle(context);
+                } else
+                  return SignIn();
+              } catch (e) {
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                      child: CircularProgressIndicator(
+                          // backgroundColor: Colors.white,
+                          )),
                 );
-              else if (snapshot.hasError)
-                return Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  ),
-                );
-              else if (snapshot.hasData) {
-                return getScreen();
-              } else
-                return SignIn();
+              }
             },
           )),
       designSize: const Size(375, 812),

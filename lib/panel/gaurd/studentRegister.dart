@@ -32,10 +32,8 @@ class _StudentRegisterState extends State<StudentRegister> {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    String time = DateFormat('HH:mm').format(DateTime.now());
-    filePath = ['$path/$date/$time/studentRegister.csv'];
-    return File('$path/$date/$time/studentRegister.csv').create();
+    filePath = ['$path/Student Register.csv'];
+    return File('$path/Student Register.csv').create();
   }
 
   getCsv() async {
