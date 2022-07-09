@@ -375,7 +375,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100.r),
                       child: Image.asset(
-                        "assets/facultyAppointment.jpg",
+                        "assets/appointmentFaculty.png",
                         fit: BoxFit.contain,
                       ),
                     ),
