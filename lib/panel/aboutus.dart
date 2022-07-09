@@ -40,7 +40,7 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                   Center(
                     child: Text(
-                      "To report any bug or for any queries feel free to contact us.",
+                      "To report a bug or for any queries contact us.",
                       style:
                           TextStyle(color: Color(0Xff15609c), fontSize: 8.sp),
                       textAlign: TextAlign.center,
@@ -99,14 +99,14 @@ class _AboutUsState extends State<AboutUs> {
               name: "Kratika Jain",
               phone: "+919929160355",
               title: "Product Designer",
-              subtitle: "(Documentation)",
+              subtitle: null,
             ),
             ProductCard(
               image: "assets/Sameer.jpeg",
               name: "Sameer Makar",
               phone: "+919549571425",
-              title: "QA Engineer",
-              subtitle: "(Unit Testing)",
+              title: "QA        Engineer",
+              subtitle: null,
             ),
             // ProductCard(
             //   image: "assets/profile_darkbluecolor.png",
@@ -131,7 +131,7 @@ class ProductCard extends StatelessWidget {
   String? title;
 
   String? name;
-  String subtitle;
+  String? subtitle;
   String? phone;
 
   ProductCard(
@@ -194,11 +194,12 @@ class ProductCard extends StatelessWidget {
                   fontSize: 13.sp,
                   color: Color(0Xff15609c),
                 ),
-                TitleText(
-                  text: subtitle,
-                  fontSize: 8.sp,
-                  color: Color.fromARGB(255, 96, 146, 188),
-                ),
+                if (subtitle != null)
+                  TitleText(
+                    text: subtitle!,
+                    fontSize: 8.sp,
+                    color: Color.fromARGB(255, 96, 146, 188),
+                  ),
                 SizedBox(
                   height: 4.h,
                 ),
