@@ -429,7 +429,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                 trailing: SizedBox(
                                   width: 85.w,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       //SizedBox(height: cardheight * 0.07),
                                       SizedBox(height: 13.h),
