@@ -352,7 +352,7 @@ class _bookingState extends State<booking> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100.r),
                       child: Image.asset(
-                        "assets/studentAppointment.png",
+                        "assets/appointmentStudent.png",
                         fit: BoxFit.contain,
                       ),
                     ),
