@@ -1,8 +1,6 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 class AboutUs extends StatefulWidget {
@@ -25,7 +23,7 @@ class _AboutUsState extends State<AboutUs> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: Padding(
-          padding: EdgeInsets.all(8.h),
+          padding: EdgeInsets.fromLTRB(8.h, 0, 8.h, 0),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             dragStartBehavior: DragStartBehavior.down,
@@ -40,7 +38,7 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                   Center(
                     child: Text(
-                      "To report any bug or for any queries feel free to contact us.",
+                      "To report a bug or for any queries contact us.",
                       style:
                           TextStyle(color: Color(0Xff15609c), fontSize: 8.sp),
                       textAlign: TextAlign.center,
@@ -68,7 +66,7 @@ class _AboutUsState extends State<AboutUs> {
 
   Widget _productWidget() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
+      // margin: EdgeInsets.symmetric(vertical: 5),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * .75,
       child: GridView(
@@ -80,6 +78,20 @@ class _AboutUsState extends State<AboutUs> {
           padding: EdgeInsets.all(20),
           scrollDirection: Axis.vertical,
           children: [
+            ProductCard(
+              image: "assets/vks.jpg",
+              name: "Dr. Vishal Krishna Singh",
+              phone: null,
+              title: "Supervisor",
+              subtitle: null,
+            ),
+            ProductCard(
+              image: "assets/abhinesh.jpg",
+              name: "Dr. Abhinesh Kaushik",
+              phone: null,
+              title: "Supervisor",
+              subtitle: null,
+            ),
             ProductCard(
               image: "assets/anu.jpg",
               name: "Anu Kumari",
@@ -99,14 +111,14 @@ class _AboutUsState extends State<AboutUs> {
               name: "Kratika Jain",
               phone: "+919929160355",
               title: "Product Designer",
-              subtitle: "(Documentation)",
+              subtitle: null,
             ),
             ProductCard(
               image: "assets/Sameer.jpeg",
               name: "Sameer Makar",
               phone: "+919549571425",
               title: "QA Engineer",
-              subtitle: "(Unit Testing)",
+              subtitle: null,
             ),
             // ProductCard(
             //   image: "assets/profile_darkbluecolor.png",
@@ -131,7 +143,7 @@ class ProductCard extends StatelessWidget {
   String? title;
 
   String? name;
-  String subtitle;
+  String? subtitle;
   String? phone;
 
   ProductCard(
@@ -182,7 +194,7 @@ class ProductCard extends StatelessWidget {
                     children: <Widget>[
                       CircleAvatar(
                         backgroundImage: AssetImage(image!),
-                        radius: 70.r,
+                        radius: 80.r,
                         backgroundColor: Color(0Xff15609c),
                       ),
                     ],
@@ -194,11 +206,12 @@ class ProductCard extends StatelessWidget {
                   fontSize: 13.sp,
                   color: Color(0Xff15609c),
                 ),
-                TitleText(
-                  text: subtitle,
-                  fontSize: 8.sp,
-                  color: Color.fromARGB(255, 96, 146, 188),
-                ),
+                if (subtitle != null)
+                  TitleText(
+                    text: subtitle!,
+                    fontSize: 8.sp,
+                    color: Color.fromARGB(255, 96, 146, 188),
+                  ),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -207,11 +220,12 @@ class ProductCard extends StatelessWidget {
                   fontSize: 10.sp,
                   color: Colors.grey,
                 ),
-                TitleText(
-                  text: phone!,
-                  fontSize: 8.sp,
-                  color: Colors.grey,
-                ),
+                if (phone != null)
+                  TitleText(
+                    text: phone!,
+                    fontSize: 8.sp,
+                    color: Colors.grey,
+                  ),
               ],
             ),
           ],
