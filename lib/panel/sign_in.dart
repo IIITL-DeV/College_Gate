@@ -119,9 +119,9 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                // SizedBox(
+                //   height: 10,
+                // ),
                 // GestureDetector(
                 //   onTap: () {
                 //     Navigator.pushReplacement(context,

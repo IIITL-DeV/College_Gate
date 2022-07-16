@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/viewimage.dart';
 import 'package:college_gate/services/auth.dart';
@@ -244,8 +245,14 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                             child: GestureDetector(
                                 child: Hero(
                                   tag: chatItem["idcard"],
-                                  child: Image.network("${chatItem["idcard"]}",
+                                  child: CachedNetworkImage(
+                                      imageUrl: "${chatItem["idcard"]}",
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                       fit: BoxFit.contain),
+                                  // child: Image.network("${chatItem["idcard"]}",
                                 ),
                                 onTap: () {
                                   Navigator.push(context,
@@ -312,8 +319,6 @@ class _guardGuestLogState extends State<guardGuestLog> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         body: StreamBuilder(
       stream: stream,
