@@ -2,10 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -375,9 +371,9 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    DateTime ans;
+    // double widthMobile = MediaQuery.of(context).size.width;
+    // double heightMobile = MediaQuery.of(context).size.height;
+    // DateTime ans;
 
     if (sname == null) {
       return Center(child: CircularProgressIndicator());

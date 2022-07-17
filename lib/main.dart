@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:college_gate/services/auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:college_gate/panel/faculty/facultyhome.dart';
 import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/panel/student/homepagecard.dart';
 import 'package:college_gate/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

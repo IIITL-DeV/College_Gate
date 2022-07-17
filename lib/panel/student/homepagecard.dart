@@ -5,11 +5,9 @@ import 'package:college_gate/main.dart';
 import 'package:college_gate/panel/faculty/facultyList.dart';
 import 'package:college_gate/panel/student/notices.dart';
 import 'package:college_gate/panel/student/profile.dart';
-import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

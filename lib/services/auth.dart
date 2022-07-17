@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AuthMethods {
@@ -104,12 +103,14 @@ class AuthMethods {
       print(getemail);
       if ("@iiitl.ac.in" == getemail) {
         if (isstudent == true) {
+          String id;
           FirebaseFirestore.instance
               .collection("studentUser")
               .doc(userDetails.email)
               .get()
               .then((value) => {
-                    if (value.data()!['idcard'] == "empty")
+                    id = value.data()!['idcard'].toString(),
+                    if (id == "empty")
                       {
                         Navigator.pushReplacement(
                             context,
@@ -125,8 +126,28 @@ class AuthMethods {
                       }
                   });
         } else {
-          await Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => FacultyHome()));
+          String fid;
+          FirebaseFirestore.instance
+              .collection("facultyUser")
+              .doc(userDetails.email)
+              .get()
+              .then((value) => {
+                    fid = value.data()!['ProfilePic'].toString(),
+                    if (fid == "empty")
+                      {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FacultyCompleteProfile()))
+                      }
+                    else
+                      {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FacultyHome())),
+                      }
+                  });
         }
       } else {
         SnackBar(
@@ -137,8 +158,7 @@ class AuthMethods {
   }
 
   Future logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    auth.signOut();
+    await auth.signOut();
+    await GoogleSignIn().disconnect();
   }
 }
