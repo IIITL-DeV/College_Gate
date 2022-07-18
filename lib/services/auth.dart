@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_gate/main.dart';
 import 'package:college_gate/panel/faculty/facultyCompleteProfile.dart';
 import 'package:college_gate/panel/faculty/facultyhome.dart';
 import 'package:college_gate/panel/gaurd/gaurd_home.dart';
+import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/student/complete_profile.dart';
 import 'package:college_gate/panel/student/homepagecard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -95,9 +97,12 @@ class AuthMethods {
           });
         }
       } else {
-        SnackBar(
-          content: Text("Unauthorized email address"),
+        await flutterToast(
+          "Only users with IIIT Lucknow email domain can sign in",
         );
+        await AuthMethods().auth.signOut();
+        await GoogleSignIn().signOut();
+        return SignIn();
       }
     } else {
       print(getemail);
@@ -150,9 +155,12 @@ class AuthMethods {
                   });
         }
       } else {
-        SnackBar(
-          content: Text("Unauthorized email address"),
+        await flutterToast(
+          "Only users with IIIT Lucknow email domain can sign in",
         );
+        await AuthMethods().auth.signOut();
+        // await GoogleSignIn().signOut();
+        return SignIn();
       }
     }
   }
