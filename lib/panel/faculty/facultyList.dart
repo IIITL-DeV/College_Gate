@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/guest/faculty_appointment.dart';
 import 'package:college_gate/panel/student/studentfacutlyappointment.dart';
 import 'package:college_gate/panel/viewimage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -102,8 +101,11 @@ class _FacultyListState extends State<FacultyList> {
                                             builder: (context) => widget
                                                     .isStudent
                                                 ? studentfacultyappointment(
-                                                    email: chatItem["email"])
+                                                    email: chatItem["email"],
+                                                    token: chatItem["token"],
+                                                  )
                                                 : faculty_appointment(
+                                                    token: chatItem["token"],
                                                     email: chatItem["email"],
                                                     isStudent: widget.isStudent,
                                                   )));

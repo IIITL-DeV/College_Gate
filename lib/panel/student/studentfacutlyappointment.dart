@@ -2,19 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class studentfacultyappointment extends StatefulWidget {
   String email;
+  String token;
 
-  studentfacultyappointment({Key? key, required this.email}) : super(key: key);
+  studentfacultyappointment(
+      {Key? key, required this.token, required this.email})
+      : super(key: key);
 
   @override
   State<studentfacultyappointment> createState() =>
@@ -70,8 +68,8 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
       children: [
         Expanded(
             child: TextField(
-              readOnly: true,
-              style: TextStyle(fontSize: 14.sp),
+          readOnly: true,
+          style: TextStyle(fontSize: 14.sp),
           controller: _dateController,
           decoration: InputDecoration(
             labelText: 'Date',
@@ -123,7 +121,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
         ),
         Expanded(
             child: TextField(
-              style: TextStyle(fontSize: 14.sp),
+          style: TextStyle(fontSize: 14.sp),
           readOnly: true,
           controller: _timeController,
           decoration: InputDecoration(
@@ -373,9 +371,9 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
 
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
-    DateTime ans;
+    // double widthMobile = MediaQuery.of(context).size.width;
+    // double heightMobile = MediaQuery.of(context).size.height;
+    // DateTime ans;
 
     if (sname == null) {
       return Center(child: CircularProgressIndicator());
@@ -393,7 +391,6 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
         body: SingleChildScrollView(
           child: Container(
               padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 24.h),
-
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -405,7 +402,7 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.r),
                         child: Image.asset(
-                          "assets/facultyAppointment.jpg",
+                          "assets/appointmentFaculty.png",
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -474,6 +471,10 @@ class _studentfacultyappointmentState extends State<studentfacultyappointment> {
                                     'isStudent': true,
                                     'appointisapproved': false,
                                   }, SetOptions(merge: true)),
+                                  sendPushMessage(
+                                      "You have received a new appointment request.",
+                                      "Appointment Request!",
+                                      widget.token),
                                   flutterToast(
                                       "Request has been sent. You will be updated further through email."),
                                   Navigator.of(context).pop(),

@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+6
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -32,12 +32,14 @@ dependencies:
   adobe_xd: ^2.0.0+1
   splash_screen_view: ^3.0.0
   flutter_screenutil: ^5.3.1
-  csv: ^5.0.1
+  csv: ^5.0.1 
   path_provider: ^2.0.9
   flutter_email_sender: 
+  http: ^0.13.4
+  google_fonts: ^3.0.1
   date_format: ^2.0.6
-  # flutter_native_splash: ^2.1.6
   fluttertoast: ^8.0.9
+  flutter_native_splash: ^2.1.6
 
 
 
@@ -49,6 +51,10 @@ dependencies:
   image_cropper: ^1.5.1
   photo_view:
   firebase_storage:
+  flutter_local_notifications: ^9.4.0
+  background_fetch: ^1.1.0
+  firebase_messaging:
+  cached_network_image: ^3.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -57,13 +63,13 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icons/1024.png"
-# flutter_native_splash:
-#   android: true 
-#   ios: true 
-#   image: assets/from.png
-#   color: "#ffffff" 
-#   android_gravity: fill 
-#   ios_content_mode: scaleAspectFill 
+flutter_native_splash:
+  android: true 
+  ios: true 
+  image: assets/sp.png
+  color: "#ffffff" 
+  android_gravity: bottom
+  ios_content_mode: scaleAspectFill 
 
 
 dependency_overrides:
@@ -110,6 +116,13 @@ flutter:
     - assets/registerGuest.png
     - assets/registerStudent.png
     - assets/profile_darkbluecolor.png
+    - assets/anu.jpg
+    - assets/nik.jpg
+    - assets/kratika.jpg
+    - assets/Sameer.jpeg
+    - assets/sp.png
+    - assets/abhinesh.jpg
+    - assets/vks.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

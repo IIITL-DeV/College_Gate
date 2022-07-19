@@ -11,8 +11,6 @@ class requestpending extends StatefulWidget {
 class _requestpendingState extends State<requestpending> {
   @override
   Widget build(BuildContext context) {
-    double widthMobile = MediaQuery.of(context).size.width;
-    double heightMobile = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -27,7 +25,8 @@ class _requestpendingState extends State<requestpending> {
                     height: 30.h,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                     child: Text("Your request is pending...",
                         style: TextStyle(
                           fontSize: 30.sp,

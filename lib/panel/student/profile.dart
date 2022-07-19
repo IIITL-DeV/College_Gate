@@ -4,8 +4,6 @@ import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:getwidget/components/dropdown/gf_dropdown.dart';
-
 import '../../main.dart';
 import '../viewimage.dart';
 
@@ -52,7 +50,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    print("IDDDDDDD is : $_idcard");
     if (_idcard == null) {
       return Center(child: CircularProgressIndicator());
     } else

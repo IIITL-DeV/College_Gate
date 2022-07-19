@@ -1,11 +1,7 @@
 import 'package:college_gate/panel/faculty/facultyList.dart';
-import 'package:college_gate/panel/faculty/facultyProfile.dart';
 import 'package:college_gate/panel/guest/student_appointment.dart';
-import 'package:college_gate/panel/guest/faculty_appointment.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class GuestHome extends StatelessWidget {
   const GuestHome({Key? key}) : super(key: key);
@@ -21,7 +17,8 @@ class GuestHome extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 21.sp, child: Image.asset("assets/cg_white.png")),
+              SizedBox(
+                  height: 21.sp, child: Image.asset("assets/cg_white.png")),
               SizedBox(
                 width: 12.w,
               ),
@@ -71,8 +68,7 @@ class GuestHome extends StatelessWidget {
                             Text(
                               "Student",
                               style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Color(0Xff232F77)),
+                                  fontSize: 16.sp, color: Color(0Xff232F77)),
                             ),
                             //SizedBox(width: widthMobile * 0.1,),
                             IconButton(
@@ -125,8 +121,7 @@ class GuestHome extends StatelessWidget {
                             Text(
                               "Faculty",
                               style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Color(0Xff232F77)),
+                                  fontSize: 16.sp, color: Color(0Xff232F77)),
                             ),
                             //SizedBox(width: widthMobile * 0.1,),
                             IconButton(

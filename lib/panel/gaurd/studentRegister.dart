@@ -2,10 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
-import 'package:college_gate/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +19,9 @@ class _StudentRegisterState extends State<StudentRegister> {
   List<String>? filePath;
   List<List<String>> rows = [];
 
+  String _mailBody =
+      '<p>Greetings of the day,</p>\n <p>Please find the attached document of the student register compiled at ${DateFormat('HH:mm').format(DateTime.now())} on ${DateFormat('dd-MM-yyyy').format(DateTime.now())} .</p> \n <p>Regards,<br>College Gate</p>';
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.absolute.path;
@@ -29,8 +29,8 @@ class _StudentRegisterState extends State<StudentRegister> {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    filePath = ['$path/studentRegister.csv'];
-    return File('$path/studentRegister.csv').create();
+    filePath = ['$path/Student Register.csv'];
+    return File('$path/Student Register.csv').create();
   }
 
   getCsv() async {
@@ -46,10 +46,10 @@ class _StudentRegisterState extends State<StudentRegister> {
   sendMailAndAttachment() async {
     await FlutterEmailSender.send(Email(
       body:
-          'Please find the data to Student Register in the CSV file attached below.',
+          'Please find the data of Student Register in the CSV file attached below.',
       subject:
           'Register for ${DateFormat('dd-MM-yyyy').format(DateTime.now())} | ${DateFormat('HH:mm').format(DateTime.now())}',
-      recipients: ['iiitlcollegegate12@gmail.com'],
+      recipients: ['collegegate@iiitl.ac.in'],
       isHTML: true,
       attachmentPaths: filePath,
     ));
@@ -170,8 +170,7 @@ class _StudentRegisterState extends State<StudentRegister> {
                 print(rows.toString());
 
                 return Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                   child: Card(
                     elevation: 2,
                     child: SizedBox(
@@ -203,7 +202,6 @@ class _StudentRegisterState extends State<StudentRegister> {
                                 ),
                               ],
                             ),
-
                             subtitle: Column(
                               children: [
                                 SizedBox(
@@ -268,8 +266,8 @@ class _StudentRegisterState extends State<StudentRegister> {
                                 ),
                               ],
                             ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 5.h),
                           ),
                         ],
                       ),

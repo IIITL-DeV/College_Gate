@@ -1,7 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:college_gate/panel/viewimage.dart';
 
 import 'package:flutter/material.dart';
@@ -77,9 +75,13 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                 child: Card(
-                  elevation: 3.5,
+                  color: chatItem["purpose"] == "Home"
+                      ? Color.fromARGB(255, 206, 223, 238)
+                      // ? Colors.blue[50]
+                      : Colors.white,
+                  elevation: 1.5,
                   child: SizedBox(
-                    height: 135.h,
+                    height: 140.h,
                     child: ListView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
@@ -88,7 +90,11 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                             "${chatItem["name"]}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                // color: chatItem["purpose"] == "Home"
+                                //     ? Color(0Xff14619C)
+                                //     : Colors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold),
                           ),
                           //Phone number and Time
                           subtitle: Container(
@@ -146,8 +152,15 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                             child: GestureDetector(
                                 child: Hero(
                                   tag: chatItem["idcard"]!,
-                                  child: Image.network("${chatItem["idcard"]}",
-                                      fit: BoxFit.contain),
+                                  child: CachedNetworkImage(
+                                      imageUrl: "${chatItem["idcard"]}",
+                                      placeholder: (context, url) => Center(
+                                          child: Center(
+                                              child: CircularProgressIndicator
+                                                  .adaptive())),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                      fit: BoxFit.fill),
                                 ),
                                 onTap: () async {
                                   Navigator.push(context,
@@ -176,8 +189,8 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                               ),
                             ],
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 5.h),
+                          // contentPadding:
+                          //     EdgeInsets.fromLTRB(12.w, 0, 12.w, 5.h),
                         ),
                         // SizedBox(
                         //   height: cardheight * 0.03,
@@ -255,14 +268,18 @@ class _guard_entryrequestsState extends State<guard_entryrequests> {
                                       "Decline",
                                       style: TextStyle(
                                         fontSize: 14.sp,
-                                        color: Colors.red[700],
+                                        color: chatItem["purpose"] == "Home"
+                                            ? Colors.white
+                                            : Colors.red[700],
                                       ),
                                     ),
                                     style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.white),
-                                    ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color?>(
+                                      chatItem["purpose"] == "Home"
+                                          ? Colors.red[700]
+                                          : Colors.white,
+                                    )),
                                   ),
                                 )
                               ],
