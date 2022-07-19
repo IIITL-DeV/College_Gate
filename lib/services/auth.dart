@@ -7,7 +7,6 @@ import 'package:college_gate/panel/sign_in.dart';
 import 'package:college_gate/panel/student/complete_profile.dart';
 import 'package:college_gate/panel/student/homepagecard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
