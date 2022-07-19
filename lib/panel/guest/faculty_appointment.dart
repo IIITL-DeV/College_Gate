@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/student/requestpending.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
@@ -375,7 +372,7 @@ class _faculty_appointmentState extends State<faculty_appointment> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100.r),
                       child: Image.asset(
-                        "assets/facultyAppointment.jpg",
+                        "assets/appointmentFaculty.png",
                         fit: BoxFit.contain,
                       ),
                     ),

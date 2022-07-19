@@ -5,11 +5,9 @@ import 'package:college_gate/main.dart';
 import 'package:college_gate/panel/faculty/facultyList.dart';
 import 'package:college_gate/panel/student/notices.dart';
 import 'package:college_gate/panel/student/profile.dart';
-import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -189,6 +187,9 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                       String? exitapproved = value
                                           .data()!['exitisapproved']
                                           ?.toString();
+                                      String? entryapproved = value
+                                          .data()!['entryisapproved']
+                                          ?.toString();
                                       if (exitapproved == "ExitApproved") {
                                         flutterToast(
                                             "Exit request is already approved");
@@ -219,7 +220,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                           value.data()!['entryisapproved']?.toString();
                       if (entryapproved == "EntryApproved") {
                         flutterToast(
-                            "Cannot send entry request before exit is made.");
+                            "Cannot send entry request before exit is approved.");
                       } else if (entryapproved == "EntryPending")
                         flutterToast("Entry request is already sent");
                       else
@@ -263,7 +264,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                                             ?.toString();
                                         if (entryapproved == "EntryApproved") {
                                           flutterToast(
-                                              "Cannot send entry request before exit is made.");
+                                              "Cannot send entry request before exit is approved.");
                                         } else if (entryapproved ==
                                             "EntryPending")
                                           flutterToast(
@@ -294,7 +295,7 @@ class _studentHomeScreenState extends State<studentHomeScreen> {
                         SizedBox(
                           height: 138.h,
                           child: Ink.image(
-                            image: AssetImage("assets/facultyAppointment.jpg"),
+                            image: AssetImage("assets/appointmentFaculty.png"),
                             fit: BoxFit.cover,
                           ),
                         ),

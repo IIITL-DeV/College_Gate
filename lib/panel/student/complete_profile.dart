@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:college_gate/panel/sign_in.dart';
-import 'package:college_gate/panel/student/homepagecard.dart';
 import 'package:college_gate/panel/student/idcardImage.dart';
-import 'package:college_gate/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class completeProfile extends StatefulWidget {

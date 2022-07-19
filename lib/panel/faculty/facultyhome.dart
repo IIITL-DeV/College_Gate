@@ -400,7 +400,7 @@ class _AppointmentListState extends State<AppointmentList> {
                     child: Card(
                       elevation: 2,
                       child: SizedBox(
-                        height: 135.h,
+                        height: 137.h,
                         child: ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
@@ -462,12 +462,12 @@ class _AppointmentListState extends State<AppointmentList> {
                               //Id Image
                               //Room Number
                               trailing: SizedBox(
-                                width: 78.w,
+                                width: 85.w,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     //SizedBox(height: cardheight * 0.07),
-                                    SizedBox(height: 15.h),
+                                    SizedBox(height: 13.h),
                                     Text(
                                       chatItem["isStudent"]
                                           ? "Student"
@@ -475,6 +475,7 @@ class _AppointmentListState extends State<AppointmentList> {
                                       style: TextStyle(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                     // SizedBox(height: cardheight * 0.07),
                                     SizedBox(height: 3.h),
@@ -512,7 +513,7 @@ class _AppointmentListState extends State<AppointmentList> {
                                             color: Color(0Xff14619C),
                                           ),
                                           SizedBox(
-                                            width: 3.w,
+                                            width: 2.w,
                                           ),
                                           Text(
                                             "Description",

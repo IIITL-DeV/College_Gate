@@ -88,7 +88,7 @@ class _gaurdHomeState extends State<gaurdHome> {
           },
           child: Container(
             child: Transform.scale(
-              scaleX: -1,
+              scale: -1,
               child: Icon(
                 Icons.logout,
                 color: Colors.white,
