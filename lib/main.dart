@@ -10,6 +10,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 import 'panel/gaurd/gaurd_home.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -149,6 +150,18 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp(
+          builder: (context, child) => ResponsiveWrapper.builder(
+              child,
+              maxWidth: 1200,
+              minWidth: 480,
+              defaultScale: true,
+              breakpoints: [
+                ResponsiveBreakpoint.resize(480, name: MOBILE),
+                ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+                ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+                ResponsiveBreakpoint.autoScale(2360, name: '4K'),
+              ],
+              background: Container(color: Color(0xFFF5F5F5))),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
           home: StreamBuilder<User?>(
@@ -173,6 +186,7 @@ class _MyAppState extends State<MyApp> {
             },
           )),
       designSize: const Size(375, 812),
+      minTextAdapt: true,
     );
   }
 }

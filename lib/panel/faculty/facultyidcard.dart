@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_gate/panel/faculty/facultyhome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +10,8 @@ import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:mime/mime.dart';
 
 ImagePicker picker = ImagePicker();
 //import 'package:image_picker/image_picker.dart';
@@ -22,20 +26,35 @@ class facultyidcard extends StatefulWidget {
 
 class _facultyidcardState extends State<facultyidcard> {
   File? _imageFile = null;
-
+  Uint8List? img = null;
   ///NOTE: Only supported on Android & iOS
   ///Needs image_picker plugin {https://pub.dev/packages/image_picker}
   final picker = ImagePicker();
 
   Future pickImage() async {
-    final pickedFile = await picker.getImage(
-      source: ImageSource.gallery,
-      imageQuality: 30,
-    );
+    if (!kIsWeb) {
+      final pickedFile = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 30,
+      );
 
-    setState(() {
-      _imageFile = File(pickedFile!.path);
-    });
+      setState(() {
+        _imageFile = File(pickedFile!.path);
+      });
+    }
+    // WEB
+    else {
+      XFile? image = await picker.pickImage(source: ImageSource.gallery,imageQuality: 30,);
+      if (image != null) {
+        //var f = Image.network(image.path);
+        var f = await image.readAsBytes();
+        setState(() {
+          img = f;
+          _imageFile = File.fromRawPath(f);
+          print(_imageFile);
+        });
+      }
+    }
   }
 
   Future<void> _cropImage() async {
@@ -50,7 +69,8 @@ class _facultyidcardState extends State<facultyidcard> {
               lockAspectRatio: false),
           iosUiSettings: IOSUiSettings(
             minimumAspectRatio: 1.0,
-          ));
+          ),
+      );
       if (croppedFile != null) {
         setState(() {
           _imageFile = croppedFile;
@@ -104,10 +124,16 @@ class _facultyidcardState extends State<facultyidcard> {
         FirebaseStorage.instance.ref().child('uploads').child('/$fileName');
 
     final metadata = SettableMetadata(
-        contentType: 'image/jpeg',
+        contentType: 'image/${lookupMimeType(_imageFile!.path)}',
         customMetadata: {'picked-file-path': fileName});
     UploadTask uploadTask;
     //late StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+    /*if(kIsWeb) {
+      uploadTask = ref.putData(img!, metadata);
+    }
+    else {
+      uploadTask = ref.putFile(File(_imageFile!.path), metadata);
+    }*/
 
     uploadTask = ref.putFile(File(_imageFile!.path), metadata);
 
@@ -184,7 +210,7 @@ class _facultyidcardState extends State<facultyidcard> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30.0),
                 child: _imageFile != null
-                    ? Image.file(_imageFile!)
+                    ? kIsWeb ? Image.memory(img!) : Image.file(_imageFile!)
                     : TextButton(
                         child: Icon(
                           Icons.photo,

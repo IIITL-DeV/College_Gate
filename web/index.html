@@ -28,6 +28,15 @@
   <script src="splash/splash.js"></script>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
   <link rel="stylesheet" type="text/css" href="splash/style.css">
+
+  <!-- google sign in -->
+  <meta name="google-signin-client_id" content="329096238857-tkmvni4ihjtfoogta9lhjk1inmig02c8.apps.googleusercontent.com">
+
+  <!-- Croppie -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+
 </head>
 <body>
   <picture id="splash">
@@ -36,18 +45,14 @@
     <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt=""/>
   </picture>
 
-  <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-storage.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-storage.js"></script>
-
   <script type="module">
 
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
+
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -57,10 +62,10 @@
       projectId: "college-gate-dbd50",
       storageBucket: "college-gate-dbd50.appspot.com",
       messagingSenderId: "329096238857",
-      appId: "1:329096238857:web:df84a0f5e077166356a5d8",
-      measurementId: "G-EPSXL4FNN0"
+      appId: "1:329096238857:web:1856793734feb78f56a5d8",
+      measurementId: "G-CRF29L1XJ2"
     };
-  
+
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
@@ -85,6 +90,7 @@
     if ('serviceWorker' in navigator) {
       // Service workers are supported. Use them.
       window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/firebase-messaging-sw.js');
         // Wait for registration to finish before dropping the <script> tag.
         // Otherwise, the browser will load the script multiple times,
         // potentially different versions.
