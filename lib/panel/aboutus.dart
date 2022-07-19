@@ -38,7 +38,7 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                   Center(
                     child: Text(
-                      "To report a bug or for any queries contact us.",
+                      "Wireless Communications and Analytics Research Lab\n To report a bug or for any queries contact us.",
                       style:
                           TextStyle(color: Color(0Xff15609c), fontSize: 8.sp),
                       textAlign: TextAlign.center,
@@ -80,7 +80,7 @@ class _AboutUsState extends State<AboutUs> {
           children: [
             ProductCard(
               image: "assets/vks.jpg",
-              name: "Dr. Vishal Krishna Singh",
+              name: "Dr. Vishal K Singh",
               phone: null,
               title: "Supervisor",
               subtitle: null,
