@@ -48,18 +48,18 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCCE6wIOVTZIhKAeURxzzc2mU_4Fe_HQZ8',
-    appId: '1:329096238857:web:df84a0f5e077166356a5d8',
+    appId: '1:329096238857:web:1856793734feb78f56a5d8',
     messagingSenderId: '329096238857',
     projectId: 'college-gate-dbd50',
     authDomain: 'college-gate-dbd50.firebaseapp.com',
     databaseURL: 'https://college-gate-dbd50-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'college-gate-dbd50.appspot.com',
-    measurementId: 'G-EPSXL4FNN0',
+    measurementId: 'G-CRF29L1XJ2',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBtvTX8omMEKFaIPmR47VTnUXbR04qP0vw',
-    appId: '1:329096238857:android:30f8bb30b6acdff556a5d8',
+    appId: '1:329096238857:android:0ecca0433265232856a5d8',
     messagingSenderId: '329096238857',
     projectId: 'college-gate-dbd50',
     databaseURL: 'https://college-gate-dbd50-default-rtdb.asia-southeast1.firebasedatabase.app',
@@ -68,7 +68,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAj7uYViZDYV5XvxiG3epU22_PU4GTporA',
-    appId: '1:329096238857:ios:6cbf7f5e2474fa7c56a5d8',
+    appId: '1:329096238857:ios:5975a65d1b154f3956a5d8',
     messagingSenderId: '329096238857',
     projectId: 'college-gate-dbd50',
     databaseURL: 'https://college-gate-dbd50-default-rtdb.asia-southeast1.firebasedatabase.app',
