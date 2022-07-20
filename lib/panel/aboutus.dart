@@ -138,13 +138,13 @@ class _AboutUsState extends State<AboutUs> {
 }
 
 class ProductCard extends StatelessWidget {
-  String? image;
+  final String? image;
 
-  String? title;
+  final String? title;
 
-  String? name;
-  String? subtitle;
-  String? phone;
+  final String? name;
+  final String? subtitle;
+  final String? phone;
 
   ProductCard(
       {Key? key,

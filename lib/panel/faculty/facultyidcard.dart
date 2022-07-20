@@ -12,6 +12,9 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mime/mime.dart';
+import 'package:college_gate/services/ui_helper.dart'
+if (dart.library.io) 'package:college_gate/services/mobile_ui_helper.dart'
+if (dart.library.html) 'package:college_gate/services/web_ui_helper.dart';
 
 ImagePicker picker = ImagePicker();
 //import 'package:image_picker/image_picker.dart';
@@ -32,48 +35,26 @@ class _facultyidcardState extends State<facultyidcard> {
   final picker = ImagePicker();
 
   Future pickImage() async {
-    if (!kIsWeb) {
-      final pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 30,
-      );
-
-      setState(() {
-        _imageFile = File(pickedFile!.path);
-      });
-    }
-    // WEB
-    else {
-      XFile? image = await picker.pickImage(source: ImageSource.gallery,imageQuality: 30,);
-      if (image != null) {
-        //var f = Image.network(image.path);
-        var f = await image.readAsBytes();
-        setState(() {
-          img = f;
-          _imageFile = File.fromRawPath(f);
-          print(_imageFile);
-        });
-      }
-    }
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 30,
+    );
+    final imagedata = await pickedFile?.readAsBytes();
+    setState(() {
+      _imageFile = File(pickedFile!.path);
+      img = imagedata;
+    });
   }
 
   Future<void> _cropImage() async {
     if (_imageFile != null) {
-      File? croppedFile = await ImageCropper().cropImage(
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
           sourcePath: _imageFile!.path,
-          androidUiSettings: AndroidUiSettings(
-              toolbarTitle: 'Edit',
-              toolbarColor: Color(0Xff15609c),
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          iosUiSettings: IOSUiSettings(
-            minimumAspectRatio: 1.0,
-          ),
+          uiSettings: buildUiSettings(context),
       );
       if (croppedFile != null) {
         setState(() {
-          _imageFile = croppedFile;
+          _imageFile = File(croppedFile.path);
         });
       }
     }
@@ -123,19 +104,19 @@ class _facultyidcardState extends State<facultyidcard> {
     Reference ref =
         FirebaseStorage.instance.ref().child('uploads').child('/$fileName');
 
+    String? mimeType = lookupMimeType(_imageFile!.path);
     final metadata = SettableMetadata(
-        contentType: 'image/${lookupMimeType(_imageFile!.path)}',
+        contentType: mimeType ?? 'image/jpeg',
         customMetadata: {'picked-file-path': fileName});
     UploadTask uploadTask;
     //late StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
-    /*if(kIsWeb) {
+    if(!kIsWeb){
+      uploadTask = ref.putFile(File(_imageFile!.path), metadata);
+    } else {
       uploadTask = ref.putData(img!, metadata);
     }
-    else {
-      uploadTask = ref.putFile(File(_imageFile!.path), metadata);
-    }*/
 
-    uploadTask = ref.putFile(File(_imageFile!.path), metadata);
+    //uploadTask = ref.putFile(File(_imageFile!.path), metadata);
 
     UploadTask task = await Future.value(uploadTask);
     Future.value(uploadTask)
