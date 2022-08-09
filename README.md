@@ -1,6 +1,12 @@
-# college_gate
+# College Gate
 
 Entry & Exit Automation System.
+<br />
+[Play Store Link](https://play.google.com/store/search?q=college+gate&c=apps)
+
+
+https://user-images.githubusercontent.com/57328357/183613877-6ebe724d-47ab-4299-ad0e-4b162b11a187.mp4
+
 
 ## Getting Started
 
