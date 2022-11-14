@@ -8,80 +8,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:329096238857:android:30f8bb30b6acdff556a5d8",
-        "android_client_info": {
-          "package_name": "com.example.college_gate"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "329096238857-0c2e4mce5dqgvhbraa1qd0fgihm473r6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.college_gate",
-            "certificate_hash": "d40aa0e2e6c96853802cecd6d07260c380e7bd78"
-          }
-        },
-        {
-          "client_id": "329096238857-ctcbe2lhb6vok5nu6om2fle445ihb6r7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.college_gate",
-            "certificate_hash": "716c26e610ad862dbabe2d51715a0b3e2677a719"
-          }
-        },
-        {
-          "client_id": "329096238857-rp9kob387scd1hob99lpflds0ott6dsp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.college_gate",
-            "certificate_hash": "c2778bcc33f5b8c3bf3bd18af0c6379a2a04020c"
-          }
-        },
-        {
-          "client_id": "329096238857-s4u45ipl8f7ft77sq1lha4691smpk6g1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.college_gate",
-            "certificate_hash": "de769c0bdbd06f5fcdf71efbfb786acddc2b2fd9"
-          }
-        },
-        {
-          "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBtvTX8omMEKFaIPmR47VTnUXbR04qP0vw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "329096238857-38f5rltqp81pi4horaf868uu3mp3kbvo.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "mnxak"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:329096238857:android:d20220c6c0ec957156a5d8",
+        "mobilesdk_app_id": "1:329096238857:android:8541e08b345010b156a5d8",
         "android_client_info": {
           "package_name": "com.iiitl.college_gate"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "329096238857-a6a0kgj29acp9u17jtb2s6bsbka1sbfo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iiitl.college_gate",
+            "certificate_hash": "793c36a1c01ade6ecd6c88d227dfb87d57e96170"
+          }
+        },
+        {
+          "client_id": "329096238857-u9d2s64srrn2tqsqcpc29qnnh28oo5ju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iiitl.college_gate",
+            "certificate_hash": "95d2e6c343fb3602afba5f8e4aa3406f86c70883"
+          }
+        },
         {
           "client_id": "329096238857-13819bm5urfel86s6jn2vl5m2aq0v55n.apps.googleusercontent.com",
           "client_type": 3

@@ -185,7 +185,7 @@ class _facultyidcardState extends State<facultyidcard> {
                 borderRadius: BorderRadius.circular(30.0),
                 child: _imageFile != null
                     ? Image.file(_imageFile!)
-                    : FlatButton(
+                    : TextButton(
                         child: Icon(
                           Icons.photo,
                           color: Color(0Xff15609c),

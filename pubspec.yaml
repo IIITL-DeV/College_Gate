@@ -40,6 +40,7 @@ dependencies:
   date_format: ^2.0.6
   fluttertoast: ^8.0.9
   flutter_native_splash: ^2.1.6
+  url_launcher: ^6.1.6
 
 
 

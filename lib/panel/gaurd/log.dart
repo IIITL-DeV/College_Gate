@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class guardLog extends StatefulWidget {
   @override
@@ -203,9 +204,12 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
                                   SizedBox(
                                     width: 7.w,
                                   ),
-                                  Text(
-                                    "${chatItem["phone"]}",
-                                    style: TextStyle(fontSize: 11.sp),
+                                  InkWell(
+                                    onTap: () => _launchPhoneURL(chatItem["phone"].toString()),
+                                    child: Text(
+                                      "${chatItem["phone"]}",
+                                      style: TextStyle(fontSize: 11.sp),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -294,6 +298,17 @@ class _gaurdStudentLogState extends State<gaurdStudentLog> {
       },
     ));
   }
+
+
+  _launchPhoneURL(String phoneNumber) async {
+    var url = Uri.parse("tel:$phoneNumber");
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
+    }
+  }
+
+
+
 }
 
 class guardGuestLog extends StatefulWidget {
