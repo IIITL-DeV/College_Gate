@@ -1,16 +1,15 @@
-# college_gate
+# College Gate
 
-Entry & Exit Automation System.
+Entry & Exit Automation System of IIIT Lucknow.
 
-## Getting Started
+https://play.google.com/store/apps/details?id=com.iiitl.college_gate
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div style="display:grid;">
+<img src="https://user-images.githubusercontent.com/73354337/213917674-a8ed41ba-d003-4480-b2c8-72bb59e6ee90.jpg" width="200" height="400"/>&nbsp;
+<img src="https://user-images.githubusercontent.com/73354337/213917678-2e5ce47e-f86f-443b-9a3d-ad6a25bdafc6.jpg" width="200" height="400"/>&nbsp;
+<img src="https://user-images.githubusercontent.com/73354337/213917679-ea7128ce-65a6-4f66-b596-c214261deb5d.jpg" width="200" height="400"/>&nbsp;
+<img src="https://user-images.githubusercontent.com/73354337/213917680-e3470dad-bbda-4d7b-b5ce-a4cf0ffeeba8.jpg" width="200" height="400"/>&nbsp;
+<img src="https://user-images.githubusercontent.com/73354337/213917681-017745a6-1d24-4224-bb3c-72b597356bab.jpg" width="200" height="400"/>&nbsp;
+<img src="https://user-images.githubusercontent.com/73354337/213917683-fa665084-9794-42f1-aff7-ecfdd16f65e3.jpg" width="200" height="400"/>&nbsp;
+<img src="https://user-images.githubusercontent.com/73354337/213917684-61b24fbd-4362-4b1d-8709-d5ea7950a4ff.jpg" width="200" height="400"/>&nbsp;
+</div>
